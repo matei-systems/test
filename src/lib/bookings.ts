@@ -1,6 +1,6 @@
 import 'server-only'
 import { createHash, randomBytes, randomInt } from 'node:crypto'
-import { getDb, pgErrorCode, PG_EXCLUSION_VIOLATION, PG_UNIQUE_VIOLATION, type Queryable } from './db'
+import { getDb, isDatabaseConfigured, pgErrorCode, PG_EXCLUSION_VIOLATION, PG_UNIQUE_VIOLATION, type Queryable } from './db'
 import { computeDaySlots, dayBoundsUtc, eachDate, type Interval } from './availability'
 import { calculateQuote, type Quote, type QuoteInput } from './pricing'
 import { getCatalog, getSettings, getWorkingHours, isPostalCodeAllowed, loadCatalog, loadSettings, loadWorkingHours } from './catalog'
@@ -329,7 +329,7 @@ export interface PublicBooking {
 }
 
 export async function getBookingByToken(token: string): Promise<PublicBooking | null> {
-  if (!/^[A-Za-z0-9_-]{40,60}$/.test(token)) return null
+  if (!/^[A-Za-z0-9_-]{40,60}$/.test(token) || !isDatabaseConfigured()) return null
   const db = await getDb()
   const { rows } = await db.query<Record<string, unknown>>(
     `SELECT reference, status, service_name, vehicle_category_name, addons, service_price_cents, total_price_cents,

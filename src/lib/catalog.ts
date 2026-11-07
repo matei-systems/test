@@ -1,11 +1,15 @@
 import 'server-only'
-import { getDb, type Queryable } from './db'
+import { getDb, isDatabaseConfigured, type Queryable } from './db'
 import type { Catalog, CatalogAddon, CatalogService, CatalogVehicle } from './pricing'
 import type { WorkingDay } from './availability'
 import {
+  DEFAULT_ADDONS,
   DEFAULT_BOOKING_RULES,
   DEFAULT_BUSINESS,
   DEFAULT_SERVICE_AREA,
+  DEFAULT_SERVICES,
+  DEFAULT_VEHICLE_CATEGORIES,
+  DEFAULT_WORKING_HOURS,
   type BookingRules,
   type BusinessInfo,
   type ServiceArea,
@@ -111,8 +115,43 @@ export async function loadCatalog(q: Queryable, includeInactive = false): Promis
   return { vehicles: catalogVehicles, services: catalogServices, addons: catalogAddons }
 }
 
+/**
+ * Startwerte als Katalog – wird nur verwendet, solange in Produktion noch keine Datenbank
+ * verbunden ist (Website bleibt erreichbar, die Online-Buchung ist dann deaktiviert).
+ */
+export function defaultCatalog(): Catalog {
+  return {
+    vehicles: DEFAULT_VEHICLE_CATEGORIES.map((v, i) => ({ ...v, sort: (i + 1) * 10, active: true })),
+    services: DEFAULT_SERVICES.map((s, i) => ({
+      id: s.id,
+      name: s.name,
+      tagline: s.tagline,
+      description: s.description,
+      includes: s.includes,
+      priceNote: s.priceNote,
+      requiresAddon: Boolean(s.requiresAddon),
+      featured: Boolean(s.featured),
+      sort: (i + 1) * 10,
+      active: true,
+      prices: Object.fromEntries(Object.entries(s.prices).map(([k, p]) => [k, { priceCents: p.price, durationMinutes: p.minutes }])),
+    })),
+    addons: DEFAULT_ADDONS.map((a, i) => ({
+      id: a.id,
+      name: a.name,
+      description: a.description,
+      priceCents: a.priceCents,
+      priceIsFrom: Boolean(a.priceIsFrom),
+      durationMinutes: a.minutes,
+      bookableAlone: a.bookableAlone,
+      sort: (i + 1) * 10,
+      active: true,
+    })),
+  }
+}
+
 /** Öffentlicher Katalog (nur aktive Einträge), gecacht. */
 export function getCatalog(): Promise<Catalog> {
+  if (!isDatabaseConfigured()) return Promise.resolve(defaultCatalog())
   return memo('catalog', async () => loadCatalog(await getDb()))
 }
 
@@ -129,6 +168,9 @@ export async function loadWorkingHours(q: Queryable): Promise<WorkingDay[]> {
 }
 
 export function getWorkingHours(): Promise<WorkingDay[]> {
+  if (!isDatabaseConfigured()) {
+    return Promise.resolve(DEFAULT_WORKING_HOURS.map((w) => ({ weekday: w.weekday, isOpen: w.isOpen, open: w.open, close: w.close })))
+  }
   return memo('working_hours', async () => loadWorkingHours(await getDb()))
 }
 
@@ -151,6 +193,9 @@ export async function loadSettings(q: Queryable): Promise<SiteSettings> {
 }
 
 export function getSettings(): Promise<SiteSettings> {
+  if (!isDatabaseConfigured()) {
+    return Promise.resolve({ rules: DEFAULT_BOOKING_RULES, business: DEFAULT_BUSINESS, area: DEFAULT_SERVICE_AREA })
+  }
   return memo('settings', async () => loadSettings(await getDb()))
 }
 

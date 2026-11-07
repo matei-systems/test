@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { checkCredentials, clearSessionCookie, isAdminConfigured, requireAdmin, setSessionCookie } from '@/lib/auth'
-import { getDb, pgErrorCode, PG_EXCLUSION_VIOLATION } from '@/lib/db'
+import { getDb, isDatabaseConfigured, pgErrorCode, PG_EXCLUSION_VIOLATION } from '@/lib/db'
 import { getSettings, invalidateCatalogCache } from '@/lib/catalog'
 import { clientIp, rateLimit, resetRateLimit } from '@/lib/rate-limit'
 import { customerSchema } from '@/lib/validation'
@@ -40,6 +40,7 @@ function refreshPublic() {
 
 export async function loginAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
   if (!isAdminConfigured()) return fail('Der Admin-Zugang ist noch nicht eingerichtet (siehe README).')
+  if (!isDatabaseConfigured()) return fail('Keine Datenbank verbunden (DATABASE_URL fehlt). Anmeldung erst danach möglich.')
   const ip = clientIp(await headers())
   const limit = await rateLimit('login', ip, 5, 15 * 60)
   if (!limit.allowed) {

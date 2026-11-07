@@ -1,5 +1,5 @@
 import { requireAdmin } from '@/lib/auth'
-import { getDb } from '@/lib/db'
+import { getDb, isDatabaseConfigured } from '@/lib/db'
 import { AdminNav } from '@/components/admin/AdminNav'
 import { LogoMark } from '@/components/site/Logo'
 import { Icon } from '@/components/icons'
@@ -8,9 +8,13 @@ import Link from 'next/link'
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const session = await requireAdmin()
-  const db = await getDb()
-  const { rows } = await db.query<{ n: number }>("SELECT count(*) AS n FROM bookings WHERE status = 'neu' AND ends_at >= now()")
-  const newCount = Number(rows[0]?.n ?? 0)
+  const dbReady = isDatabaseConfigured()
+  let newCount = 0
+  if (dbReady) {
+    const db = await getDb()
+    const { rows } = await db.query<{ n: number }>("SELECT count(*) AS n FROM bookings WHERE status = 'neu' AND ends_at >= now()")
+    newCount = Number(rows[0]?.n ?? 0)
+  }
   return (
     <div className="adm">
       <aside className="adm-side">
@@ -42,7 +46,17 @@ export default async function PanelLayout({ children }: { children: React.ReactN
         </div>
       </aside>
       <main className="adm-main" id="main">
-        {children}
+        {dbReady ? (
+          children
+        ) : (
+          <div className="adm-warn" role="alert">
+            <Icon name="alert" size={18} />
+            <span>
+              <strong>Keine Datenbank verbunden.</strong> Setze die Umgebungsvariable <code>DATABASE_URL</code> (PostgreSQL, z. B. Supabase) im
+              Hosting und deploye neu. Bis dahin ist die Online-Buchung deaktiviert und der Admin-Bereich nicht nutzbar (siehe README).
+            </span>
+          </div>
+        )}
       </main>
     </div>
   )

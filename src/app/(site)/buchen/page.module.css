@@ -28,3 +28,32 @@
 .points svg {
   color: var(--accent);
 }
+
+.soon {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  max-width: 720px;
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--accent-line);
+  background: radial-gradient(120% 70% at 100% 0%, rgba(200, 180, 138, 0.1), transparent 60%), var(--bg-elev);
+}
+
+.soonIcon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.soonActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 4px 0 8px;
+}
