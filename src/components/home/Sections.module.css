@@ -1,0 +1,381 @@
+/* ─── Ablauf ─── */
+.steps {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  counter-reset: step;
+}
+
+@media (min-width: 700px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+}
+
+.stepNum {
+  position: absolute;
+  top: 24px;
+  right: 26px;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+
+.stepIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-line);
+  background: radial-gradient(circle at 30% 30%, rgba(200, 180, 138, 0.22), rgba(9, 9, 10, 0.9) 70%);
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.stepTitle {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.stepText {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+/* ─── Vorteile ─── */
+.benefitsSection {
+  background:
+    radial-gradient(60% 50% at 85% 0%, rgba(200, 180, 138, 0.07), transparent 70%),
+    linear-gradient(180deg, var(--bg-elev), var(--bg));
+  border-block: 1px solid var(--line);
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .benefits {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.benefit {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 36px 32px 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .benefit {
+    padding: 40px 36px;
+  }
+  .benefit:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+}
+
+@media (min-width: 1100px) {
+  .benefit:nth-child(odd) {
+    border-right: 0;
+  }
+  .benefit:not(:nth-child(3n)) {
+    border-right: 1px solid var(--line);
+  }
+}
+
+.benefitIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex: none;
+}
+
+.benefitTitle {
+  margin-top: 8px;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.benefitText {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  max-width: 38ch;
+}
+
+/* ─── Bewertungen ─── */
+.reviews {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .reviews {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.review {
+  display: grid;
+  gap: 16px;
+  padding: 28px;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  color: var(--accent);
+}
+
+.quote {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.reviewer {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.reviewer span {
+  color: var(--text-dim);
+}
+
+.reviewEmpty {
+  display: grid;
+  gap: 20px;
+  align-items: center;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--line-strong);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.reviewEmpty > div {
+  display: grid;
+  gap: 8px;
+}
+
+@media (min-width: 760px) {
+  .reviewEmpty {
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+  }
+}
+
+/* ─── Einsatzgebiet ─── */
+.area {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(96px, 14vw, 200px);
+}
+
+.areaImg {
+  object-fit: cover;
+  object-position: 70% 50%;
+  z-index: -2;
+}
+
+.areaShade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(9, 9, 10, 0) 25%, rgba(9, 9, 10, 0) 70%, var(--bg) 100%),
+    linear-gradient(90deg, rgba(9, 9, 10, 0.95) 0%, rgba(9, 9, 10, 0.7) 45%, rgba(9, 9, 10, 0.15) 100%);
+}
+
+.areaInner {
+  display: grid;
+  gap: 40px;
+}
+
+.places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.places li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(9, 9, 10, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.places svg {
+  color: var(--accent);
+}
+
+/* ─── FAQ ─── */
+.faqGrid {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 1000px) {
+  .faqGrid {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .faqHead {
+    position: sticky;
+    top: calc(var(--header-h) + 40px);
+  }
+}
+
+.faqHead {
+  display: grid;
+  gap: 20px;
+}
+
+.faqList {
+  border-top: 1px solid var(--line);
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--line);
+}
+
+.faqItem summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: color 0.25s;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqItem summary:hover {
+  color: var(--accent-strong);
+}
+
+.faqIcon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition:
+    transform 0.4s var(--ease),
+    background 0.3s,
+    color 0.3s;
+}
+
+.faqItem[open] .faqIcon {
+  transform: rotate(45deg);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.faqItem p {
+  padding: 0 56px 26px 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ─── CTA ─── */
+.cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(110px, 15vw, 220px);
+  text-align: center;
+}
+
+.ctaImg {
+  object-fit: cover;
+  z-index: -2;
+}
+
+.ctaShade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 70% at 50% 50%, rgba(9, 9, 10, 0.6), rgba(9, 9, 10, 0.92)),
+    linear-gradient(180deg, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%);
+}
+
+.ctaInner {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+}
+
+.ctaInner :global(.lead) {
+  margin-inline: auto;
+}
+
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}

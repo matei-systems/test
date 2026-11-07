@@ -1,0 +1,30 @@
+.page {
+  padding: calc(var(--header-h) + clamp(32px, 6vw, 72px)) 0 clamp(80px, 10vw, 140px);
+  background:
+    radial-gradient(50% 40% at 85% 0%, rgba(200, 180, 138, 0.08), transparent 70%),
+    var(--bg);
+}
+
+.head {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.points span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.points svg {
+  color: var(--accent);
+}

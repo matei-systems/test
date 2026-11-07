@@ -1,0 +1,105 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--bg) 0%, #070708 100%);
+  padding-top: clamp(64px, 8vw, 104px);
+}
+
+.top {
+  display: grid;
+  gap: 48px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1080px) {
+  .top {
+    grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
+  }
+}
+
+.brandCol {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+  justify-items: start;
+}
+
+.claim {
+  max-width: 38ch;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.col ul {
+  display: grid;
+  gap: 12px;
+}
+
+.col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: color 0.25s;
+}
+
+.col a:hover {
+  color: var(--text);
+}
+
+.colTitle {
+  margin-bottom: 20px;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.muted {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 64px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.wordmark {
+  font-size: min(12.5vw, 14rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 0.8;
+  text-align: center;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+  margin-bottom: -0.08em;
+}
