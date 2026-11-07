@@ -14,8 +14,7 @@ const p = 1
 const salt = randomBytes(16)
 scrypt(password, salt, 64, { N, r, p, maxmem: 64 * 1024 * 1024 }, (err, key) => {
   if (err) throw err
-  const hash = ['scrypt', N, r, p, salt.toString('base64'), key.toString('base64')].join('$')
+  const hash = ['scrypt', N, r, p, salt.toString('base64'), key.toString('base64')].join(':')
   console.log('\nTrage folgende Zeile in .env.local bzw. in die Umgebungsvariablen deines Hostings ein:\n')
-  // Einfache Anführungszeichen, damit $-Zeichen nicht als Variablen interpretiert werden
-  console.log(`ADMIN_PASSWORD_HASH='${hash}'\n`)
+  console.log(`ADMIN_PASSWORD_HASH=${hash}\n`)
 })

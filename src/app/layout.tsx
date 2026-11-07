@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de-AT" className={`${geist.variable} ${instrument.variable}`} suppressHydrationWarning>
+    <html lang="de-AT" className={`${geist.variable} ${instrument.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Aktiviert Scroll-Animationen nur, wenn JavaScript verfügbar ist (kein Aufblitzen) */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

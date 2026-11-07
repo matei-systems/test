@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  gap: 40px 24px;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.item {
+  display: grid;
+  gap: 20px;
+}
+
+.meta {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}

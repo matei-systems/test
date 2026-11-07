@@ -30,11 +30,12 @@ export async function hashPassword(password: string, salt: Buffer): Promise<stri
   const r = 8
   const p = 1
   const key = await scrypt(password, salt, 64, { N, r, p, maxmem: 64 * 1024 * 1024 })
-  return `scrypt$${N}$${r}$${p}$${salt.toString('base64')}$${key.toString('base64')}`
+  return ['scrypt', N, r, p, salt.toString('base64'), key.toString('base64')].join(':')
 }
 
 export async function verifyPassword(password: string, stored: string): Promise<boolean> {
-  const parts = stored.split('$')
+  // Format: scrypt:N:r:p:salt:hash (Doppelpunkte statt $, damit .env-Loader nichts ersetzen)
+  const parts = stored.trim().split(':')
   if (parts.length !== 6 || parts[0] !== 'scrypt') return false
   const [, n, r, p, saltB64, hashB64] = parts
   const expected = Buffer.from(hashB64, 'base64')

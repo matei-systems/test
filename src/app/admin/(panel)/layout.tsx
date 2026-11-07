@@ -1,0 +1,49 @@
+import { requireAdmin } from '@/lib/auth'
+import { getDb } from '@/lib/db'
+import { AdminNav } from '@/components/admin/AdminNav'
+import { LogoMark } from '@/components/site/Logo'
+import { Icon } from '@/components/icons'
+import { logoutAction } from '../actions'
+import Link from 'next/link'
+
+export default async function PanelLayout({ children }: { children: React.ReactNode }) {
+  const session = await requireAdmin()
+  const db = await getDb()
+  const { rows } = await db.query<{ n: number }>("SELECT count(*) AS n FROM bookings WHERE status = 'neu' AND ends_at >= now()")
+  const newCount = Number(rows[0]?.n ?? 0)
+  return (
+    <div className="adm">
+      <aside className="adm-side">
+        <div className="adm-brand">
+          <Link href="/admin" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <LogoMark size={30} />
+            <span>
+              <span style={{ fontWeight: 600, letterSpacing: '0.24em', fontSize: '0.86rem' }}>GLANZMOBIL</span>
+              <small>Admin</small>
+            </span>
+          </Link>
+          <form action={logoutAction} className="adm-mobile-logout">
+            <button type="submit" className="adm-logout" aria-label="Abmelden">
+              <Icon name="logout" size={16} />
+            </button>
+          </form>
+        </div>
+        <AdminNav newCount={newCount} />
+        <div className="adm-side-foot">
+          <span>Angemeldet als {session.username}</span>
+          <Link href="/" target="_blank" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
+            <Icon name="external" size={14} /> Website ansehen
+          </Link>
+          <form action={logoutAction}>
+            <button type="submit" className="adm-logout">
+              <Icon name="logout" size={16} /> Abmelden
+            </button>
+          </form>
+        </div>
+      </aside>
+      <main className="adm-main" id="main">
+        {children}
+      </main>
+    </div>
+  )
+}

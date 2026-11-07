@@ -1,0 +1,39 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(48px, 8vw, 110px)) 0 clamp(48px, 7vw, 90px);
+  background: radial-gradient(50% 60% at 85% 0%, rgba(200, 180, 138, 0.08), transparent 70%), var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.withImage {
+  min-height: min(72vh, 680px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.img {
+  object-fit: cover;
+  z-index: -2;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(0deg, var(--bg) 0%, rgba(9, 9, 10, 0.6) 45%, rgba(9, 9, 10, 0.3) 100%),
+    linear-gradient(90deg, rgba(9, 9, 10, 0.9) 0%, rgba(9, 9, 10, 0.2) 75%);
+}
+
+.inner {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+
+.title {
+  max-width: 18ch;
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+}
