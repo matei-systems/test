@@ -37,6 +37,7 @@ export default async function ServicesPage() {
       />
       <section className="section">
         <div className="container">
+          <h2 className="sr-only">Unsere Pakete</h2>
           <div className={styles.grid}>
             {packages.map((s, i) => (
               <ServiceCard key={s.id} service={s} catalog={catalog} index={i} />

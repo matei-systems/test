@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const limit = await rateLimit('booking', clientIp(request.headers), 6, 60 * 60)
+    const limit = await rateLimit('booking', clientIp(request.headers), 10, 60 * 60)
     if (!limit.allowed) {
       return NextResponse.json(
         { error: 'Zu viele Buchungsversuche. Bitte versuche es später erneut oder kontaktiere uns direkt.' },

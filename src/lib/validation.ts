@@ -1,6 +1,9 @@
 import { z } from 'zod'
 import { isValidDateString, isValidTimeString } from './time'
 
+// Kein eval/new Function (kompatibel mit unserer Content-Security-Policy ohne 'unsafe-eval')
+z.config({ jitless: true })
+
 /** Gemeinsame Validierung – im Browser (Sofort-Feedback) und auf dem Server (verbindlich). */
 
 const slug = z.string().trim().min(1).max(64).regex(/^[a-z0-9-]+$/)

@@ -39,7 +39,7 @@ export default function GalleryPage() {
           )}
           <ul className={styles.grid}>
             {BEFORE_AFTER.map((item, i) => (
-              <li key={item.id} className={`${styles.item} reveal`} style={{ ['--reveal-delay' as string]: `${(i % 2) * 0.08}s` }}>
+              <li key={item.id} className={`${styles.item} ${i > 1 ? 'reveal' : ''}`}>
                 <CompareSlider item={item} priority={i === 0} />
                 <div className={styles.meta}>
                   <span className="badge badge--neutral">{item.category}</span>

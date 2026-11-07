@@ -15,7 +15,7 @@ export default function NotFound() {
       }}
     >
       <div style={{ display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', maxWidth: 520 }}>
-        <Link href="/" aria-label="Zur Startseite">
+        <Link href="/">
           <Logo />
         </Link>
         <p className="eyebrow">Fehler 404</p>

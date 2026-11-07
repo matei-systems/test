@@ -40,7 +40,7 @@ export function Header({ phone }: { phone?: string }) {
   return (
     <header className={`${styles.header} ${scrolled || open ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.brand} aria-label="GLANZMOBIL – zur Startseite">
+        <Link href="/" className={styles.brand}>
           <Logo />
         </Link>
 

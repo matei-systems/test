@@ -60,13 +60,26 @@
 }
 
 .eyebrow,
-.line,
 .lead,
 .ctas,
 .price {
   opacity: 0;
   transform: translateY(24px);
   animation: rise 1.1s var(--ease) forwards;
+}
+
+/* Headline wird sofort gezeichnet (wichtig für LCP) und nur weich „scharfgestellt“ */
+.line {
+  filter: blur(10px);
+  transform: translateY(14px);
+  animation: focusIn 1.2s var(--ease) forwards;
+}
+
+@keyframes focusIn {
+  to {
+    filter: blur(0);
+    transform: none;
+  }
 }
 
 .eyebrow {
