@@ -69,10 +69,10 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 | Variable | Pflicht | Zweck |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, z. B. `https://www.glanzmobil.at` (Sitemap, Open Graph, Links in E-Mails) |
-| `DATABASE_URL` | ja (Produktion) | PostgreSQL-Verbindung. **Ohne sie nimmt die Produktion keine Buchungen an** (Fehlermeldung statt Schein-Buchung) |
+| `DATABASE_URL` (oder `POSTGRES_URL`) | ja (Produktion) | PostgreSQL-Verbindung. Die Vercel-Neon-Integration setzt beide automatisch. **Ohne sie nimmt die Produktion keine Buchungen an** (Fehlermeldung statt Schein-Buchung) |
 | `ADMIN_USERNAME` | nein | Standard `admin` |
-| `ADMIN_PASSWORD_HASH` | ja | Erzeugen mit `npm run admin:hash -- "Passwort"` |
-| `SESSION_SECRET` | ja | Zufälliger Schlüssel, mind. 32 Zeichen |
+| `ADMIN_PASSWORD_HASH` | ja | Erzeugen mit `npm run admin:hash -- "Passwort"` – oder ohne Node.js direkt auf der Website unter `/admin/login` (solange noch kein Admin eingerichtet ist) |
+| `SESSION_SECRET` | optional | Zufälliger Schlüssel, mind. 32 Zeichen. Fehlt er, wird ein Schlüssel aus der (geheimen) Datenbank-URL abgeleitet |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | empfohlen | E-Mail-Versand (Kundenbestätigung, Statusänderungen) |
 | `ADMIN_NOTIFICATION_EMAIL` | empfohlen | Empfänger für „Neue Buchung“-Benachrichtigungen |
 
@@ -96,10 +96,11 @@ Ohne SMTP werden Buchungen trotzdem gespeichert – Kunden erhalten dann **keine
 
 Aktueller Stand: Die Website ist öffentlich erreichbar. Solange `DATABASE_URL` fehlt, läuft sie im **Übergangsmodus**: Leistungen und Preise werden aus den Startwerten angezeigt, die Online-Buchung ist sichtbar deaktiviert („startet in Kürze“) und nimmt **keine** Buchungen an (API antwortet mit 503). So geht kein Termin verloren.
 
-**Online-Buchung und Admin aktivieren:**
-1. PostgreSQL-Datenbank anlegen (siehe „Datenbank (Supabase)“ oben).
-2. In Vercel → Projekt `glanzmobil` → *Settings → Environment Variables* (Environment: Production) eintragen: `DATABASE_URL`, `ADMIN_PASSWORD_HASH` (`npm run admin:hash -- "Passwort"`), `SESSION_SECRET`, optional SMTP-Variablen und `ADMIN_NOTIFICATION_EMAIL`.
-3. *Deployments* → letztes Deployment → *Redeploy*. Danach ist die Buchung aktiv und `/admin` nutzbar.
+**Online-Buchung und Admin aktivieren (Neon über Vercel, kostenlos):**
+1. Vercel → Projekt `glanzmobil` → Reiter *Storage* → *Create Database* → **Neon** (Serverless Postgres) → Plan *Free*, Region **Frankfurt (eu-central-1)** → *Create* → mit dem Projekt `glanzmobil` verbinden (Environments: Production, optional Preview). Vercel setzt `DATABASE_URL`/`POSTGRES_URL` automatisch.
+2. Neu deployen (*Deployments* → letztes Deployment → *Redeploy*). Ab jetzt ist die Online-Buchung aktiv; die Tabellen werden beim ersten Aufruf automatisch angelegt.
+3. https://glanzmobil.vercel.app/admin/login öffnen → Admin-Passwort festlegen → angezeigten Wert in Vercel als `ADMIN_PASSWORD_HASH` (Production) eintragen → erneut deployen → anmelden (Benutzer `admin`).
+4. Optional: SMTP-Variablen und `ADMIN_NOTIFICATION_EMAIL` für E-Mails ergänzen.
 
 Hinweis: Das Repository ist noch nicht per Vercel-GitHub-App verbunden, daher löst ein `git push` kein automatisches Deployment aus. Für automatische Deployments in Vercel unter *Settings → Git* das Repository verbinden (dabei der Vercel-App auf GitHub Zugriff auf `matei-systems/test` geben) und als Production Branch den gewünschten Branch wählen.
 

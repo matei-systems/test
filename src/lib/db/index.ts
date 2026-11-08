@@ -53,12 +53,17 @@ export function getDb(): Promise<Db> {
   return g.__glanzmobilDb
 }
 
+/** Verbindungs-URL: DATABASE_URL oder (z. B. von der Vercel-Neon-Integration gesetzt) POSTGRES_URL */
+export function databaseUrl(): string | undefined {
+  return process.env.DATABASE_URL || process.env.POSTGRES_URL || undefined
+}
+
 export function isDatabaseConfigured(): boolean {
-  return Boolean(process.env.DATABASE_URL) || process.env.NODE_ENV !== 'production' || process.env.ALLOW_PGLITE === 'true'
+  return Boolean(databaseUrl()) || process.env.NODE_ENV !== 'production' || process.env.ALLOW_PGLITE === 'true'
 }
 
 async function createDb(): Promise<Db> {
-  const url = process.env.DATABASE_URL
+  const url = databaseUrl()
   let db: Db
   if (url) {
     db = await createPostgres(url)

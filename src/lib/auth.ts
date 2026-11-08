@@ -17,8 +17,20 @@ const scrypt = promisify(scryptCb) as (password: string, salt: Buffer, keylen: n
 export const SESSION_COOKIE = 'gm_admin'
 const SESSION_TTL_SECONDS = 12 * 60 * 60
 
+/**
+ * Schlüssel zum Signieren der Session: SESSION_SECRET (mind. 32 Zeichen) oder – falls nicht gesetzt –
+ * ein aus der geheimen Datenbank-URL abgeleiteter Schlüssel (nur serverseitig bekannt).
+ */
+function sessionSecret(): string | undefined {
+  const explicit = process.env.SESSION_SECRET ?? ''
+  if (explicit.length >= 32) return explicit
+  const db = process.env.DATABASE_URL || process.env.POSTGRES_URL
+  if (db) return createHash('sha256').update(`glanzmobil-session-v1:${db}`).digest('base64url')
+  return undefined
+}
+
 export function isAdminConfigured(): boolean {
-  return Boolean(process.env.ADMIN_PASSWORD_HASH && (process.env.SESSION_SECRET ?? '').length >= 32)
+  return Boolean(process.env.ADMIN_PASSWORD_HASH && sessionSecret())
 }
 
 function adminUsername(): string {
@@ -71,7 +83,7 @@ function passwordVersion(): string {
 }
 
 function sign(payload: string): string {
-  return createHmac('sha256', process.env.SESSION_SECRET as string).update(payload).digest('base64url')
+  return createHmac('sha256', sessionSecret() as string).update(payload).digest('base64url')
 }
 
 export function createSessionToken(now = Date.now()): string {

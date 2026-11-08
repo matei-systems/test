@@ -53,6 +53,25 @@ export async function loginAction(_prev: ActionState, fd: FormData): Promise<Act
   redirect('/admin')
 }
 
+/**
+ * Erzeugt einen Passwort-Hash für ADMIN_PASSWORD_HASH (nur solange noch kein Admin-Zugang eingerichtet ist).
+ * Es wird nichts gespeichert – der Hash wird nur angezeigt und muss im Hosting eingetragen werden.
+ */
+export async function generateHashAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  if (process.env.ADMIN_PASSWORD_HASH) return fail('Der Admin-Zugang ist bereits eingerichtet.')
+  const password = String(fd.get('password') ?? '')
+  const confirm = String(fd.get('confirm') ?? '')
+  if (password.length < 12) return fail('Bitte ein Passwort mit mindestens 12 Zeichen wählen.')
+  if (password !== confirm) return fail('Die Passwörter stimmen nicht überein.')
+  if (isDatabaseConfigured()) {
+    const limit = await rateLimit('hashgen', clientIp(await headers()), 10, 15 * 60)
+    if (!limit.allowed) return fail('Zu viele Versuche. Bitte später erneut versuchen.')
+  }
+  const { randomBytes } = await import('node:crypto')
+  const { hashPassword } = await import('@/lib/auth')
+  return done(await hashPassword(password, randomBytes(16)))
+}
+
 export async function logoutAction(): Promise<void> {
   await clearSessionCookie()
   redirect('/admin/login')

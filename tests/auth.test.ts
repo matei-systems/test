@@ -40,6 +40,20 @@ describe('Admin-Authentifizierung', () => {
     expect(auth.verifySessionToken(undefined)).toBeNull()
   })
 
+  it('leitet ohne SESSION_SECRET einen Schlüssel aus der Datenbank-URL ab', () => {
+    const secret = process.env.SESSION_SECRET
+    delete process.env.SESSION_SECRET
+    expect(auth.isAdminConfigured()).toBe(false)
+    process.env.POSTGRES_URL = 'postgres://u:geheim@db.example/neondb'
+    expect(auth.isAdminConfigured()).toBe(true)
+    const token = auth.createSessionToken()
+    expect(auth.verifySessionToken(token)?.username).toBe('admin')
+    process.env.POSTGRES_URL = 'postgres://u:anders@db.example/neondb'
+    expect(auth.verifySessionToken(token)).toBeNull()
+    delete process.env.POSTGRES_URL
+    process.env.SESSION_SECRET = secret
+  })
+
   it('macht Sessions nach Passwortänderung ungültig', async () => {
     const token = auth.createSessionToken()
     process.env.ADMIN_PASSWORD_HASH = await auth.hashPassword('Neues-Passwort-456', randomBytes(16))

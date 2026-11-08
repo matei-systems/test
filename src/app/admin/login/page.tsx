@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation'
 import { LogoMark } from '@/components/site/Logo'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { getAdminSession, isAdminConfigured } from '@/lib/auth'
+import { HashGenerator } from '@/components/admin/HashGenerator'
+import { isDatabaseConfigured } from '@/lib/db'
 import { loginAction } from '../actions'
 
 export const metadata = { title: 'Anmelden' }
@@ -20,12 +22,16 @@ export default async function LoginPage() {
           </div>
         </div>
         {!configured ? (
-          <div className="adm-warn">
-            <span>
-              Der Admin-Zugang ist noch nicht eingerichtet. Setze die Umgebungsvariablen <code>ADMIN_PASSWORD_HASH</code> und{' '}
-              <code>SESSION_SECRET</code> (siehe README, Abschnitt „Admin-Zugang“).
-            </span>
-          </div>
+          <>
+            <div className="adm-warn">
+              <span>
+                Der Admin-Zugang ist noch nicht eingerichtet.
+                {!isDatabaseConfigured() && ' Außerdem ist noch keine Datenbank verbunden.'} Lege dein Admin-Passwort in zwei
+                Schritten fest:
+              </span>
+            </div>
+            {!process.env.ADMIN_PASSWORD_HASH && <HashGenerator />}
+          </>
         ) : (
           <ActionForm action={loginAction} className="adm-form">
             <div className="field">
