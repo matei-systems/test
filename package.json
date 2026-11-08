@@ -4,7 +4,7 @@
   "private": true,
   "description": "GLANZMOBIL – Mobile Premium Fahrzeugpflege in Graz & Graz-Umgebung. Website mit Online-Buchungssystem und Admin-Bereich.",
   "engines": {
-    "node": ">=20.9.0"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "next dev",
