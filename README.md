@@ -92,6 +92,19 @@ Ohne SMTP werden Buchungen trotzdem gespeichert – Kunden erhalten dann **keine
 
 ## Deployment (Vercel)
 
+**Live:** https://glanzmobil.vercel.app – Vercel-Projekt `glanzmobil` (Team „matei“), Funktionen in Frankfurt (`fra1`, siehe `vercel.json`).
+
+Aktueller Stand: Die Website ist öffentlich erreichbar. Solange `DATABASE_URL` fehlt, läuft sie im **Übergangsmodus**: Leistungen und Preise werden aus den Startwerten angezeigt, die Online-Buchung ist sichtbar deaktiviert („startet in Kürze“) und nimmt **keine** Buchungen an (API antwortet mit 503). So geht kein Termin verloren.
+
+**Online-Buchung und Admin aktivieren:**
+1. PostgreSQL-Datenbank anlegen (siehe „Datenbank (Supabase)“ oben).
+2. In Vercel → Projekt `glanzmobil` → *Settings → Environment Variables* (Environment: Production) eintragen: `DATABASE_URL`, `ADMIN_PASSWORD_HASH` (`npm run admin:hash -- "Passwort"`), `SESSION_SECRET`, optional SMTP-Variablen und `ADMIN_NOTIFICATION_EMAIL`.
+3. *Deployments* → letztes Deployment → *Redeploy*. Danach ist die Buchung aktiv und `/admin` nutzbar.
+
+Hinweis: Das Repository ist noch nicht per Vercel-GitHub-App verbunden, daher löst ein `git push` kein automatisches Deployment aus. Für automatische Deployments in Vercel unter *Settings → Git* das Repository verbinden (dabei der Vercel-App auf GitHub Zugriff auf `matei-systems/test` geben) und als Production Branch den gewünschten Branch wählen.
+
+Allgemein (neues Projekt):
+
 1. Repository in Vercel importieren (Framework: Next.js, keine weiteren Build-Einstellungen nötig).
 2. Umgebungsvariablen aus der Tabelle oben eintragen.
 3. Deployen, dann `/admin` aufrufen und unter **Einstellungen** die Unternehmensdaten eintragen.
