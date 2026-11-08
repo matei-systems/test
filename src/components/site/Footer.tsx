@@ -6,7 +6,7 @@ import type { BusinessInfo, ServiceArea } from '@/config/defaults'
 import { telHref, whatsappHref } from '@/lib/format'
 import styles from './Footer.module.css'
 
-export function Footer({ business, area }: { business: BusinessInfo; area: ServiceArea }) {
+export function Footer({ business, area, bookingEnabled = true }: { business: BusinessInfo; area: ServiceArea; bookingEnabled?: boolean }) {
   const year = new Date().getFullYear()
   const hasContact = Boolean(business.phone || business.email || business.whatsapp)
   return (
@@ -65,7 +65,9 @@ export function Footer({ business, area }: { business: BusinessInfo; area: Servi
                 )}
               </ul>
             ) : (
-              <p className={styles.muted}>Am schnellsten erreichst du uns über die Online-Buchung.</p>
+              <p className={styles.muted}>
+                {bookingEnabled ? 'Am schnellsten erreichst du uns über die Online-Buchung.' : 'Online-Buchung und Kontaktmöglichkeiten folgen in Kürze.'}
+              </p>
             )}
             <p className={styles.area}>
               <Icon name="pin" size={16} /> Einsatzgebiet: {area.regions.join(', ')}

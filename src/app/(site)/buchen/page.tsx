@@ -27,6 +27,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
           <h1 className="h2">
             Dein Termin in <span className="serif accent">wenigen Klicks.</span>
           </h1>
+          {isDatabaseConfigured() && (
           <p className={styles.points}>
             <span>
               <Icon name="check" size={16} /> Nur freie Termine
@@ -38,6 +39,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
               <Icon name="check" size={16} /> Wir kommen zu dir
             </span>
           </p>
+          )}
         </header>
         {!isDatabaseConfigured() ? (
           <div className={styles.soon}>

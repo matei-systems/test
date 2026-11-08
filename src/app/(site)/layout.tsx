@@ -3,6 +3,7 @@ import { Footer } from '@/components/site/Footer'
 import { WhatsAppButton } from '@/components/site/WhatsAppButton'
 import { RevealObserver } from '@/components/site/RevealObserver'
 import { getSettings } from '@/lib/catalog'
+import { isDatabaseConfigured } from '@/lib/db'
 
 // Inhalte (Preise, Kontaktdaten, Verfügbarkeiten) kommen aus der Datenbank und werden im Admin gepflegt.
 export const dynamic = 'force-dynamic'
@@ -16,7 +17,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       </a>
       <Header phone={business.phone || undefined} />
       <main id="main">{children}</main>
-      <Footer business={business} area={area} />
+      <Footer business={business} area={area} bookingEnabled={isDatabaseConfigured()} />
       <WhatsAppButton number={business.whatsapp} />
       <RevealObserver />
     </>
