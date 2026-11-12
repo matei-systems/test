@@ -34,7 +34,7 @@ function ColumnChart({ columns, top, ticks, formatTick, label }: { columns: Colu
   const peakIndex = peak > 0 ? columns.findIndex((c) => c.total === peak) : -1
   const lastIndex = columns.length - 1
   return (
-    <div className="adm-chart" role="img" aria-label={label}>
+    <div className="adm-chart" role="group" aria-label={label}>
       <div className="adm-chart-axis" aria-hidden="true">
         {[...ticks].reverse().map((t) => (
           <span key={t}>{formatTick(t)}</span>
@@ -49,7 +49,7 @@ function ColumnChart({ columns, top, ticks, formatTick, label }: { columns: Colu
         <ol className="adm-cols">
           {columns.map((c, i) => (
             <li key={c.key} className={i < 2 ? 'is-start' : i > columns.length - 3 ? 'is-end' : ''}>
-              <div className="adm-col" tabIndex={0} aria-label={`${c.title}: ${c.segments.map((s) => `${s.label} ${s.text}`).join(', ')}`}>
+              <div className="adm-col" role="img" tabIndex={0} aria-label={`${c.title}: ${c.segments.map((s) => `${s.label} ${s.text}`).join(', ')}`}>
                 {/* Wert nur an der Spitze und am aktuellen Monat – nicht auf jeder Säule */}
                 {c.total > 0 && (i === peakIndex || i === lastIndex) && <span className="adm-col-value">{c.totalText}</span>}
                 <span className="adm-col-stack" style={{ height: `${(c.total / top) * 100}%` }}>
@@ -60,7 +60,7 @@ function ColumnChart({ columns, top, ticks, formatTick, label }: { columns: Colu
                       <i key={s.label} className={s.className} style={{ flexGrow: s.value }} />
                     ))}
                 </span>
-                <span className="adm-tip" role="tooltip">
+                <span className="adm-tip" aria-hidden="true">
                   <strong>{c.title}</strong>
                   {c.segments.map((s) => (
                     <span key={s.label}>
@@ -69,7 +69,9 @@ function ColumnChart({ columns, top, ticks, formatTick, label }: { columns: Colu
                   ))}
                 </span>
               </div>
-              <span className="adm-col-label">{c.label}</span>
+              <span className="adm-col-label" aria-hidden="true">
+                {c.label}
+              </span>
             </li>
           ))}
         </ol>
@@ -205,7 +207,7 @@ export default async function StatisticsPage({ searchParams }: { searchParams: P
       <section className="adm-card" style={{ marginTop: 16 }}>
         <details>
           <summary style={{ cursor: 'pointer' }}>Monatswerte als Tabelle anzeigen</summary>
-          <div className="adm-table-wrap" style={{ marginTop: 12 }}>
+          <div className="adm-table-wrap" style={{ marginTop: 12 }} tabIndex={0} role="region" aria-label="Monatswerte">
             <table className="adm-table">
               <thead>
                 <tr>

@@ -892,7 +892,8 @@ function PriceLines({ quote, compact = false }: { quote: Quote; compact?: boolea
   const hasPromo = quote.promotion !== null && quote.discountCents > 0 && quote.serviceRegularCents !== null
   const showPackage = quote.serviceRegularCents === null || quote.serviceRegularCents > 0
   return (
-    <dl className={`${styles.priceLines} ${compact ? styles.priceLinesCompact : ''}`}>
+    <>
+      <dl className={`${styles.priceLines} ${compact ? styles.priceLinesCompact : ''}`}>
       {showPackage && (
         <div>
           <dt>
@@ -920,6 +921,7 @@ function PriceLines({ quote, compact = false }: { quote: Quote; compact?: boolea
         <dt>{quote.totalPriceCents === null ? 'Preis' : 'Gesamtpreis'}</dt>
         <dd>{quote.totalPriceCents === null ? 'auf Anfrage' : formatPrice(quote.totalPriceCents, { from: quote.priceIsFrom })}</dd>
       </div>
+      </dl>
       {!compact && quote.totalPriceCents !== null && (
         <p className={styles.priceFoot}>
           Endpreis inkl. Anfahrt im Einsatzgebiet.
@@ -927,7 +929,7 @@ function PriceLines({ quote, compact = false }: { quote: Quote; compact?: boolea
           {quote.priceIsFrom && <> „ab“-Preise: Endpreis nach Aufwand, Abstimmung vorab.</>}
         </p>
       )}
-    </dl>
+    </>
   )
 }
 

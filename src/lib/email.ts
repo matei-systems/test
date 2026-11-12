@@ -153,8 +153,11 @@ ${bodyHtml}
 function table(rows: Array<[string, string]>): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows
     .map(
-      ([k, v]) =>
-        `<tr><td style="padding:10px 0;color:#6b6b6b;font-size:13px;width:42%;vertical-align:top;border-bottom:1px solid #eee">${esc(k)}</td><td style="padding:10px 0;color:#111;font-size:14px;vertical-align:top;border-bottom:1px solid #eee">${esc(v)}</td></tr>`,
+      ([k, v]) => {
+        // Der tatsächlich zu zahlende Preis wird hervorgehoben
+        const strong = k === 'Endpreis'
+        return `<tr><td style="padding:10px 0;color:${strong ? '#111' : '#6b6b6b'};font-size:13px;font-weight:${strong ? 600 : 400};width:42%;vertical-align:top;border-bottom:1px solid #eee">${esc(k)}</td><td style="padding:10px 0;color:#111;font-size:${strong ? 17 : 14}px;font-weight:${strong ? 600 : 400};vertical-align:top;border-bottom:1px solid #eee">${esc(v)}</td></tr>`
+      },
     )
     .join('')}</table>`
 }

@@ -81,10 +81,18 @@
 
 @media (max-width: 760px) {
   .stepLabel {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
   .current .stepLabel {
-    display: inline;
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
   }
   .progress ol {
     grid-template-columns: repeat(5, auto) 1fr;
@@ -761,6 +769,7 @@
 }
 
 .priceFoot {
+  margin-top: 10px;
   font-size: 0.8rem;
   color: var(--text-dim);
 }

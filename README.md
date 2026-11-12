@@ -2,9 +2,10 @@
 
 Website mit Online-Buchungssystem und Admin-Bereich für einen mobilen Premium-Fahrzeugpflege-Service in Graz und Graz-Umgebung.
 
-- **Website:** Startseite, Leistungen (inkl. Detailseiten je Leistung), Preise je Fahrzeugkategorie, Vorher/Nachher-Galerie, FAQ, Rechtstexte
-- **Buchung:** 5 Schritte – Leistung → Fahrzeug → Extras → Termin & Ort → Kontakt & Bestätigung. Es werden nur tatsächlich freie Termine angezeigt
-- **Admin:** Buchungen (Status, Termine verschieben, Daten bearbeiten), Kunden, Arbeitszeiten, Urlaub/Sperrzeiten, Preise & Leistungen, Kontakt- und Unternehmensdaten
+- **Website:** Startseite, Leistungen (inkl. Detailseiten), Preise, Galerie mit Vorher-Nachher-Reglern, Über uns, Kontakt (Formular), FAQ nach Themen, Einsatzgebiet (PLZ-Prüfung), Rechtstexte
+- **Preise:** reguläre Preise je Fahrzeugkategorie plus Aktionen (Einführungspreis, −10/−20/−30/−40 % oder fester Aktionspreis, mit Zeitraum) – ehrlich ausgewiesen: zu zahlender Preis groß, Aktion + rotes Kennzeichen, regulärer Preis daneben
+- **Buchung:** 6 Schritte – Leistung → Fahrzeug → Extras → Ort & Termin → Kontakt → Übersicht. Nur tatsächlich freie Termine, Live-Gesamtpreis, Online-Stornierung über den Bestätigungslink, Terminerinnerung per E-Mail
+- **Admin:** Buchungen, Kalender (Tag/Woche/Monat), Anfragen, Kunden, Leistungen & Preise (inkl. Bild-Upload), Aktionen & Rabatte, Galerie (Upload, Vorher-Nachher-Paare), Statistiken, Verfügbarkeit (Arbeitszeiten, Urlaub, Teams), Einstellungen
 
 ---
 
@@ -43,20 +44,26 @@ Ohne `DATABASE_URL` startet die Entwicklungsumgebung automatisch eine eingebette
 
 ```
 src/
-  app/(site)/          Öffentliche Seiten (Start, Leistungen, Galerie, Buchen, Rechtliches)
-  app/admin/           Admin-Bereich (Login, Übersicht, Buchungen, Kunden, Verfügbarkeit, Leistungen, Einstellungen)
+  app/(site)/          Öffentliche Seiten (Start, Leistungen, Preise, Galerie, Über uns, Kontakt, FAQ, Einsatzgebiet, Buchen, Rechtliches)
+  app/admin/           Admin-Bereich (Übersicht, Buchungen, Kalender, Anfragen, Kunden, Leistungen, Aktionen, Galerie, Statistiken, Verfügbarkeit, Einstellungen)
   app/admin/actions.ts Alle Admin-Aktionen (jede prüft die Admin-Session)
-  app/api/             availability (freie Termine), bookings (Buchung anlegen)
-  components/          site/ (Header, Footer, Logo …), home/ (Abschnitte), booking/ (Wizard, Kalender), admin/
+  app/api/             availability, bookings (+ stornieren), kontakt, admin/media (Upload), cron/erinnerungen
+  app/media/[id]/      Auslieferung hochgeladener Bilder (aus der Datenbank, lange cachebar)
+  proxy.ts             Vorgelagerter Schutz für /admin und /api/admin
+  components/          site/ (Header, Footer, Logo, PriceTag, MobileCta …), home/, pages/, booking/ (Wizard, Kalender), admin/
   config/defaults.ts   Startwerte: Leistungen, Preise, Dauer, Zusatzleistungen, Arbeitszeiten, Regeln, Einsatzgebiet
   config/site.ts       Marke, SEO-Keywords, Navigation
-  content/             Galerie, Bewertungen, FAQ, Bildzuordnung, SEO-Texte je Leistung
+  content/             Bewertungen, FAQ (nach Themen), Bild-Alt-Texte, SEO-Texte je Leistung
   lib/availability.ts  Verfügbarkeitslogik (reine Funktionen, getestet)
   lib/bookings.ts      Buchung anlegen (Transaktion + Sperre + Constraint), Bestätigungsseite
-  lib/pricing.ts       Preis-/Dauerberechnung
+  lib/pricing.ts       Preis-, Rabatt- und Dauerberechnung (Browser + Server, getestet)
+  lib/email.ts         HTML-E-Mail-Vorlagen (Bestätigung, Änderung, Erinnerung, Stornierung, Anfragen, Fehler)
+  lib/media.ts         Bild-Upload: verkleinern, WebP, Speicherung in der Datenbank
+  lib/notify.ts        Optionaler Webhook (SMS/WhatsApp-Automationen)
   lib/db/              Datenbankverbindung, Migrationen, Startwerte
-brand/                 Logo-Dateien, Canva-Exporte, Schriften
-scripts/               admin:hash, build-brand-assets (Bilder/Logos/OG-Bild erzeugen)
+brand/                 Logo-Varianten, Designsystem, Social-Media-Vorlagen, Canva-Exporte, Schriften
+docs/                  Google-Unternehmensprofil vorbereiten
+scripts/               admin:hash, build-brand-assets (Logos/Bilder), build-social-assets (Vorlagen/Designsystem)
 tests/                 Vitest-Tests
 ```
 
@@ -74,7 +81,9 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 | `ADMIN_PASSWORD_HASH` | ja | Erzeugen mit `npm run admin:hash -- "Passwort"` – oder ohne Node.js direkt auf der Website unter `/admin/login` (solange noch kein Admin eingerichtet ist) |
 | `SESSION_SECRET` | optional | Zufälliger Schlüssel, mind. 32 Zeichen. Fehlt er, wird ein Schlüssel aus der (geheimen) Datenbank-URL abgeleitet |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | empfohlen | E-Mail-Versand (Kundenbestätigung, Statusänderungen) |
-| `ADMIN_NOTIFICATION_EMAIL` | empfohlen | Empfänger für „Neue Buchung“-Benachrichtigungen |
+| `ADMIN_NOTIFICATION_EMAIL` | empfohlen | Empfänger für Benachrichtigungen (neue Buchung, neue Anfrage, Stornierung, technische Fehler) |
+| `CRON_SECRET` | für Erinnerungen | Schützt `/api/cron/erinnerungen`. Vercel Cron ruft den Endpunkt täglich auf (`vercel.json`) und sendet den Schlüssel automatisch. Ohne ihn werden keine Terminerinnerungen versendet |
+| `NOTIFY_WEBHOOK_URL`, `NOTIFY_WEBHOOK_SECRET` | optional | JSON-Webhook bei Buchung/Anfrage/Stornierung – z. B. für Make, Zapier oder n8n, um SMS- oder WhatsApp-Nachrichten auszulösen. Im Projekt liegen keine Zugangsdaten für solche Dienste |
 
 ### Datenbank (Supabase)
 
@@ -83,6 +92,8 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 3. Fertig – Tabellen werden beim ersten Aufruf automatisch angelegt. Row Level Security wird auf allen Tabellen aktiviert, damit die öffentliche Supabase-API keinen Zugriff auf Buchungsdaten hat.
 
 Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für GLANZMOBIL; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
+
+Die Datenbank muss die Erweiterung `btree_gist` erlauben (für den Doppelbuchungsschutz je Team) – bei Neon, Supabase und normalem PostgreSQL ist das der Fall. Hochgeladene Bilder werden verkleinert als WebP in der Datenbank gespeichert; ein zusätzlicher Speicherdienst ist nicht nötig.
 
 ### E-Mail
 
@@ -118,16 +129,29 @@ Das Rate-Limiting nutzt die vom Hosting gesetzte `x-forwarded-for`-IP (Vercel se
 ## Inhalte pflegen
 
 **Im Admin-Bereich (ohne Code):**
-- Preise, Dauer je Fahrzeugkategorie, Leistungstexte, Leistungen anlegen/deaktivieren/löschen
-- Zusatzleistungen, Fahrzeugkategorien
-- Arbeitszeiten, Urlaub & Sperrzeiten, Pufferzeit, Mindestvorlauf, Buchungshorizont, automatische Bestätigung
-- Unternehmens- und Kontaktdaten (Impressum, Footer, E-Mails, Google-Schema), **WhatsApp-Nummer** (aktiviert den WhatsApp-Button), Einsatzgebiet inkl. erlaubter Postleitzahlen
+- **Leistungen & Preise:** reguläre Preise und Dauer je Fahrzeugkategorie, Texte, Bild je Leistung (Upload), Leistungen anlegen/deaktivieren/löschen, Zusatzleistungen, Fahrzeugkategorien
+- **Aktionen & Rabatte:** Bezeichnung (z. B. „Einführungspreis“), Rabatt in Prozent oder fester Aktionspreis, Leistung, Fahrzeugkategorie, Start-/Enddatum, aktiv/inaktiv, optional durchgestrichener regulärer Preis
+- **Galerie:** Bilder hochladen, Vorher-Nachher-Paare anlegen, Beschreibungen, Reihenfolge, sichtbar/verborgen, Demo-Kennzeichnung
+- **Kalender & Verfügbarkeit:** Tag/Woche/Monat, Arbeitszeiten, Urlaub & Sperrzeiten, Pufferzeit, Mindestvorlauf, Buchungshorizont, Anzahl Teams, Frist für die Online-Stornierung, automatische Bestätigung
+- **Anfragen:** Nachrichten aus dem Kontaktformular beantworten, als erledigt markieren, löschen
+- **Statistiken:** Buchungen und Umsatz pro Monat, Ø Auftragswert, beliebteste Leistungen und Zusatzleistungen
+- **Einstellungen:** Unternehmens- und Kontaktdaten (Impressum, Footer, E-Mails, Google-Schema), **WhatsApp-Nummer**, Bewertungslink (Google), Einsatzgebiet inkl. Postleitzahlen
 
 **Im Code (`src/content/`):**
-- `gallery.ts` – Vorher/Nachher-Paare und Galeriebilder. Eigene Fotos nach `public/images/galerie/` legen, Eintrag mit `isDemo: false` ergänzen, Demo-Einträge entfernen
-- `testimonials.ts` – echte Kundenbewertungen (nur mit Einverständnis); optional Link zum Google-Profil
-- `faq.ts` – häufige Fragen
-- `media.ts` – Bild je Leistung
+- `testimonials.ts` – echte Kundenbewertungen (nur mit Einverständnis)
+- `faq.ts` – häufige Fragen, nach Themen gegliedert
+- `seo.ts` – Seitentitel je Leistung
+
+### Preisstrategie (Startwerte – Vorschlag, bitte prüfen)
+
+| Paket | Regulär (Kleinwagen … Van) | Einführungspreis −20 % | Dauer |
+| --- | --- | --- | --- |
+| Innenraum Basic | 99 – 149 € | 79 – 119 € | ca. 1¼ – 2 Std. |
+| Innenraum Premium | 149 – 199 € | 119 – 159 € | ca. 2½ – 3½ Std. |
+| Außenpflege | 124 – 169 € | 99 – 135 € | ca. 1½ – 2¼ Std. |
+| Komplettpaket | 249 – 349 € | 199 – 279 € | ca. 4 – 5½ Std. |
+
+Kalkulationsbasis und vollständige Matrix: [`src/config/defaults.ts`](src/config/defaults.ts). Die Startwerte werden nur in eine **leere** Datenbank eingespielt; danach gilt ausschließlich, was im Admin steht. Prozent-Rabatte werden zugunsten des Kunden auf volle Euro abgerundet. Der Server berechnet jeden Preis neu und lehnt eine Buchung ab, wenn der bestätigte Gesamtpreis nicht mehr stimmt (z. B. Aktion abgelaufen) – der Kunde sieht dann die aktualisierte Übersicht.
 
 ---
 
@@ -138,13 +162,18 @@ Das Rate-Limiting nutzt die vom Hosting gesetzte `x-forwarded-for`-IP (Vercel se
 | Unternehmensdaten | Inhaber, Anschrift, Telefon, E-Mail, ggf. UID/Firmenbuch, Gewerbe, Behörde, Kammer → *Admin → Einstellungen*. Fehlende Angaben sind im Impressum gelb markiert |
 | WhatsApp | Nummer unter *Admin → Einstellungen* eintragen – erst dann erscheint der WhatsApp-Button (lokal zeigt ein gestrichelter Hinweis-Button die Stelle) |
 | Rechtstexte | Impressum, Datenschutz, AGB und Stornobedingungen sind **Entwürfe** und als „rechtlich nicht geprüft“ gekennzeichnet. Markierte Stellen (Zahlungsarten, USt./Kleinunternehmer, FAGG-Rücktrittsbelehrung, Stornofristen/-gebühren, Hosting-/E-Mail-Anbieter) ergänzen und rechtlich prüfen lassen |
-| Preise | Vorgegeben: Innenraum Premium 119 €, Außenreinigung Premium 99 €, Komplettreinigung Premium ab 189 €. **Platzhalter, bitte prüfen:** Aufpreise für Limousine/SUV/Kombi/Van, Preise der Zusatzleistungen, alle Dauern, Premium-Aufbereitung („auf Anfrage“) |
+| Preise | Alle regulären Preise, der Einführungsrabatt und alle Dauern sind **Vorschläge** (siehe „Preisstrategie“). Hinweis: Das Komplettpaket startet beim Einführungspreis mit 199 € (früher „ab 189 €“). In *Admin → Leistungen* und *Admin → Aktionen* anpassen |
+| Preisdarstellung | Regulärer Preis wird als „Regulär 149 €“ genannt, **nicht** durchgestrichen. Durchstreichen (Schalter je Aktion) nur, wenn der reguläre Preis tatsächlich gilt bzw. gegolten hat – Preisgegenüberstellung rechtlich prüfen lassen |
+| Buchungs-Button | Beschriftung „Termin jetzt buchen“ (`src/config/site.ts` → `bookingButtonLabel`) mit Hinweis „Verbindliche Buchung zum Gesamtpreis …“ direkt darüber. Ob die Beschriftung den Anforderungen an zahlungspflichtige Online-Verträge (§ 8 FAGG) genügt, bitte rechtlich prüfen lassen |
+| Zahlung & Anfahrt | Texte gehen von „Zahlung nach der Durchführung vor Ort“ und „Anfahrt im Einsatzgebiet inklusive“ aus – bitte bestätigen oder anpassen (FAQ, AGB, Preisseite) |
+| Stornofrist | Online-Stornierung bis 24 Stunden vor dem Termin (*Admin → Verfügbarkeit*). Gebühren für spätere Absagen in den Stornobedingungen festlegen |
+| Über uns / FAQ | Texte beschreiben Arbeitsweise und Abläufe als Vorschlag – bitte an die tatsächliche Praxis anpassen |
 | Leistungsbeschreibungen | Enthaltene Leistungen in *Admin → Leistungen* an das tatsächliche Angebot anpassen |
 | Arbeitszeiten | Startwerte Mo–Fr 8–18 Uhr, Sa 9–15 Uhr → anpassen |
-| Galerie | Alle aktuellen Bilder sind **Demo-Visualisierungen** (deutlich gekennzeichnet). Durch echte Vorher/Nachher-Fotos ersetzen |
-| Bewertungen | Keine erfundenen Bewertungen. Echte Bewertungen in `src/content/testimonials.ts` ergänzen |
-| Infrastruktur | `DATABASE_URL`, SMTP-Daten, `ADMIN_NOTIFICATION_EMAIL`, `NEXT_PUBLIC_SITE_URL` setzen |
-| Google | Google-Unternehmensprofil anlegen (Servicegebiet Graz/Graz-Umgebung), Sitemap in der Search Console einreichen: `/sitemap.xml` |
+| Galerie | Alle aktuellen Bilder sind **Demo-Visualisierungen** (deutlich gekennzeichnet). In *Admin → Galerie* durch echte Vorher/Nachher-Fotos ersetzen (mit Einverständnis, ohne Kennzeichen) |
+| Bewertungen | Keine erfundenen Bewertungen. Echte Bewertungen in `src/content/testimonials.ts` ergänzen; Bewertungslink in *Admin → Einstellungen* |
+| Infrastruktur | Datenbank verbinden, `ADMIN_PASSWORD_HASH`, SMTP-Daten, `ADMIN_NOTIFICATION_EMAIL`, `CRON_SECRET`, `NEXT_PUBLIC_SITE_URL` setzen |
+| Google | Google-Unternehmensprofil anlegen – Schritt-für-Schritt-Vorbereitung: [`docs/google-unternehmensprofil.md`](docs/google-unternehmensprofil.md). Sitemap in der Search Console einreichen: `/sitemap.xml` |
 
 ---
 
@@ -152,11 +181,14 @@ Das Rate-Limiting nutzt die vom Hosting gesetzte `x-forwarded-for`-IP (Vercel se
 
 - **Doppelbuchungsschutz** dreifach: Verfügbarkeitsprüfung → Datenbank-Sperre (Advisory Lock) in derselben Transaktion → PostgreSQL-`EXCLUDE`-Constraint auf `[Start, Ende + Puffer)`. Getestet mit gleichzeitigen Anfragen (genau eine Buchung gewinnt)
 - **Keine Schein-Buchungen:** Die Bestätigungsseite wird erst nach erfolgreicher Speicherung aufgerufen und lädt die Buchung aus der Datenbank
-- **Preise** werden immer serverseitig berechnet; Preisangaben aus dem Browser werden ignoriert
-- **Admin:** scrypt-Passwort-Hash, HMAC-signiertes httpOnly-Cookie (SameSite=Strict, Secure), 12 h gültig, ungültig nach Passwortwechsel; jede Server-Action prüft die Session; Login-Rate-Limit (5 Versuche / 15 Min.)
+- **Preise** werden immer serverseitig berechnet; der vom Kunden bestätigte Gesamtpreis wird gegen die Server-Berechnung geprüft
+- **Buchung vs. Terminanfrage:** Fester Preis → verbindliche Buchung. „Preis auf Anfrage“ → unverbindliche Terminanfrage (eigene Kennzeichnung, nie automatisch bestätigt)
+- **Admin:** scrypt-Passwort-Hash, HMAC-signiertes httpOnly-Cookie (SameSite=Strict, Secure), 12 h gültig, ungültig nach Passwortwechsel; Login-Rate-Limit (5 Versuche / 15 Min.). Die Session wird vierfach geprüft: vorgelagert (`proxy.ts`), in jeder Admin-Seite, in jeder Server-Action und in der Datenzugriffsschicht – ein Layout allein schützt in Next.js keine Seite
+- **Uploads:** nur für angemeldete Admins, nur JPG/PNG/WebP bis 6 MB, werden neu kodiert (WebP, max. 1800 px, Metadaten wie GPS entfernt)
+- **Rollen:** Es gibt genau eine Rolle (Administrator). Mehrere Benutzer/Rollen sind bewusst nicht eingebaut, solange nur eine Person verwaltet
 - **API:** Herkunftsprüfung (Origin), Honeypot gegen Bots, Rate-Limit (10 Buchungen / Stunde / IP), IP-Adressen nur gehasht gespeichert
 - **Header:** Content-Security-Policy, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy
-- **DSGVO:** keine Tracking-/Werbe-Cookies, Schriften und Bilder lokal, Einwilligung zu Datenschutz & AGB wird mit Zeitstempel gespeichert, Buchungen können im Admin **anonymisiert** oder (storniert) gelöscht werden
+- **DSGVO:** keine Tracking-/Werbe-Cookies (daher kein Cookie-Banner nötig), Schriften und Bilder lokal, Einwilligung zu Datenschutz & AGB wird mit Zeitstempel gespeichert, optionale Einwilligung für Angebote per E-Mail getrennt erfasst, Buchungen können im Admin **anonymisiert** oder (storniert) gelöscht werden
 
 ---
 
@@ -169,13 +201,16 @@ npm run typecheck
 npm run build
 ```
 
-Durchgeführte Prüfungen (Produktions-Build gegen PostgreSQL):
-- Komplette Buchung im Browser (Desktop & iPhone-Viewport) inkl. Validierungsfehlern, Kalender, Bestätigungsseite
-- Admin-Login, Status ändern, Daten bearbeiten, Termin verschieben, Sperrzeit eintragen (API zeigt danach keine Termine), Preisänderung sofort auf der Website, Logout (Desktop & Mobil)
-- 5 gleichzeitige Buchungen auf denselben Termin → 1× gespeichert, 4× abgewiesen
-- Lighthouse (Mobil, gedrosselt): Accessibility 100, Best Practices 100, SEO 100, Performance 85–92
-- axe-core (WCAG 2.1 AA): 0 Verstöße auf allen öffentlichen Seiten, allen Buchungsschritten und allen Admin-Seiten
-- Keine Fehler in der Browser-Konsole, keine CSP-Verstöße, kein horizontales Scrollen auf Smartphones
+Durchgeführte Prüfungen (Produktions-Build gegen lokales PostgreSQL – keine Testdaten in einer Produktivdatenbank):
+- 61 automatisierte Tests (+ 12 gegen echtes PostgreSQL): Preise/Rabatte/Rundung, Aktionszeiträume, Preisstaffel, Verfügbarkeit, Teams, Doppelbuchung (auch gleichzeitig), Preisprüfung, Online-Stornierung, Erinnerungen, Terminanfrage, Validierung
+- Komplette Buchung im Browser (Desktop & Smartphone) inkl. Fehlermeldungen je Schritt, PLZ außerhalb des Einsatzgebiets, Rabatt in Übersicht und Bestätigung, Kalenderdatei
+- API: falscher Preis → abgelehnt, fremde Herkunft → 403, zwei gleichzeitige Buchungen → 1× gespeichert / 1× abgewiesen, Honeypot, Stornierung gibt den Termin wieder frei
+- Kontaktformular (Validierung, Speicherung, Anzeige im Admin), PLZ-Prüfung
+- Admin: Login (falsches Passwort), Buchung bestätigen, Kalender (Tag/Woche/Monat), Aktion anlegen → sofort auf der Preisseite sichtbar → löschen, Bild-Upload → Galerie → Auslieferung → löschen, ungültige Uploads abgewiesen, Statistiken
+- Zugriffsschutz: alle Admin-Seiten (auch als direkte RSC-Anfrage), Upload und Cron ohne Berechtigung gesperrt
+- Lighthouse (Mobil, gedrosselt): Accessibility 100, Best Practices 100, SEO 100, Performance 90–93
+- axe-core (WCAG 2.1 AA): 0 Verstöße auf allen öffentlichen Seiten, allen Buchungsschritten und allen Admin-Seiten – Desktop und Smartphone
+- Keine Fehler in der Browser-Konsole, kein horizontales Scrollen auf Smartphones
 
 ---
 

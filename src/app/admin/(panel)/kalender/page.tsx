@@ -156,9 +156,15 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
                   key={d}
                   href={href('tag', d)}
                   className={`adm-cal-cell ${outside ? 'is-outside' : ''} ${d === today ? 'is-today' : ''} ${!i.open ? 'is-closed' : ''} ${i.blocked.length ? 'is-blocked' : ''}`}
-                  aria-label={`${formatCalendarDate(d)}: ${i.bookings.length} Termin${i.bookings.length === 1 ? '' : 'e'}${i.blocked.length ? ', Sperrzeit' : ''}${!i.open ? ', Ruhetag' : ''}`}
                 >
-                  <span className="adm-cal-date">{Number(d.slice(8))}</span>
+                  <span className="sr-only">
+                    {formatCalendarDate(d)}: {i.bookings.length} Termin{i.bookings.length === 1 ? '' : 'e'}
+                    {i.blocked.length ? ', Sperrzeit' : ''}
+                    {!i.open ? ', Ruhetag' : ''}.
+                  </span>
+                  <span className="adm-cal-date" aria-hidden="true">
+                    {Number(d.slice(8))}
+                  </span>
                   {i.blocked.length > 0 && (
                     <span className="adm-cal-tag adm-cal-tag--blocked">
                       <Icon name="lock" size={11} /> <span>gesperrt</span>
@@ -170,7 +176,11 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
                     </span>
                   ))}
                   {i.bookings.length > 3 && <span className="adm-cal-more">+{i.bookings.length - 3} weitere</span>}
-                  {i.bookings.length > 0 && <span className="adm-cal-count">{i.bookings.length}</span>}
+                  {i.bookings.length > 0 && (
+                    <span className="adm-cal-count" aria-hidden="true">
+                      {i.bookings.length}
+                    </span>
+                  )}
                 </Link>
               )
             })}

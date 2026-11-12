@@ -134,7 +134,7 @@ export default async function PromotionsPage() {
             So werden die Pakete jetzt verkauft ({running.length === 0 ? 'keine Aktion aktiv' : `${running.length} Aktion${running.length === 1 ? '' : 'en'} aktiv`}). Darunter
             steht jeweils der reguläre Preis.
           </p>
-          <div className="adm-table-wrap">
+          <div className="adm-table-wrap" tabIndex={0} role="region" aria-label="Aktuelle Preise je Fahrzeugkategorie">
             <table className="adm-table">
               <thead>
                 <tr>

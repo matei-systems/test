@@ -90,7 +90,7 @@ export default async function ServicesPage() {
                       <Link href={`/buchen?leistung=${s.id}`} className={`btn ${s.featured ? 'btn--primary' : 'btn--light'}`}>
                         Termin buchen <Icon name="arrow-right" />
                       </Link>
-                      <Link href={`/leistungen/${s.id}`} className="link-arrow" aria-label={`Details und Preise zu ${s.name}`}>
+                      <Link href={`/leistungen/${s.id}`} className="link-arrow" aria-label={`Details & Preise: ${s.name}`}>
                         Details &amp; Preise <Icon name="arrow-right" />
                       </Link>
                     </div>

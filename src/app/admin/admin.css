@@ -991,7 +991,12 @@
 }
 
 .adm-cal-cell.is-outside {
-  opacity: 0.4;
+  border-color: transparent;
+  background: transparent;
+}
+
+.adm-cal-cell.is-outside .adm-cal-date {
+  color: var(--text-dim);
 }
 
 .adm-cal-cell.is-closed {
@@ -1202,7 +1207,7 @@
   overflow-wrap: anywhere;
 }
 
-.adm-cal-event span {
+.adm-cal-event > span:not(.adm-status) {
   font-size: 0.78rem;
   color: var(--text-dim);
   overflow-wrap: anywhere;
