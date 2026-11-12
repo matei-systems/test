@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { LegalPage, Todo, Val } from '@/components/site/Legal'
 import { getSettings } from '@/lib/catalog'
+import { SITE } from '@/config/site'
 
 export const metadata: Metadata = {
   title: 'Allgemeine Geschäftsbedingungen (AGB)',
@@ -21,9 +22,15 @@ export default async function AgbPage() {
 
       <h2>2. Vertragsabschluss</h2>
       <p>
-        Mit dem Absenden der Online-Buchung („Termin verbindlich buchen“) gibt der Kunde ein verbindliches Angebot ab. Der Kunde erhält
-        unmittelbar eine Buchungsnummer. Der Vertrag kommt mit unserer Bestätigung des Termins (per E-Mail oder telefonisch) zustande. Wir
-        behalten uns vor, Buchungen in begründeten Fällen (z. B. außerhalb des Einsatzgebiets, ungeeigneter Standort) abzulehnen.
+        Mit dem Absenden der Online-Buchung („{SITE.bookingButtonLabel}“) gibt der Kunde ein verbindliches Angebot zum in der
+        Buchungsübersicht angezeigten Gesamtpreis ab. Der Kunde erhält unmittelbar eine Buchungsnummer; der gewählte Termin ist damit
+        reserviert. Der Vertrag kommt mit unserer Bestätigung des Termins (per E-Mail oder telefonisch) zustande. Wir behalten uns vor,
+        Buchungen in begründeten Fällen (z. B. außerhalb des Einsatzgebiets, ungeeigneter Standort) abzulehnen.
+      </p>
+      <p>
+        Ist für die gewählte Leistung kein fester Preis angegeben („Preis auf Anfrage“), stellt der Kunde eine{' '}
+        <strong>unverbindliche Terminanfrage</strong>. In diesem Fall übermitteln wir ein Angebot; der Vertrag kommt erst mit der Annahme
+        dieses Angebots durch den Kunden zustande. <Todo>[Formulierung zum Vertragsabschluss und zur Button-Beschriftung (§ 8 FAGG) rechtlich prüfen]</Todo>
       </p>
 
       <h2>3. Leistungen</h2>
@@ -45,7 +52,10 @@ export default async function AgbPage() {
 
       <h2>5. Preise und Zahlung</h2>
       <p>
-        Es gelten die zum Zeitpunkt der Buchung auf der Website angegebenen Preise für die gewählte Fahrzeugkategorie. Weicht der tatsächliche
+        Es gelten die zum Zeitpunkt der Buchung auf der Website angegebenen Preise für die gewählte Fahrzeugkategorie; maßgeblich ist der in
+        der Buchungsübersicht ausgewiesene Gesamtpreis. Zeitlich befristete Aktionen (z. B. Einführungspreise) gelten für Buchungen, die
+        innerhalb des angegebenen Aktionszeitraums abgesendet werden, und nur für die jeweils genannten Leistungen; Zusatzleistungen sind
+        davon ausgenommen. Die Anfahrt innerhalb des Einsatzgebiets ist im Preis enthalten. Weicht der tatsächliche
         Zustand des Fahrzeugs wesentlich ab (z. B. starke Verschmutzung, Tierhaare) oder entspricht die Fahrzeugkategorie nicht der Angabe,
         informieren wir den Kunden vor Beginn der Arbeiten über anfallende Mehrkosten. Leistungen „auf Anfrage“ werden erst nach Annahme
         unseres Angebots erbracht. <Todo>[Zahlungsarten und Fälligkeit ergänzen, z. B. Barzahlung/Karte nach Durchführung]</Todo>{' '}
@@ -54,7 +64,8 @@ export default async function AgbPage() {
 
       <h2>6. Terminänderung und Stornierung</h2>
       <p>
-        Es gelten unsere <Link href="/stornobedingungen">Stornobedingungen</Link>. Ist die Durchführung aus Gründen, die wir nicht zu vertreten
+        Es gelten unsere <Link href="/stornobedingungen">Stornobedingungen</Link>. Innerhalb der dort genannten Frist kann der Kunde seinen
+        Termin über den persönlichen Link in der Buchungsbestätigung selbst online stornieren. Ist die Durchführung aus Gründen, die wir nicht zu vertreten
         haben (z. B. Unwetter, Unzugänglichkeit des Fahrzeugs), nicht möglich, vereinbaren wir einen Ersatztermin.
       </p>
 

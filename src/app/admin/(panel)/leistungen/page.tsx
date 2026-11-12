@@ -1,15 +1,16 @@
 import Link from 'next/link'
 import { getDb } from '@/lib/db'
 import { loadCatalog } from '@/lib/catalog'
-import { servicePriceRange } from '@/lib/pricing'
 import { formatDuration, formatPrice } from '@/lib/format'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { Icon } from '@/components/icons'
 import { createServiceAction, deleteAddonAction, saveAddonAction, saveVehicleAction } from '../../actions'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Leistungen & Preise' }
 
 export default async function ServicesAdminPage({ searchParams }: { searchParams: Promise<{ geloescht?: string }> }) {
+  await requireAdmin()
   const sp = await searchParams
   const catalog = await loadCatalog(await getDb(), true)
   const activeVehicles = catalog.vehicles.filter((v) => v.active)
@@ -25,13 +26,19 @@ export default async function ServicesAdminPage({ searchParams }: { searchParams
 
       <section className="adm-card" style={{ marginBottom: 16 }}>
         <h2>Leistungen</h2>
-        <p className="adm-card-desc">Preis „ab“ = günstigste aktive Fahrzeugkategorie. Klicke auf eine Leistung, um Texte, Preise und Dauer je Fahrzeug zu bearbeiten.</p>
+        <p className="adm-card-desc">
+          Hier pflegst du die <strong>regulären Preise</strong> je Fahrzeugkategorie. Einführungspreise und Rabatte legst du unter{' '}
+          <Link href="/admin/aktionen" style={{ textDecoration: 'underline' }}>
+            Aktionen
+          </Link>{' '}
+          fest – sie werden automatisch vom regulären Preis berechnet.
+        </p>
         <div className="adm-table-wrap">
           <table className="adm-table adm-table--cards">
             <thead>
               <tr>
                 <th>Leistung</th>
-                <th>Preise</th>
+                <th>Reguläre Preise</th>
                 <th>Dauer</th>
                 <th>Status</th>
                 <th />
@@ -39,7 +46,7 @@ export default async function ServicesAdminPage({ searchParams }: { searchParams
             </thead>
             <tbody>
               {catalog.services.map((s) => {
-                const range = servicePriceRange(s, activeVehicles)
+                const regular = activeVehicles.map((v) => s.prices[v.id]?.priceCents).filter((p): p is number => typeof p === 'number')
                 const durations = activeVehicles.map((v) => s.prices[v.id]?.durationMinutes ?? 0).filter(Boolean)
                 return (
                   <tr key={s.id}>
@@ -53,8 +60,14 @@ export default async function ServicesAdminPage({ searchParams }: { searchParams
                         {s.requiresAddon ? ' · nur Zusatzleistungen' : ''}
                       </span>
                     </td>
-                    <td data-label="Preise">
-                      {s.requiresAddon ? 'aus Zusatzleistungen' : range.onRequest ? 'auf Anfrage' : `${formatPrice(range.min)} – ${formatPrice(range.max)}`}
+                    <td data-label="Reguläre Preise">
+                      {s.requiresAddon
+                        ? 'aus Zusatzleistungen'
+                        : regular.length === 0
+                          ? 'auf Anfrage'
+                          : Math.min(...regular) === Math.max(...regular)
+                            ? formatPrice(regular[0])
+                            : `${formatPrice(Math.min(...regular))} – ${formatPrice(Math.max(...regular))}`}
                     </td>
                     <td data-label="Dauer">{durations.length ? `${formatDuration(Math.min(...durations))} – ${formatDuration(Math.max(...durations))}` : '–'}</td>
                     <td data-label="Status">

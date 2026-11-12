@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Icon } from '@/components/icons'
 import { getBookingByToken } from '@/lib/bookings'
-import { formatDateLong, formatDuration, formatPrice, formatTime } from '@/lib/format'
+import { formatDateLong, formatDateTime, formatDuration, formatEuro, formatPrice, formatTime } from '@/lib/format'
+import { CancelBooking } from '@/components/booking/CancelBooking'
+import { DiscountBadge } from '@/components/site/PriceTag'
 import { getSettings } from '@/lib/catalog'
 import { telHref } from '@/lib/format'
 import styles from './page.module.css'
@@ -11,6 +13,14 @@ import styles from './page.module.css'
 export const metadata: Metadata = {
   title: 'Buchungsbestätigung',
   robots: { index: false, follow: false },
+}
+
+/** Terminanfrage (Preis auf Anfrage): andere Formulierung, solange sie noch nicht bestätigt wurde */
+const REQUEST_NEW = {
+  label: 'Anfrage',
+  title: 'Vielen Dank – deine Terminanfrage ist eingegangen.',
+  text: 'Der Termin ist für dich vorgemerkt. Wir melden uns mit einem Angebot – erst mit deiner Zustimmung kommt der Auftrag zustande.',
+  tone: 'pending' as const,
 }
 
 const STATUS: Record<string, { label: string; title: string; text: string; tone: 'ok' | 'pending' | 'cancel' }> = {
@@ -35,8 +45,10 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
   const { token } = await params
   const [booking, settings] = await Promise.all([getBookingByToken(token), getSettings()])
   if (!booking) notFound()
-  const st = STATUS[booking.status] ?? STATUS.neu
+  const st = booking.kind === 'anfrage' && booking.status === 'neu' ? REQUEST_NEW : (STATUS[booking.status] ?? STATUS.neu)
   const { business } = settings
+  const noun = booking.kind === 'anfrage' ? 'Vorgangsnummer' : 'Buchungsnummer'
+  const hasDiscount = booking.discountCents > 0 && booking.regularPriceCents !== null && booking.totalPriceCents !== null
 
   return (
     <div className={styles.page}>
@@ -45,7 +57,9 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
           <span className={`${styles.icon} ${st.tone === 'cancel' ? styles.iconCancel : ''}`} aria-hidden="true">
             <Icon name={st.tone === 'cancel' ? 'close' : 'check'} size={34} />
           </span>
-          <p className="eyebrow">Buchungsnummer {booking.reference}</p>
+          <p className="eyebrow">
+            {noun} {booking.reference}
+          </p>
           <h1 className="h2">{st.title}</h1>
           <p className="lead">{st.text}</p>
         </div>
@@ -53,7 +67,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
         <div className={styles.card}>
           <div className={styles.cardHead}>
             <div>
-              <p className={styles.small}>Buchungsnummer</p>
+              <p className={styles.small}>{noun}</p>
               <p className={styles.ref}>{booking.reference}</p>
             </div>
             <span className={`badge ${st.tone === 'cancel' ? 'badge--neutral' : ''}`}>{st.label}</span>
@@ -90,7 +104,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
                 <Icon name="pin" size={16} /> Standort
               </dt>
               <dd>
-                {booking.street}, {booking.postalCode} {booking.city}
+                {booking.street} {booking.houseNumber}, {booking.postalCode} {booking.city}
               </dd>
             </div>
             <div>
@@ -101,7 +115,16 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
                 {booking.totalPriceCents === null
                   ? 'auf Anfrage – verbindliches Angebot vor Beginn'
                   : formatPrice(booking.totalPriceCents, { from: booking.priceIsFrom })}
-                {booking.totalPriceCents !== null && <small>Endpreis</small>}
+                {booking.totalPriceCents !== null && <small>Endpreis · Zahlung nach der Durchführung vor Ort</small>}
+                {hasDiscount && (
+                  <small style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                    {booking.promotionName ?? 'Aktion'}
+                    {booking.promotionPercent ? <DiscountBadge percent={booking.promotionPercent} /> : null}
+                    <span>
+                      regulär {formatEuro(booking.regularPriceCents as number)} · du sparst {formatEuro(booking.discountCents)}
+                    </span>
+                  </small>
+                )}
               </dd>
             </div>
           </dl>
@@ -113,7 +136,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
               </p>
             ) : (
               <p>
-                <Icon name="info" size={16} /> Bitte notiere dir deine Buchungsnummer. Wir melden uns zur Bestätigung persönlich bei dir
+                <Icon name="info" size={16} /> Bitte notiere dir deine {noun} und speichere diese Seite als Lesezeichen. Wir melden uns zur Bestätigung persönlich bei dir
                 {business.phone ? ' – telefonisch oder per E-Mail' : ' per E-Mail oder Telefon'}.
               </p>
             )}
@@ -129,10 +152,16 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
               Zur Startseite
             </Link>
           </div>
+
+          {booking.cancellableUntil && (
+            <div className={styles.mail}>
+              <CancelBooking token={token} until={`${formatDateTime(booking.cancellableUntil)} Uhr`} kind={booking.kind} />
+            </div>
+          )}
         </div>
 
         <p className={styles.help}>
-          Änderung oder Stornierung? Melde dich bitte so früh wie möglich
+          {booking.cancellableUntil ? 'Terminverschiebung oder Fragen?' : 'Änderung oder Stornierung?'} Melde dich bitte so früh wie möglich
           {business.phone ? (
             <>
               {' '}

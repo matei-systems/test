@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getSettings, getWorkingHours } from '@/lib/catalog'
 import { listBlockedPeriods } from '@/lib/admin-data'
 import { formatDateTime, WEEKDAYS_LONG } from '@/lib/format'
@@ -5,10 +6,12 @@ import { todayInZone } from '@/lib/time'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { Icon } from '@/components/icons'
 import { addBlockedPeriodAction, deleteBlockedPeriodAction, saveRulesAction, saveWorkingHoursAction } from '../../actions'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Verfügbarkeit' }
 
 export default async function AvailabilityPage() {
+  await requireAdmin()
   const [hours, blocked, settings] = await Promise.all([getWorkingHours(), listBlockedPeriods(), getSettings()])
   const r = settings.rules
   const today = todayInZone()
@@ -19,6 +22,9 @@ export default async function AvailabilityPage() {
           <h1>Verfügbarkeit</h1>
           <p>Arbeitszeiten, Urlaub &amp; Sperrzeiten und Buchungsregeln. Die Online-Buchung zeigt ausschließlich freie Termine.</p>
         </div>
+        <Link href="/admin/kalender" className="adm-btn">
+          <Icon name="calendar" size={16} /> Zum Kalender
+        </Link>
       </header>
 
       <div className="adm-grid adm-grid--halves">
@@ -71,6 +77,16 @@ export default async function AvailabilityPage() {
                 <div className="field">
                   <label htmlFor="maxAdvanceDays">Buchbar im Voraus (Tage)</label>
                   <input id="maxAdvanceDays" name="maxAdvanceDays" type="number" min={1} max={365} className="input" defaultValue={r.maxAdvanceDays} />
+                </div>
+                <div className="field">
+                  <label htmlFor="teams">Teams / Mitarbeiter gleichzeitig</label>
+                  <input id="teams" name="teams" type="number" min={1} max={10} className="input" defaultValue={r.teams} />
+                  <span className="field-hint">So viele Termine können zur selben Zeit stattfinden. Jeder Termin wird automatisch einem Team zugewiesen.</span>
+                </div>
+                <div className="field">
+                  <label htmlFor="cancelHours">Online-Stornierung bis (Stunden vorher)</label>
+                  <input id="cancelHours" name="cancelHours" type="number" min={0} max={336} className="input" defaultValue={r.cancelHours} />
+                  <span className="field-hint">0 = Kunden können nicht selbst online stornieren. Bitte passend zu den Stornobedingungen wählen.</span>
                 </div>
               </div>
               <label className="adm-check">

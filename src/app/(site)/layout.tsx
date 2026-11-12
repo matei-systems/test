@@ -1,6 +1,7 @@
 import { Header } from '@/components/site/Header'
 import { Footer } from '@/components/site/Footer'
 import { WhatsAppButton } from '@/components/site/WhatsAppButton'
+import { MobileCta } from '@/components/site/MobileCta'
 import { RevealObserver } from '@/components/site/RevealObserver'
 import { getSettings } from '@/lib/catalog'
 import { isDatabaseConfigured } from '@/lib/db'
@@ -15,10 +16,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <a href="#main" className="skip-link">
         Zum Inhalt springen
       </a>
-      <Header phone={business.phone || undefined} />
+      <Header phone={business.phone || undefined} whatsapp={business.whatsapp || undefined} />
       <main id="main">{children}</main>
       <Footer business={business} area={area} bookingEnabled={isDatabaseConfigured()} />
       <WhatsAppButton number={business.whatsapp} />
+      <MobileCta phone={business.phone} whatsapp={business.whatsapp} />
       <RevealObserver />
     </>
   )

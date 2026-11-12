@@ -10,8 +10,11 @@ import { getSettings, invalidateCatalogCache } from '@/lib/catalog'
 import { clientIp, rateLimit, resetRateLimit } from '@/lib/rate-limit'
 import { customerSchema } from '@/lib/validation'
 import { addDays, isValidDateString, isValidTimeString, zonedToUtc } from '@/lib/time'
-import { customerRescheduleMail, customerStatusMail, sendMail, type BookingMailData } from '@/lib/email'
-import { getBooking, bookingsInRange, type BookingRow } from '@/lib/admin-data'
+import { customerRescheduleMail, customerStatusMail, sendMail } from '@/lib/email'
+import { recordToMailData as mailData } from '@/lib/bookings'
+import { cleanupOrphanMedia, isAllowedImageSrc } from '@/lib/media'
+import { notifyWebhook } from '@/lib/notify'
+import { getBooking, bookingsInRange } from '@/lib/admin-data'
 import { formatDateTime, STATUS_LABELS } from '@/lib/format'
 import { getSiteUrl } from '@/config/site'
 
@@ -81,32 +84,6 @@ export async function logoutAction(): Promise<void> {
 
 const STATUSES = ['neu', 'bestaetigt', 'in_bearbeitung', 'abgeschlossen', 'storniert'] as const
 
-function mailData(b: BookingRow): BookingMailData {
-  return {
-    reference: b.reference,
-    status: b.status,
-    serviceName: b.service_name,
-    vehicleCategoryName: b.vehicle_category_name,
-    addons: b.addons ?? [],
-    servicePriceCents: b.service_price_cents,
-    totalPriceCents: b.total_price_cents,
-    priceIsFrom: b.price_is_from,
-    durationMinutes: b.duration_minutes,
-    startsAt: new Date(b.starts_at),
-    endsAt: new Date(b.ends_at),
-    firstName: b.first_name,
-    lastName: b.last_name,
-    email: b.email,
-    phone: b.phone,
-    street: b.street,
-    postalCode: b.postal_code,
-    city: b.city,
-    vehicleModel: b.vehicle_model,
-    licensePlate: b.license_plate,
-    customerMessage: b.customer_message,
-  }
-}
-
 async function logEvent(bookingId: string, type: string, message: string, data: Record<string, unknown> = {}) {
   const db = await getDb()
   await db.query('INSERT INTO booking_events (booking_id, type, message, data) VALUES ($1, $2, $3, $4::jsonb)', [
@@ -131,7 +108,7 @@ export async function updateStatusAction(_prev: ActionState, fd: FormData): Prom
 
   const db = await getDb()
   try {
-    await db.query('UPDATE bookings SET status = $2, updated_at = now() WHERE id = $1', [id, status])
+    await db.query('UPDATE bookings SET status = $2, cancelled_by = $3, updated_at = now() WHERE id = $1', [id, status, status === 'storniert' ? 'admin' : null])
   } catch (err) {
     if (pgErrorCode(err) === PG_EXCLUSION_VIOLATION) {
       return fail('Der Zeitraum ist inzwischen durch eine andere Buchung belegt. Bitte zuerst den Termin verschieben.')
@@ -180,17 +157,27 @@ export async function rescheduleAction(_prev: ActionState, fd: FormData): Promis
   const blockedUntil = new Date(endsAt.getTime() + settings.rules.bufferMinutes * 60_000)
 
   const db = await getDb()
+  let team = Number(booking.team)
   try {
-    await db.transaction(async (tx) => {
+    const assigned = await db.transaction(async (tx) => {
       await tx.query('SELECT pg_advisory_xact_lock(72110002)')
-      await tx.query('UPDATE bookings SET starts_at = $2, ends_at = $3, blocked_until = $4, duration_minutes = $5, updated_at = now() WHERE id = $1', [
-        id,
-        startsAt,
-        endsAt,
-        blockedUntil,
-        duration,
-      ])
+      // Freies Team für den neuen Zeitraum suchen (bevorzugt das bisherige Team)
+      const busy = await tx.query<{ team: number }>(
+        `SELECT DISTINCT team FROM bookings WHERE status <> 'storniert' AND id <> $1 AND starts_at < $3 AND blocked_until > $2`,
+        [id, startsAt, blockedUntil],
+      )
+      const taken = new Set(busy.rows.map((r) => Number(r.team)))
+      const order = [team, ...Array.from({ length: Math.max(1, settings.rules.teams) }, (_, i) => i + 1).filter((t) => t !== team)]
+      const free = booking.status === 'storniert' ? team : order.find((t) => !taken.has(t))
+      if (!free) return null
+      await tx.query(
+        'UPDATE bookings SET starts_at = $2, ends_at = $3, blocked_until = $4, duration_minutes = $5, team = $6, reminder_sent_at = NULL, updated_at = now() WHERE id = $1',
+        [id, startsAt, endsAt, blockedUntil, duration, free],
+      )
+      return free
     })
+    if (assigned === null) return fail('Dieser Zeitraum überschneidet sich (inkl. Pufferzeit) mit einer anderen Buchung.')
+    team = assigned
   } catch (err) {
     if (pgErrorCode(err) === PG_EXCLUSION_VIOLATION) {
       return fail('Dieser Zeitraum überschneidet sich (inkl. Pufferzeit) mit einer anderen Buchung.')
@@ -226,8 +213,10 @@ export async function updateDetailsAction(_prev: ActionState, fd: FormData): Pro
     phone: str(fd, 'phone'),
     email: str(fd, 'email'),
     street: str(fd, 'street'),
+    houseNumber: str(fd, 'houseNumber'),
     postalCode: str(fd, 'postalCode'),
     city: str(fd, 'city'),
+    locationNote: str(fd, 'locationNote'),
     vehicleModel: str(fd, 'vehicleModel'),
     licensePlate: str(fd, 'licensePlate'),
     message: str(fd, 'message'),
@@ -249,11 +238,28 @@ export async function updateDetailsAction(_prev: ActionState, fd: FormData): Pro
   const db = await getDb()
   await db.query(
     `UPDATE bookings SET first_name=$2, last_name=$3, phone=$4, email=$5, street=$6, postal_code=$7, city=$8,
-       vehicle_model=$9, license_plate=$10, customer_message=$11, admin_note=$12, total_price_cents=$13, updated_at=now()
+       vehicle_model=$9, license_plate=$10, customer_message=$11, admin_note=$12, total_price_cents=$13,
+       house_number=$14, location_note=$15, updated_at=now()
      WHERE id=$1`,
-    [id, c.firstName, c.lastName, c.phone, c.email.toLowerCase(), c.street, c.postalCode, c.city, c.vehicleModel, c.licensePlate || null, c.message || null, str(fd, 'adminNote').slice(0, 2000) || null, totalCents],
+    [
+      id,
+      c.firstName,
+      c.lastName,
+      c.phone,
+      c.email.toLowerCase(),
+      c.street,
+      c.postalCode,
+      c.city,
+      c.vehicleModel,
+      c.licensePlate || null,
+      c.message || null,
+      str(fd, 'adminNote').slice(0, 2000) || null,
+      totalCents,
+      c.houseNumber,
+      c.locationNote || null,
+    ],
   )
-  if (totalCents !== booking.total_price_cents) {
+  if (totalCents !== (booking.total_price_cents === null ? null : Number(booking.total_price_cents))) {
     await logEvent(id, 'preis', `Preis geändert: ${booking.total_price_cents ?? 'auf Anfrage'} → ${totalCents ?? 'auf Anfrage'} (Cent)`)
   }
   await logEvent(id, 'daten', 'Kunden-/Buchungsdaten bearbeitet')
@@ -288,8 +294,8 @@ export async function anonymizeAction(_prev: ActionState, fd: FormData): Promise
   }
   const db = await getDb()
   await db.query(
-    `UPDATE bookings SET first_name='Anonymisiert', last_name='', email='anonymisiert@invalid', phone='-', street='-', postal_code='0000', city='-',
-       vehicle_model='-', license_plate=NULL, customer_message=NULL, admin_note=NULL, anonymized_at=now(), updated_at=now()
+    `UPDATE bookings SET first_name='Anonymisiert', last_name='', email='anonymisiert@invalid', phone='-', street='-', house_number='', postal_code='0000', city='-', location_note=NULL,
+       vehicle_model='-', license_plate=NULL, customer_message=NULL, admin_note=NULL, marketing_consent_at=NULL, anonymized_at=now(), updated_at=now()
      WHERE id=$1`,
     [booking.id],
   )
@@ -389,6 +395,8 @@ const rulesSchema = z.object({
   slotIntervalMinutes: z.coerce.number().int().refine((n) => [15, 20, 30, 45, 60].includes(n), 'Raster: 15, 20, 30, 45 oder 60 Minuten'),
   minLeadHours: z.coerce.number().int().min(0).max(24 * 14),
   maxAdvanceDays: z.coerce.number().int().min(1).max(365),
+  teams: z.coerce.number().int().min(1, 'Mindestens 1 Team.').max(10, 'Maximal 10 Teams.'),
+  cancelHours: z.coerce.number().int().min(0).max(24 * 14),
 })
 
 export async function saveRulesAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
@@ -398,6 +406,8 @@ export async function saveRulesAction(_prev: ActionState, fd: FormData): Promise
     slotIntervalMinutes: str(fd, 'slotIntervalMinutes'),
     minLeadHours: str(fd, 'minLeadHours'),
     maxAdvanceDays: str(fd, 'maxAdvanceDays'),
+    teams: str(fd, 'teams') || '1',
+    cancelHours: str(fd, 'cancelHours') || '0',
   })
   if (!parsed.success) return fail(parsed.error.issues[0].message)
   const rules = { ...parsed.data, autoConfirm: fd.get('autoConfirm') === 'on' }
@@ -460,13 +470,15 @@ export async function saveServiceAction(_prev: ActionState, fd: FormData): Promi
     if (!Number.isInteger(minutes) || minutes < 0 || minutes > 720) return fail(`Ungültige Dauer bei ${v.name} (0–720 Minuten).`)
     prices.push({ vehicle: v.id, price, minutes })
   }
+  const imageSrc = str(fd, 'imageSrc')
+  if (imageSrc && !isAllowedImageSrc(imageSrc)) return fail('Ungültiges Bild.')
   const requiresAddon = fd.get('requiresAddon') === 'on'
   if (!requiresAddon && prices.some((p) => p.minutes < 15)) return fail('Die Dauer muss bei Paketen mindestens 15 Minuten betragen.')
 
   await db.transaction(async (tx) => {
     const res = await tx.query(
       `UPDATE services SET name=$2, tagline=$3, description=$4, includes=$5::jsonb, price_note=$6, featured=$7, active=$8,
-         requires_addon=$9, sort=$10, updated_at=now() WHERE id=$1`,
+         requires_addon=$9, sort=$10, image_src=$11, updated_at=now() WHERE id=$1`,
       [
         id,
         name,
@@ -478,6 +490,7 @@ export async function saveServiceAction(_prev: ActionState, fd: FormData): Promi
         fd.get('active') === 'on',
         requiresAddon,
         Number(str(fd, 'sort')) || 0,
+        imageSrc || null,
       ],
     )
     if (res.rowCount === 0) throw new Error('not_found')
@@ -638,6 +651,7 @@ const businessSchema = z.object({
   tradeAuthority: z.string().max(160),
   chamber: z.string().max(160),
   trade: z.string().max(200),
+  reviewUrl: z.union([z.literal(''), z.url('Bewertungslink: bitte eine vollständige Adresse (https://…) angeben').max(300).startsWith('https://', 'Bewertungslink muss mit https:// beginnen')]),
 })
 
 export async function saveBusinessAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
@@ -699,4 +713,199 @@ export async function sendTestMailAction(_prev: ActionState, fd: FormData): Prom
   if (res.status === 'gesendet') return done(`Test-E-Mail an ${to} gesendet.`)
   if (res.status === 'nicht_konfiguriert') return fail('SMTP ist nicht konfiguriert (siehe README → E-Mail-Versand).')
   return fail(`Versand fehlgeschlagen: ${res.error}`)
+}
+
+// ─── Aktionen (Einführungspreise & Rabatte) ─────────────────────────────────────
+
+/** Datum (YYYY-MM-DD, Zeitzone Wien) → Zeitpunkt. Ende gilt bis einschließlich des gewählten Tages. */
+function promoDate(raw: string, endOfDay: boolean): Date | null | 'invalid' {
+  if (!raw) return null
+  if (!isValidDateString(raw)) return 'invalid'
+  return zonedToUtc(endOfDay ? addDays(raw, 1) : raw, '00:00')
+}
+
+export async function savePromotionAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  const name = str(fd, 'name')
+  if (name.length < 2 || name.length > 60) return fail('Bitte eine Bezeichnung (2–60 Zeichen) angeben.', { name: 'Pflichtfeld' })
+  const serviceId = str(fd, 'serviceId') || null
+  const vehicleId = str(fd, 'vehicleId') || null
+  const mode = str(fd, 'mode') === 'preis' ? 'preis' : 'prozent'
+
+  let percent: number | null = null
+  let priceCents: number | null = null
+  if (mode === 'prozent') {
+    percent = Number(str(fd, 'percent'))
+    if (!Number.isInteger(percent) || percent < 1 || percent > 90) return fail('Bitte einen Rabatt zwischen 1 und 90 % angeben.', { percent: 'Ungültig' })
+  } else {
+    const p = parseEuro(str(fd, 'promoPrice'))
+    if (p === 'invalid' || p === null || p <= 0) return fail('Bitte einen gültigen Aktionspreis angeben.', { promoPrice: 'Ungültig' })
+    if (!serviceId || !vehicleId) {
+      return fail('Ein fester Aktionspreis braucht genau eine Leistung und eine Fahrzeugkategorie. Für mehrere Kategorien bitte einen Prozent-Rabatt verwenden.')
+    }
+    priceCents = p
+  }
+
+  const startsAt = promoDate(str(fd, 'startDate'), false)
+  const endsAt = promoDate(str(fd, 'endDate'), true)
+  if (startsAt === 'invalid' || endsAt === 'invalid') return fail('Bitte gültige Daten angeben.')
+  if (startsAt && endsAt && endsAt <= startsAt) return fail('Das Enddatum muss nach dem Startdatum liegen.')
+
+  const db = await getDb()
+  if (serviceId) {
+    const s = await db.query<{ requires_addon: boolean }>('SELECT requires_addon FROM services WHERE id = $1', [serviceId])
+    if (!s.rowCount) return fail('Leistung nicht gefunden.')
+    if (s.rows[0].requires_addon) return fail('Aktionen gelten nur für Pakete mit eigenem Preis.')
+  }
+  if (vehicleId) {
+    const v = await db.query('SELECT 1 FROM vehicle_categories WHERE id = $1', [vehicleId])
+    if (!v.rowCount) return fail('Fahrzeugkategorie nicht gefunden.')
+  }
+  if (priceCents !== null && serviceId && vehicleId) {
+    const reg = await db.query<{ price_cents: number | null }>(
+      'SELECT price_cents FROM service_prices WHERE service_id = $1 AND vehicle_category_id = $2',
+      [serviceId, vehicleId],
+    )
+    const regular = reg.rows[0]?.price_cents
+    if (regular === null || regular === undefined) return fail('Für diese Kombination ist kein regulärer Preis hinterlegt.')
+    if (priceCents >= Number(regular)) return fail('Der Aktionspreis muss unter dem regulären Preis liegen.', { promoPrice: 'Zu hoch' })
+  }
+
+  const values = [name, serviceId, vehicleId, percent, priceCents, startsAt, endsAt, fd.get('active') === 'on', fd.get('showStrikethrough') === 'on']
+  if (id) {
+    if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültige Aktion.')
+    const res = await db.query(
+      `UPDATE promotions SET name=$2, service_id=$3, vehicle_category_id=$4, discount_percent=$5, promo_price_cents=$6,
+         starts_at=$7, ends_at=$8, active=$9, show_strikethrough=$10 WHERE id=$1`,
+      [id, ...values],
+    )
+    if (!res.rowCount) return fail('Aktion nicht gefunden.')
+  } else {
+    await db.query(
+      `INSERT INTO promotions (name, service_id, vehicle_category_id, discount_percent, promo_price_cents, starts_at, ends_at, active, show_strikethrough)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      values,
+    )
+  }
+  refreshPublic()
+  revalidatePath('/admin', 'layout')
+  return done(id ? 'Aktion gespeichert – die Preise auf der Website sind sofort aktualisiert.' : 'Aktion angelegt – die Preise auf der Website sind sofort aktualisiert.')
+}
+
+export async function deletePromotionAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültige Aktion.')
+  const db = await getDb()
+  await db.query('DELETE FROM promotions WHERE id = $1', [id])
+  refreshPublic()
+  revalidatePath('/admin', 'layout')
+  return done('Aktion gelöscht. Es gelten wieder die regulären Preise.')
+}
+
+// ─── Galerie ────────────────────────────────────────────────────────────────────
+
+export async function saveGalleryItemAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  const kind = str(fd, 'kind') === 'bild' ? 'bild' : 'vergleich'
+  const title = str(fd, 'title')
+  if (title.length < 2 || title.length > 80) return fail('Bitte einen Titel (2–80 Zeichen) angeben.', { title: 'Pflichtfeld' })
+  const beforeSrc = str(fd, 'beforeSrc')
+  const afterSrc = str(fd, 'afterSrc')
+  const imageSrc = str(fd, 'imageSrc')
+  if (kind === 'vergleich') {
+    if (!beforeSrc || !afterSrc) return fail('Bitte ein Vorher- und ein Nachher-Bild hochladen.')
+    if (!isAllowedImageSrc(beforeSrc) || !isAllowedImageSrc(afterSrc)) return fail('Ungültiges Bild.')
+  } else {
+    if (!imageSrc) return fail('Bitte ein Bild hochladen.')
+    if (!isAllowedImageSrc(imageSrc)) return fail('Ungültiges Bild.')
+  }
+  const alt = str(fd, 'alt').slice(0, 160) || title
+  const values = [
+    kind,
+    title,
+    str(fd, 'description').slice(0, 300),
+    str(fd, 'category').slice(0, 40),
+    kind === 'vergleich' ? beforeSrc : null,
+    kind === 'vergleich' ? afterSrc : null,
+    kind === 'bild' ? imageSrc : null,
+    alt,
+    fd.get('isDemo') === 'on',
+    fd.get('published') === 'on',
+    Number(str(fd, 'sort')) || 0,
+  ]
+  const db = await getDb()
+  if (id) {
+    if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültiger Eintrag.')
+    const res = await db.query(
+      `UPDATE gallery_items SET kind=$2, title=$3, description=$4, category=$5, before_src=$6, after_src=$7, image_src=$8,
+         alt=$9, is_demo=$10, published=$11, sort=$12 WHERE id=$1`,
+      [id, ...values],
+    )
+    if (!res.rowCount) return fail('Eintrag nicht gefunden.')
+  } else {
+    if (!str(fd, 'sort')) {
+      const next = await db.query<{ s: number }>('SELECT coalesce(min(sort), 10) - 10 AS s FROM gallery_items')
+      values[10] = Number(next.rows[0].s) // neue Einträge erscheinen zuerst
+    }
+    await db.query(
+      `INSERT INTO gallery_items (kind, title, description, category, before_src, after_src, image_src, alt, is_demo, published, sort)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+      values,
+    )
+  }
+  await cleanupOrphanMedia(db).catch(() => undefined)
+  refreshPublic()
+  revalidatePath('/admin', 'layout')
+  return done(id ? 'Eintrag gespeichert.' : 'Eintrag angelegt – er ist sofort in der Galerie sichtbar.')
+}
+
+export async function deleteGalleryItemAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültiger Eintrag.')
+  const db = await getDb()
+  const { rows } = await db.query<{ before_src: string | null; after_src: string | null; image_src: string | null }>(
+    'DELETE FROM gallery_items WHERE id = $1 RETURNING before_src, after_src, image_src',
+    [id],
+  )
+  // Zugehörige hochgeladene Bilder entfernen, sofern sie nirgends sonst verwendet werden
+  for (const src of [rows[0]?.before_src, rows[0]?.after_src, rows[0]?.image_src]) {
+    const m = src?.match(/^\/media\/([0-9a-f-]{36})$/i)
+    if (!m) continue
+    await db.query(
+      `DELETE FROM media WHERE id = $1
+         AND NOT EXISTS (SELECT 1 FROM gallery_items g WHERE $2 IN (g.before_src, g.after_src, g.image_src))
+         AND NOT EXISTS (SELECT 1 FROM services s WHERE s.image_src = $2)`,
+      [m[1], src],
+    )
+  }
+  refreshPublic()
+  revalidatePath('/admin', 'layout')
+  return done('Eintrag gelöscht.')
+}
+
+// ─── Kontaktanfragen ────────────────────────────────────────────────────────────
+
+export async function setInquiryStatusAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  const status = str(fd, 'status') === 'erledigt' ? 'erledigt' : 'neu'
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültige Anfrage.')
+  const db = await getDb()
+  await db.query('UPDATE inquiries SET status = $2 WHERE id = $1', [id, status])
+  revalidatePath('/admin', 'layout')
+  return done(status === 'erledigt' ? 'Als erledigt markiert.' : 'Wieder geöffnet.')
+}
+
+export async function deleteInquiryAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültige Anfrage.')
+  const db = await getDb()
+  await db.query('DELETE FROM inquiries WHERE id = $1', [id])
+  revalidatePath('/admin', 'layout')
+  return done('Anfrage gelöscht.')
 }

@@ -77,7 +77,21 @@
 }
 
 .cta {
+  display: inline-flex;
+  min-height: 44px;
+  padding-inline: 18px;
+}
+
+.ctaLong {
   display: none;
+}
+
+.navLink[aria-current='page'] {
+  color: var(--text);
+}
+
+.navLink[aria-current='page']::after {
+  transform: scaleX(1);
 }
 
 .burger {
@@ -91,9 +105,25 @@
   color: var(--text);
 }
 
-@media (min-width: 560px) {
+/* Smartphone: Logo ohne Unterzeile, damit Buchungsbutton und Menü Platz haben */
+@media (max-width: 519px) {
+  .inner {
+    gap: 12px;
+  }
+  .brand :global(.logo-sub) {
+    display: none;
+  }
   .cta {
-    display: inline-flex;
+    padding-inline: 16px;
+  }
+}
+
+@media (min-width: 560px) {
+  .ctaLong {
+    display: inline;
+  }
+  .ctaShort {
+    display: none;
   }
 }
 

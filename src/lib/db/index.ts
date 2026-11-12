@@ -130,7 +130,8 @@ async function createPglite(): Promise<Db> {
   const fs = await import('node:fs')
   const dir = process.env.PGLITE_DIR || path.join(process.cwd(), '.data', 'pglite')
   fs.mkdirSync(dir, { recursive: true })
-  const pg = await PGlite.create(dir)
+  const { btree_gist } = await import('@electric-sql/pglite/contrib/btree_gist')
+  const pg = await PGlite.create(dir, { extensions: { btree_gist } })
   console.info(`[db] Lokale Entwicklungsdatenbank (PGlite) unter ${dir}`)
 
   const wrap = (q: { query: typeof pg.query }): Queryable => ({

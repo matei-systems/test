@@ -23,6 +23,7 @@ export function Logo({ tone = 'light', compact = false }: { tone?: 'light' | 'da
         <span style={{ fontSize: compact ? 15 : 16, fontWeight: 600, letterSpacing: '0.32em', marginRight: '-0.32em' }}>GLANZMOBIL</span>
         {!compact && (
           <span
+            className="logo-sub"
             style={{
               marginTop: 6,
               fontSize: 8.5,

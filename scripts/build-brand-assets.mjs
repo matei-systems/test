@@ -80,6 +80,66 @@ function emblemSvg({ stroke, glint, bg, size = 512, radius = 0 }) {
 </svg>`
 }
 
+/** Alternative Wortmarke ohne Emblem (für schmale Flächen, Fußzeilen, Stempel). */
+function wordmarkSvg({ text, sub, bg }) {
+  const pad = bg ? 40 : 4
+  const word = textPath(fontSemi, 'GLANZMOBIL', 56, 0.34, pad, pad + 48)
+  const subline = textPath(fontMedium, 'MOBILE PREMIUM FAHRZEUGPFLEGE', 13.6, 0.36, pad + 2, pad + 82)
+  const width = Math.ceil(Math.max(word.width, subline.width) + pad * 2)
+  const height = Math.ceil(pad * 2 + 90)
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+  <title>GLANZMOBIL – Wortmarke</title>
+  ${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}
+  <path d="${word.d}" fill="${text}"/>
+  <path d="${subline.d}" fill="${sub}"/>
+</svg>`
+}
+
+/** Gestapeltes Logo: Emblem über der Wortmarke (für quadratische Flächen, Social Media, Aufkleber). */
+function stackedSvg({ text, sub, glint, bg, size = 800 }) {
+  const word = textPath(fontSemi, 'GLANZMOBIL', 58, 0.34, 0, 0)
+  const subline = textPath(fontMedium, 'MOBILE PREMIUM FAHRZEUGPFLEGE', 14.5, 0.36, 0, 0)
+  const scale = 4.6
+  const mark = 48 * scale
+  const cx = size / 2
+  const top = size * 0.2
+  const wordY = top + mark + 104
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+  <title>GLANZMOBIL – Logo gestapelt</title>
+  ${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}
+  ${emblem(text, glint, `translate(${cx - mark / 2} ${top}) scale(${scale})`)}
+  <path d="${textPath(fontSemi, 'GLANZMOBIL', 58, 0.34, cx - word.width / 2, wordY).d}" fill="${text}"/>
+  <path d="${textPath(fontMedium, 'MOBILE PREMIUM FAHRZEUGPFLEGE', 14.5, 0.36, cx - subline.width / 2, wordY + 40).d}" fill="${sub}"/>
+</svg>`
+}
+
+/** Profilbild für Social Media (Emblem zentriert, sicher innerhalb des Kreis-Zuschnitts). */
+function profileSvg(size = 1080) {
+  const scale = (size * 0.4) / 48
+  const mark = 48 * scale
+  const o = (size - mark) / 2
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+  <defs><radialGradient id="g" cx="0.5" cy="0.38" r="0.75"><stop offset="0" stop-color="#1b1b1e"/><stop offset="1" stop-color="#070708"/></radialGradient></defs>
+  <rect width="${size}" height="${size}" fill="url(#g)"/>
+  <circle cx="${size / 2}" cy="${size / 2}" r="${size * 0.36}" fill="none" stroke="${CHAMPAGNE}" stroke-opacity="0.22" stroke-width="2"/>
+  ${emblem(WARM, CHAMPAGNE, `translate(${o} ${o}) scale(${scale})`)}
+</svg>`
+}
+
+async function buildLogoVariants() {
+  const write = async (name, svg, density = 300) => {
+    fs.writeFileSync(out('brand/logo', `${name}.svg`), svg)
+    await sharp(Buffer.from(svg), { density }).png().toFile(out('brand/logo', `${name}.png`))
+  }
+  await write('glanzmobil-wortmarke-fuer-dunklen-hintergrund', wordmarkSvg({ text: WARM, sub: CHAMPAGNE }))
+  await write('glanzmobil-wortmarke-fuer-hellen-hintergrund', wordmarkSvg({ text: INK, sub: CHAMPAGNE_DARK }))
+  await write('glanzmobil-logo-gestapelt-dunkel', stackedSvg({ text: WARM, sub: CHAMPAGNE, glint: CHAMPAGNE, bg: INK }), 144)
+  await write('glanzmobil-logo-gestapelt-hell', stackedSvg({ text: INK, sub: CHAMPAGNE_DARK, glint: CHAMPAGNE_DARK, bg: WARM }), 144)
+  await sharp(Buffer.from(profileSvg(1080))).png().toFile(out('brand/social', 'profilbild-1080.png'))
+  await sharp(Buffer.from(wordmarkSvg({ text: WARM, sub: CHAMPAGNE, bg: INK })), { density: 200 }).png().toFile(out('brand/logo/vorschau-wortmarke-dunkel.png'))
+  await sharp(Buffer.from(wordmarkSvg({ text: INK, sub: CHAMPAGNE_DARK, bg: WARM })), { density: 200 }).png().toFile(out('brand/logo/vorschau-wortmarke-hell.png'))
+}
+
 async function buildLogos() {
   const dark = logoSvg({ text: WARM, sub: CHAMPAGNE, glint: CHAMPAGNE })
   const light = logoSvg({ text: INK, sub: CHAMPAGNE_DARK, glint: CHAMPAGNE_DARK })
@@ -129,6 +189,15 @@ async function buildPhotos() {
 }
 
 // ─── Vorher/Nachher-Demos ─────────────────────────────────────────────────────
+/** Eigenes Motiv für „Innenraum Basic“: Cockpit-Ausschnitt aus dem Innenraum-Foto. */
+async function buildServiceImages() {
+  await sharp(src('interior.jpg'))
+    .extract({ left: 520, top: 60, width: 936, height: 702 })
+    .resize({ width: 1600 })
+    .jpeg({ quality: 82, mozjpeg: true })
+    .toFile(out('public/images/leistung-innenraum-basic.jpg'))
+}
+
 function rng(seed) {
   let s = seed
   return () => {
@@ -211,6 +280,10 @@ async function buildDemos() {
   await buildDemoPair('lack', 'hero.jpg', { left: 760, top: 210, width: 920, height: 690 }, { seed: 11, specks: 420, spots: 90, streaks: 18 })
   // Innenraum: Staub, Krümel
   await buildDemoPair('innenraum', 'interior.jpg', { left: 0, top: 60, width: 1456, height: 1028 }, { seed: 23, specks: 260, crumbs: 420, coarse: 0.16, fine: 0.1 })
+  // Sitz: Krümel, Staub, Flecken auf Sitzfläche und Lehne
+  await buildDemoPair('sitz', 'interior.jpg', { left: 100, top: 420, width: 880, height: 660 }, { seed: 41, specks: 220, crumbs: 520, spots: 26, coarse: 0.2, fine: 0.12 })
+  // Mittelkonsole: Staub in Fugen und auf Hochglanzflächen
+  await buildDemoPair('mittelkonsole', 'interior.jpg', { left: 640, top: 330, width: 780, height: 585 }, { seed: 57, specks: 520, crumbs: 160, coarse: 0.24, fine: 0.16 })
   // Felge/Seitenpartie: Bremsstaub (dunkler, bräunlicher Ton)
   await buildDemoPair('felge', 'graz-night.jpg', { left: 860, top: 300, width: 812, height: 609 }, { seed: 5, tint: '104,84,60', specks: 600, spots: 40, streaks: 8, coarse: 0.28, fine: 0.16 })
 }
@@ -240,7 +313,9 @@ async function buildOg() {
 }
 
 await buildLogos()
+await buildLogoVariants()
 await buildPhotos()
+await buildServiceImages()
 await buildDemos()
 await buildOg()
 console.log('✔ Marken- und Website-Assets erzeugt.')

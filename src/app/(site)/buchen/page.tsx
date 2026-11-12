@@ -5,6 +5,7 @@ import { getCatalog, getSettings } from '@/lib/catalog'
 import { isDatabaseConfigured } from '@/lib/db'
 import { telHref, whatsappHref } from '@/lib/format'
 import { Icon } from '@/components/icons'
+import { SITE } from '@/config/site'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -53,7 +54,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
             {(settings.business.phone || settings.business.whatsapp || settings.business.email) && (
               <div className={styles.soonActions}>
                 {settings.business.whatsapp && (
-                  <a href={whatsappHref(settings.business.whatsapp, 'Hallo GLANZMOBIL, ich möchte einen Termin vereinbaren.')} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+                  <a href={whatsappHref(settings.business.whatsapp, SITE.whatsappText)} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
                     <Icon name="whatsapp" /> Per WhatsApp anfragen
                   </a>
                 )}
@@ -69,7 +70,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
                 )}
               </div>
             )}
-            <Link href="/leistungen" className="link-arrow">
+            <Link href="/preise" className="link-arrow">
               Leistungen &amp; Preise ansehen <Icon name="arrow-right" />
             </Link>
           </div>
@@ -82,8 +83,10 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
             catalog={catalog}
             initialService={str(params.leistung)}
             initialVehicle={str(params.fahrzeug)}
-            maxAdvanceDays={settings.rules.maxAdvanceDays}
-            bufferMinutes={settings.rules.bufferMinutes}
+            now={Date.now()}
+            postalCodes={settings.area.postalCodes}
+            regions={settings.area.regions}
+            cancelHours={settings.rules.cancelHours}
           />
         )}
       </div>

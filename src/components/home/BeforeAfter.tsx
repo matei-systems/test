@@ -2,11 +2,11 @@
 
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
-import type { BeforeAfterItem } from '@/content/gallery'
+import { isUploadedImage, type CompareItem } from '@/lib/gallery'
 import styles from './BeforeAfter.module.css'
 
 /** Vorher/Nachher-Vergleichsregler – per Maus, Touch und Tastatur (Pfeiltasten) bedienbar. */
-export function CompareSlider({ item, priority = false }: { item: BeforeAfterItem; priority?: boolean }) {
+export function CompareSlider({ item, priority = false }: { item: CompareItem; priority?: boolean }) {
   const [pos, setPos] = useState(50)
   const ref = useRef<HTMLDivElement>(null)
   const dragging = useRef(false)
@@ -33,9 +33,28 @@ export function CompareSlider({ item, priority = false }: { item: BeforeAfterIte
       onPointerUp={() => (dragging.current = false)}
       onPointerCancel={() => (dragging.current = false)}
     >
-      <Image src={item.after} alt={`${item.alt} – nachher`} fill sizes="(max-width: 900px) 100vw, 60vw" quality={80} priority={priority} className={styles.img} />
+      <Image
+        src={item.afterSrc}
+        alt={`${item.alt} – nachher`}
+        fill
+        sizes="(max-width: 900px) 100vw, 60vw"
+        quality={80}
+        priority={priority}
+        unoptimized={isUploadedImage(item.afterSrc)}
+        className={styles.img}
+        draggable={false}
+      />
       <div className={styles.beforeLayer} aria-hidden="true">
-        <Image src={item.before} alt="" fill sizes="(max-width: 900px) 100vw, 60vw" quality={80} className={styles.img} />
+        <Image
+          src={item.beforeSrc}
+          alt=""
+          fill
+          sizes="(max-width: 900px) 100vw, 60vw"
+          quality={80}
+          unoptimized={isUploadedImage(item.beforeSrc)}
+          className={styles.img}
+          draggable={false}
+        />
       </div>
       <span className={`${styles.tag} ${styles.tagBefore}`}>Vorher</span>
       <span className={`${styles.tag} ${styles.tagAfter}`}>Nachher</span>
@@ -62,7 +81,7 @@ export function CompareSlider({ item, priority = false }: { item: BeforeAfterIte
   )
 }
 
-export function BeforeAfterShowcase({ items }: { items: BeforeAfterItem[] }) {
+export function BeforeAfterShowcase({ items }: { items: CompareItem[] }) {
   const [active, setActive] = useState(0)
   const item = items[active]
   if (!item) return null

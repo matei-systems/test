@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { listCustomers } from '@/lib/admin-data'
 import { formatDateShort, formatPrice, telHref } from '@/lib/format'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Kunden' }
 
 export default async function CustomersPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  await requireAdmin()
   const { q } = await searchParams
   const customers = await listCustomers(q?.slice(0, 80))
   return (
@@ -46,6 +48,10 @@ export default async function CustomersPage({ searchParams }: { searchParams: Pr
                     <Link href={`/admin/buchungen?zeitraum=alle&q=${encodeURIComponent(c.email)}`} className="row-link">
                       {c.name}
                     </Link>
+                    <span className="sub">
+                      <Link href={`/admin/buchungen?zeitraum=alle&q=${encodeURIComponent(c.email)}`}>Buchungshistorie ansehen</Link>
+                      {c.marketing ? ' · Angebote per E-Mail erlaubt' : ''}
+                    </span>
                   </td>
                   <td data-label="Kontakt">
                     <a href={`mailto:${c.email}`}>{c.email}</a>

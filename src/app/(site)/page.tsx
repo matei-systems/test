@@ -7,82 +7,84 @@ import { BeforeAfterShowcase } from '@/components/home/BeforeAfter'
 import { Benefits, Faq, FinalCta, HowItWorks, ServiceAreaSection, Testimonials } from '@/components/home/Sections'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
-import { getCatalog, getSettings, getWorkingHours } from '@/lib/catalog'
-import { servicePriceRange } from '@/lib/pricing'
+import { getCatalog, getGallery, getSettings, getWorkingHours } from '@/lib/catalog'
+import { maxRunningDiscount, serviceFromPrice } from '@/lib/pricing'
+import { toCompareItems } from '@/lib/gallery'
 import { faqJsonLd, localBusinessJsonLd } from '@/lib/seo'
-import { FAQ } from '@/content/faq'
-import { BEFORE_AFTER } from '@/content/gallery'
-import { REVIEW_URL, TESTIMONIALS } from '@/content/testimonials'
+import { FAQ_TOP } from '@/content/faq'
+import { TESTIMONIALS } from '@/content/testimonials'
 import { SITE } from '@/config/site'
 import { formatEuro } from '@/lib/format'
 
 export async function generateMetadata(): Promise<Metadata> {
   const catalog = await getCatalog()
-  const price = (id: string) => {
-    const s = catalog.services.find((x) => x.id === id)
-    return s ? servicePriceRange(s, catalog.vehicles).min : null
-  }
-  const parts = [
-    ['Innenreinigung', price('innenraumreinigung')],
-    ['Außenreinigung', price('aussenreinigung')],
-    ['Komplettreinigung', price('komplettreinigung')],
-  ]
-    .filter(([, p]) => p !== null)
-    .map(([n, p]) => `${n} ab ${formatEuro(p as number)}`)
+  const now = Date.now()
+  const parts = catalog.services
+    .filter((s) => !s.requiresAddon)
+    .slice(0, 3)
+    .map((s) => ({ name: s.name, from: serviceFromPrice(catalog, s, now) }))
+    .filter((p) => p.from.min.priceCents !== null)
+    .map((p) => `${p.name} ab ${formatEuro(p.from.min.priceCents as number)}`)
   return {
-    title: { absolute: `${SITE.name} – Mobile Autoaufbereitung & Autoreinigung in Graz und Umgebung` },
+    title: { absolute: `${SITE.name} – Mobile Autoaufbereitung & Fahrzeugpflege in Graz und Umgebung` },
     description: `Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Wir kommen zu dir – Termin online buchen.`,
     alternates: { canonical: '/' },
   }
 }
 
 export default async function HomePage() {
-  const [catalog, settings, hours] = await Promise.all([getCatalog(), getSettings(), getWorkingHours()])
+  const [catalog, settings, hours, gallery] = await Promise.all([getCatalog(), getSettings(), getWorkingHours(), getGallery()])
+  const now = Date.now()
   const prices = catalog.services
     .filter((s) => !s.requiresAddon)
-    .map((s) => servicePriceRange(s, catalog.vehicles).min)
+    .map((s) => serviceFromPrice(catalog, s, now).min.priceCents)
     .filter((p): p is number => p !== null)
   const fromPrice = prices.length ? Math.min(...prices) : null
+  const best = maxRunningDiscount(catalog, now)
+  const comparisons = toCompareItems(gallery).slice(0, 5)
+  const allDemo = comparisons.every((c) => c.isDemo)
 
   return (
     <>
       <JsonLd data={localBusinessJsonLd({ business: settings.business, area: settings.area, catalog, hours })} />
-      <JsonLd data={faqJsonLd(FAQ)} />
+      <JsonLd data={faqJsonLd(FAQ_TOP)} />
 
-      <Hero fromPrice={fromPrice} regions={settings.area.regions} />
-      <Services catalog={catalog} />
-      <Pricing catalog={catalog} />
+      <Hero fromPrice={fromPrice} promo={best ? { name: best.promotion.name, percent: best.percent } : null} regions={settings.area.regions} />
+      <Services catalog={catalog} now={now} />
+      <Pricing catalog={catalog} now={now} />
 
-      <section id="vorher-nachher" className="section" aria-labelledby="ba-title" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <div className="section-head section-head--split reveal">
-            <div style={{ display: 'grid', gap: 20 }}>
-              <p className="eyebrow">Vorher · Nachher</p>
-              <h2 id="ba-title" className="h2">
-                Der Unterschied ist <span className="serif accent">sichtbar.</span>
-              </h2>
+      {comparisons.length > 0 && (
+        <section id="vorher-nachher" className="section" aria-labelledby="ba-title" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="section-head section-head--split reveal">
+              <div style={{ display: 'grid', gap: 20 }}>
+                <p className="eyebrow">Vorher · Nachher</p>
+                <h2 id="ba-title" className="h2">
+                  Der Unterschied ist <span className="serif accent">sichtbar.</span>
+                </h2>
+              </div>
+              <p className="lead">
+                Ziehe den Regler und sieh selbst, was gründliche Pflege ausmacht.
+                {allDemo && ' Die Beispiele sind Demo-Visualisierungen – echte Ergebnisse unserer Kundenfahrzeuge folgen in der Galerie.'}
+              </p>
             </div>
-            <p className="lead">
-              Ziehe den Regler und sieh selbst, was gründliche Pflege ausmacht. Die Beispiele sind Demo-Visualisierungen – echte Ergebnisse
-              unserer Kundenfahrzeuge folgen in der Galerie.
-            </p>
+            <div className="reveal">
+              <BeforeAfterShowcase items={comparisons} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
+              <Link href="/galerie" className="link-arrow">
+                Zur Galerie <Icon name="arrow-right" />
+              </Link>
+            </div>
           </div>
-          <div className="reveal">
-            <BeforeAfterShowcase items={BEFORE_AFTER} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-            <Link href="/galerie" className="link-arrow">
-              Zur Galerie <Icon name="arrow-right" />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <HowItWorks />
       <Benefits />
-      <Testimonials items={TESTIMONIALS} reviewUrl={REVIEW_URL} />
+      <HowItWorks />
+      <Testimonials items={TESTIMONIALS} reviewUrl={settings.business.reviewUrl} />
       <ServiceAreaSection area={settings.area} />
-      <Faq items={FAQ} />
+      <Faq items={FAQ_TOP} />
       <FinalCta />
     </>
   )

@@ -1,20 +1,19 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createBooking } from '@/lib/bookings'
 import { DatabaseNotConfiguredError } from '@/lib/db'
+import { notifyAdminError } from '@/lib/email'
+import { isSameOrigin } from '@/lib/http'
 import { clientIp, rateLimit } from '@/lib/rate-limit'
 import { bookingRequestSchema, fieldErrors } from '@/lib/validation'
 
 export const dynamic = 'force-dynamic'
 
 /**
- * POST /api/bookings – verbindliche Buchung.
- * Antwortet nur dann mit 201, wenn die Buchung dauerhaft in der Datenbank gespeichert wurde.
+ * POST /api/bookings – Buchung bzw. Terminanfrage.
+ * Antwortet nur dann mit 201, wenn der Termin geprüft und dauerhaft in der Datenbank gespeichert wurde.
  */
 export async function POST(request: NextRequest) {
-  // Schutz vor Cross-Site-Requests: Nur Anfragen von der eigenen Website annehmen
-  const origin = request.headers.get('origin')
-  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
-  if (!origin || !host || new URL(origin).host !== host) {
+  if (!isSameOrigin(request)) {
     return NextResponse.json({ error: 'Ungültige Herkunft der Anfrage.' }, { status: 403 })
   }
 
@@ -41,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     const result = await createBooking(parsed.data)
     if (!result.ok) {
-      const status = result.code === 'slot_unavailable' ? 409 : result.code === 'server' ? 500 : 422
+      const status = result.code === 'slot_unavailable' || result.code === 'price_changed' ? 409 : result.code === 'server' ? 500 : 422
       return NextResponse.json({ error: result.error, code: result.code, fields: result.fields }, { status })
     }
     return NextResponse.json(
@@ -49,6 +48,7 @@ export async function POST(request: NextRequest) {
         reference: result.reference,
         token: result.token,
         status: result.status,
+        kind: result.kind,
         startsAt: result.startsAt.toISOString(),
         customerEmailStatus: result.customerEmailStatus,
       },
@@ -56,10 +56,11 @@ export async function POST(request: NextRequest) {
     )
   } catch (err) {
     console.error('[api/bookings]', err)
-    const status = err instanceof DatabaseNotConfiguredError ? 503 : 500
+    const notConfigured = err instanceof DatabaseNotConfiguredError
+    if (!notConfigured) void notifyAdminError('Buchung speichern', err)
     return NextResponse.json(
-      { error: 'Die Buchung konnte technisch nicht gespeichert werden. Bitte versuche es erneut oder kontaktiere uns direkt.' },
-      { status },
+      { error: 'Die Buchung konnte technisch nicht gespeichert werden. Bitte versuche es erneut oder kontaktiere uns direkt.', code: 'server' },
+      { status: notConfigured ? 503 : 500 },
     )
   }
 }

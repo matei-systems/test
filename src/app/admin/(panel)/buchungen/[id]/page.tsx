@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBooking, getBookingEvents } from '@/lib/admin-data'
 import { getSettings, getWorkingHours } from '@/lib/catalog'
-import { formatDateLong, formatDateTime, formatDuration, formatPrice, formatTime, EMAIL_STATUS_LABELS, STATUS_LABELS, telHref } from '@/lib/format'
+import { formatDateLong, formatDateTime, formatDuration, formatEuro, formatPrice, formatTime, EMAIL_STATUS_LABELS, KIND_LABELS, STATUS_LABELS, telHref, whatsappHref } from '@/lib/format'
 import { zonedParts, timeToMinutes } from '@/lib/time'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { StatusBadge } from '@/components/admin/StatusBadge'
@@ -15,6 +15,7 @@ import {
   updateDetailsAction,
   updateStatusAction,
 } from '../../../actions'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Buchung' }
 
@@ -27,6 +28,7 @@ const TRANSITIONS: Array<{ status: string; label: string; tone?: string }> = [
 ]
 
 export default async function BookingDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin()
   const { id } = await params
   const [booking, events, hours, settings] = await Promise.all([getBooking(id), getBookingEvents(id), getWorkingHours(), getSettings()])
   if (!booking) notFound()
@@ -49,10 +51,13 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
             {b.first_name} {b.last_name}
           </h1>
           <p>
-            {b.reference} · gebucht am {formatDateTime(b.created_at)}
+            {b.reference} · {KIND_LABELS[b.kind] ?? 'Buchung'} vom {formatDateTime(b.created_at)}
           </p>
         </div>
-        <StatusBadge status={b.status} />
+        <span style={{ display: 'inline-flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+          {b.kind === 'anfrage' && <span className="adm-pill">Terminanfrage · Preis auf Anfrage</span>}
+          <StatusBadge status={b.status} />
+        </span>
       </header>
 
       {locked && (
@@ -82,6 +87,12 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   {formatDuration(b.duration_minutes)} (+ Puffer bis {formatTime(b.blocked_until)})
                 </dd>
               </div>
+              {settings.rules.teams > 1 && (
+                <div>
+                  <dt>Team</dt>
+                  <dd>Team {b.team}</dd>
+                </div>
+              )}
               <div>
                 <dt>Leistung</dt>
                 <dd>
@@ -101,6 +112,16 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   <dd>{b.addons.map((a) => `${a.name} (${formatPrice(a.priceCents, { from: a.priceIsFrom })})`).join(', ')}</dd>
                 </div>
               )}
+              {Number(b.discount_cents) > 0 && b.regular_price_cents !== null && (
+                <div>
+                  <dt>Aktion</dt>
+                  <dd>
+                    {b.promotion_name ?? 'Rabatt'}
+                    {b.promotion_percent ? ` (−${b.promotion_percent} %)` : ''}: regulär {formatEuro(Number(b.regular_price_cents))}, Ersparnis{' '}
+                    {formatEuro(Number(b.discount_cents))}
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt>Gesamtpreis</dt>
                 <dd>
@@ -110,10 +131,10 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
               <div>
                 <dt>Standort</dt>
                 <dd>
-                  {b.street}, {b.postal_code} {b.city}{' '}
+                  {b.street} {b.house_number}, {b.postal_code} {b.city}{' '}
                   {!locked && (
                     <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.street}, ${b.postal_code} ${b.city}`)}`}
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.street} ${b.house_number}, ${b.postal_code} ${b.city}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="adm-pill"
@@ -123,6 +144,12 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   )}
                 </dd>
               </div>
+              {b.location_note && (
+                <div>
+                  <dt>Hinweis zum Standort</dt>
+                  <dd style={{ whiteSpace: 'pre-wrap' }}>{b.location_note}</dd>
+                </div>
+              )}
               {b.customer_message && (
                 <div>
                   <dt>Nachricht</dt>
@@ -139,12 +166,39 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
             <dl className="adm-dl">
               <div>
                 <dt>Telefon</dt>
-                <dd>{locked ? '–' : <a href={telHref(b.phone)}>{b.phone}</a>}</dd>
+                <dd>
+                  {locked ? (
+                    '–'
+                  ) : (
+                    <>
+                      <a href={telHref(b.phone)}>{b.phone}</a>{' '}
+                      <a href={whatsappHref(b.phone)} target="_blank" rel="noopener noreferrer" className="adm-pill">
+                        WhatsApp
+                      </a>
+                    </>
+                  )}
+                </dd>
               </div>
               <div>
                 <dt>E-Mail</dt>
                 <dd>{locked ? '–' : <a href={`mailto:${b.email}`}>{b.email}</a>}</dd>
               </div>
+              <div>
+                <dt>Angebote per E-Mail</dt>
+                <dd>{b.marketing_consent_at ? `Einwilligung erteilt am ${formatDateTime(b.marketing_consent_at)}` : 'keine Einwilligung'}</dd>
+              </div>
+              {b.cancelled_by && (
+                <div>
+                  <dt>Storniert durch</dt>
+                  <dd>{b.cancelled_by === 'kunde' ? 'Kunde (online)' : 'Administrator'}</dd>
+                </div>
+              )}
+              {b.reminder_sent_at && (
+                <div>
+                  <dt>Erinnerung</dt>
+                  <dd>gesendet am {formatDateTime(b.reminder_sent_at)}</dd>
+                </div>
+              )}
               <div>
                 <dt>E-Mail-Status</dt>
                 <dd>
@@ -177,7 +231,8 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   <Field name="lastName" label="Nachname" value={b.last_name} />
                   <Field name="phone" label="Telefon" value={b.phone} />
                   <Field name="email" label="E-Mail" value={b.email} type="email" />
-                  <Field name="street" label="Straße" value={b.street} full />
+                  <Field name="street" label="Straße" value={b.street} />
+                  <Field name="houseNumber" label="Hausnummer" value={b.house_number} />
                   <Field name="postalCode" label="PLZ" value={b.postal_code} />
                   <Field name="city" label="Ort" value={b.city} />
                   <Field name="vehicleModel" label="Fahrzeugmodell" value={b.vehicle_model} />
@@ -187,6 +242,10 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                     label="Gesamtpreis in € (leer = auf Anfrage)"
                     value={b.total_price_cents === null ? '' : (b.total_price_cents / 100).toFixed(2).replace('.', ',')}
                   />
+                  <div className="field full">
+                    <label htmlFor="locationNote">Hinweis zum Standort</label>
+                    <input id="locationNote" name="locationNote" className="input" defaultValue={b.location_note ?? ''} />
+                  </div>
                   <div className="field full">
                     <label htmlFor="message">Nachricht des Kunden</label>
                     <textarea id="message" name="message" className="textarea" defaultValue={b.customer_message ?? ''} />

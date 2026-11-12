@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 }
 
 export default async function CancellationPage() {
-  const { business: b } = await getSettings()
+  const { business: b, rules } = await getSettings()
+  const hours = rules.cancelHours
   return (
     <LegalPage title="Stornobedingungen" updated="November 2026">
       <p>
@@ -25,20 +26,29 @@ export default async function CancellationPage() {
       </p>
 
       <h2>Stornierung und Verschiebung durch den Kunden</h2>
-      <p>
-        <strong>Vorschlag – bitte festlegen:</strong>
-      </p>
       <ul>
+        {hours > 0 ? (
+          <li>
+            <strong>Bis {hours} Stunden vor dem Termin:</strong> kostenlose Stornierung – am einfachsten online über den persönlichen Link in
+            deiner Buchungsbestätigung („Termin stornieren“). Für eine Verschiebung melde dich bitte direkt bei uns.
+          </li>
+        ) : (
+          <li>
+            Bis <Todo>[Frist festlegen]</Todo> vor dem Termin: kostenlose Stornierung oder Verschiebung nach Rücksprache mit uns.
+          </li>
+        )}
         <li>
-          Bis <Todo>[48 Stunden]</Todo> vor dem Termin: kostenlose Stornierung oder Verschiebung.
-        </li>
-        <li>
-          Später als <Todo>[48 Stunden]</Todo> vor dem Termin: Stornogebühr von <Todo>[x % des Auftragswerts / Pauschale]</Todo>.
+          Später als {hours > 0 ? `${hours} Stunden` : <Todo>[Frist]</Todo>} vor dem Termin: Bitte kontaktiere uns direkt. Stornogebühr:{' '}
+          <Todo>[x % des Auftragswerts / Pauschale festlegen – oder ausdrücklich „keine“]</Todo>.
         </li>
         <li>
           Nichterscheinen bzw. Fahrzeug nicht zugänglich: <Todo>[Gebühr / Anfahrtspauschale festlegen]</Todo>.
         </li>
       </ul>
+      <p>
+        Die Frist für die kostenlose Online-Stornierung wird im Verwaltungsbereich festgelegt und gilt in der zum Zeitpunkt der Buchung
+        angezeigten Form.
+      </p>
 
       <h2>Absage durch uns</h2>
       <p>

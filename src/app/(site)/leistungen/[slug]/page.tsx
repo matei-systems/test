@@ -6,8 +6,11 @@ import { FinalCta } from '@/components/home/Sections'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
 import { getCatalog, getSettings } from '@/lib/catalog'
-import { serviceDurationRange, servicePriceRange } from '@/lib/pricing'
-import { formatDuration, formatDurationRange, formatPrice } from '@/lib/format'
+import { serviceDurationRange, serviceFromPrice } from '@/lib/pricing'
+import { formatDurationRange, formatEuro, formatPrice, formatVehicleList } from '@/lib/format'
+import { PriceTag } from '@/components/site/PriceTag'
+import { PriceTable } from '@/components/pages/PriceMatrix'
+import pageStyles from '@/components/pages/Pages.module.css'
 import { breadcrumbJsonLd } from '@/lib/seo'
 import { serviceImage } from '@/content/media'
 import { SERVICE_SEO } from '@/content/seo'
@@ -19,14 +22,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const catalog = await getCatalog()
   const s = catalog.services.find((x) => x.id === slug)
   if (!s) return { title: 'Leistung nicht gefunden' }
-  const range = servicePriceRange(s, catalog.vehicles)
+  const from = serviceFromPrice(catalog, s, Date.now())
   const seo = SERVICE_SEO[s.id]
-  const price = range.onRequest ? 'Preis auf Anfrage' : `ab ${formatPrice(range.min).replace(/ /g, ' ')}`
+  const price = s.requiresAddon
+    ? 'Preis je nach Auswahl'
+    : from.min.priceCents === null
+      ? 'Preis auf Anfrage'
+      : `${from.varies ? 'ab ' : ''}${formatEuro(from.min.priceCents)}`
   return {
     title: seo?.title ?? `${s.name} in Graz`,
     description: `${s.name} von GLANZMOBIL – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
     alternates: { canonical: `/leistungen/${s.id}` },
-    openGraph: { images: [{ url: serviceImage(s.id).src }] },
+    openGraph: { images: [{ url: serviceImage(s).src }] },
   }
 }
 
@@ -35,8 +42,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const [catalog, settings] = await Promise.all([getCatalog(), getSettings()])
   const s = catalog.services.find((x) => x.id === slug)
   if (!s) notFound()
-  const img = serviceImage(s.id)
-  const range = servicePriceRange(s, catalog.vehicles)
+  const now = Date.now()
+  const img = serviceImage(s)
+  const from = serviceFromPrice(catalog, s, now)
   const duration = serviceDurationRange(s, catalog.vehicles)
   const addons = s.requiresAddon ? catalog.addons.filter((a) => a.bookableAlone) : catalog.addons
   const others = catalog.services.filter((x) => x.id !== s.id && !x.requiresAddon).slice(0, 3)
@@ -53,7 +61,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           serviceType: SERVICE_SEO[s.id]?.keyword ?? s.name,
           areaServed: settings.area.regions.map((r) => ({ '@type': 'AdministrativeArea', name: r })),
           provider: { '@id': `${url}/#business` },
-          ...(range.min !== null ? { offers: { '@type': 'Offer', priceCurrency: 'EUR', price: range.min / 100, url: `${url}/buchen?leistung=${s.id}` } } : {}),
+          ...(from.min.priceCents !== null && !s.requiresAddon
+            ? {
+                offers: {
+                  '@type': 'AggregateOffer',
+                  priceCurrency: 'EUR',
+                  lowPrice: from.min.priceCents / 100,
+                  ...(from.maxCents !== null ? { highPrice: from.maxCents / 100 } : {}),
+                  url: `${url}/buchen?leistung=${s.id}`,
+                },
+              }
+            : {}),
         }}
       />
       <JsonLd
@@ -67,7 +85,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         eyebrow={`Leistungen · ${settings.area.regions.join(' & ')}`}
         title={s.name}
         lead={s.tagline}
-        image={s.requiresAddon ? undefined : img.src}
+        image={s.requiresAddon || img.unoptimized ? undefined : img.src}
         imagePosition={img.position}
       />
 
@@ -87,31 +105,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {!s.requiresAddon && (
               <>
                 <h2 className="h3">Preise &amp; Dauer nach Fahrzeug</h2>
-                <div className={styles.tableWrap}>
-                  <table className={styles.table}>
-                    <thead>
-                      <tr>
-                        <th scope="col">Fahrzeugkategorie</th>
-                        <th scope="col">Beispiele</th>
-                        <th scope="col">Dauer ca.</th>
-                        <th scope="col" className={styles.right}>
-                          Preis
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {catalog.vehicles
-                        .filter((v) => s.prices[v.id])
-                        .map((v) => (
-                          <tr key={v.id}>
-                            <th scope="row">{v.name}</th>
-                            <td>{v.description}</td>
-                            <td>{formatDuration(s.prices[v.id].durationMinutes)}</td>
-                            <td className={styles.right}>{formatPrice(s.prices[v.id].priceCents)}</td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
+                <div className={pageStyles.matrixCard}>
+                  <PriceTable catalog={catalog} service={s} now={now} />
                 </div>
               </>
             )}
@@ -143,11 +138,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <aside className={styles.aside}>
             <div className={styles.box}>
               <p className="eyebrow">Auf einen Blick</p>
-              <p className={styles.price}>
-                {s.requiresAddon ? 'je nach Auswahl' : range.onRequest ? 'Preis auf Anfrage' : `ab ${formatPrice(range.min)}`}
-              </p>
-              {!s.requiresAddon && !range.onRequest && range.minVehicles.length > 0 && (
-                <p className={styles.small}>gilt für {range.minVehicles.join(' & ')}</p>
+              {s.requiresAddon ? <p className={styles.price}>je nach Auswahl</p> : <PriceTag info={from.min} from={from.varies} size="lg" />}
+              {!s.requiresAddon && !from.onRequest && from.varies && from.minVehicles.length > 0 && (
+                <p className={styles.small}>gilt für {formatVehicleList(from.minVehicles)}</p>
               )}
               <ul className={styles.facts}>
                 {duration.max > 0 && (

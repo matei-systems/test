@@ -35,6 +35,11 @@
   --info: #9db7d9;
   --info-soft: rgba(157, 183, 217, 0.12);
 
+  /* Rabatt-Kennzeichen (bewusst sparsam eingesetzt) */
+  --sale: #c8372d;
+  --sale-text: #f0786c;
+  --sale-soft: rgba(200, 55, 45, 0.14);
+
   /* Typografie */
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: var(--font-instrument), 'Times New Roman', serif;

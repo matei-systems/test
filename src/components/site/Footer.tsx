@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Logo } from './Logo'
 import { Icon } from '../icons'
-import { LEGAL_LINKS, NAV_LINKS, SITE } from '@/config/site'
+import { FOOTER_LINKS, LEGAL_LINKS, NAV_LINKS, SITE } from '@/config/site'
 import type { BusinessInfo, ServiceArea } from '@/config/defaults'
 import { telHref, whatsappHref } from '@/lib/format'
 import styles from './Footer.module.css'
@@ -32,9 +32,11 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
                   <Link href={l.href}>{l.label}</Link>
                 </li>
               ))}
-              <li>
-                <Link href="/buchen">Online buchen</Link>
-              </li>
+              {FOOTER_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href}>{l.label}</Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -51,7 +53,7 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
                 )}
                 {business.whatsapp && (
                   <li>
-                    <a href={whatsappHref(business.whatsapp)} target="_blank" rel="noopener noreferrer">
+                    <a href={whatsappHref(business.whatsapp, SITE.whatsappText)} target="_blank" rel="noopener noreferrer">
                       <Icon name="whatsapp" size={16} /> WhatsApp
                     </a>
                   </li>
@@ -66,11 +68,17 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
               </ul>
             ) : (
               <p className={styles.muted}>
-                {bookingEnabled ? 'Am schnellsten erreichst du uns über die Online-Buchung.' : 'Online-Buchung und Kontaktmöglichkeiten folgen in Kürze.'}
+                {bookingEnabled ? (
+                  <>
+                    Schreib uns über das <Link href="/kontakt">Kontaktformular</Link> oder buche direkt online.
+                  </>
+                ) : (
+                  'Online-Buchung und Kontaktmöglichkeiten folgen in Kürze.'
+                )}
               </p>
             )}
             <p className={styles.area}>
-              <Icon name="pin" size={16} /> Einsatzgebiet: {area.regions.join(', ')}
+              <Icon name="pin" size={16} /> <Link href="/einsatzgebiet">Einsatzgebiet: {area.regions.join(', ')}</Link>
             </p>
           </div>
 

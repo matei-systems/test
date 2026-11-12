@@ -1,0 +1,103 @@
+.tag {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.center {
+  justify-items: center;
+  text-align: center;
+}
+
+.end {
+  justify-items: end;
+  text-align: right;
+}
+
+.label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--sale);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-transform: none;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.from {
+  font-size: 0.42em;
+  letter-spacing: 0;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.suffix {
+  font-size: 0.36em;
+  letter-spacing: 0;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.regular {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.regular s {
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--sale-text);
+}
+
+.until {
+  color: var(--text-dim);
+}
+
+.request {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.sm .price {
+  font-size: 1.5rem;
+}
+.md .price {
+  font-size: 2.1rem;
+}
+.lg .price {
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+}
+
+.sm .regular {
+  font-size: 0.76rem;
+}

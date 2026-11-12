@@ -3,12 +3,15 @@ import { notFound } from 'next/navigation'
 import { getDb } from '@/lib/db'
 import { loadCatalog } from '@/lib/catalog'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 import { Icon } from '@/components/icons'
 import { deleteServiceAction, saveServiceAction } from '../../../actions'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Leistung bearbeiten' }
 
 export default async function ServiceEditPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ neu?: string }> }) {
+  await requireAdmin()
   const { id } = await params
   const sp = await searchParams
   const catalog = await loadCatalog(await getDb(), true)
@@ -88,13 +91,22 @@ export default async function ServiceEditPage({ params, searchParams }: { params
             </section>
 
             <section className="adm-card">
-              <h2>Preise &amp; Dauer je Fahrzeug</h2>
-              <p className="adm-card-desc">Preis leer lassen = „auf Anfrage“. Dauer in Minuten (ohne Pufferzeit).</p>
+              <h2>Bild</h2>
+              <p className="adm-card-desc">Erscheint auf den Leistungskarten, der Leistungsseite und in der Buchung.</p>
+              <ImageUpload name="imageSrc" label="Bild der Leistung" defaultValue={s.imageSrc ?? ''} hint="Querformat empfohlen (mind. 1600 px breit). Ohne Bild wird ein Standardmotiv verwendet." allowRemove />
+            </section>
+
+            <section className="adm-card">
+              <h2>Reguläre Preise &amp; Dauer je Fahrzeug</h2>
+              <p className="adm-card-desc">
+                Preis leer lassen = „auf Anfrage“ (Kunden stellen dann eine unverbindliche Terminanfrage). Dauer in Minuten (ohne Pufferzeit).
+                Rabatte und Einführungspreise unter „Aktionen“.
+              </p>
               <table className="adm-matrix">
                 <thead>
                   <tr>
                     <th>Fahrzeug</th>
-                    <th>Preis (€)</th>
+                    <th>Regulärer Preis (€)</th>
                     <th>Dauer (Min.)</th>
                   </tr>
                 </thead>

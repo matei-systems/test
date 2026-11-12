@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Logo } from './Logo'
 import { Icon } from '../icons'
-import { NAV_LINKS } from '@/config/site'
+import { NAV_LINKS, SITE } from '@/config/site'
+import { telHref, whatsappHref } from '@/lib/format'
 import styles from './Header.module.css'
 
-export function Header({ phone }: { phone?: string }) {
+export function Header({ phone, whatsapp }: { phone?: string; whatsapp?: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -48,7 +49,7 @@ export function Header({ phone }: { phone?: string }) {
           <ul>
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className={styles.navLink}>
+                <Link href={l.href} className={styles.navLink} aria-current={pathname === l.href || pathname?.startsWith(`${l.href}/`) ? 'page' : undefined}>
                   {l.label}
                 </Link>
               </li>
@@ -59,7 +60,8 @@ export function Header({ phone }: { phone?: string }) {
         <div className={styles.actions}>
           {!isBooking && (
             <Link href="/buchen" className={`btn btn--primary btn--sm ${styles.cta}`}>
-              Termin buchen
+              <span className={styles.ctaLong}>Termin buchen</span>
+              <span className={styles.ctaShort}>Buchen</span>
             </Link>
           )}
           <button
@@ -92,8 +94,13 @@ export function Header({ phone }: { phone?: string }) {
               Termin jetzt buchen
               <Icon name="arrow-right" />
             </Link>
+            {whatsapp && (
+              <a href={whatsappHref(whatsapp, SITE.whatsappText)} className="btn btn--ghost btn--block" target="_blank" rel="noopener noreferrer">
+                <Icon name="whatsapp" /> WhatsApp schreiben
+              </a>
+            )}
             {phone && (
-              <a href={`tel:${phone.replace(/[^\d+]/g, '')}`} className="btn btn--ghost btn--block">
+              <a href={telHref(phone)} className="btn btn--ghost btn--block">
                 <Icon name="phone" /> {phone}
               </a>
             )}

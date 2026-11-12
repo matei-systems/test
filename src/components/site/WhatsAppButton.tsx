@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { Icon } from '../icons'
 import { whatsappHref } from '@/lib/format'
+import { SITE } from '@/config/site'
 import styles from './WhatsAppButton.module.css'
 
 /**
  * Schwebender WhatsApp-Kontakt.
  * Wird nur angezeigt, wenn im Admin-Bereich eine WhatsApp-Nummer hinterlegt ist.
+ * Auf dem Smartphone übernimmt die feste Aktionsleiste (MobileCta) den WhatsApp-Kontakt.
  * In der lokalen Entwicklung erscheint ohne Nummer ein Hinweis-Button zur Einstellungsseite.
  */
 export function WhatsAppButton({ number }: { number: string }) {
@@ -20,7 +22,7 @@ export function WhatsAppButton({ number }: { number: string }) {
   }
   return (
     <a
-      href={whatsappHref(number, 'Hallo GLANZMOBIL, ich interessiere mich für eine Fahrzeugpflege.')}
+      href={whatsappHref(number, SITE.whatsappText)}
       className={styles.fab}
       target="_blank"
       rel="noopener noreferrer"

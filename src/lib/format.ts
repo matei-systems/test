@@ -79,6 +79,11 @@ export function formatDateTime(d: Date | string): string {
   return dateTimeFmt.format(toDate(d))
 }
 
+/** "31.01.2027" */
+export function formatDateOnly(d: Date | string): string {
+  return new Intl.DateTimeFormat('de-AT', { timeZone: BUSINESS_TZ, day: '2-digit', month: '2-digit', year: 'numeric' }).format(toDate(d))
+}
+
 /** Kalenderdatum "YYYY-MM-DD" (ohne Zeitzonen-Verschiebung) → "Montag, 9. November 2026" */
 export function formatCalendarDate(date: string): string {
   const [y, m, d] = date.split('-').map(Number)
@@ -106,6 +111,11 @@ export const STATUS_LABELS: Record<string, string> = {
   storniert: 'Storniert',
 }
 
+export const KIND_LABELS: Record<string, string> = {
+  buchung: 'Buchung',
+  anfrage: 'Terminanfrage',
+}
+
 export const EMAIL_STATUS_LABELS: Record<string, string> = {
   gesendet: 'gesendet',
   fehlgeschlagen: 'fehlgeschlagen',
@@ -126,4 +136,10 @@ export function whatsappHref(number: string, text?: string): string {
   else if (digits.startsWith('00')) digits = digits.slice(2)
   else if (digits.startsWith('0')) digits = `43${digits.slice(1)}`
   return `https://wa.me/${digits}${text ? `?text=${encodeURIComponent(text)}` : ''}`
+}
+
+/** ["Kleinwagen","Kompaktklasse"] → "Kleinwagen & Kompaktklasse"; ab drei Einträgen "Kleinwagen bis Kombi" */
+export function formatVehicleList(names: string[]): string {
+  if (names.length <= 2) return names.join(' & ')
+  return `${names[0]} bis ${names[names.length - 1]}`
 }

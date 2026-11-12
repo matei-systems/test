@@ -6,10 +6,12 @@ import { formatCalendarDate, formatEuro, formatTime } from '@/lib/format'
 import { zonedParts } from '@/lib/time'
 import { StatusBadge } from '@/components/admin/StatusBadge'
 import { Icon } from '@/components/icons'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Übersicht' }
 
 export default async function DashboardPage() {
+  await requireAdmin()
   const [stats, agenda, settings] = await Promise.all([dashboardStats(), upcomingAgenda(14), getSettings()])
   const b = settings.business
   const missingLegal = [!b.ownerName && 'Inhaber/Name', !b.street && 'Anschrift', !b.email && 'E-Mail', !b.phone && 'Telefon'].filter(Boolean)
@@ -28,9 +30,14 @@ export default async function DashboardPage() {
           <h1>Übersicht</h1>
           <p>Neue Buchungen, anstehende Termine und offene Punkte auf einen Blick.</p>
         </div>
-        <Link href="/admin/buchungen?status=neu" className="btn btn--primary btn--sm">
-          Neue Buchungen prüfen
-        </Link>
+        <span style={{ display: 'inline-flex', gap: 8, flexWrap: 'wrap' }}>
+          <Link href="/admin/kalender" className="adm-btn">
+            <Icon name="calendar" size={16} /> Kalender
+          </Link>
+          <Link href="/admin/buchungen?status=neu" className="btn btn--primary btn--sm">
+            Neue Buchungen prüfen
+          </Link>
+        </span>
       </header>
 
       <div className="adm-stack" style={{ marginBottom: 16 }}>
@@ -83,6 +90,10 @@ export default async function DashboardPage() {
           <span>Nächste 7 Tage</span>
           <strong>{stats.woche}</strong>
         </Link>
+        <Link href="/admin/anfragen?status=neu" className={`adm-kpi ${stats.anfragen > 0 ? 'adm-kpi--accent' : ''}`}>
+          <span>Offene Kontaktanfragen</span>
+          <strong>{stats.anfragen}</strong>
+        </Link>
         <div className="adm-kpi">
           <span>Auftragsvolumen (Monat, {stats.monatAnzahl} Termine)</span>
           <strong>{formatEuro(stats.monatVolumen)}</strong>
@@ -110,7 +121,9 @@ export default async function DashboardPage() {
                         {bk.first_name} {bk.last_name}
                       </strong>
                       <span className="sub">
+                        {bk.kind === 'anfrage' ? 'Anfrage: ' : ''}
                         {bk.service_name} · {bk.vehicle_category_name} · {bk.postal_code} {bk.city}
+                        {settings.rules.teams > 1 ? ` · Team ${bk.team}` : ''}
                       </span>
                     </span>
                     <StatusBadge status={bk.status} />

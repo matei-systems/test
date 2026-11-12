@@ -7,23 +7,32 @@
 export const SITE = {
   name: 'GLANZMOBIL',
   claim: 'Mobile Premium Fahrzeugpflege',
-  headline: 'Dein Fahrzeug. Unser Anspruch. Perfekter Glanz.',
-  subline: 'Premium Fahrzeugpflege – direkt bei dir vor Ort.',
+  headline: 'Dein Fahrzeug verdient mehr als nur eine Reinigung.',
+  subline: 'Premium Fahrzeugpflege. Direkt bei dir vor Ort.',
   description:
-    'GLANZMOBIL ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung: Innenraumreinigung, Außenreinigung und Komplettreinigung direkt bei dir zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
+    'GLANZMOBIL ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei dir zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
   locale: 'de_AT',
   language: 'de-AT',
   timezone: 'Europe/Vienna',
   currency: 'EUR',
   keywords: [
     'Autoaufbereitung Graz',
-    'mobile Autoreinigung Graz',
-    'Innenreinigung Auto Graz',
-    'Fahrzeugpflege Graz Umgebung',
-    'mobile Fahrzeugpflege Steiermark',
+    'mobile Fahrzeugpflege Graz',
+    'Autoreinigung Graz',
+    'Innenraumreinigung Auto Graz',
+    'Fahrzeugaufbereitung Graz Umgebung',
+    'mobile Autoreinigung Steiermark',
     'Autopflege Graz',
-    'Fahrzeugaufbereitung Graz',
   ],
+  /**
+   * Beschriftung des Buttons, der eine verbindliche Buchung auslöst.
+   * Rechtlich prüfen lassen (§ 8 FAGG „Button-Lösung“): Bei zahlungspflichtigen Online-Verträgen mit
+   * Verbrauchern muss die Beschriftung eindeutig auf die Zahlungspflicht hinweisen. Falls nötig hier
+   * z. B. auf „Zahlungspflichtig buchen“ ändern – der Hinweistext direkt über dem Button bleibt bestehen.
+   */
+  bookingButtonLabel: 'Termin jetzt buchen',
+  /** Vorbefüllter Text für den WhatsApp-Kontakt */
+  whatsappText: 'Hallo GLANZMOBIL, ich interessiere mich für eine Fahrzeugaufbereitung und möchte einen Termin vereinbaren.',
 } as const
 
 export function getSiteUrl(): string {
@@ -36,10 +45,17 @@ export function getSiteUrl(): string {
 
 export const NAV_LINKS = [
   { href: '/leistungen', label: 'Leistungen' },
-  { href: '/#preise', label: 'Preise' },
+  { href: '/preise', label: 'Preise' },
   { href: '/galerie', label: 'Galerie' },
-  { href: '/#ablauf', label: 'Ablauf' },
-  { href: '/#faq', label: 'FAQ' },
+  { href: '/ueber-uns', label: 'Über uns' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/kontakt', label: 'Kontakt' },
+] as const
+
+/** Zusätzliche Links im Footer */
+export const FOOTER_LINKS = [
+  { href: '/einsatzgebiet', label: 'Einsatzgebiet' },
+  { href: '/buchen', label: 'Online buchen' },
 ] as const
 
 export const LEGAL_LINKS = [

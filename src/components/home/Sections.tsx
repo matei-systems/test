@@ -19,7 +19,7 @@ export function HowItWorks() {
     <section id="ablauf" className="section" aria-labelledby="ablauf-title">
       <div className="container">
         <div className="section-head section-head--center reveal">
-          <p className="eyebrow">So funktioniert es</p>
+          <p className="eyebrow">Buchungsprozess</p>
           <h2 id="ablauf-title" className="h2">
             Vier Schritte zum <span className="serif accent">perfekten Glanz.</span>
           </h2>
@@ -49,11 +49,11 @@ export function HowItWorks() {
 // ─── Vorteile ───────────────────────────────────────────────────────────────────
 const BENEFITS: Array<{ icon: IconName; title: string; text: string }> = [
   { icon: 'van', title: 'Mobile Fahrzeugpflege', text: 'Kein Hinfahren, kein Warten. Wir kommen mit unserem Equipment direkt zu deinem Fahrzeug.' },
-  { icon: 'calendar', title: 'Flexible Terminvereinbarung', text: 'Online rund um die Uhr buchen – du siehst nur Termine, die wirklich frei sind.' },
-  { icon: 'tag', title: 'Transparente Preise', text: 'Klare Preise je Fahrzeugkategorie. Zusatzkosten werden immer vorab besprochen.' },
-  { icon: 'polish', title: 'Professionelle Arbeitsweise', text: 'Sorgfältige Handarbeit, schonende Methoden und ein genauer Blick für jedes Detail.' },
+  { icon: 'pin', title: 'Bequem am Wunschstandort', text: 'Zu Hause, am Arbeitsplatz oder an einem vereinbarten Ort in Graz und Graz-Umgebung.' },
+  { icon: 'polish', title: 'Individuelle Pflege', text: 'Sorgfältige Handarbeit, schonende Methoden und Zusatzleistungen genau nach Bedarf.' },
+  { icon: 'tag', title: 'Transparente Preise', text: 'Klare Endpreise je Fahrzeugkategorie. Zusatzkosten werden immer vorab besprochen.' },
+  { icon: 'calendar', title: 'Einfache Terminbuchung', text: 'Online rund um die Uhr buchen – du siehst nur Termine, die wirklich frei sind.' },
   { icon: 'handshake', title: 'Persönlicher Service', text: 'Persönlicher Kontakt, ehrliche Beratung und Termine, die zu deinem Alltag passen.' },
-  { icon: 'pin', title: 'Regional verfügbar', text: 'In Graz und Graz-Umgebung zu Hause – kurze Wege, schnelle Termine.' },
 ]
 
 export function Benefits() {
@@ -62,9 +62,9 @@ export function Benefits() {
       <div className="container">
         <div className="section-head section-head--split reveal">
           <div style={{ display: 'grid', gap: 20 }}>
-            <p className="eyebrow">Warum GLANZMOBIL</p>
+            <p className="eyebrow">Deine Vorteile</p>
             <h2 id="vorteile-title" className="h2">
-              Vertrauen, das man <span className="serif accent">sieht.</span>
+              Warum <span className="serif accent">GLANZMOBIL?</span>
             </h2>
           </div>
           <p className="lead">
@@ -135,6 +135,13 @@ export function Testimonials({ items, reviewUrl }: { items: Testimonial[]; revie
             )}
           </div>
         )}
+        {items.length > 0 && reviewUrl && (
+          <div className={`${styles.center} reveal`}>
+            <a href={reviewUrl} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+              Alle Bewertungen ansehen <Icon name="external" />
+            </a>
+          </div>
+        )}
       </div>
     </section>
   )
@@ -153,9 +160,12 @@ export function ServiceAreaSection({ area }: { area: ServiceArea }) {
             Mobile Fahrzeugpflege in <span className="serif accent">{area.regions.join(' & ')}.</span>
           </h2>
           <p className="lead">
-            Wir kommen zu dir nach Hause, an deinen Arbeitsplatz oder an einen vereinbarten Standort. Ob Innenreinigung, Außenreinigung
-            oder Komplettaufbereitung – in Graz und der ganzen Umgebung.
+            Wir kommen zu dir nach Hause, an deinen Arbeitsplatz oder an einen vereinbarten Standort. Ob Innenraumreinigung, Außenpflege
+            oder Komplettpaket – in Graz und der ganzen Umgebung.
           </p>
+          <Link href="/einsatzgebiet" className="link-arrow">
+            Einsatzgebiet &amp; Postleitzahl prüfen <Icon name="arrow-right" />
+          </Link>
         </div>
         {area.communities.length > 0 && (
           <ul className={`${styles.places} reveal`} aria-label="Orte im Einsatzgebiet">
@@ -172,6 +182,24 @@ export function ServiceAreaSection({ area }: { area: ServiceArea }) {
 }
 
 // ─── FAQ ────────────────────────────────────────────────────────────────────────
+export function FaqList({ items }: { items: FaqItem[] }) {
+  return (
+    <div className={styles.faqList}>
+      {items.map((f, i) => (
+        <details key={f.q} className={`${styles.faqItem} reveal`} style={{ ['--reveal-delay' as string]: `${Math.min(i, 4) * 0.05}s` }}>
+          <summary>
+            <span>{f.q}</span>
+            <span className={styles.faqIcon} aria-hidden="true">
+              <Icon name="plus" size={18} />
+            </span>
+          </summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  )
+}
+
 export function Faq({ items }: { items: FaqItem[] }) {
   return (
     <section id="faq" className="section" aria-labelledby="faq-title">
@@ -182,20 +210,11 @@ export function Faq({ items }: { items: FaqItem[] }) {
             Gut zu <span className="serif accent">wissen.</span>
           </h2>
           <p className="lead">Die wichtigsten Antworten rund um Ablauf, Preise und Termine.</p>
+          <Link href="/faq" className="link-arrow">
+            Alle Fragen &amp; Antworten <Icon name="arrow-right" />
+          </Link>
         </div>
-        <div className={styles.faqList}>
-          {items.map((f, i) => (
-            <details key={f.q} className={`${styles.faqItem} reveal`} style={{ ['--reveal-delay' as string]: `${Math.min(i, 4) * 0.05}s` }}>
-              <summary>
-                <span>{f.q}</span>
-                <span className={styles.faqIcon} aria-hidden="true">
-                  <Icon name="plus" size={18} />
-                </span>
-              </summary>
-              <p>{f.a}</p>
-            </details>
-          ))}
-        </div>
+        <FaqList items={items} />
       </div>
     </section>
   )
@@ -217,8 +236,8 @@ export function FinalCta() {
           <Link href="/buchen" className="btn btn--primary">
             Termin jetzt buchen <Icon name="arrow-right" />
           </Link>
-          <Link href="/leistungen" className="btn btn--ghost">
-            Alle Leistungen
+          <Link href="/preise" className="btn btn--ghost">
+            Preise ansehen
           </Link>
         </div>
       </div>

@@ -1,8 +1,8 @@
 /** Suchmaschinen-Texte je Leistung (lokale Keywords). Fallback: Name + Graz. */
 export const SERVICE_SEO: Record<string, { title: string; keyword: string }> = {
-  innenraumreinigung: { title: 'Innenreinigung Auto Graz – mobile Innenraumreinigung', keyword: 'Innenreinigung Auto Graz' },
-  aussenreinigung: { title: 'Mobile Autowäsche & Außenreinigung in Graz', keyword: 'mobile Autoreinigung Graz' },
-  komplettreinigung: { title: 'Komplettreinigung & Autoaufbereitung Graz – innen und außen', keyword: 'Autoaufbereitung Graz' },
-  'premium-aufbereitung': { title: 'Premium-Fahrzeugaufbereitung in Graz & Umgebung', keyword: 'Fahrzeugaufbereitung Graz' },
+  'innenraum-basic': { title: 'Innenraumreinigung Auto Graz – mobil bei dir vor Ort', keyword: 'Innenraumreinigung Auto Graz' },
+  'innenraum-premium': { title: 'Premium-Innenraumaufbereitung in Graz & Umgebung', keyword: 'Innenraumaufbereitung Graz' },
+  aussenpflege: { title: 'Mobile Autoreinigung & Außenpflege in Graz', keyword: 'Autoreinigung Graz' },
+  komplettpaket: { title: 'Autoaufbereitung Graz – Komplettpaket innen und außen', keyword: 'Autoaufbereitung Graz' },
   zusatzleistungen: { title: 'Tierhaarentfernung & Polsterreinigung Auto Graz', keyword: 'Polsterreinigung Auto Graz' },
 }

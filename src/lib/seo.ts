@@ -2,7 +2,7 @@ import type { BusinessInfo, ServiceArea } from '@/config/defaults'
 import { getSiteUrl, SITE } from '@/config/site'
 import type { WorkingDay } from './availability'
 import type { Catalog } from './pricing'
-import { servicePriceRange } from './pricing'
+import { serviceFromPrice } from './pricing'
 import type { FaqItem } from '@/content/faq'
 
 const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -33,12 +33,12 @@ export function localBusinessJsonLd(opts: { business: BusinessInfo; area: Servic
       itemListElement: catalog.services
         .filter((s) => !s.requiresAddon)
         .map((s) => {
-          const range = servicePriceRange(s, catalog.vehicles)
+          const from = serviceFromPrice(catalog, s, Date.now())
           return {
             '@type': 'Offer',
             itemOffered: { '@type': 'Service', name: s.name, description: s.description, url: `${url}/leistungen/${s.id}` },
-            ...(range.min !== null
-              ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: range.min / 100, priceCurrency: 'EUR' } }
+            ...(from.min.priceCents !== null
+              ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: from.min.priceCents / 100, priceCurrency: 'EUR' } }
               : {}),
           }
         }),

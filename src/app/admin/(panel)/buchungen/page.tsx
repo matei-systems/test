@@ -3,6 +3,7 @@ import { listBookings, type BookingScope } from '@/lib/admin-data'
 import { formatDateShort, formatPrice, formatTime, STATUS_LABELS, EMAIL_STATUS_LABELS } from '@/lib/format'
 import { StatusBadge } from '@/components/admin/StatusBadge'
 import { Icon } from '@/components/icons'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Buchungen' }
 
@@ -15,6 +16,7 @@ const SCOPES: Array<{ id: BookingScope; label: string }> = [
 ]
 
 export default async function BookingsPage({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
+  await requireAdmin()
   const sp = await searchParams
   const scope = (SCOPES.find((s) => s.id === sp.zeitraum)?.id ?? (sp.status ? 'alle' : 'kommend')) as BookingScope
   const status = sp.status && STATUS_LABELS[sp.status] ? sp.status : undefined

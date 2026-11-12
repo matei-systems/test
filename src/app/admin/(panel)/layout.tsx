@@ -10,10 +10,13 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const session = await requireAdmin()
   const dbReady = isDatabaseConfigured()
   let newCount = 0
+  let inquiryCount = 0
   if (dbReady) {
     const db = await getDb()
     const { rows } = await db.query<{ n: number }>("SELECT count(*) AS n FROM bookings WHERE status = 'neu' AND ends_at >= now()")
     newCount = Number(rows[0]?.n ?? 0)
+    const inq = await db.query<{ n: number }>("SELECT count(*) AS n FROM inquiries WHERE status = 'neu'")
+    inquiryCount = Number(inq.rows[0]?.n ?? 0)
   }
   return (
     <div className="adm">
@@ -32,7 +35,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
             </button>
           </form>
         </div>
-        <AdminNav newCount={newCount} />
+        <AdminNav newCount={newCount} inquiryCount={inquiryCount} />
         <div className="adm-side-foot">
           <span>Angemeldet als {session.username}</span>
           <Link href="/" target="_blank" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>

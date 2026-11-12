@@ -179,4 +179,107 @@ ALTER TABLE booking_events      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rate_limits         ENABLE ROW LEVEL SECURITY;
 `,
   },
+  {
+    id: "002_plattform",
+    sql: String.raw`
+-- Erweiterung der Plattform: Aktionen/Einführungspreise, Galerie mit Upload, Kontaktanfragen,
+-- Teams, Terminanfragen, Online-Stornierung, Terminerinnerungen.
+
+-- Für das Überschneidungsverbot je Team (Gleichheit auf "team" + Überlappung des Zeitraums)
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+ALTER TABLE services ADD COLUMN IF NOT EXISTS image_src text;
+
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS kind text NOT NULL DEFAULT 'buchung';
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS team smallint NOT NULL DEFAULT 1;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS house_number text NOT NULL DEFAULT '';
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS location_note text;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS regular_price_cents integer;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS discount_cents integer NOT NULL DEFAULT 0;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS promotion_name text;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS promotion_percent integer;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS marketing_consent_at timestamptz;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS reminder_sent_at timestamptz;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS cancelled_by text;
+
+ALTER TABLE bookings DROP CONSTRAINT IF EXISTS bookings_kind_check;
+ALTER TABLE bookings ADD CONSTRAINT bookings_kind_check CHECK (kind IN ('buchung','anfrage'));
+ALTER TABLE bookings DROP CONSTRAINT IF EXISTS bookings_team_check;
+ALTER TABLE bookings ADD CONSTRAINT bookings_team_check CHECK (team BETWEEN 1 AND 20);
+
+-- Doppelbuchungsschutz je Team: Aktive Termine (inkl. Pufferzeit) desselben Teams dürfen sich nie überschneiden.
+ALTER TABLE bookings DROP CONSTRAINT IF EXISTS bookings_no_overlap;
+ALTER TABLE bookings ADD CONSTRAINT bookings_no_overlap EXCLUDE USING gist (
+  team WITH =,
+  tstzrange(starts_at, blocked_until, '[)') WITH &&
+) WHERE (status <> 'storniert');
+
+-- ─── Aktionen (Einführungspreise, Rabatte) ─────────────────────────────────────
+CREATE TABLE IF NOT EXISTS promotions (
+  id                  uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name                text NOT NULL,
+  service_id          text REFERENCES services(id) ON DELETE CASCADE,
+  vehicle_category_id text REFERENCES vehicle_categories(id) ON DELETE CASCADE,
+  discount_percent    integer CHECK (discount_percent BETWEEN 1 AND 90),
+  promo_price_cents   integer CHECK (promo_price_cents >= 0),
+  starts_at           timestamptz,
+  ends_at             timestamptz,
+  active              boolean NOT NULL DEFAULT true,
+  show_strikethrough  boolean NOT NULL DEFAULT false,
+  created_at          timestamptz NOT NULL DEFAULT now(),
+  CHECK ((discount_percent IS NOT NULL) <> (promo_price_cents IS NOT NULL)),
+  CHECK (promo_price_cents IS NULL OR (service_id IS NOT NULL AND vehicle_category_id IS NOT NULL)),
+  CHECK (ends_at IS NULL OR starts_at IS NULL OR ends_at > starts_at)
+);
+
+-- ─── Medien (hochgeladene Bilder, in der Datenbank gespeichert) ────────────────
+CREATE TABLE IF NOT EXISTS media (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  mime        text NOT NULL,
+  data        bytea NOT NULL,
+  width       integer,
+  height      integer,
+  bytes       integer NOT NULL,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- ─── Galerie (Vorher/Nachher-Paare und Einzelbilder) ───────────────────────────
+CREATE TABLE IF NOT EXISTS gallery_items (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  kind        text NOT NULL CHECK (kind IN ('vergleich','bild')),
+  title       text NOT NULL,
+  description text NOT NULL DEFAULT '',
+  category    text NOT NULL DEFAULT '',
+  before_src  text,
+  after_src   text,
+  image_src   text,
+  alt         text NOT NULL DEFAULT '',
+  is_demo     boolean NOT NULL DEFAULT false,
+  published   boolean NOT NULL DEFAULT true,
+  sort        integer NOT NULL DEFAULT 0,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  CHECK ((kind = 'vergleich' AND before_src IS NOT NULL AND after_src IS NOT NULL) OR (kind = 'bild' AND image_src IS NOT NULL))
+);
+
+-- ─── Kontaktanfragen ───────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS inquiries (
+  id                   uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name                 text NOT NULL,
+  email                text NOT NULL,
+  phone                text NOT NULL DEFAULT '',
+  topic                text NOT NULL DEFAULT '',
+  message              text NOT NULL,
+  status               text NOT NULL DEFAULT 'neu' CHECK (status IN ('neu','erledigt')),
+  privacy_accepted_at  timestamptz NOT NULL,
+  admin_email_status   text NOT NULL DEFAULT 'ausstehend',
+  created_at           timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS inquiries_created_idx ON inquiries (created_at DESC);
+
+ALTER TABLE promotions     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE media          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE gallery_items  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE inquiries      ENABLE ROW LEVEL SECURITY;
+`,
+  },
 ]

@@ -57,3 +57,24 @@
   gap: 10px;
   margin: 4px 0 8px;
 }
+
+/* Smartphone: Kopfbereich kompakt halten, damit der erste Buchungsschritt sofort sichtbar ist */
+@media (max-width: 639px) {
+  .page {
+    padding-top: calc(var(--header-h) + 20px);
+  }
+  .head {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .head :global(.h2) {
+    font-size: 1.7rem;
+  }
+  .points {
+    gap: 6px 14px;
+    font-size: 0.78rem;
+  }
+  .points span {
+    gap: 6px;
+  }
+}

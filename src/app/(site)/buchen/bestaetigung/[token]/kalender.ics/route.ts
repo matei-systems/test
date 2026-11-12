@@ -28,7 +28,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
     `DTSTART:${icsDate(b.startsAt)}`,
     `DTEND:${icsDate(end)}`,
     `SUMMARY:${esc(`${SITE.name}: ${b.serviceName}`)}`,
-    `LOCATION:${esc(`${b.street}, ${b.postalCode} ${b.city}`)}`,
+    `LOCATION:${esc(`${b.street} ${b.houseNumber}, ${b.postalCode} ${b.city}`.replace(/\s+,/, ','))}`,
     `DESCRIPTION:${esc(`Buchungsnummer ${b.reference}\nFahrzeug: ${b.vehicleCategoryName} – ${b.vehicleModel}`)}`,
     'END:VEVENT',
     'END:VCALENDAR',

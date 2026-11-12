@@ -5,6 +5,7 @@ import { adminRecipient, isEmailConfigured } from '@/lib/email'
 import { getSiteUrl } from '@/config/site'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { saveAreaAction, saveBusinessAction, sendTestMailAction } from '../../actions'
+import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Einstellungen' }
 
@@ -24,9 +25,16 @@ const BUSINESS_FIELDS: Array<{ name: string; label: string; hint?: string; full?
   { name: 'trade', label: 'Gewerbe / Berufsbezeichnung', full: true },
   { name: 'tradeAuthority', label: 'Gewerbebehörde', hint: 'z. B. Magistrat Graz' },
   { name: 'chamber', label: 'Kammerzugehörigkeit', hint: 'z. B. Wirtschaftskammer Steiermark' },
+  {
+    name: 'reviewUrl',
+    label: 'Bewertungslink (Google-Unternehmensprofil)',
+    hint: 'Erst eintragen, wenn das Profil tatsächlich existiert. Aktiviert den Button „Bewertung abgeben“ und den Link in der Abschluss-E-Mail.',
+    full: true,
+  },
 ]
 
 export default async function SettingsPage() {
+  await requireAdmin()
   const settings = await getSettings()
   const db = await getDb()
   const b = settings.business as unknown as Record<string, string>

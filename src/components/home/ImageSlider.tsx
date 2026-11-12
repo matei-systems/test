@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useRef } from 'react'
 import { Icon } from '../icons'
-import type { GalleryImage } from '@/content/gallery'
+import { isUploadedImage, type GalleryImage } from '@/lib/gallery'
 import styles from './ImageSlider.module.css'
 
 /** Horizontaler Bild-Slider mit Scroll-Snap (Touch, Trackpad, Tastatur und Pfeil-Buttons). */
@@ -19,10 +19,18 @@ export function ImageSlider({ images }: { images: GalleryImage[] }) {
     <div className={styles.slider}>
       <ul ref={track} className={styles.track} tabIndex={0} aria-label="Bildergalerie – mit Pfeiltasten scrollen">
         {images.map((img) => (
-          <li key={img.src} className={styles.slide}>
+          <li key={img.id} className={styles.slide}>
             <figure>
               <div className={styles.media}>
-                <Image src={img.src} alt={img.alt} fill sizes="(max-width: 700px) 85vw, 45vw" quality={80} style={{ objectFit: 'cover' }} />
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 700px) 85vw, 45vw"
+                  quality={80}
+                  unoptimized={isUploadedImage(img.src)}
+                  style={{ objectFit: 'cover' }}
+                />
                 {img.isDemo && <span className={styles.demo}>Beispielbild</span>}
               </div>
               <figcaption>{img.caption}</figcaption>

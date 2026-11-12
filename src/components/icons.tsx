@@ -43,6 +43,14 @@ export type IconName =
   | 'edit'
   | 'external'
   | 'polish'
+  | 'image'
+  | 'percent'
+  | 'chart'
+  | 'upload'
+  | 'inbox'
+  | 'users'
+  | 'gem'
+  | 'compare'
 
 const paths: Record<IconName, React.ReactNode> = {
   'arrow-right': <path d="M4 12h15m-5-6 6 6-6 6" />,
@@ -194,6 +202,37 @@ const paths: Record<IconName, React.ReactNode> = {
       <circle cx="9" cy="14" r="5.5" />
       <circle cx="9" cy="14" r="2" />
       <path d="m13 10 5.5-5.5M16 4.5l3.5 3.5" />
+    </>
+  ),
+  image: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="m4 17 5-4.5 3.5 3 3-2.5 4.5 4" />
+    </>
+  ),
+  percent: (
+    <>
+      <path d="M18.5 5.5 5.5 18.5" />
+      <circle cx="7.5" cy="7.5" r="2.5" />
+      <circle cx="16.5" cy="16.5" r="2.5" />
+    </>
+  ),
+  chart: <path d="M4 20V4m0 16h16M8 16v-4m4 4V8m4 8v-6" />,
+  upload: <path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5M4.5 15v3.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V15" />,
+  inbox: <path d="M3.5 13.5 6 5.5h12l2.5 8m-17 0v4a1.5 1.5 0 0 0 1.5 1.5h14a1.5 1.5 0 0 0 1.5-1.5v-4m-17 0h5l1 2.5h5l1-2.5h5" />,
+  users: (
+    <>
+      <circle cx="9" cy="8.5" r="3" />
+      <path d="M3.5 19.5c.4-3.2 2.6-5 5.5-5s5.1 1.8 5.5 5" />
+      <path d="M15.5 5.8a3 3 0 0 1 0 5.4M17 14.8c2 .6 3.2 2.2 3.5 4.7" />
+    </>
+  ),
+  gem: <path d="M7 4.5h10l3.5 5L12 20 3.5 9.5 7 4.5Zm-3.5 5h17M9.5 4.5 8 9.5l4 10.5 4-10.5-1.5-5" />,
+  compare: (
+    <>
+      <rect x="3.5" y="5" width="17" height="14" rx="2" />
+      <path d="M12 3v18M8.5 10 6.5 12l2 2M15.5 10l2 2-2 2" />
     </>
   ),
 }

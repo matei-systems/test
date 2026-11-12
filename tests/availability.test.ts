@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { computeDaySlots, type WorkingDay } from '@/lib/availability'
+import { computeDaySlotCandidates, computeDaySlots, firstFreeTeam, type WorkingDay } from '@/lib/availability'
 import { zonedToUtc, zonedParts, addDays, isoWeekday, todayInZone } from '@/lib/time'
 
 const HOURS: WorkingDay[] = [
@@ -98,5 +98,41 @@ describe('computeDaySlots', () => {
 
   it('liefert keine Termine, wenn die Leistung länger als der Arbeitstag ist', () => {
     expect(computeDaySlots({ ...base, date: '2026-11-11', durationMinutes: 11 * 60 })).toEqual([])
+  })
+})
+
+describe('Teams (parallele Kapazität)', () => {
+  const base = { workingHours: HOURS, busy: [], blocked: [], now: NOW }
+  const busyTeam1 = [{ start: at('2026-11-11', '10:00'), end: at('2026-11-11', '13:00'), team: 1 }]
+
+  it('ein Team: belegter Zeitraum ist nicht buchbar', () => {
+    const slots = computeDaySlots({ ...base, rules: { ...RULES, teams: 1 }, busy: busyTeam1, date: '2026-11-11', durationMinutes: 90 })
+    expect(slots).not.toContain('10:00')
+    expect(slots).toContain('13:00')
+  })
+
+  it('zwei Teams: derselbe Zeitraum bleibt buchbar und wird Team 2 zugewiesen', () => {
+    const candidates = computeDaySlotCandidates({ ...base, rules: { ...RULES, teams: 2 }, busy: busyTeam1, date: '2026-11-11', durationMinutes: 90 })
+    expect(candidates.find((c) => c.time === '10:00')?.team).toBe(2)
+    expect(candidates.find((c) => c.time === '13:00')?.team).toBe(1)
+  })
+
+  it('beide Teams belegt → nicht buchbar', () => {
+    const busy = [...busyTeam1, { start: at('2026-11-11', '09:00'), end: at('2026-11-11', '12:00'), team: 2 }]
+    const slots = computeDaySlots({ ...base, rules: { ...RULES, teams: 2 }, busy, date: '2026-11-11', durationMinutes: 90 })
+    expect(slots).not.toContain('10:00')
+    expect(slots).toContain('12:00') // Team 2 ist ab 12:00 wieder frei
+  })
+
+  it('firstFreeTeam behandelt fehlende Team-Angabe als Team 1', () => {
+    const occupied = { start: 0, end: 10 }
+    expect(firstFreeTeam(occupied, [{ start: 5, end: 15 }], 1)).toBeNull()
+    expect(firstFreeTeam(occupied, [{ start: 5, end: 15 }], 2)).toBe(2)
+    expect(firstFreeTeam(occupied, [{ start: 10, end: 15 }], 1)).toBe(1)
+  })
+
+  it('Sperrzeiten gelten für alle Teams', () => {
+    const blocked = [{ start: at('2026-11-11', '00:00'), end: at('2026-11-12', '00:00') }]
+    expect(computeDaySlots({ ...base, rules: { ...RULES, teams: 3 }, blocked, date: '2026-11-11', durationMinutes: 90 })).toEqual([])
   })
 })

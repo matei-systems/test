@@ -1,9 +1,9 @@
 .fab {
+  display: none;
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
   bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 90;
-  display: inline-flex;
   align-items: center;
   gap: 10px;
   height: 56px;
@@ -32,6 +32,9 @@
 }
 
 @media (min-width: 720px) {
+  .fab {
+    display: inline-flex;
+  }
   .label {
     display: inline;
   }
