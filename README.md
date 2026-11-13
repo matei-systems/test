@@ -77,6 +77,7 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, z. B. `https://www.glanzmobil.at` (Sitemap, Open Graph, Links in E-Mails) |
 | `DATABASE_URL` (oder `POSTGRES_URL`) | ja (Produktion) | PostgreSQL-Verbindung. Die Vercel-Neon-Integration setzt beide automatisch. **Ohne sie nimmt die Produktion keine Buchungen an** (Fehlermeldung statt Schein-Buchung) |
+| `GLANZMOBIL_DB` | nein | Notschalter: `off` ignoriert die Datenbank-Variablen – die Website bleibt im Übergangsmodus erreichbar (Online-Buchung deaktiviert), die Datenbank wird nicht angefasst. Im Normalbetrieb leer lassen |
 | `ADMIN_USERNAME` | nein | Standard `admin` |
 | `ADMIN_PASSWORD_HASH` | ja | Erzeugen mit `npm run admin:hash -- "Passwort"` – oder ohne Node.js direkt auf der Website unter `/admin/login` (solange noch kein Admin eingerichtet ist) |
 | `SESSION_SECRET` | optional | Zufälliger Schlüssel, mind. 32 Zeichen. Fehlt er, wird ein Schlüssel aus der (geheimen) Datenbank-URL abgeleitet |
@@ -92,6 +93,8 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 3. Fertig – Tabellen werden beim ersten Aufruf automatisch angelegt. Row Level Security wird auf allen Tabellen aktiviert, damit die öffentliche Supabase-API keinen Zugriff auf Buchungsdaten hat.
 
 Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für GLANZMOBIL; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
+
+**Jede Anwendung braucht eine eigene Datenbank.** GLANZMOBIL migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
 
 Die Datenbank muss die Erweiterung `btree_gist` erlauben (für den Doppelbuchungsschutz je Team) – bei Neon, Supabase und normalem PostgreSQL ist das der Fall. Hochgeladene Bilder werden verkleinert als WebP in der Datenbank gespeichert; ein zusätzlicher Speicherdienst ist nicht nötig.
 

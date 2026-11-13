@@ -31,6 +31,21 @@ export class DatabaseNotConfiguredError extends Error {
   }
 }
 
+/**
+ * Die verbundene Datenbank enthält bereits Tabellen, die nicht zu GLANZMOBIL gehören
+ * (z. B. weil sie versehentlich mit einer anderen Anwendung geteilt wird).
+ * GLANZMOBIL legt dort nichts an und ändert nichts – die Migration wird vorab abgebrochen.
+ */
+export class ForeignDatabaseError extends Error {
+  constructor(public tables: string[]) {
+    super(
+      `Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung (${tables.slice(0, 6).join(', ')}${tables.length > 6 ? ', …' : ''}). ` +
+        'GLANZMOBIL ändert fremde Datenbanken nicht – bitte eine eigene, leere Datenbank verbinden.',
+    )
+    this.name = 'ForeignDatabaseError'
+  }
+}
+
 /** Postgres-Fehlercodes, die wir gezielt behandeln */
 export const PG_EXCLUSION_VIOLATION = '23P01'
 export const PG_UNIQUE_VIOLATION = '23505'
@@ -53,8 +68,13 @@ export function getDb(): Promise<Db> {
   return g.__glanzmobilDb
 }
 
-/** Verbindungs-URL: DATABASE_URL oder (z. B. von der Vercel-Neon-Integration gesetzt) POSTGRES_URL */
+/**
+ * Verbindungs-URL: DATABASE_URL oder (z. B. von der Vercel-Neon-Integration gesetzt) POSTGRES_URL.
+ * Notschalter: GLANZMOBIL_DB=off ignoriert die Datenbank-Variablen. Die Website bleibt erreichbar
+ * (Übergangsmodus, Online-Buchung deaktiviert), ohne dass die Datenbank angefasst wird.
+ */
 export function databaseUrl(): string | undefined {
+  if (process.env.GLANZMOBIL_DB?.trim().toLowerCase() === 'off') return undefined
   return process.env.DATABASE_URL || process.env.POSTGRES_URL || undefined
 }
 
@@ -151,10 +171,37 @@ async function createPglite(): Promise<Db> {
   }
 }
 
+/**
+ * Schutz vor fremden Datenbanken: Eine Datenbank darf nur dann migriert werden, wenn sie leer ist
+ * oder bereits von GLANZMOBIL stammt (eigene Tabelle schema_migrations mit der Migration 001_init).
+ * Enthält sie andere Tabellen, wird abgebrochen, bevor irgendetwas angelegt oder geändert wird.
+ */
+export async function assertDatabaseIsEmptyOrOurs(tx: Queryable): Promise<void> {
+  const tables = await tx.query<{ table_name: string }>(
+    `SELECT table_name FROM information_schema.tables
+     WHERE table_schema = current_schema() AND table_type = 'BASE TABLE' ORDER BY table_name`,
+  )
+  const names = tables.rows.map((r) => r.table_name)
+  if (names.length === 0) return
+  if (names.includes('schema_migrations')) {
+    const cols = await tx.query<{ column_name: string }>(
+      `SELECT column_name FROM information_schema.columns
+       WHERE table_schema = current_schema() AND table_name = 'schema_migrations'`,
+    )
+    const columns = cols.rows.map((c) => c.column_name)
+    if (columns.includes('id') && columns.includes('applied_at')) {
+      const ours = await tx.query(`SELECT 1 AS ok FROM schema_migrations WHERE id = '001_init'`)
+      if (ours.rows.length > 0) return // rows statt rowCount: PGlite meldet rowCount bei SELECT nicht zuverlässig
+    }
+  }
+  throw new ForeignDatabaseError(names.filter((n) => n !== 'schema_migrations'))
+}
+
 async function migrate(db: Db): Promise<void> {
   await db.transaction(async (tx) => {
     // Verhindert parallele Migrationen (z. B. mehrere Serverless-Instanzen gleichzeitig)
     await tx.query('SELECT pg_advisory_xact_lock(72110001)')
+    await assertDatabaseIsEmptyOrOurs(tx)
     await tx.query(`CREATE TABLE IF NOT EXISTS schema_migrations (
       id text PRIMARY KEY,
       applied_at timestamptz NOT NULL DEFAULT now()
