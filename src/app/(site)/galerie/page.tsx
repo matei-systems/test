@@ -12,7 +12,7 @@ import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Galerie – Vorher & Nachher',
-  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Premium-Fahrzeugpflege von GLANZMOBIL in Graz & Graz-Umgebung.',
+  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Premium-Fahrzeugpflege von RM Mobile Autoaufbereitung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/galerie' },
 }
 

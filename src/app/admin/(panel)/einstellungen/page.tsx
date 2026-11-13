@@ -10,7 +10,7 @@ import { requireAdmin } from '@/lib/auth'
 export const metadata = { title: 'Einstellungen' }
 
 const BUSINESS_FIELDS: Array<{ name: string; label: string; hint?: string; full?: boolean }> = [
-  { name: 'companyName', label: 'Firmenname / Marke', hint: 'z. B. GLANZMOBIL – Max Mustermann' },
+  { name: 'companyName', label: 'Firmenname / Marke', hint: 'z. B. RM Mobile Autoaufbereitung – Max Mustermann' },
   { name: 'ownerName', label: 'Inhaber:in / Vertretungsberechtigte:r' },
   { name: 'legalForm', label: 'Rechtsform', hint: 'z. B. Einzelunternehmen, e.U., GmbH' },
   { name: 'phone', label: 'Telefon (öffentlich)' },

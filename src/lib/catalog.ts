@@ -24,9 +24,9 @@ import {
 
 const TTL_MS = 15_000
 type Entry = { at: number; value: Promise<unknown> }
-type GlobalWithCache = typeof globalThis & { __glanzmobilCache?: Map<string, Entry> }
+type GlobalWithCache = typeof globalThis & { __rmCache?: Map<string, Entry> }
 const g = globalThis as GlobalWithCache
-const cache = (g.__glanzmobilCache ??= new Map<string, Entry>())
+const cache = (g.__rmCache ??= new Map<string, Entry>())
 
 function memo<T>(key: string, load: () => Promise<T>): Promise<T> {
   const hit = cache.get(key)

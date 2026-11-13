@@ -1,16 +1,16 @@
-# GLANZMOBIL – Markenidentität
+# RM Mobile Autoaufbereitung – Markenidentität
 
 ## Logo
 
-Das Zeichen ist ein offenes **„G“** – wie die Lichtkante auf poliertem Lack – mit einem **Glanzpunkt** in der Öffnung. Dazu die Wortmarke **GLANZMOBIL** (Geist SemiBold, weite Laufweite) und die Zeile *Mobile Premium Fahrzeugpflege*.
+Das Zeichen ist das Monogramm **„RM“** (Geist SemiBold) mit einem goldenen **Glanzpunkt** über dem „M“ – wie die Lichtkante auf poliertem Lack. Daneben steht der Name zweizeilig: klein *MOBILE*, groß **AUTOAFBEREITUNG**. Zusammen gelesen: **RM Mobile Autoaufbereitung**. Die Pfaddaten des Zeichens liegen in `src/components/site/Logo.tsx` (eine Quelle für Website und Logo-Dateien).
 
 | Datei | Verwendung |
 | --- | --- |
-| `logo/glanzmobil-logo-fuer-dunklen-hintergrund.svg` / `.png` | Logo auf Schwarz/Anthrazit (Website, Social Media) |
-| `logo/glanzmobil-logo-fuer-hellen-hintergrund.svg` / `.png` | Logo auf Weiß/hellen Flächen (Briefpapier, Rechnungen, Aufkleber) |
-| `logo/glanzmobil-wortmarke-fuer-dunklen-hintergrund.svg` / `…-hellen-…` | Alternative Wortmarke ohne Zeichen (schmale Flächen, Fußzeilen, Stempel) |
-| `logo/glanzmobil-logo-gestapelt-dunkel.svg` / `-hell.svg` | Gestapeltes Logo: Zeichen über der Wortmarke (quadratische Flächen, Aufkleber) |
-| `logo/glanzmobil-emblem-hell.svg` / `-dunkel.svg` | Nur das Zeichen (Favicon, Stempel) |
+| `logo/rm-logo-fuer-dunklen-hintergrund.svg` / `.png` | Logo auf Schwarz/Anthrazit (Website, Social Media) |
+| `logo/rm-logo-fuer-hellen-hintergrund.svg` / `.png` | Logo auf Weiß/hellen Flächen (Briefpapier, Rechnungen, Aufkleber) |
+| `logo/rm-wortmarke-fuer-dunklen-hintergrund.svg` / `…-hellen-…` | Reine Wortmarke „RM | MOBILE AUTOAUFBEREITUNG“ ohne Glanzpunkt (schmale Flächen, Fußzeilen, Stempel) |
+| `logo/rm-logo-gestapelt-dunkel.svg` / `-hell.svg` | Gestapeltes Logo: Zeichen über der Wortmarke (quadratische Flächen, Aufkleber) |
+| `logo/rm-emblem-hell.svg` / `-dunkel.svg` | Nur das Zeichen (Favicon, Stempel) |
 | `social/profilbild-1080.png` | Profilbild für Instagram, Facebook und Google (kreisrund zuschneidbar) |
 | `logo/vorschau-*.png` | Kontrollansicht auf dunklem und hellem Hintergrund |
 

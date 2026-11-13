@@ -4,7 +4,7 @@ import { getSiteUrl, SITE } from '@/config/site'
 import type { BusinessInfo } from '@/config/defaults'
 
 /**
- * E-Mail-Versand über SMTP (nodemailer) im GLANZMOBIL-Design.
+ * E-Mail-Versand über SMTP (nodemailer) im Markendesign.
  * Ist SMTP nicht konfiguriert, wird nichts versendet und der Status "nicht_konfiguriert"
  * zurückgegeben – der Admin sieht das je Buchung. Es wird nie ein Versand vorgetäuscht.
  */
@@ -141,7 +141,7 @@ function shell(title: string, bodyHtml: string): string {
 <body style="margin:0;background:#f3f2ef;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f2ef;padding:32px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden">
-<tr><td style="background:#0b0b0c;padding:28px 32px"><div style="color:#f4efe6;font-size:18px;letter-spacing:.32em;font-weight:600">GLANZMOBIL</div><div style="color:#c8b48a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px">${esc(SITE.claim)}</div></td></tr>
+<tr><td style="background:#0b0b0c;padding:28px 32px"><div style="color:#f4efe6;font-size:14px;letter-spacing:.2em;font-weight:600;text-transform:uppercase">${esc(SITE.name)}</div><div style="color:#c8b48a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px">${esc(SITE.claim)}</div></td></tr>
 <tr><td style="padding:32px">
 <h1 style="margin:0 0 12px;font-size:22px;color:#111;font-weight:600">${esc(title)}</h1>
 ${bodyHtml}
@@ -259,7 +259,7 @@ export function customerRescheduleMail(data: BookingMailData, business: Business
 
 /** Terminerinnerung am Vortag. */
 export function customerReminderMail(data: BookingMailData, business: BusinessInfo): Mail {
-  const title = 'Erinnerung: Dein Termin bei GLANZMOBIL'
+  const title = 'Erinnerung: Dein Termin bei RM Mobile Autoaufbereitung'
   const intro = `Hallo ${esc(data.firstName)}, wir freuen uns auf deinen Termin am <strong>${esc(formatDateLong(data.startsAt))} um ${esc(formatTime(data.startsAt))} Uhr</strong>. Bitte stelle sicher, dass dein Fahrzeug am vereinbarten Standort zugänglich ist und persönliche Gegenstände ausgeräumt sind.`
   return bookingMail(data.email, `Terminerinnerung ${data.reference} – ${SITE.name}`, title, intro, data, contactLine(business), business.email || undefined)
 }

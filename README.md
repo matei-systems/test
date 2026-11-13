@@ -1,4 +1,4 @@
-# GLANZMOBIL – Mobile Premium Fahrzeugpflege
+# RM Mobile Autoaufbereitung – Premium Fahrzeugpflege
 
 Website mit Online-Buchungssystem und Admin-Bereich für einen mobilen Premium-Fahrzeugpflege-Service in Graz und Graz-Umgebung.
 
@@ -75,9 +75,9 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 
 | Variable | Pflicht | Zweck |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, z. B. `https://www.glanzmobil.at` (Sitemap, Open Graph, Links in E-Mails) |
+| `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, z. B. `https://www.ihre-domain.at` (Sitemap, Open Graph, Links in E-Mails) |
 | `DATABASE_URL` (oder `POSTGRES_URL`) | ja (Produktion) | PostgreSQL-Verbindung. Die Vercel-Neon-Integration setzt beide automatisch. **Ohne sie nimmt die Produktion keine Buchungen an** (Fehlermeldung statt Schein-Buchung) |
-| `GLANZMOBIL_DB` | nein | Notschalter: `off` ignoriert die Datenbank-Variablen – die Website bleibt im Übergangsmodus erreichbar (Online-Buchung deaktiviert), die Datenbank wird nicht angefasst. Im Normalbetrieb leer lassen |
+| `GLANZMOBIL_DB` | nein | Notschalter (der Variablenname stammt aus der Zeit vor der Umbenennung und bleibt aus Kompatibilität bestehen): `off` ignoriert die Datenbank-Variablen – die Website bleibt im Übergangsmodus erreichbar (Online-Buchung deaktiviert), die Datenbank wird nicht angefasst. Im Normalbetrieb leer lassen |
 | `ADMIN_USERNAME` | nein | Standard `admin` |
 | `ADMIN_PASSWORD_HASH` | ja | Erzeugen mit `npm run admin:hash -- "Passwort"` – oder ohne Node.js direkt auf der Website unter `/admin/login` (solange noch kein Admin eingerichtet ist) |
 | `SESSION_SECRET` | optional | Zufälliger Schlüssel, mind. 32 Zeichen. Fehlt er, wird ein Schlüssel aus der (geheimen) Datenbank-URL abgeleitet |
@@ -92,9 +92,9 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 2. *Project Settings → Database → Connection string → Transaction pooler* (Port 6543) kopieren und als `DATABASE_URL` setzen, ergänzt um `?sslmode=require&uselibpqcompat=true`.
 3. Fertig – Tabellen werden beim ersten Aufruf automatisch angelegt. Row Level Security wird auf allen Tabellen aktiviert, damit die öffentliche Supabase-API keinen Zugriff auf Buchungsdaten hat.
 
-Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für GLANZMOBIL; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
+Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für RM Mobile Autoaufbereitung; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
 
-**Jede Anwendung braucht eine eigene Datenbank.** GLANZMOBIL migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
+**Jede Anwendung braucht eine eigene Datenbank.** RM Mobile Autoaufbereitung migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
 
 Die Datenbank muss die Erweiterung `btree_gist` erlauben (für den Doppelbuchungsschutz je Team) – bei Neon, Supabase und normalem PostgreSQL ist das der Fall. Hochgeladene Bilder werden verkleinert als WebP in der Datenbank gespeichert; ein zusätzlicher Speicherdienst ist nicht nötig.
 
@@ -106,7 +106,7 @@ Ohne SMTP werden Buchungen trotzdem gespeichert – Kunden erhalten dann **keine
 
 ## Deployment (Vercel)
 
-**Live:** https://glanzmobil.vercel.app – Vercel-Projekt `glanzmobil` (Team „matei“), Funktionen in Frankfurt (`fra1`, siehe `vercel.json`).
+**Live:** https://glanzmobil.vercel.app – Vercel-Projekt `glanzmobil` (Team „matei“; der Projektname ist technisch und für Besucher unsichtbar – er kann nach dem Anbinden der eigenen Domain umbenannt werden), Funktionen in Frankfurt (`fra1`, siehe `vercel.json`).
 
 Aktueller Stand: Die Website ist öffentlich erreichbar. Solange `DATABASE_URL` fehlt, läuft sie im **Übergangsmodus**: Leistungen und Preise werden aus den Startwerten angezeigt, die Online-Buchung ist sichtbar deaktiviert („startet in Kürze“) und nimmt **keine** Buchungen an (API antwortet mit 503). So geht kein Termin verloren.
 

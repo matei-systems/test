@@ -770,7 +770,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                 <label className="checkbox">
                   <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} id="f-marketingConsent" />
                   <span>
-                    Ich möchte gelegentlich Angebote und Neuigkeiten von GLANZMOBIL per E-Mail erhalten{' '}
+                    Ich möchte gelegentlich Angebote und Neuigkeiten von RM Mobile Autoaufbereitung per E-Mail erhalten{' '}
                     <span className="optional">(optional, jederzeit widerrufbar)</span>.
                   </span>
                 </label>

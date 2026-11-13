@@ -379,7 +379,7 @@ export interface BusinessInfo {
 }
 
 export const DEFAULT_BUSINESS: BusinessInfo = {
-  companyName: 'GLANZMOBIL',
+  companyName: 'RM Mobile Autoaufbereitung',
   ownerName: '',
   legalForm: '',
   street: '',

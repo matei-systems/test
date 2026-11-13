@@ -102,7 +102,7 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
         </div>
       </div>
       <div className={styles.wordmark} aria-hidden="true">
-        GLANZMOBIL
+        {SITE.shortName}
       </div>
     </footer>
   )

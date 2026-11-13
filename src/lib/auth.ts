@@ -25,7 +25,7 @@ function sessionSecret(): string | undefined {
   const explicit = process.env.SESSION_SECRET ?? ''
   if (explicit.length >= 32) return explicit
   const db = process.env.DATABASE_URL || process.env.POSTGRES_URL
-  if (db) return createHash('sha256').update(`glanzmobil-session-v1:${db}`).digest('base64url')
+  if (db) return createHash('sha256').update(`rm-session-v1:${db}`).digest('base64url')
   return undefined
 }
 

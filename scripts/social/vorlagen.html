@@ -2,7 +2,7 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <title>GLANZMOBIL – Social-Media-Vorlagen & Designsystem</title>
+    <title>RM Mobile Autoaufbereitung – Social-Media-Vorlagen & Designsystem</title>
     <!--
       Quelle für brand/social/*.jpg und brand/designsystem.png.
       Rendern: node scripts/build-social-assets.mjs  (nutzt die Schriften und Bilder der Website)
@@ -23,8 +23,9 @@
       .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--accent); letter-spacing: -0.01em; }
       .logo { display: flex; align-items: center; gap: 18px; }
       .logo svg { flex: none; }
-      .logo b { display: block; font-weight: 600; letter-spacing: .32em; font-size: 26px; line-height: 1; }
-      .logo small { display: block; margin-top: 9px; font-size: 12px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); }
+      .logo > span { display: flex; flex-direction: column; }
+      .logo b { display: block; font-weight: 600; letter-spacing: .22em; font-size: 24px; line-height: 1; }
+      .logo small { display: block; order: -1; margin-bottom: 8px; font-size: 11px; font-weight: 500; letter-spacing: .42em; text-transform: uppercase; color: var(--accent); }
       .eyebrow { display: flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); }
       .eyebrow::before { content: ''; width: 44px; height: 1px; background: currentColor; opacity: .7; }
       .pill { display: inline-flex; align-items: center; gap: 14px; height: 76px; padding: 0 38px; border-radius: 999px; background: var(--accent); color: #15120c; font-size: 22px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
@@ -71,7 +72,7 @@
       #werbebanner { width: 1200px; height: 628px; padding: 56px 64px; display: flex; flex-direction: column; }
       #werbebanner .bgimg { object-position: 80% 50%; }
       #werbebanner .shade { background: linear-gradient(90deg, rgba(9,9,10,.97) 0%, rgba(9,9,10,.8) 44%, rgba(9,9,10,0) 78%), linear-gradient(0deg, rgba(9,9,10,.7) 0%, rgba(9,9,10,0) 40%); }
-      #werbebanner .logo b { font-size: 20px; } #werbebanner .logo small { font-size: 10px; margin-top: 7px; } #werbebanner .logo svg { width: 46px; height: 46px; }
+      #werbebanner .logo b { font-size: 19px; } #werbebanner .logo small { font-size: 9px; margin-bottom: 6px; } #werbebanner .logo svg { width: 46px; height: 46px; }
       #werbebanner h1 { margin-top: auto; font-size: 66px; font-weight: 500; letter-spacing: -0.035em; line-height: 1; max-width: 12.5em; }
       #werbebanner .sub { margin-top: 20px; font-size: 24px; color: var(--muted); }
       #werbebanner .row { margin-top: 30px; display: flex; align-items: center; gap: 22px; }
@@ -97,7 +98,7 @@
       .logos > div { display: grid; place-items: center; border-radius: 16px; border: 1px solid var(--line); min-height: 120px; padding: 18px; }
       .logos .light { background: var(--text); color: #0b0b0c; }
       .logos .light .logo small { color: var(--accent-dark); }
-      .logos .logo b { font-size: 15px; } .logos .logo small { font-size: 6.6px; margin-top: 6px; white-space: nowrap; } .logos .logo { gap: 11px; }
+      .logos .logo b { font-size: 11.5px; } .logos .logo small { font-size: 6.6px; margin-bottom: 5px; white-space: nowrap; } .logos .logo { gap: 11px; }
       .btnrow { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
       .btn { display: inline-flex; align-items: center; height: 52px; padding: 0 26px; border-radius: 999px; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
       .btn.primary { background: var(--accent); color: #15120c; box-shadow: 0 14px 40px -14px rgba(200,180,138,.55); }
@@ -124,7 +125,7 @@
   <body>
     <svg width="0" height="0" style="position: absolute">
       <symbol id="mark" viewBox="0 0 48 48" fill="none">
-        <path d="M36.2 12.3A17 17 0 1 0 41 24H27.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" />
+        <path d="M6.59 40L2.69 40L2.69 18.70L11.59 18.70Q13.90 18.70 15.58 19.48Q17.27 20.26 18.20 21.70Q19.13 23.14 19.13 25.09Q19.13 27.01 18.06 28.34Q17 29.68 15.43 30.16Q18.50 30.61 18.77 33.85L19.30 40L15.34 40L14.89 34.42Q14.80 33.13 14.08 32.55Q13.37 31.96 11.69 31.96L6.59 31.96L6.59 40M6.59 22.09L6.59 28.54L11.36 28.54Q13.09 28.54 14.10 27.71Q15.11 26.89 15.11 25.33Q15.11 23.77 14.08 22.93Q13.06 22.09 11.17 22.09 M26.95 40L23.05 40L23.05 18.70L28.30 18.70L34.18 35.20L40.06 18.70L45.31 18.70L45.31 40L41.41 40L41.41 25.30L36.04 39.97L32.32 39.97L26.95 25.30" fill="currentColor" />
         <path d="M41 3.6Q41 9 46.4 9 41 9 41 14.4 41 9 35.6 9 41 9 41 3.6Z" fill="var(--glint, #c8b48a)" />
       </symbol>
     </svg>
@@ -133,7 +134,7 @@
     <section class="board ig" id="instagram-einfuehrungspreis">
       <img class="bgimg" src="../../public/images/hero.jpg" alt="" />
       <div class="shade"></div>
-      <div class="logo"><svg width="60" height="60"><use href="#mark" /></svg><span><b>GLANZMOBIL</b><small>Mobile Premium Fahrzeugpflege</small></span></div>
+      <div class="logo"><svg width="60" height="60"><use href="#mark" /></svg><span><b>AUTOAUFBEREITUNG</b><small>Mobile</small></span></div>
       <div class="mid">
         <p class="eyebrow t">Zum Start in Graz</p>
         <h1 class="t">Einführungs&shy;preis</h1>
@@ -150,7 +151,7 @@
     <section class="board ig" id="instagram-leistung">
       <img class="bgimg" src="../../public/images/interior.jpg" alt="" />
       <div class="shade"></div>
-      <div class="logo"><svg width="60" height="60"><use href="#mark" /></svg><span><b>GLANZMOBIL</b><small>Mobile Premium Fahrzeugpflege</small></span></div>
+      <div class="logo"><svg width="60" height="60"><use href="#mark" /></svg><span><b>AUTOAUFBEREITUNG</b><small>Mobile</small></span></div>
       <div class="mid">
         <p class="eyebrow t">Leistung im Fokus</p>
         <h1 class="t">Innenraum <span class="serif">Premium</span></h1>
@@ -173,7 +174,7 @@
       <div class="half"><img src="../../public/images/demo/sitz-nachher.jpg" alt="" /><span class="tag">Nachher</span></div>
       <div class="bar">
         <h1 class="t">Der Unterschied<br />ist <span class="serif">sichtbar.</span></h1>
-        <div class="logo"><svg width="52" height="52"><use href="#mark" /></svg><span><b style="font-size: 20px">GLANZMOBIL</b></span></div>
+        <div class="logo"><svg width="52" height="52"><use href="#mark" /></svg><span><b style="font-size: 17px">AUTOAUFBEREITUNG</b><small style="font-size: 8.5px; margin-bottom: 6px">Mobile</small></span></div>
       </div>
     </section>
 
@@ -181,7 +182,7 @@
     <section class="board" id="werbebanner">
       <img class="bgimg" src="../../public/images/hero.jpg" alt="" />
       <div class="shade"></div>
-      <div class="logo"><svg><use href="#mark" /></svg><span><b>GLANZMOBIL</b><small>Mobile Premium Fahrzeugpflege</small></span></div>
+      <div class="logo"><svg><use href="#mark" /></svg><span><b>AUTOAUFBEREITUNG</b><small>Mobile</small></span></div>
       <h1 class="t">Dein Fahrzeug verdient mehr als nur eine <span class="serif">Reinigung.</span></h1>
       <p class="sub t">Premium Fahrzeugpflege. Direkt bei dir vor Ort – in Graz &amp; Umgebung.</p>
       <div class="row">
@@ -193,7 +194,7 @@
     <!-- 5 · Designsystem -->
     <section class="board" id="designsystem">
       <header>
-        <div class="logo"><svg width="64" height="64"><use href="#mark" /></svg><span><b style="font-size: 30px">GLANZMOBIL</b><small style="font-size: 13px">Mobile Premium Fahrzeugpflege</small></span></div>
+        <div class="logo"><svg width="64" height="64"><use href="#mark" /></svg><span><b style="font-size: 26px">AUTOAUFBEREITUNG</b><small style="font-size: 12px">Mobile</small></span></div>
         <div style="text-align: right"><h1>Designsystem <span class="serif">Dark Luxury</span></h1><p>Farben · Typografie · Logo · Komponenten · Bildstil</p></div>
       </header>
 
@@ -224,9 +225,9 @@
       <div class="panel">
         <h2>Logo</h2>
         <div class="logos">
-          <div><div class="logo"><svg width="36" height="36"><use href="#mark" /></svg><span><b>GLANZMOBIL</b><small>Mobile Premium Fahrzeugpflege</small></span></div></div>
-          <div class="light" style="--glint: #9a8256"><div class="logo"><svg width="36" height="36"><use href="#mark" /></svg><span><b>GLANZMOBIL</b><small>Mobile Premium Fahrzeugpflege</small></span></div></div>
-          <div><span style="display: grid; justify-items: center; gap: 10px"><b style="font-weight: 600; letter-spacing: .34em; font-size: 19px">GLANZMOBIL</b><small style="font-size: 7.5px; letter-spacing: .34em; color: var(--accent); white-space: nowrap">MOBILE PREMIUM FAHRZEUGPFLEGE</small></span></div>
+          <div><div class="logo"><svg width="36" height="36"><use href="#mark" /></svg><span><b>AUTOAUFBEREITUNG</b><small>Mobile</small></span></div></div>
+          <div class="light" style="--glint: #9a8256"><div class="logo"><svg width="36" height="36"><use href="#mark" /></svg><span><b>AUTOAUFBEREITUNG</b><small>Mobile</small></span></div></div>
+          <div><span style="display: flex; align-items: center; gap: 10px"><b style="font-weight: 600; font-size: 28px; letter-spacing: .04em; line-height: 1">RM</b><i style="width: 1px; height: 26px; background: var(--accent)"></i><span style="display: flex; flex-direction: column; gap: 5px"><small style="font-size: 6.5px; letter-spacing: .42em; color: var(--accent); line-height: 1">MOBILE</small><b style="font-weight: 600; letter-spacing: .2em; font-size: 9px; line-height: 1; white-space: nowrap">AUTOAUFBEREITUNG</b></span></span></div>
           <div><svg width="72" height="72"><use href="#mark" /></svg></div>
         </div>
         <p class="note">Hauptlogo (dunkel / hell), alternative Wortmarke und Markenzeichen. Schutzzone: Höhe des Zeichens rundum. Nicht verzerren, nicht einfärben.</p>

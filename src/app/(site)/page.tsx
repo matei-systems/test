@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
     .filter((p) => p.from.min.priceCents !== null)
     .map((p) => `${p.name} ab ${formatEuro(p.from.min.priceCents as number)}`)
   return {
-    title: { absolute: `${SITE.name} – Mobile Autoaufbereitung & Fahrzeugpflege in Graz und Umgebung` },
+    title: { absolute: `${SITE.name} – Fahrzeugpflege in Graz und Umgebung` },
     description: `Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Wir kommen zu dir – Termin online buchen.`,
     alternates: { canonical: '/' },
   }

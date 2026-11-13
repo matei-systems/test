@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { area } = await getSettings()
   return {
     title: `Einsatzgebiet – mobile Fahrzeugpflege in ${area.regions.join(' & ')}`,
-    description: `GLANZMOBIL kommt zu dir: mobile Autoaufbereitung und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Prüfe deine Postleitzahl und buche online.`,
+    description: `RM Mobile Autoaufbereitung kommt zu dir: Fahrzeugpflege und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Prüfe deine Postleitzahl und buche online.`,
     alternates: { canonical: '/einsatzgebiet' },
   }
 }

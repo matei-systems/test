@@ -10,7 +10,7 @@ export const MIGRATIONS: Migration[] = [
   {
     id: "001_init",
     sql: String.raw`
--- GLANZMOBIL – Datenbankschema (PostgreSQL ≥ 14, kompatibel mit Supabase und PGlite)
+-- RM Mobile Autoaufbereitung – Datenbankschema (PostgreSQL ≥ 14, kompatibel mit Supabase und PGlite)
 -- Alle Zeitpunkte werden als timestamptz (UTC) gespeichert; die Geschäftslogik rechnet in Europe/Vienna.
 
 -- ─── Einstellungen (Buchungsregeln, Kontaktdaten, Einsatzgebiet) ───────────────
@@ -280,6 +280,16 @@ ALTER TABLE promotions     ENABLE ROW LEVEL SECURITY;
 ALTER TABLE media          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gallery_items  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE inquiries      ENABLE ROW LEVEL SECURITY;
+`,
+  },
+  {
+    id: "003_umbenennung",
+    sql: String.raw`
+-- Umbenennung der Marke: Der ursprüngliche Standard-Firmenname wird durch den neuen ersetzt.
+-- Nur wenn er noch dem alten Startwert entspricht – im Admin-Bereich selbst geänderte Namen bleiben unangetastet.
+UPDATE settings
+SET value = jsonb_set(value, '{companyName}', to_jsonb('RM Mobile Autoaufbereitung'::text)), updated_at = now()
+WHERE key = 'business' AND value->>'companyName' = 'GLANZMOBIL';
 `,
   },
 ]

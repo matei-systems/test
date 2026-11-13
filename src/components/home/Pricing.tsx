@@ -42,7 +42,7 @@ export function Pricing({ catalog, now, heading = true }: { catalog: Catalog; no
             <DiscountBadge percent={best.percent} />
             <span>
               <strong>{best.promotion.name}</strong> – {best.percent}&nbsp;% Preisvorteil auf unsere Pakete
-              {bestEnd ? `, gültig bis ${bestEnd}` : ' zum Start von GLANZMOBIL'}.
+              {bestEnd ? `, gültig bis ${bestEnd}` : ' zum Start von RM Mobile Autoaufbereitung'}.
             </span>
           </p>
         )}

@@ -22,7 +22,7 @@ const instrument = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: `${SITE.name} – Mobile Autoaufbereitung & Fahrzeugpflege in Graz`,
+    default: `${SITE.name} – Fahrzeugpflege in Graz & Umgebung`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: `${SITE.name} – ${SITE.claim} in Graz`,
     description: SITE.description,
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'GLANZMOBIL – Mobile Premium Fahrzeugpflege in Graz' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: `${SITE.name} – ${SITE.claim} in Graz` }],
   },
   twitter: {
     card: 'summary_large_image',

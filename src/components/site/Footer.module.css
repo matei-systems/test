@@ -90,9 +90,9 @@
 }
 
 .wordmark {
-  font-size: min(12.5vw, 14rem);
+  font-size: min(34vw, 20rem);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   line-height: 0.8;
   text-align: center;
   white-space: nowrap;

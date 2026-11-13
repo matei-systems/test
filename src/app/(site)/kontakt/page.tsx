@@ -14,7 +14,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Kontakt – mobile Fahrzeugpflege in Graz anfragen',
   description:
-    'Kontakt zu GLANZMOBIL: Schreib uns über das Kontaktformular, per WhatsApp oder ruf an. Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
+    'Kontakt zu RM Mobile Autoaufbereitung: Schreib uns über das Kontaktformular, per WhatsApp oder ruf an. Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
   alternates: { canonical: '/kontakt' },
 }
 

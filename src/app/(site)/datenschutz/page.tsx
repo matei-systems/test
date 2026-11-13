@@ -4,7 +4,7 @@ import { getSettings } from '@/lib/catalog'
 
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung',
-  description: 'Informationen zur Verarbeitung personenbezogener Daten bei GLANZMOBIL gemäß DSGVO.',
+  description: 'Informationen zur Verarbeitung personenbezogener Daten bei RM Mobile Autoaufbereitung gemäß DSGVO.',
   alternates: { canonical: '/datenschutz' },
 }
 
@@ -69,7 +69,7 @@ export default async function PrivacyPage() {
       <h2>5. Angebote und Neuigkeiten per E-Mail (optional)</h2>
       <p>
         Nur wenn du bei der Buchung ausdrücklich einwilligst, verwenden wir deine E-Mail-Adresse, um dir gelegentlich Angebote und
-        Neuigkeiten von GLANZMOBIL zu senden (Art. 6 Abs. 1 lit. a DSGVO, § 174 TKG 2021). Die Einwilligung ist freiwillig, für die Buchung
+        Neuigkeiten von RM Mobile Autoaufbereitung zu senden (Art. 6 Abs. 1 lit. a DSGVO, § 174 TKG 2021). Die Einwilligung ist freiwillig, für die Buchung
         nicht erforderlich und kann jederzeit mit Wirkung für die Zukunft widerrufen werden – formlos per E-Mail an{' '}
         <Val value={b.email} label="E-Mail-Adresse" />. Wir speichern den Zeitpunkt deiner Einwilligung als Nachweis.
       </p>

@@ -17,7 +17,7 @@ export default async function LoginPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <LogoMark size={40} />
           <div>
-            <p style={{ fontWeight: 600, letterSpacing: '0.28em' }}>GLANZMOBIL</p>
+            <p style={{ fontWeight: 600, letterSpacing: '0.12em', fontSize: '0.95rem' }}>RM Mobile Autoaufbereitung</p>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>Admin-Bereich</p>
           </div>
         </div>

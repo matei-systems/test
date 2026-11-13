@@ -64,7 +64,7 @@ export function Benefits() {
           <div style={{ display: 'grid', gap: 20 }}>
             <p className="eyebrow">Deine Vorteile</p>
             <h2 id="vorteile-title" className="h2">
-              Warum <span className="serif accent">GLANZMOBIL?</span>
+              Warum <span className="serif accent">RM Mobile Autoaufbereitung?</span>
             </h2>
           </div>
           <p className="lead">

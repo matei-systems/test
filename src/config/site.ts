@@ -5,12 +5,14 @@
  */
 
 export const SITE = {
-  name: 'GLANZMOBIL',
-  claim: 'Mobile Premium Fahrzeugpflege',
+  name: 'RM Mobile Autoaufbereitung',
+  /** Kurzform für enge Stellen (App-Icon-Beschriftung, Admin-Kopf) */
+  shortName: 'RM',
+  claim: 'Premium Fahrzeugpflege',
   headline: 'Dein Fahrzeug verdient mehr als nur eine Reinigung.',
   subline: 'Premium Fahrzeugpflege. Direkt bei dir vor Ort.',
   description:
-    'GLANZMOBIL ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei dir zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
+    'RM Mobile Autoaufbereitung ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei dir zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
   locale: 'de_AT',
   language: 'de-AT',
   timezone: 'Europe/Vienna',
@@ -32,7 +34,7 @@ export const SITE = {
    */
   bookingButtonLabel: 'Termin jetzt buchen',
   /** Vorbefüllter Text für den WhatsApp-Kontakt */
-  whatsappText: 'Hallo GLANZMOBIL, ich interessiere mich für eine Fahrzeugaufbereitung und möchte einen Termin vereinbaren.',
+  whatsappText: 'Hallo RM Mobile Autoaufbereitung, ich interessiere mich für eine Fahrzeugaufbereitung und möchte einen Termin vereinbaren.',
 } as const
 
 export function getSiteUrl(): string {

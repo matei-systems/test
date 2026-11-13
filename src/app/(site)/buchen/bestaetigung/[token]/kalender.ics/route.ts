@@ -19,11 +19,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
   const ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//GLANZMOBIL//Buchung//DE',
+    'PRODID:-//RM Mobile Autoaufbereitung//Buchung//DE',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:${b.reference}@glanzmobil`,
+    `UID:${b.reference}@rm-autoaufbereitung`,
     `DTSTAMP:${icsDate(new Date())}`,
     `DTSTART:${icsDate(b.startsAt)}`,
     `DTEND:${icsDate(end)}`,
@@ -36,7 +36,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
   return new Response(ics, {
     headers: {
       'Content-Type': 'text/calendar; charset=utf-8',
-      'Content-Disposition': `attachment; filename="glanzmobil-${b.reference}.ics"`,
+      'Content-Disposition': `attachment; filename="rm-termin-${b.reference}.ics"`,
       'Cache-Control': 'no-store',
     },
   })

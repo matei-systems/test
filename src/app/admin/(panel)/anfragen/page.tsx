@@ -62,7 +62,7 @@ export default async function InquiriesPage({ searchParams }: { searchParams: Pr
               </p>
               <p style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', fontSize: '0.95rem' }}>{i.message}</p>
               <div className="adm-actions" style={{ marginTop: 16 }}>
-                <a href={`mailto:${i.email}?subject=${encodeURIComponent('Deine Anfrage bei GLANZMOBIL')}`} className="adm-btn">
+                <a href={`mailto:${i.email}?subject=${encodeURIComponent('Deine Anfrage bei RM Mobile Autoaufbereitung')}`} className="adm-btn">
                   <Icon name="mail" size={15} /> Per E-Mail antworten
                 </a>
                 <ActionForm action={setInquiryStatusAction}>

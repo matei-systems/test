@@ -1,8 +1,8 @@
 {
-  "name": "glanzmobil",
+  "name": "rm-mobile-autoaufbereitung",
   "version": "1.0.0",
   "private": true,
-  "description": "GLANZMOBIL – Mobile Premium Fahrzeugpflege in Graz & Graz-Umgebung. Website mit Online-Buchungssystem und Admin-Bereich.",
+  "description": "RM Mobile Autoaufbereitung – Premium Fahrzeugpflege in Graz & Graz-Umgebung. Website mit Online-Buchungssystem und Admin-Bereich.",
   "engines": {
     "node": "22.x"
   },

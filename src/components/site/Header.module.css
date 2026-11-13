@@ -105,13 +105,10 @@
   color: var(--text);
 }
 
-/* Smartphone: Logo ohne Unterzeile, damit Buchungsbutton und Menü Platz haben */
+/* Smartphone: engere Abstände, damit Logo, Buchungsbutton und Menü Platz haben */
 @media (max-width: 519px) {
   .inner {
     gap: 12px;
-  }
-  .brand :global(.logo-sub) {
-    display: none;
   }
   .cta {
     padding-inline: 16px;

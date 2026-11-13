@@ -7,7 +7,7 @@
 ## 1. Profil anlegen
 
 1. <https://www.google.com/business/> öffnen und mit dem Google-Konto des Unternehmens anmelden.
-2. **Unternehmensname:** `GLANZMOBIL` (ohne Zusätze wie „Graz“ oder „günstig“ – Keywords im Namen verstoßen gegen die Richtlinien).
+2. **Unternehmensname:** `RM Mobile Autoaufbereitung` – exakt so, wie er im Impressum und auf der Website steht (ohne Zusätze wie „Graz“ oder „günstig“ – Keywords im Namen verstoßen gegen die Richtlinien). Der Name enthält bereits „Autoaufbereitung“ als Tätigkeitsbezeichnung; Google akzeptiert das, solange es zum tatsächlichen Geschäftsnamen gehört.
 3. **Unternehmenstyp:** „Dienstleistungen im Einzugsgebiet“ (mobiler Service, Kunden kommen nicht zu einem Standort).
 4. **Kategorie:** primär „Autoaufbereitung“ bzw. „Fahrzeugaufbereitungsservice“; optional zusätzlich „Autowaschanlage“ nur, wenn es wirklich passt.
 5. **Adresse:** Geschäftsadresse angeben, aber **nicht öffentlich anzeigen** (bei mobilen Diensten ohne Ladenlokal üblich).
@@ -25,7 +25,7 @@ strukturierte Daten (schema.org `AutomotiveBusiness`) aus – leere Felder werde
 
 | Feld | Vorschlag |
 | --- | --- |
-| Beschreibung | „GLANZMOBIL ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung. Wir kommen zu dir – nach Hause oder an den Arbeitsplatz – und pflegen dein Fahrzeug sorgfältig von Hand: Innenraumreinigung, Außenpflege und Komplettpaket. Transparente Preise, Termin online buchen.“ |
+| Beschreibung | „RM Mobile Autoaufbereitung ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung. Wir kommen zu dir – nach Hause oder an den Arbeitsplatz – und pflegen dein Fahrzeug sorgfältig von Hand: Innenraumreinigung, Außenpflege und Komplettpaket. Transparente Preise, Termin online buchen.“ |
 | Öffnungszeiten | wie *Admin → Verfügbarkeit* (Startwerte: Mo–Fr 8–18 Uhr, Sa 9–15 Uhr) |
 | Terminlink | `https://<deine-domain>/buchen` |
 | Leistungen | Innenraum Basic, Innenraum Premium, Außenpflege, Komplettpaket, Tierhaarentfernung, Polsterreinigung – mit denselben Namen und Preisen wie auf der Website |

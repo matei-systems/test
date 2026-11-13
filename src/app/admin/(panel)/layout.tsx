@@ -25,8 +25,8 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           <Link href="/admin" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <LogoMark size={30} />
             <span>
-              <span style={{ fontWeight: 600, letterSpacing: '0.24em', fontSize: '0.86rem' }}>GLANZMOBIL</span>
-              <small>Admin</small>
+              <span style={{ fontWeight: 600, letterSpacing: '0.24em', fontSize: '0.86rem' }}>RM</span>
+              <small>Mobile Autoaufbereitung · Admin</small>
             </span>
           </Link>
           <form action={logoutAction} className="adm-mobile-logout">

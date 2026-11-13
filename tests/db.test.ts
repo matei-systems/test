@@ -30,8 +30,8 @@ for (const target of targets) {
 
     beforeAll(async () => {
       vi.resetModules()
-      ;(globalThis as Record<string, unknown>).__glanzmobilDb = undefined
-      ;(globalThis as Record<string, unknown>).__glanzmobilCache = undefined
+      ;(globalThis as Record<string, unknown>).__rmDb = undefined
+      ;(globalThis as Record<string, unknown>).__rmCache = undefined
       for (const [k, v] of Object.entries(target.env)) {
         if (v === undefined) delete process.env[k]
         else process.env[k] = v
@@ -43,16 +43,16 @@ for (const target of targets) {
       }
       const db = await mod.db.getDb()
       if (target.name === 'PostgreSQL') {
-        await db.query("DELETE FROM bookings WHERE email LIKE '%@test.glanzmobil.invalid'")
+        await db.query("DELETE FROM bookings WHERE email LIKE '%@test.rm.invalid'")
         await db.query("DELETE FROM blocked_periods WHERE reason = 'TEST'")
       }
     })
 
     afterAll(async () => {
       const db = await mod.db.getDb()
-      await db.query("DELETE FROM bookings WHERE email LIKE '%@test.glanzmobil.invalid'")
+      await db.query("DELETE FROM bookings WHERE email LIKE '%@test.rm.invalid'")
       await db.query("DELETE FROM blocked_periods WHERE reason = 'TEST'")
-      ;(globalThis as Record<string, unknown>).__glanzmobilDb = undefined
+      ;(globalThis as Record<string, unknown>).__rmDb = undefined
     })
 
     // n-ter Werktag (Mo–Fr) ab heute + 10 Tagen – jeder Test bekommt einen eigenen Tag
@@ -70,7 +70,7 @@ for (const target of targets) {
 
     const SERVICE = { serviceId: 'innenraum-premium', vehicleId: 'kleinwagen', addonIds: [] as string[] }
 
-    const request = (date: string, time: string, email = 'kunde@test.glanzmobil.invalid') => ({
+    const request = (date: string, time: string, email = 'kunde@test.rm.invalid') => ({
       ...SERVICE,
       date,
       time,
@@ -164,9 +164,9 @@ for (const target of targets) {
     it('verhindert Doppelbuchungen – auch bei gleichzeitigen Anfragen', async () => {
       const date = targetDate(1)
       const results = await Promise.all([
-        mod.bookings.createBooking(request(date, '09:00', 'a@test.glanzmobil.invalid')),
-        mod.bookings.createBooking(request(date, '09:00', 'b@test.glanzmobil.invalid')),
-        mod.bookings.createBooking(request(date, '09:30', 'c@test.glanzmobil.invalid')),
+        mod.bookings.createBooking(request(date, '09:00', 'a@test.rm.invalid')),
+        mod.bookings.createBooking(request(date, '09:00', 'b@test.rm.invalid')),
+        mod.bookings.createBooking(request(date, '09:30', 'c@test.rm.invalid')),
       ])
       const ok = results.filter((r) => r.ok)
       expect(ok).toHaveLength(1)
@@ -184,7 +184,7 @@ for (const target of targets) {
              starts_at, ends_at, blocked_until, first_name, last_name, email, phone, street, postal_code, city, vehicle_model,
              privacy_accepted_at, terms_accepted_at)
            SELECT $2, 'hash-' || $2, $3, 'x', 'x', 60, starts_at + interval '30 minutes', starts_at + interval '90 minutes',
-             starts_at + interval '120 minutes', 'x', 'x', 'x@test.glanzmobil.invalid', 'x', 'x', '8010', 'x', 'x', now(), now()
+             starts_at + interval '120 minutes', 'x', 'x', 'x@test.rm.invalid', 'x', 'x', '8010', 'x', 'x', now(), now()
            FROM bookings WHERE reference = $1`,
           [res.ok ? res.reference : '', ref, team],
         )
@@ -198,14 +198,14 @@ for (const target of targets) {
       const date = targetDate(7)
       await setRules({ teams: 2 })
       try {
-        const a = await mod.bookings.createBooking(request(date, '09:00', 't1@test.glanzmobil.invalid'))
-        const b = await mod.bookings.createBooking(request(date, '09:00', 't2@test.glanzmobil.invalid'))
-        const c = await mod.bookings.createBooking(request(date, '09:00', 't3@test.glanzmobil.invalid'))
+        const a = await mod.bookings.createBooking(request(date, '09:00', 't1@test.rm.invalid'))
+        const b = await mod.bookings.createBooking(request(date, '09:00', 't2@test.rm.invalid'))
+        const c = await mod.bookings.createBooking(request(date, '09:00', 't3@test.rm.invalid'))
         expect(a.ok).toBe(true)
         expect(b.ok).toBe(true)
         expect(c.ok).toBe(false)
         const { rows } = await db.query<{ team: number }>(
-          "SELECT team FROM bookings WHERE email IN ('t1@test.glanzmobil.invalid','t2@test.glanzmobil.invalid') ORDER BY team",
+          "SELECT team FROM bookings WHERE email IN ('t1@test.rm.invalid','t2@test.rm.invalid') ORDER BY team",
         )
         expect(rows.map((r) => Number(r.team))).toEqual([1, 2])
       } finally {
@@ -220,14 +220,14 @@ for (const target of targets) {
       expect(res.ok).toBe(true)
       if (!res.ok) return
       await db.query("UPDATE bookings SET status = 'storniert' WHERE reference = $1", [res.reference])
-      const again = await mod.bookings.createBooking(request(date, '11:00', 'z@test.glanzmobil.invalid'))
+      const again = await mod.bookings.createBooking(request(date, '11:00', 'z@test.rm.invalid'))
       expect(again.ok).toBe(true)
     })
 
     it('Kunde kann online stornieren – aber nur innerhalb der Frist', async () => {
       const db = await mod.db.getDb()
       const date = targetDate(8)
-      const res = await mod.bookings.createBooking(request(date, '10:00', 'storno@test.glanzmobil.invalid'))
+      const res = await mod.bookings.createBooking(request(date, '10:00', 'storno@test.rm.invalid'))
       expect(res.ok).toBe(true)
       if (!res.ok) return
 
@@ -254,7 +254,7 @@ for (const target of targets) {
     it('Terminerinnerungen: nur bestätigte Termine im Zeitfenster, ohne SMTP wird nichts als gesendet markiert', async () => {
       const db = await mod.db.getDb()
       const date = targetDate(9)
-      const res = await mod.bookings.createBooking(request(date, '10:00', 'erinnerung@test.glanzmobil.invalid'))
+      const res = await mod.bookings.createBooking(request(date, '10:00', 'erinnerung@test.rm.invalid'))
       expect(res.ok).toBe(true)
       if (!res.ok) return
       const now = res.startsAt.getTime() - 20 * 3600_000
@@ -275,7 +275,7 @@ for (const target of targets) {
       await db.query("UPDATE service_prices SET price_cents = NULL WHERE service_id = 'innenraum-basic' AND vehicle_category_id = 'van'")
       mod.catalog.invalidateCatalogCache()
       try {
-        const r = { ...request(date, '09:00', 'anfrage@test.glanzmobil.invalid'), serviceId: 'innenraum-basic', vehicleId: 'van', expectedTotalCents: null }
+        const r = { ...request(date, '09:00', 'anfrage@test.rm.invalid'), serviceId: 'innenraum-basic', vehicleId: 'van', expectedTotalCents: null }
         const res = await mod.bookings.createBooking(r)
         expect(res.ok).toBe(true)
         if (!res.ok) return

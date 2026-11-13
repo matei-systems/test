@@ -12,7 +12,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Über uns – mobile Fahrzeugpflege mit Anspruch',
   description:
-    'GLANZMOBIL steht für mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu dir kommt.',
+    'RM Mobile Autoaufbereitung steht für mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu dir kommt.',
   alternates: { canonical: '/ueber-uns' },
 }
 
@@ -59,7 +59,7 @@ export default async function AboutPage() {
             Fahrzeugpflege mit <span className="serif accent">Haltung.</span>
           </>
         }
-        lead={`GLANZMOBIL ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach dir richtet.`}
+        lead={`RM Mobile Autoaufbereitung ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach dir richtet.`}
         image="/images/interior.jpg"
         imagePosition="30% 40%"
       />
@@ -75,7 +75,7 @@ export default async function AboutPage() {
               sorgfältig sollte es gepflegt werden – nicht im Vorbeifahren, sondern mit Ruhe und einem genauen Blick.
             </p>
             <p>
-              Genau dafür gibt es GLANZMOBIL. Wir bringen professionelle Fahrzeugpflege dorthin, wo dein Fahrzeug steht. Du buchst online,
+              Genau dafür gibt es RM Mobile Autoaufbereitung. Wir bringen professionelle Fahrzeugpflege dorthin, wo dein Fahrzeug steht. Du buchst online,
               wir kommen zum vereinbarten Termin – und du nutzt deine Zeit für alles andere.
             </p>
             <p>

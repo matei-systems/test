@@ -17,7 +17,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Leistungen – Innenraumreinigung, Außenpflege & Komplettpaket in Graz',
   description:
-    'Alle Leistungen von GLANZMOBIL: Innenraum Basic, Innenraum Premium, Außenpflege, Komplettpaket und Zusatzleistungen – mobil in Graz & Graz-Umgebung, mit transparenten Preisen je Fahrzeugkategorie.',
+    'Alle Leistungen von RM Mobile Autoaufbereitung: Innenraum Basic, Innenraum Premium, Außenpflege, Komplettpaket und Zusatzleistungen – mobil in Graz & Graz-Umgebung, mit transparenten Preisen je Fahrzeugkategorie.',
   alternates: { canonical: '/leistungen' },
 }
 
