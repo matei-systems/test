@@ -57,8 +57,8 @@ Erstellt im verbundenen Canva-Konto:
 
 | Design | Inhalt |
 | --- | --- |
-| **GLANZMOBIL Social-Media-Grafik** | Seite 1: Instagram-Post (1080×1440) · 2: Instagram-Story (1080×1920) · 3: Facebook-Titelbild (1640×624) · 4: Profilbild (1080×1080) · 5: Instagram-Vorlage „Einführungspreis“ · 6: Instagram-Vorlage „Leistung“ · 7: Instagram-Vorlage „Vorher/Nachher“ · 8: Werbebanner (1200×628). Auf den Seiten 5–8 sind Überschriften, Preise und Buttons **bearbeitbare Texte** |
-| **GLANZMOBIL Moodboard** | Bildwelt der Website; die Fotos (Hero, Innenraum, Handwäsche, Graz bei Nacht) wurden mit Canva generiert und von hier in voller Auflösung exportiert |
+| **RM Mobile Autoaufbereitung Social-Media-Grafik** | Seite 1: Instagram-Post (1080×1440) · 2: Instagram-Story (1080×1920) · 3: Facebook-Titelbild (1640×624) · 4: Profilbild (1080×1080) · 5: Instagram-Vorlage „Einführungspreis“ · 6: Instagram-Vorlage „Leistung“ · 7: Instagram-Vorlage „Vorher/Nachher“ · 8: Werbebanner (1200×628). Auf den Seiten 5–8 sind Überschriften, Preise und Buttons **bearbeitbare Texte** |
+| **RM Mobile Autoaufbereitung Moodboard** | Bildwelt der Website; die Fotos (Hero, Innenraum, Handwäsche, Graz bei Nacht) wurden mit Canva generiert und von hier in voller Auflösung exportiert |
 | Uploads | Logo-Varianten, Profilbild, Vorlagen-Hintergründe und das Designsystem-Board liegen in den Canva-Uploads |
 
 Exporte im Repository: `canva/instagram-post.jpg`, `canva/instagram-story.jpg`, `canva/facebook-titelbild.jpg`, `canva/profilbild.jpg`, `canva/instagram-vorlage-*.jpg`, `canva/werbebanner.jpg`, Fotoquellen unter `canva/source/`.
