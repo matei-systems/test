@@ -1,0 +1,150 @@
+{
+  "erzeugt": "2026-11-14",
+  "fehlend": [
+    "inhaber → [Vor- und Nachname]",
+    "telefon → [Telefonnummer]",
+    "email → [E-Mail-Adresse]",
+    "website → [www.ihre-domain.at]",
+    "medieninhaber → [Name, Ort]"
+  ],
+  "aufkleber": [
+    {
+      "name": "aufkleber-minimal-kompakt-250x70mm",
+      "w": 250,
+      "h": 70,
+      "module": 1.57,
+      "modules": 29
+    },
+    {
+      "name": "aufkleber-minimal-gross-400x112mm",
+      "w": 400,
+      "h": 112,
+      "module": 2.51,
+      "modules": 29
+    },
+    {
+      "name": "aufkleber-premium-kompakt-250x70mm",
+      "w": 250,
+      "h": 70,
+      "module": 1.57,
+      "modules": 29
+    },
+    {
+      "name": "aufkleber-premium-gross-400x112mm",
+      "w": 400,
+      "h": 112,
+      "module": 2.51,
+      "modules": 29
+    }
+  ],
+  "dateien": [
+    {
+      "ordner": "visitenkarte",
+      "name": "visitenkarte-a-vorderseite",
+      "bezeichnung": "Visitenkarte A · Vorderseite",
+      "endformat": "85 × 55 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.017 × 61.045 mm",
+      "qr": "–"
+    },
+    {
+      "ordner": "visitenkarte",
+      "name": "visitenkarte-a-rueckseite",
+      "bezeichnung": "Visitenkarte A · Rückseite",
+      "endformat": "85 × 55 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.017 × 61.045 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    },
+    {
+      "ordner": "visitenkarte",
+      "name": "visitenkarte-b-vorderseite",
+      "bezeichnung": "Visitenkarte B · Vorderseite",
+      "endformat": "85 × 55 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.017 × 61.045 mm",
+      "qr": "–"
+    },
+    {
+      "ordner": "visitenkarte",
+      "name": "visitenkarte-b-rueckseite",
+      "bezeichnung": "Visitenkarte B · Rückseite",
+      "endformat": "85 × 55 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.017 × 61.045 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    },
+    {
+      "ordner": "flyer-a6",
+      "name": "flyer-a6-vorderseite",
+      "bezeichnung": "Flyer A6 · Vorderseite",
+      "endformat": "105 × 148 mm",
+      "beschnitt": "3 mm",
+      "pdf": "111.167 × 154.178 mm",
+      "qr": "–"
+    },
+    {
+      "ordner": "flyer-a6",
+      "name": "flyer-a6-rueckseite",
+      "bezeichnung": "Flyer A6 · Rückseite",
+      "endformat": "105 × 148 mm",
+      "beschnitt": "3 mm",
+      "pdf": "111.167 × 154.178 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen?gutschein=NEU20"
+    },
+    {
+      "ordner": "dankeskarte",
+      "name": "dankeskarte-vorderseite",
+      "bezeichnung": "Dankeskarte · Vorderseite",
+      "endformat": "85.6 × 54 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.694 × 60.367 mm",
+      "qr": "–"
+    },
+    {
+      "ordner": "dankeskarte",
+      "name": "dankeskarte-rueckseite",
+      "bezeichnung": "Dankeskarte · Rückseite",
+      "endformat": "85.6 × 54 mm",
+      "beschnitt": "3 mm",
+      "pdf": "91.694 × 60.367 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen?gutschein=DANKE20"
+    },
+    {
+      "ordner": "heckscheiben-aufkleber",
+      "name": "aufkleber-minimal-kompakt-250x70mm",
+      "bezeichnung": "Aufkleber Minimal · 250 × 70 mm",
+      "endformat": "250 × 70 mm",
+      "beschnitt": "0 mm",
+      "pdf": "250.105 × 70.189 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    },
+    {
+      "ordner": "heckscheiben-aufkleber",
+      "name": "aufkleber-minimal-gross-400x112mm",
+      "bezeichnung": "Aufkleber Minimal · 400 × 112 mm",
+      "endformat": "400 × 112 mm",
+      "beschnitt": "0 mm",
+      "pdf": "400.05 × 112.183 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    },
+    {
+      "ordner": "heckscheiben-aufkleber",
+      "name": "aufkleber-premium-kompakt-250x70mm",
+      "bezeichnung": "Aufkleber Premium · 250 × 70 mm",
+      "endformat": "250 × 70 mm",
+      "beschnitt": "0 mm",
+      "pdf": "250.105 × 70.189 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    },
+    {
+      "ordner": "heckscheiben-aufkleber",
+      "name": "aufkleber-premium-gross-400x112mm",
+      "bezeichnung": "Aufkleber Premium · 400 × 112 mm",
+      "endformat": "400 × 112 mm",
+      "beschnitt": "0 mm",
+      "pdf": "400.05 × 112.183 mm",
+      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "_hinweis": "Zentrale Angaben für alle Drucksachen. Leere Felder erscheinen als rot markierte Platzhalter in eckigen Klammern. Nach jeder Änderung: npm run marketing",
+  "firma": "RM Mobile Auto Aufbereitung",
+  "slogan": "Premium Fahrzeugaufbereitung. Direkt bei Ihnen.",
+  "gebiet": "Graz & Umgebung",
+  "inhaber": "",
+  "telefon": "",
+  "email": "",
+  "website": "",
+  "buchungsUrl": "https://glanzmobil.vercel.app/buchen",
+  "medieninhaber": "",
+  "gutscheine": {
+    "neukunden": { "code": "NEU20", "betrag": "20 €", "mindestwert": "119 €" },
+    "danke": { "code": "DANKE20", "betrag": "20 €", "mindestwert": "119 €" }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "farben": {
+    "Tiefschwarz": "#09090A",
+    "Druckschwarz": "#0b0b0c",
+    "Anthrazit": "#141417",
+    "Warmweiss": "#f4f1ea",
+    "Champagner": "#c8b48a",
+    "Champagner dunkel": "#9A8256",
+    "Steingrau": "#8b877f",
+    "Signalrot": "#C8372D"
+  },
+  "schriften": {
+    "Text": "Geist (SIL OFL) – 400, 500, 600",
+    "Akzent": "Instrument Serif Italic (SIL OFL)",
+    "Dateien": [
+      "brand/fonts/*.ttf",
+      "src/app/fonts/*.woff2"
+    ]
+  },
+  "regeln": {
+    "Rundungen": "Buttons als Pille, Karten 16–24 px",
+    "Akzent": "Champagner sparsam; Rot nur im Rabatt-Kennzeichen",
+    "Logo": "Schutzzone = Höhe des Zeichens, nicht verzerren oder einfärben"
+  }
+}
