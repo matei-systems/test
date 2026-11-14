@@ -18,13 +18,14 @@ export const SITE = {
   timezone: 'Europe/Vienna',
   currency: 'EUR',
   keywords: [
-    'Autoaufbereitung Graz',
-    'mobile Fahrzeugpflege Graz',
+    'Mobile Autoaufbereitung Graz',
+    'Autoaufbereitung Graz Umgebung',
+    'Auto Innenreinigung Graz',
+    'Polsterreinigung Auto Graz',
+    'Mobile Fahrzeugpflege Graz',
+    'Autoreinigung beim Kunden',
     'Autoreinigung Graz',
-    'Innenraumreinigung Auto Graz',
-    'Fahrzeugaufbereitung Graz Umgebung',
-    'mobile Autoreinigung Steiermark',
-    'Autopflege Graz',
+    'Fahrzeugaufbereitung Graz',
   ],
   /**
    * Beschriftung des Buttons, der eine verbindliche Buchung auslöst.

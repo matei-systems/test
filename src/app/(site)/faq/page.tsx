@@ -9,7 +9,7 @@ import { FAQ, FAQ_CATEGORIES } from '@/content/faq'
 import styles from '@/components/pages/Pages.module.css'
 
 export const metadata: Metadata = {
-  title: 'FAQ – häufige Fragen zur mobilen Fahrzeugpflege',
+  title: 'FAQ – Fragen zur mobilen Autoaufbereitung in Graz',
   description:
     'Antworten auf häufige Fragen zu RM Mobile Auto Aufbereitung: Buchung, Dauer, Preise, Anfahrt, Fahrzeugvorbereitung, Stornierung und mobile Durchführung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/faq' },

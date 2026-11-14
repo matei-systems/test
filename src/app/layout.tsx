@@ -22,7 +22,7 @@ const instrument = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: `${SITE.name} – Fahrzeugpflege in Graz & Umgebung`,
+    default: `Mobile Autoaufbereitung Graz & Umgebung | ${SITE.name}`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,

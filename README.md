@@ -158,6 +158,21 @@ Kalkulationsbasis und vollständige Matrix: [`src/config/defaults.ts`](src/confi
 
 ---
 
+## Gutscheine
+
+Gutscheincodes (fester Betrag ab einem Mindestauftragswert) werden im Admin-Bereich unter **Gutscheine** verwaltet und im letzten
+Buchungsschritt eingelöst. Der Link `/buchen?gutschein=CODE` belegt den Code vor (für QR-Codes auf Drucksachen). Geprüft wird nur auf
+dem Server – verbindlich beim Speichern der Buchung: Mindestwert, Zeitraum, Höchstzahl, „einmal je Kunde“ und „nur erste Buchung“
+(erkannt an E-Mail-Adresse oder Telefonnummer). Stornierte Buchungen geben den Gutschein wieder frei.
+Startwerte: `NEU20` (Flyer) und `DANKE20` (Dankeskarte), je 20 € ab 119 € – siehe `DEFAULT_COUPONS` in `src/config/defaults.ts`.
+
+## Drucksachen
+
+Visitenkarte, A6-Flyer, Dankeskarte und Heckscheiben-Aufkleber liegen unter `marketing/` (SVG, PDF mit Beschnitt, PNG-Vorschau) und
+werden mit `npm run marketing` aus `marketing/config.json` erzeugt. Details und Druckhinweise: `marketing/README.md`.
+
+**Offene Angaben und Prüfpunkte** (Unternehmensdaten, Rechtstexte, externe Einrichtung): `docs/offene-angaben.md`.
+
 ## ⚠️ Vor dem Livegang zu erledigen
 
 | Thema | Was fehlt |
@@ -205,7 +220,7 @@ npm run build
 ```
 
 Durchgeführte Prüfungen (Produktions-Build gegen lokales PostgreSQL – keine Testdaten in einer Produktivdatenbank):
-- 61 automatisierte Tests (+ 12 gegen echtes PostgreSQL): Preise/Rabatte/Rundung, Aktionszeiträume, Preisstaffel, Verfügbarkeit, Teams, Doppelbuchung (auch gleichzeitig), Preisprüfung, Online-Stornierung, Erinnerungen, Terminanfrage, Validierung
+- 78 automatisierte Tests (+ 18 gegen echtes PostgreSQL), darunter Gutscheine (Mindestwert, einmal je Kunde, nur erste Buchung, Höchstzahl, Freigabe nach Storno) und die Datenbank-Upgrades: Preise/Rabatte/Rundung, Aktionszeiträume, Preisstaffel, Verfügbarkeit, Teams, Doppelbuchung (auch gleichzeitig), Preisprüfung, Online-Stornierung, Erinnerungen, Terminanfrage, Validierung
 - Komplette Buchung im Browser (Desktop & Smartphone) inkl. Fehlermeldungen je Schritt, PLZ außerhalb des Einsatzgebiets, Rabatt in Übersicht und Bestätigung, Kalenderdatei
 - API: falscher Preis → abgelehnt, fremde Herkunft → 403, zwei gleichzeitige Buchungen → 1× gespeichert / 1× abgewiesen, Honeypot, Stornierung gibt den Termin wieder frei
 - Kontaktformular (Validierung, Speicherung, Anzeige im Admin), PLZ-Prüfung

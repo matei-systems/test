@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from '@/lib/seo'
 import styles from '@/components/pages/Pages.module.css'
 
 export const metadata: Metadata = {
-  title: 'Über uns – mobile Fahrzeugpflege mit Anspruch',
+  title: 'Über uns – mobile Autoaufbereitung in Graz mit Anspruch',
   description:
     'RM Mobile Auto Aufbereitung steht für mobile Autoaufbereitung in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu Ihnen kommt.',
   alternates: { canonical: '/ueber-uns' },

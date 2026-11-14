@@ -11,8 +11,8 @@ import { breadcrumbJsonLd } from '@/lib/seo'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
-  title: 'Galerie – Vorher & Nachher',
-  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Premium-Fahrzeugpflege von RM Mobile Auto Aufbereitung in Graz & Graz-Umgebung.',
+  title: 'Galerie – Vorher & Nachher der Autoaufbereitung in Graz',
+  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Autoaufbereitung von RM Mobile Auto Aufbereitung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/galerie' },
 }
 

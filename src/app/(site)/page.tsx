@@ -26,8 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
     .filter((p) => p.from.min.priceCents !== null)
     .map((p) => `${p.name} ab ${formatEuro(p.from.min.priceCents as number)}`)
   return {
-    title: { absolute: `${SITE.name} – Fahrzeugpflege in Graz und Umgebung` },
-    description: `Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Wir kommen zu Ihnen – Termin online buchen.`,
+    title: { absolute: `Mobile Autoaufbereitung Graz & Umgebung | ${SITE.name}` },
+    description: `Mobile Autoaufbereitung in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Innenreinigung, Polsterreinigung und Außenpflege direkt bei Ihnen – Termin online buchen.`,
     alternates: { canonical: '/' },
   }
 }

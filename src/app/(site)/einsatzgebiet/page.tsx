@@ -12,7 +12,7 @@ import styles from '@/components/pages/Pages.module.css'
 export async function generateMetadata(): Promise<Metadata> {
   const { area } = await getSettings()
   return {
-    title: `Einsatzgebiet – mobile Fahrzeugpflege in ${area.regions.join(' & ')}`,
+    title: `Einsatzgebiet – mobile Autoaufbereitung in ${area.regions.join(' & ')}`,
     description: `RM Mobile Auto Aufbereitung kommt zu Ihnen: mobile Autoaufbereitung und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Postleitzahl prüfen und online buchen.`,
     alternates: { canonical: '/einsatzgebiet' },
   }
