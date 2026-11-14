@@ -12,7 +12,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "admin:hash": "node scripts/hash-password.mjs"
+    "admin:hash": "node scripts/hash-password.mjs",
+    "marketing": "node scripts/build-marketing.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.15",

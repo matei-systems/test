@@ -223,25 +223,25 @@ ${emblem(71, 43.4, 7.5, DIM, ACCENT)}`,
       defs: glow('g', 6, 60, 55, 0.14),
       body: `<rect x="-3" y="-3" width="91" height="61" fill="url(#g)"/>
 ${emblem(7, 5.5, 12)}
+${text(78, 12.6, cfg.gebiet.toUpperCase(), { size: 2.1, weight: 500, fill: ACCENT, anchor: 'end', ls: 0.2 })}
 ${text(7, 29, 'Premium Fahrzeugaufbereitung.', { size: 4.5, weight: 500 })}
 ${text(7, 37.6, 'Direkt bei Ihnen.', { size: 7.6, family: SERIF, italic: true, fill: ACCENT })}
 ${line(7, 43.4, 78, 43.4, LINE, 0.2)}
-${text(7, 48.8, cfg.firma.toUpperCase(), { size: 2.2, weight: 600, ls: 0.22 })}
-${text(78, 48.8, cfg.gebiet.toUpperCase(), { size: 2.1, weight: 500, fill: ACCENT, anchor: 'end', ls: 0.2 })}`,
+${text(7, 48.8, cfg.firma.toUpperCase(), { size: 2.3, weight: 600, ls: 0.24 })}`,
     }),
   })
   add('visitenkarte', 'visitenkarte-b-rueckseite', 'Visitenkarte B · Rückseite', {
     w, h, qr: qrUrl,
     svg: doc({
       w, h, title: `${cfg.firma} – Visitenkarte Variante B, Rückseite`,
-      body: `${qr(7, 9, 25, qrUrl)}
-${text(19.5, 38.6, 'TERMIN ONLINE', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.2 })}
-${text(19.5, 42, 'BUCHEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.2 })}
-${line(37, 9, 37, 46, ACCENT, 0.2, 0.6)}
-${field(42, 14, OWNER, { size: 4.2, weight: 500 })}
-${text(42, 19, cfg.firma.toUpperCase(), { size: 2.1, weight: 500, fill: ACCENT, ls: 0.16 })}
-${[['T', PHONE], ['E', EMAIL], ['W', WEB]].map(([l, v], i) => text(42, 28 + i * 5.4, l, { size: 2.3, weight: 600, fill: ACCENT }) + field(46.5, 28 + i * 5.4, v, { size: 2.9 })).join('')}
-${text(42, 46, cfg.gebiet, { size: 2.6, fill: MUTED })}`,
+      body: `${qr(7, 10, 22, qrUrl)}
+${text(18, 36.6, 'TERMIN ONLINE', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.16 })}
+${text(18, 40, 'BUCHEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.16 })}
+${line(33.5, 10, 33.5, 45, ACCENT, 0.2, 0.6)}
+${field(38, 14.4, OWNER, { size: 4, weight: 500 })}
+${text(38, 19.2, cfg.firma.toUpperCase(), { size: 2.1, weight: 500, fill: ACCENT, ls: 0.1 })}
+${[['T', PHONE], ['E', EMAIL], ['W', WEB]].map(([l, v], i) => text(38, 27.6 + i * 5.4, l, { size: 2.3, weight: 600, fill: ACCENT }) + field(42.5, 27.6 + i * 5.4, v, { size: 2.9 })).join('')}
+${text(38, 45, cfg.gebiet, { size: 2.6, fill: MUTED })}`,
     }),
   })
 }
@@ -271,10 +271,10 @@ ${text(8, 103.5, 'Premium', { size: headSize, weight: 500, ls: -0.03 })}
 ${text(8, 103.5 + headSize * 1.04, 'Fahrzeugaufbereitung', { size: headSize, weight: 500, ls: -0.03 })}
 ${text(8, 103.5 + headSize * 1.04 + 11.4, 'direkt bei Ihnen.', { size: 11.6, family: SERIF, italic: true, fill: ACCENT })}
 ${text(8, 131.2, 'Mobile Fahrzeugpflege in Graz und Umgebung', { size: 3.5, fill: MUTED })}
-<rect x="8" y="135.4" width="56" height="8" rx="4" fill="${ACCENT}"/>
-${text(36, 140.5, 'JETZT TERMIN ONLINE BUCHEN', { size: 2.35, weight: 600, fill: '#15120c', anchor: 'middle', ls: 0.14 })}
-<rect x="67.5" y="135.4" width="29.5" height="8" rx="4" fill="none" stroke="${ACCENT}" stroke-width="0.25"/>
-${text(82.25, 140.5, `${NEU.betrag} NEUKUNDEN-VORTEIL`, { size: 1.95, weight: 600, fill: ACCENT, anchor: 'middle', ls: 0.06 })}`,
+<rect x="8" y="135.4" width="52" height="8" rx="4" fill="${ACCENT}"/>
+${text(34, 140.5, 'JETZT TERMIN ONLINE BUCHEN', { size: 2.25, weight: 600, fill: '#15120c', anchor: 'middle', ls: 0.12 })}
+<rect x="62.5" y="135.4" width="34.5" height="8" rx="4" fill="none" stroke="${ACCENT}" stroke-width="0.25"/>
+${text(79.75, 140.5, `${NEU.betrag} NEUKUNDEN-VORTEIL`, { size: 2.1, weight: 600, fill: ACCENT, anchor: 'middle', ls: 0.03 })}`,
     }),
   })
 
@@ -291,24 +291,24 @@ ${text(82.25, 140.5, `${NEU.betrag} NEUKUNDEN-VORTEIL`, { size: 1.95, weight: 60
       defs: glow('g', 100, 0, 80, 0.12),
       body: `<rect x="-3" y="-3" width="111" height="154" fill="url(#g)"/>
 ${text(8, 12.5, 'UNSERE LEISTUNGEN', { size: 2.3, weight: 500, fill: ACCENT, ls: 0.26 })}
-${text(8, 22, 'Pflege, die man', { size: 6.8, weight: 500, ls: -0.03 })}${text(58.5, 22, 'sieht.', { size: 7.6, family: SERIF, italic: true, fill: ACCENT })}
+${text(8, 22, 'Pflege, die man', { size: 6.8, weight: 500, ls: -0.03 })}${text(8 + textWidth(F.medium, 'Pflege, die man ', 6.8, -0.03) + 0.4, 22, 'sieht.', { size: 7.6, family: SERIF, italic: true, fill: ACCENT })}
 ${services.map(([name, sub], i) => `${line(8, 27.5 + i * 11.2, 97, 27.5 + i * 11.2, LINE, 0.2)}${text(8, 33 + i * 11.2, name, { size: 3.7, weight: 500 })}${text(8, 36.9 + i * 11.2, sub, { size: 2.45, fill: MUTED })}`).join('')}
 ${line(8, 72.3, 97, 72.3, LINE, 0.2)}
-<rect x="8" y="76.5" width="89" height="31.5" rx="3" fill="#141417" stroke="${ACCENT}" stroke-width="0.25"/>
-${text(13, 84, 'FÜR NEUKUNDINNEN UND NEUKUNDEN', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.22 })}
-${text(13, 94.5, `${NEU.betrag}`, { size: 11, weight: 500, ls: -0.03 })}
-${text(37, 89.8, 'Neukunden-Vorteil', { size: 4.6, weight: 500 })}
-${text(37, 94.6, 'auf Ihre erste Buchung', { size: 3.1, fill: MUTED })}
-<rect x="71.5" y="86" width="20.5" height="8.6" rx="1.4" fill="none" stroke="${ACCENT}" stroke-width="0.25" stroke-dasharray="1 0.7"/>
-${text(81.75, 89.2, 'CODE', { size: 1.7, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.26 })}
-${text(81.75, 93, NEU.code, { size: 3.3, weight: 600, anchor: 'middle', ls: 0.1 })}
-${text(13, 100.6, `Gültig bei Online-Buchung ab ${NEU.mindestwert} Auftragswert, für die erste Buchung, einmal je Kunde.`, { size: 2.1, fill: MUTED })}
-${text(13, 103.9, 'Code im Buchungsschritt „Übersicht“ eingeben. Keine Barablöse.', { size: 2.1, fill: MUTED })}
-${text(8, 116.2, 'TERMIN & KONTAKT', { size: 2.3, weight: 500, fill: ACCENT, ls: 0.26 })}
-${[['Telefon', PHONE], ['E-Mail', EMAIL], ['Web', WEB]].map(([l, v], i) => text(8, 123 + i * 5.6, l, { size: 2.6, fill: MUTED }) + field(22, 123 + i * 5.6, v, { size: 3.1 })).join('')}
-${qr(72, 111, 25, neuUrl)}
-${text(84.5, 139.3, 'QR-Code scannen & buchen', { size: 2.1, fill: MUTED, anchor: 'middle' })}
-${text(8, 139.6, '* Außenwäsche nur an geeigneten, zulässigen Standorten.', { size: 2.1, fill: DIM })}
+<rect x="8" y="76.5" width="89" height="33" rx="3" fill="#141417" stroke="${ACCENT}" stroke-width="0.25"/>
+${text(13, 84.2, 'FÜR NEUKUNDINNEN UND NEUKUNDEN', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.2 })}
+<rect x="72" y="79.6" width="20.5" height="8.6" rx="1.4" fill="none" stroke="${ACCENT}" stroke-width="0.25" stroke-dasharray="1 0.7"/>
+${text(82.25, 83, 'CODE', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.22 })}
+${text(82.25, 86.9, NEU.code, { size: 3.2, weight: 600, anchor: 'middle', ls: 0.1 })}
+${text(13, 97.4, NEU.betrag, { size: 10, weight: 500, ls: -0.03 })}
+${text(13 + textWidth(F.medium, NEU.betrag, 10, -0.03) + 3.5, 93.2, 'Neukunden-Vorteil', { size: 4.5, weight: 500 })}
+${text(13 + textWidth(F.medium, NEU.betrag, 10, -0.03) + 3.5, 97.6, 'auf Ihre erste Buchung', { size: 3, fill: MUTED })}
+${text(13, 102.8, `Gültig für die erste Buchung ab ${NEU.mindestwert} Auftragswert, einmal je Kunde.`, { size: 2.1, fill: MUTED })}
+${text(13, 106, 'Online einlösbar: Code im Schritt „Übersicht“ eingeben. Keine Barablöse.', { size: 2.1, fill: MUTED })}
+${text(8, 117.4, 'TERMIN & KONTAKT', { size: 2.3, weight: 500, fill: ACCENT, ls: 0.26 })}
+${[['Telefon', PHONE], ['E-Mail', EMAIL], ['Web', WEB]].map(([l, v], i) => text(8, 124 + i * 5.4, l, { size: 2.6, fill: MUTED }) + field(22, 124 + i * 5.4, v, { size: 3.1 })).join('')}
+${qr(73, 113, 24, neuUrl)}
+${text(85, 140.2, 'Scannen & buchen', { size: 2.1, fill: MUTED, anchor: 'middle' })}
+${text(8, 140.2, '* Außenwäsche nur an geeigneten, zulässigen Standorten.', { size: 2.1, fill: DIM })}
 ${text(8, 144.2, `${cfg.firma} · ${cfg.gebiet} · Medieninhaber: `, { size: 2.1, fill: DIM })}${field(8 + textWidth(F.regular, `${cfg.firma} · ${cfg.gebiet} · Medieninhaber: `, 2.1), 144.2, IMPRINT, { size: 2.1, fill: DIM })}`,
     }),
   })
@@ -338,18 +338,19 @@ ${text(7, 49.6, 'Ihr Team von ', { size: 2.5, fill: MUTED })}${text(7 + textWidt
     w, h, qr: url,
     svg: doc({
       w, h, title: `${cfg.firma} – Dankeskarte, Rückseite`,
-      body: `${text(7, 10.4, 'IHR DANKESCHÖN', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.26 })}
-${text(7, 23, DANKE.betrag, { size: 11.5, weight: 500, ls: -0.03 })}
-${text(31.5, 18.2, 'Dankeschön-Vorteil', { size: 3.9, weight: 500 })}
-${text(31.5, 22.8, 'auf Ihren nächsten Auftrag', { size: 2.7, fill: MUTED })}
-<rect x="7" y="27.2" width="44" height="8.4" rx="1.4" fill="none" stroke="${ACCENT}" stroke-width="0.25" stroke-dasharray="1 0.7"/>
-${text(10, 32.6, 'CODE', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.26 })}
-${text(22, 32.9, DANKE.code, { size: 4.4, weight: 600, ls: 0.16 })}
-${text(7, 40.6, 'Vielen Dank, dass Sie sich für uns entschieden haben.', { size: 2.3, fill: MUTED })}
-${text(7, 43.9, 'Wir freuen uns auf Ihren nächsten Termin.', { size: 2.3, fill: MUTED })}
-${text(7, 49.4, `Ab ${DANKE.mindestwert} Auftragswert · einmal je Kunde · online einlösbar · keine Barablöse`, { size: 2.1, fill: DIM })}
-${qr(56.6, 6, 22, url)}
-${text(67.6, 31.6, 'SCANNEN & BUCHEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.16 })}`,
+      body: `${text(7, 9.8, 'IHR DANKESCHÖN', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.26 })}
+${text(7, 21, DANKE.betrag, { size: 10, weight: 500, ls: -0.03 })}
+${text(7 + textWidth(F.medium, DANKE.betrag, 10, -0.03) + 3.2, 16.4, 'Dankeschön-Vorteil', { size: 4.2, weight: 500 })}
+${text(7 + textWidth(F.medium, DANKE.betrag, 10, -0.03) + 3.2, 21, 'auf Ihren nächsten Auftrag', { size: 2.7, fill: MUTED })}
+<rect x="7" y="25.2" width="44" height="8" rx="1.4" fill="none" stroke="${ACCENT}" stroke-width="0.25" stroke-dasharray="1 0.7"/>
+${text(10, 30.2, 'CODE', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.26 })}
+${text(22, 30.6, DANKE.code, { size: 4.4, weight: 600, ls: 0.16 })}
+${text(7, 38.2, 'Vielen Dank, dass Sie sich für uns', { size: 2.3, fill: MUTED })}
+${text(7, 41.4, 'entschieden haben. Wir freuen uns', { size: 2.3, fill: MUTED })}
+${text(7, 44.6, 'auf Ihren nächsten Termin.', { size: 2.3, fill: MUTED })}
+${text(7, 49.8, `Ab ${DANKE.mindestwert} Auftragswert · einmal je Kunde · keine Barablöse`, { size: 2.1, fill: DIM })}
+${qr(58.6, 23.4, 20, url)}
+${text(68.6, 46.4, 'ONLINE EINLÖSEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.14 })}`,
     }),
   })
 }
@@ -367,11 +368,11 @@ function sticker({ w, h, premium, color }) {
   let y
   if (premium) {
     const mark = 17 * s
-    parts.push(`<g transform="translate(${n(x)} ${n(pad - 3.4 * s)}) scale(${n(mark / 48)})"><path d="${RM_PATH}"/><path d="${GLINT_PATH}"/></g>`)
-    const lx = x + mark * 1.16
-    parts.push(`<path d="${outline(F.medium, 'MOBILE', 3.1 * s, 0.42, lx, pad + 6.6 * s).d}"/>`)
-    const nameSize = fitSize(F.semi, 'AUTO AUFBEREITUNG', textW - mark * 1.16, 8 * s, 0.2)
-    parts.push(`<path d="${outline(F.semi, 'AUTO AUFBEREITUNG', nameSize, 0.2, lx, pad + 14 * s).d}"/>`)
+    parts.push(`<g transform="translate(${n(x)} ${n(pad - 0.6 * s)}) scale(${n(mark / 48)})"><path d="${RM_PATH}"/><path d="${GLINT_PATH}"/></g>`)
+    const lx = x + mark * 1.3
+    parts.push(`<path d="${outline(F.medium, 'MOBILE', 3 * s, 0.42, lx, pad + 5.2 * s).d}"/>`)
+    const nameSize = fitSize(F.semi, 'AUTO AUFBEREITUNG', textW - mark * 1.3, 7.6 * s, 0.2)
+    parts.push(`<path d="${outline(F.semi, 'AUTO AUFBEREITUNG', nameSize, 0.2, lx, pad + 13.57 * s).d}"/>`)
     y = pad + 20.5 * s
     parts.push(`<rect x="${n(x)}" y="${n(y)}" width="${n(textW)}" height="${n(0.5 * s)}"/>`)
     const l1 = fitSize(F.semi, 'MOBILE AUTOAUFBEREITUNG', textW, 12 * s, 0.05)
@@ -504,6 +505,23 @@ fs.writeFileSync(
     2,
   ) + '\n',
 )
+
+// Übersicht aller Motive als ein Bild
+{
+  const cell = 560
+  const gap = 20
+  const tiles = []
+  for (const r of results) {
+    const b = await sharp(M('previews', `${r.name}.png`)).resize({ width: cell, height: 380, fit: 'contain', background: '#2b2b2f' }).png().toBuffer()
+    tiles.push(b)
+  }
+  const cols = 4
+  const rows = Math.ceil(tiles.length / cols)
+  await sharp({ create: { width: cols * cell + (cols + 1) * gap, height: rows * 380 + (rows + 1) * gap, channels: 3, background: '#2b2b2f' } })
+    .composite(tiles.map((input, i) => ({ input, left: gap + (i % cols) * (cell + gap), top: gap + Math.floor(i / cols) * (380 + gap) })))
+    .jpeg({ quality: 88 })
+    .toFile(M('previews', 'uebersicht.jpg'))
+}
 
 fs.writeFileSync(M('previews', 'build.json'), JSON.stringify({ erzeugt: new Date().toISOString().slice(0, 10), fehlend: [...missing], aufkleber: stickerInfo.map((s) => ({ ...s, module: Number(s.module.toFixed(2)) })), dateien: results.map((r) => ({ ordner: r.dir, name: r.name, bezeichnung: r.label, endformat: `${r.w} × ${r.h} mm`, beschnitt: `${r.bleed} mm`, pdf: r.pdfSize, qr: r.qrState })) }, null, 2) + '\n')
 if (missing.size) console.log(`\n⚠ Platzhalter (in marketing/config.json ergänzen):\n  - ${[...missing].join('\n  - ')}`)

@@ -11,8 +11,8 @@
 <text x="8" y="112.994" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="9.129" font-weight="500" fill="#f4f1ea" letter-spacing="-0.274">Fahrzeugaufbereitung</text>
 <text x="8" y="124.394" font-family="'Instrument Serif', 'Times New Roman', serif" font-size="11.6" font-weight="400" font-style="italic" fill="#c8b48a">direkt bei Ihnen.</text>
 <text x="8" y="131.2" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="3.5" font-weight="400" fill="#a8a49c">Mobile Fahrzeugpflege in Graz und Umgebung</text>
-<rect x="8" y="135.4" width="56" height="8" rx="4" fill="#c8b48a"/>
-<text x="36" y="140.5" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="2.35" font-weight="600" fill="#15120c" text-anchor="middle" letter-spacing="0.329">JETZT TERMIN ONLINE BUCHEN</text>
-<rect x="67.5" y="135.4" width="29.5" height="8" rx="4" fill="none" stroke="#c8b48a" stroke-width="0.25"/>
-<text x="82.25" y="140.5" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="1.95" font-weight="600" fill="#c8b48a" text-anchor="middle" letter-spacing="0.117">20 € NEUKUNDEN-VORTEIL</text>
+<rect x="8" y="135.4" width="52" height="8" rx="4" fill="#c8b48a"/>
+<text x="34" y="140.5" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="2.25" font-weight="600" fill="#15120c" text-anchor="middle" letter-spacing="0.27">JETZT TERMIN ONLINE BUCHEN</text>
+<rect x="62.5" y="135.4" width="34.5" height="8" rx="4" fill="none" stroke="#c8b48a" stroke-width="0.25"/>
+<text x="79.75" y="140.5" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="2.1" font-weight="600" fill="#c8b48a" text-anchor="middle" letter-spacing="0.063">20 € NEUKUNDEN-VORTEIL</text>
 </svg>
