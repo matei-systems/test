@@ -49,6 +49,8 @@ interface ServiceRow {
   tagline: string
   description: string
   includes: string[]
+  excludes: string[]
+  requirements: string[]
   price_note: string
   requires_addon: boolean
   featured: boolean
@@ -100,7 +102,7 @@ export async function loadCatalog(q: Queryable, includeInactive = false): Promis
     `SELECT id, name, description, sort, active FROM vehicle_categories ${where} ORDER BY sort, name`,
   )
   const services = await q.query<ServiceRow>(
-    `SELECT id, name, tagline, description, includes, price_note, requires_addon, featured, sort, active, image_src
+    `SELECT id, name, tagline, description, includes, excludes, requirements, price_note, requires_addon, featured, sort, active, image_src
      FROM services ${where} ORDER BY sort, name`,
   )
   const prices = await q.query<{ service_id: string; vehicle_category_id: string; price_cents: number | null; duration_minutes: number }>(
@@ -129,6 +131,8 @@ export async function loadCatalog(q: Queryable, includeInactive = false): Promis
     tagline: s.tagline,
     description: s.description,
     includes: Array.isArray(s.includes) ? s.includes : [],
+    excludes: Array.isArray(s.excludes) ? s.excludes : [],
+    requirements: Array.isArray(s.requirements) ? s.requirements : [],
     priceNote: s.price_note,
     requiresAddon: s.requires_addon,
     featured: s.featured,
@@ -171,6 +175,8 @@ export function defaultCatalog(): Catalog {
       tagline: s.tagline,
       description: s.description,
       includes: s.includes,
+      excludes: s.excludes,
+      requirements: s.requirements,
       priceNote: s.priceNote,
       requiresAddon: Boolean(s.requiresAddon),
       featured: Boolean(s.featured),

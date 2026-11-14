@@ -12,7 +12,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Über uns – mobile Fahrzeugpflege mit Anspruch',
   description:
-    'RM Mobile Autoaufbereitung steht für mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu dir kommt.',
+    'RM Mobile Auto Aufbereitung steht für mobile Autoaufbereitung in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu Ihnen kommt.',
   alternates: { canonical: '/ueber-uns' },
 }
 
@@ -21,7 +21,7 @@ const PILLARS: Array<{ icon: IconName; title: string; text: string }> = [
   {
     icon: 'gem',
     title: 'Markenphilosophie',
-    text: 'Ein gepflegtes Fahrzeug ist ein gutes Gefühl – jeden Tag. Wir möchten, dass du dieses Gefühl bekommst, ohne dafür Zeit opfern zu müssen.',
+    text: 'Ein gepflegtes Fahrzeug ist ein gutes Gefühl – jeden Tag. Wir möchten, dass Sie dieses Gefühl erleben, ohne dafür Zeit opfern zu müssen.',
   },
   {
     icon: 'polish',
@@ -31,7 +31,7 @@ const PILLARS: Array<{ icon: IconName; title: string; text: string }> = [
   {
     icon: 'van',
     title: 'Mobiler Service',
-    text: 'Wir kommen mit unserem Equipment zu dir – nach Hause, an den Arbeitsplatz oder an einen vereinbarten Standort im Einsatzgebiet.',
+    text: 'Wir kommen mit unserer Ausrüstung zu Ihnen – nach Hause, an den Arbeitsplatz oder an einen vereinbarten Standort im Einsatzgebiet.',
   },
   {
     icon: 'handshake',
@@ -41,10 +41,10 @@ const PILLARS: Array<{ icon: IconName; title: string; text: string }> = [
 ]
 
 const METHOD: Array<{ title: string; text: string }> = [
-  { title: 'Blick aufs Fahrzeug', text: 'Vor dem Start sehen wir uns dein Fahrzeug gemeinsam an und klären Besonderheiten, Wünsche und eventuelle Zusatzleistungen.' },
+  { title: 'Blick aufs Fahrzeug', text: 'Vor dem Start sehen wir uns Ihr Fahrzeug gemeinsam an und klären Besonderheiten, Wünsche und eventuelle Zusatzleistungen.' },
   { title: 'Schonend von Hand', text: 'Jede Oberfläche wird mit passender Methode behandelt – innen wie außen. Sorgfalt geht vor Tempo.' },
   { title: 'Detail für Detail', text: 'Fugen, Ablagen, Einstiege und Felgen: Es sind die Details, die den Unterschied zwischen sauber und gepflegt ausmachen.' },
-  { title: 'Übergabe mit dir', text: 'Am Ende gehen wir das Ergebnis gemeinsam mit dir durch – offen, ehrlich und ohne Zeitdruck.' },
+  { title: 'Gemeinsame Übergabe', text: 'Am Ende gehen wir das Ergebnis gemeinsam mit Ihnen durch – offen, ehrlich und ohne Zeitdruck.' },
 ]
 
 export default async function AboutPage() {
@@ -59,7 +59,7 @@ export default async function AboutPage() {
             Fahrzeugpflege mit <span className="serif accent">Haltung.</span>
           </>
         }
-        lead={`RM Mobile Autoaufbereitung ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach dir richtet.`}
+        lead={`RM Mobile Auto Aufbereitung ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach Ihnen richtet.`}
         image="/images/interior.jpg"
         imagePosition="30% 40%"
       />
@@ -67,7 +67,7 @@ export default async function AboutPage() {
       <section className="section">
         <div className={`container ${styles.manifest}`}>
           <p className={`${styles.manifestQuote} reveal`}>
-            Dein Fahrzeug verdient mehr als nur eine <span className="serif accent">Reinigung.</span>
+            Ihr Fahrzeug verdient mehr als nur eine <span className="serif accent">Reinigung.</span>
           </p>
           <div className={`${styles.manifestText} reveal`}>
             <p>
@@ -75,13 +75,13 @@ export default async function AboutPage() {
               sorgfältig sollte es gepflegt werden – nicht im Vorbeifahren, sondern mit Ruhe und einem genauen Blick.
             </p>
             <p>
-              Genau dafür gibt es RM Mobile Autoaufbereitung. Wir bringen professionelle Fahrzeugpflege dorthin, wo dein Fahrzeug steht. Du buchst online,
-              wir kommen zum vereinbarten Termin – und du nutzt deine Zeit für alles andere.
+              Genau dafür gibt es RM Mobile Auto Aufbereitung. Wir bringen professionelle Fahrzeugpflege dorthin, wo Ihr Fahrzeug steht. Sie buchen online,
+              wir kommen zum vereinbarten Termin – und Sie nutzen Ihre Zeit für alles andere.
             </p>
             <p>
-              Wir sind neu in {area.regions[0] ?? 'Graz'} und bauen unser Angebot Schritt für Schritt auf. Deshalb findest du hier keine
+              Wir sind neu in {area.regions[0] ?? 'Graz'} und bauen unser Angebot Schritt für Schritt auf. Deshalb finden Sie hier keine
               großen Zahlen und keine geliehenen Versprechen – sondern klare Leistungen, klare Preise und den Anspruch, jeden Auftrag so
-              auszuführen, dass du uns gerne weiterempfiehlst.
+              auszuführen, dass Sie uns gerne weiterempfehlen.
             </p>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default async function AboutPage() {
           <div className={`${styles.bandInner} reveal`}>
           <p className="eyebrow">Mobiler Service</p>
           <h2 id="mobil-title" className="h2">
-            Wir kommen dorthin, wo dein <span className="serif accent">Fahrzeug steht.</span>
+            Wir kommen dorthin, wo Ihr <span className="serif accent">Fahrzeug steht.</span>
           </h2>
           <p className="lead">
             Zu Hause in der Einfahrt, am Firmenparkplatz oder an einem vereinbarten Standort in {area.regions.join(' & ')}.
@@ -133,7 +133,7 @@ export default async function AboutPage() {
           <div className="section-head reveal">
             <p className="eyebrow">Arbeitsweise</p>
             <h2 id="arbeitsweise-title" className="h2">
-              So arbeiten wir an <span className="serif accent">deinem Fahrzeug.</span>
+              So arbeiten wir an <span className="serif accent">Ihrem Fahrzeug.</span>
             </h2>
           </div>
           <ol className={styles.method}>

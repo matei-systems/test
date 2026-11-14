@@ -5,14 +5,14 @@
  */
 
 export const SITE = {
-  name: 'RM Mobile Autoaufbereitung',
+  name: 'RM Mobile Auto Aufbereitung',
   /** Kurzform für enge Stellen (App-Icon-Beschriftung, Admin-Kopf) */
   shortName: 'RM',
   claim: 'Premium Fahrzeugpflege',
-  headline: 'Dein Fahrzeug verdient mehr als nur eine Reinigung.',
-  subline: 'Premium Fahrzeugpflege. Direkt bei dir vor Ort.',
+  headline: 'Premium Fahrzeugaufbereitung. Direkt bei Ihnen.',
+  subline: 'Professionelle mobile Fahrzeugpflege in Graz und Umgebung – bequem bei Ihnen vor Ort.',
   description:
-    'RM Mobile Autoaufbereitung ist deine mobile Premium-Fahrzeugpflege in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei dir zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
+    'RM Mobile Auto Aufbereitung ist Ihre mobile Autoaufbereitung in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei Ihnen zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
   locale: 'de_AT',
   language: 'de-AT',
   timezone: 'Europe/Vienna',
@@ -34,7 +34,7 @@ export const SITE = {
    */
   bookingButtonLabel: 'Termin jetzt buchen',
   /** Vorbefüllter Text für den WhatsApp-Kontakt */
-  whatsappText: 'Hallo RM Mobile Autoaufbereitung, ich interessiere mich für eine Fahrzeugaufbereitung und möchte einen Termin vereinbaren.',
+  whatsappText: 'Guten Tag, ich interessiere mich für eine Fahrzeugaufbereitung und möchte einen Termin vereinbaren.',
 } as const
 
 export function getSiteUrl(): string {

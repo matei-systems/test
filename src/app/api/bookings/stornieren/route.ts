@@ -23,6 +23,6 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error('[api/bookings/stornieren]', err)
     void notifyAdminError('Online-Stornierung', err)
-    return NextResponse.json({ error: 'Die Stornierung konnte nicht durchgeführt werden. Bitte kontaktiere uns direkt.' }, { status: 500 })
+    return NextResponse.json({ error: 'Die Stornierung konnte nicht durchgeführt werden. Bitte kontaktieren Sie uns direkt.' }, { status: 500 })
   }
 }

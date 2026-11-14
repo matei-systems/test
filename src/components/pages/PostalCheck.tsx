@@ -20,9 +20,9 @@ export function PostalCheck({ ranges }: { ranges: string }) {
   return (
     <form className={styles.check} onSubmit={check} noValidate>
       <div>
-        <h2 className="h3">Kommen wir zu dir?</h2>
+        <h2 className="h3">Kommen wir zu Ihnen?</h2>
         <p className="muted" style={{ fontSize: '0.95rem' }}>
-          Gib deine Postleitzahl ein und prüfe sofort, ob dein Standort in unserem Einsatzgebiet liegt.
+          Geben Sie Ihre Postleitzahl ein und prüfen Sie sofort, ob Ihr Standort in unserem Einsatzgebiet liegt.
         </p>
       </div>
       <div className="field">
@@ -65,7 +65,7 @@ export function PostalCheck({ ranges }: { ranges: string }) {
             <span>
               {value} liegt aktuell außerhalb unseres Einsatzgebiets.{' '}
               <Link href="/kontakt" style={{ textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                Frag uns trotzdem an
+                Trotzdem anfragen
               </Link>{' '}
               – oft finden wir eine Lösung.
             </span>
@@ -74,7 +74,7 @@ export function PostalCheck({ ranges }: { ranges: string }) {
         {result === 'invalid' && (
           <div className="notice notice--error" role="alert">
             <Icon name="alert" />
-            <span>Bitte gib eine vierstellige österreichische Postleitzahl ein.</span>
+            <span>Bitte geben Sie eine vierstellige österreichische Postleitzahl ein.</span>
           </div>
         )}
       </div>

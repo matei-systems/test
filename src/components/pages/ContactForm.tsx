@@ -42,9 +42,9 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
         return
       }
       if (data.fields) setErrors(data.fields)
-      setError(data.error ?? 'Deine Nachricht konnte nicht gesendet werden. Bitte versuche es erneut.')
+      setError(data.error ?? 'Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.')
     } catch {
-      setError('Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung und versuche es erneut.')
+      setError('Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.')
     }
     setState('idle')
   }
@@ -55,8 +55,8 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
         <span className={styles.successIcon}>
           <Icon name="check" size={28} />
         </span>
-        <h2 className="h3">Danke – deine Nachricht ist angekommen.</h2>
-        <p className="muted">Wir melden uns so schnell wie möglich bei dir.</p>
+        <h2 className="h3">Vielen Dank – Ihre Nachricht ist angekommen.</h2>
+        <p className="muted">Wir melden uns so schnell wie möglich bei Ihnen.</p>
         <button
           type="button"
           className="btn btn--ghost btn--sm"
@@ -140,7 +140,7 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="kontakt-message">Deine Nachricht</label>
+        <label htmlFor="kontakt-message">Ihre Nachricht</label>
         <textarea
           id="kontakt-message"
           className="textarea"

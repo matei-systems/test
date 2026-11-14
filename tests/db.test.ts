@@ -70,7 +70,7 @@ for (const target of targets) {
 
     const SERVICE = { serviceId: 'innenraum-premium', vehicleId: 'kleinwagen', addonIds: [] as string[] }
 
-    const request = (date: string, time: string, email = 'kunde@test.rm.invalid') => ({
+    const request = (date: string, time: string, email = 'kunde@test.rm.invalid', couponCode = '') => ({
       ...SERVICE,
       date,
       time,
@@ -93,6 +93,7 @@ for (const target of targets) {
       privacyAccepted: true as const,
       termsAccepted: true as const,
       marketingConsent: false,
+      couponCode,
       website: '',
     })
 
@@ -130,7 +131,7 @@ for (const target of targets) {
       const res = await mod.bookings.createBooking(request(date, '10:00'))
       expect(res.ok).toBe(true)
       if (!res.ok) return
-      expect(res.reference).toMatch(/^GM-[A-Z2-9]{4}-[A-Z2-9]{4}$/)
+      expect(res.reference).toMatch(/^RM-[A-Z2-9]{4}-[A-Z2-9]{4}$/)
       expect(res.kind).toBe('buchung')
 
       const after = await mod.bookings.getDayAvailability(date, SERVICE)
@@ -307,6 +308,133 @@ for (const target of targets) {
       const res = await mod.bookings.createBooking(r)
       expect(res.ok).toBe(false)
       if (!res.ok) expect(res.code).toBe('outside_area')
+    })
+
+    describe('Gutscheine', () => {
+      // Eigene Telefonnummer je Kunde – Gutscheine erkennen denselben Kunden an E-Mail ODER Telefon
+      const couponRequest = (date: string, time: string, n: number, code: string, expected: number | null) => {
+        const r = request(date, time, `gutschein${n}@test.rm.invalid`, code)
+        r.customer.phone = `+43 664 55${String(1000000 + n).slice(1)}`
+        r.expectedTotalCents = expected
+        return r
+      }
+
+      it('Startgutscheine NEU20 und DANKE20 sind angelegt (20 € ab 119 €)', async () => {
+        const db = await mod.db.getDb()
+        const { rows } = await db.query<{ code: string; amount_cents: number; min_order_cents: number; first_booking_only: boolean }>(
+          "SELECT code, amount_cents, min_order_cents, first_booking_only FROM coupons WHERE code IN ('NEU20','DANKE20') ORDER BY code",
+        )
+        expect(rows.map((r) => [r.code, Number(r.amount_cents), Number(r.min_order_cents), r.first_booking_only])).toEqual([
+          ['DANKE20', 2000, 11900, false],
+          ['NEU20', 2000, 11900, true],
+        ])
+      })
+
+      it('zieht den Gutschein ab, speichert ihn und verlangt den bestätigten Endpreis', async () => {
+        const date = targetDate(14)
+        // Kunde hat 119 € gesehen, obwohl mit Gutschein 99 € gelten → Preis muss neu bestätigt werden
+        const wrong = await mod.bookings.createBooking(couponRequest(date, '09:00', 1, 'DANKE20', 11900))
+        expect(wrong.ok).toBe(false)
+        if (!wrong.ok) expect(wrong.code).toBe('price_changed')
+
+        const res = await mod.bookings.createBooking(couponRequest(date, '09:00', 1, 'danke-20', 9900))
+        expect(res.ok).toBe(true)
+        const db = await mod.db.getDb()
+        const { rows } = await db.query<{ total_price_cents: number; coupon_code: string; coupon_discount_cents: number; discount_cents: number }>(
+          "SELECT total_price_cents, coupon_code, coupon_discount_cents, discount_cents FROM bookings WHERE email = 'gutschein1@test.rm.invalid'",
+        )
+        expect(rows).toHaveLength(1)
+        expect(Number(rows[0].total_price_cents)).toBe(9900)
+        expect(rows[0].coupon_code).toBe('DANKE20')
+        expect(Number(rows[0].coupon_discount_cents)).toBe(2000)
+        expect(Number(rows[0].discount_cents)).toBe(3000) // Einführungspreis: 149 € → 119 €
+      })
+
+      it('ist je Kunde nur einmal einlösbar (gleiche E-Mail oder gleiche Telefonnummer)', async () => {
+        const date = targetDate(15)
+        const sameMail = await mod.bookings.createBooking(couponRequest(date, '09:00', 1, 'DANKE20', 9900))
+        expect(sameMail.ok).toBe(false)
+        if (!sameMail.ok) expect(sameMail.code).toBe('coupon_invalid')
+
+        const samePhone = couponRequest(date, '09:00', 2, 'DANKE20', 9900)
+        samePhone.customer.phone = '0664 / 55 000 001' // andere Schreibweise derselben Nummer wie Kunde 1
+        const res = await mod.bookings.createBooking(samePhone)
+        expect(res.ok).toBe(false)
+        if (!res.ok) {
+          expect(res.code).toBe('coupon_invalid')
+          expect(res.error).toMatch(/bereits eingelöst/)
+        }
+        // Es wurde nichts gespeichert
+        const db = await mod.db.getDb()
+        const { rows } = await db.query("SELECT 1 FROM bookings WHERE email = 'gutschein2@test.rm.invalid'")
+        expect(rows).toHaveLength(0)
+      })
+
+      it('lehnt unbekannte Codes und zu niedrige Auftragswerte ab', async () => {
+        const date = targetDate(16)
+        const unknown = await mod.bookings.createBooking(couponRequest(date, '09:00', 3, 'GIBTSNICHT', 9900))
+        expect(unknown.ok).toBe(false)
+        if (!unknown.ok) expect(unknown.code).toBe('coupon_invalid')
+
+        // Innenraum Basic Kleinwagen: 79 € (unter dem Mindestwert von 119 €)
+        const low = { ...couponRequest(date, '09:00', 3, 'DANKE20', 5900), serviceId: 'innenraum-basic' }
+        const res = await mod.bookings.createBooking(low)
+        expect(res.ok).toBe(false)
+        if (!res.ok) {
+          expect(res.code).toBe('coupon_invalid')
+          expect(res.error).toMatch(/ab einem Auftragswert von 119/)
+        }
+      })
+
+      it('NEU20 gilt nur für die erste Buchung; stornierte Buchungen geben den Gutschein wieder frei', async () => {
+        const date = targetDate(17)
+        const first = await mod.bookings.createBooking(couponRequest(date, '09:00', 4, 'NEU20', 9900))
+        expect(first.ok).toBe(true)
+
+        const second = await mod.bookings.createBooking(couponRequest(targetDate(18), '09:00', 4, 'NEU20', 9900))
+        expect(second.ok).toBe(false)
+        if (!second.ok) expect(second.code).toBe('coupon_invalid')
+
+        if (first.ok) {
+          const cancelled = await mod.bookings.cancelBookingByToken(first.token)
+          expect(cancelled.ok).toBe(true)
+        }
+        const again = await mod.bookings.createBooking(couponRequest(targetDate(18), '09:00', 4, 'NEU20', 9900))
+        expect(again.ok).toBe(true)
+      })
+
+      it('beachtet Höchstzahl, Ablaufdatum und Deaktivierung', async () => {
+        const db = await mod.db.getDb()
+        const { checkCoupon } = await import('@/lib/coupons')
+        const { calculateQuote } = await import('@/lib/pricing')
+        const catalog = await mod.catalog.loadCatalog(db)
+        const q = calculateQuote(catalog, SERVICE)
+        if (!q.ok) throw new Error(q.error)
+        await db.query("DELETE FROM coupons WHERE code LIKE 'TEST%'")
+        await db.query(
+          `INSERT INTO coupons (code, amount_cents, min_order_cents, max_redemptions, ends_at, active) VALUES
+             ('TESTLIMIT', 1000, 0, 1, NULL, true),
+             ('TESTALT', 1000, 0, NULL, now() - interval '1 day', true),
+             ('TESTAUS', 1000, 0, NULL, NULL, false),
+             ('TESTGROSS', 99900, 0, NULL, NULL, true)`,
+        )
+        try {
+          expect((await checkCoupon(db, { code: 'TESTALT', quote: q.quote })).ok).toBe(false)
+          expect((await checkCoupon(db, { code: 'TESTAUS', quote: q.quote })).ok).toBe(false)
+          // Der Nachlass ist nie höher als der Auftragswert
+          const big = await checkCoupon(db, { code: 'TESTGROSS', quote: q.quote })
+          expect(big.ok && big.coupon.totalCents).toBe(0)
+
+          const ok = await mod.bookings.createBooking(couponRequest(targetDate(19), '09:00', 5, 'TESTLIMIT', 10900))
+          expect(ok.ok).toBe(true)
+          const full = await checkCoupon(db, { code: 'TESTLIMIT', quote: q.quote })
+          expect(full.ok).toBe(false)
+          if (!full.ok) expect(full.error).toMatch(/vollständig eingelöst/)
+        } finally {
+          await db.query("DELETE FROM bookings WHERE email LIKE 'gutschein%@test.rm.invalid'")
+          await db.query("DELETE FROM coupons WHERE code LIKE 'TEST%'")
+        }
+      })
     })
   })
 }

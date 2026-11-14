@@ -25,32 +25,42 @@ export function Hero({
 
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
+      {/* Fahrzeug-Szene: Das Fahrzeug gleitet aus dem Dunkel in die Szene, das Studiolicht geht an, ein Lichtreflex
+          wandert über den Lack. Beim Scrollen bewegt sich die Szene langsamer als der Inhalt (Parallax). */}
       <div className={styles.media}>
-        <picture>
-          <source media="(max-width: 700px)" srcSet={portrait} />
-          <source media="(min-width: 701px)" srcSet={landscape} />
-          {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-          <img {...rest} className={styles.img} fetchPriority="high" />
-        </picture>
+        <div className={styles.car}>
+          <picture>
+            <source media="(max-width: 700px)" srcSet={portrait} />
+            <source media="(min-width: 701px)" srcSet={landscape} />
+            {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+            <img {...rest} className={styles.img} fetchPriority="high" />
+          </picture>
+        </div>
+        <div className={styles.glow} aria-hidden="true" />
+        <div className={styles.streaks} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
         <div className={styles.shade} />
         <div className={styles.sweep} aria-hidden="true" />
       </div>
 
       <div className={`container ${styles.content}`}>
-        <p className={`eyebrow ${styles.eyebrow}`}>Mobile Premium Fahrzeugpflege · {regions[0] ?? 'Graz'}</p>
+        <p className={`eyebrow ${styles.eyebrow}`}>Mobile Autoaufbereitung · {regions[0] ?? 'Graz'}</p>
         <h1 id="hero-title" className={`display ${styles.title}`}>
-          <span className={styles.line}>Dein Fahrzeug</span> <span className={styles.line}>verdient mehr als</span>{' '}
+          <span className={styles.line}>Premium</span> <span className={styles.line}>Fahrzeugaufbereitung.</span>{' '}
           <span className={styles.line}>
-            nur eine <span className={`serif ${styles.accent}`}>Reinigung.</span>
+            <span className={`serif ${styles.accent}`}>Direkt bei Ihnen.</span>
           </span>
         </h1>
         <p className={`lead ${styles.lead}`}>
-          <strong>Premium Fahrzeugpflege. Direkt bei dir vor Ort.</strong> Wir kommen nach Hause, zum Arbeitsplatz oder an deinen
-          Wunschort in {regions.join(' & ')}.
+          <strong>Professionelle mobile Fahrzeugpflege in {regions[0] ?? 'Graz'} und Umgebung.</strong> Wir bringen Ihr Fahrzeug wieder zum
+          Glänzen – bequem bei Ihnen zu Hause, am Arbeitsplatz oder an Ihrem Wunschort.
         </p>
         <div className={styles.ctas}>
           <Link href="/buchen" className="btn btn--primary">
-            Termin jetzt buchen <Icon name="arrow-right" />
+            Termin buchen <Icon name="arrow-right" />
           </Link>
           <Link href="/leistungen" className="btn btn--ghost">
             Unsere Leistungen
@@ -83,7 +93,7 @@ export function Hero({
             </span>
             <span>
               <strong>Mobile Fahrzeugpflege</strong>
-              <span>Wir kommen zu dir</span>
+              <span>Wir kommen zu Ihnen</span>
             </span>
           </li>
           <li>
@@ -101,7 +111,7 @@ export function Hero({
             </span>
             <span>
               <strong>{regions[0] ?? 'Graz'} und Umgebung</strong>
-              <span>Regional für dich unterwegs</span>
+              <span>Regional für Sie unterwegs</span>
             </span>
           </li>
         </ul>

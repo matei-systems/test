@@ -231,3 +231,15 @@
   color: var(--accent);
   flex: none;
 }
+
+/* „Nicht enthalten“ und Voraussetzungen: gleiche Liste, zurückhaltender Akzent */
+.excludes li,
+.requirements li {
+  color: var(--text-muted);
+}
+.excludes li svg {
+  color: var(--text-dim);
+}
+.requirements {
+  grid-template-columns: minmax(0, 1fr);
+}

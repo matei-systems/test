@@ -12,6 +12,7 @@ const ITEMS: Array<{ href: string; label: string; icon: IconName; exact?: boolea
   { href: '/admin/kunden', label: 'Kunden', icon: 'users' },
   { href: '/admin/leistungen', label: 'Leistungen & Preise', icon: 'tag' },
   { href: '/admin/aktionen', label: 'Aktionen & Rabatte', icon: 'percent' },
+  { href: '/admin/gutscheine', label: 'Gutscheine', icon: 'tag' },
   { href: '/admin/galerie', label: 'Galerie', icon: 'image' },
   { href: '/admin/statistiken', label: 'Statistiken', icon: 'chart' },
   { href: '/admin/verfuegbarkeit', label: 'Verfügbarkeit', icon: 'clock' },

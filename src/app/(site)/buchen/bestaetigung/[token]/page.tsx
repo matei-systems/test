@@ -18,27 +18,27 @@ export const metadata: Metadata = {
 /** Terminanfrage (Preis auf Anfrage): andere Formulierung, solange sie noch nicht bestätigt wurde */
 const REQUEST_NEW = {
   label: 'Anfrage',
-  title: 'Vielen Dank – deine Terminanfrage ist eingegangen.',
-  text: 'Der Termin ist für dich vorgemerkt. Wir melden uns mit einem Angebot – erst mit deiner Zustimmung kommt der Auftrag zustande.',
+  title: 'Vielen Dank – Ihre Terminanfrage ist eingegangen.',
+  text: 'Der Termin ist für Sie vorgemerkt. Wir melden uns mit einem Angebot – erst mit Ihrer Zustimmung kommt der Auftrag zustande.',
   tone: 'pending' as const,
 }
 
 const STATUS: Record<string, { label: string; title: string; text: string; tone: 'ok' | 'pending' | 'cancel' }> = {
   neu: {
     label: 'Reserviert',
-    title: 'Vielen Dank – deine Buchung ist eingegangen.',
-    text: 'Dein Termin ist fest für dich reserviert. Wir prüfen die Details und bestätigen ihn dir in Kürze persönlich.',
+    title: 'Vielen Dank – Ihre Buchung ist eingegangen.',
+    text: 'Der Termin ist für Sie reserviert. Wir prüfen Standort und Details und bestätigen ihn per E-Mail – erst mit dieser Bestätigung ist der Termin fix.',
     tone: 'pending',
   },
   bestaetigt: {
     label: 'Bestätigt',
-    title: 'Dein Termin ist bestätigt.',
-    text: 'Wir kommen zur vereinbarten Zeit an deinen Standort. Wir freuen uns auf dein Fahrzeug!',
+    title: 'Ihr Termin ist bestätigt.',
+    text: 'Wir kommen zur vereinbarten Zeit an Ihren Standort und freuen uns auf Ihr Fahrzeug.',
     tone: 'ok',
   },
-  in_bearbeitung: { label: 'In Bearbeitung', title: 'Dein Fahrzeug ist in besten Händen.', text: 'Wir arbeiten gerade an deinem Fahrzeug.', tone: 'ok' },
-  abgeschlossen: { label: 'Abgeschlossen', title: 'Danke für dein Vertrauen!', text: 'Dieser Auftrag ist abgeschlossen.', tone: 'ok' },
-  storniert: { label: 'Storniert', title: 'Dieser Termin wurde storniert.', text: 'Gerne kannst du jederzeit einen neuen Termin buchen.', tone: 'cancel' },
+  in_bearbeitung: { label: 'In Bearbeitung', title: 'Ihr Fahrzeug ist in besten Händen.', text: 'Wir arbeiten gerade an Ihrem Fahrzeug.', tone: 'ok' },
+  abgeschlossen: { label: 'Abgeschlossen', title: 'Vielen Dank für Ihr Vertrauen.', text: 'Dieser Auftrag ist abgeschlossen.', tone: 'ok' },
+  storniert: { label: 'Storniert', title: 'Dieser Termin wurde storniert.', text: 'Gerne können Sie jederzeit einen neuen Termin buchen.', tone: 'cancel' },
 }
 
 export default async function ConfirmationPage({ params }: { params: Promise<{ token: string }> }) {
@@ -121,8 +121,13 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
                     {booking.promotionName ?? 'Aktion'}
                     {booking.promotionPercent ? <DiscountBadge percent={booking.promotionPercent} /> : null}
                     <span>
-                      regulär {formatEuro(booking.regularPriceCents as number)} · du sparst {formatEuro(booking.discountCents)}
+                      regulär {formatEuro(booking.regularPriceCents as number)} · Sie sparen {formatEuro(booking.discountCents)}
                     </span>
+                  </small>
+                )}
+                {booking.couponCode && booking.couponDiscountCents > 0 && (
+                  <small>
+                    Gutschein {booking.couponCode}: −{formatEuro(booking.couponDiscountCents)} (bereits abgezogen)
                   </small>
                 )}
               </dd>
@@ -136,7 +141,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
               </p>
             ) : (
               <p>
-                <Icon name="info" size={16} /> Bitte notiere dir deine {noun} und speichere diese Seite als Lesezeichen. Wir melden uns zur Bestätigung persönlich bei dir
+                <Icon name="info" size={16} /> Bitte notieren Sie Ihre {noun} und speichern Sie diese Seite als Lesezeichen. Wir melden uns zur Bestätigung persönlich bei Ihnen
                 {business.phone ? ' – telefonisch oder per E-Mail' : ' per E-Mail oder Telefon'}.
               </p>
             )}
@@ -161,7 +166,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
         </div>
 
         <p className={styles.help}>
-          {booking.cancellableUntil ? 'Terminverschiebung oder Fragen?' : 'Änderung oder Stornierung?'} Melde dich bitte so früh wie möglich
+          {booking.cancellableUntil ? 'Terminverschiebung oder Fragen?' : 'Änderung oder Stornierung?'} Melden Sie sich bitte so früh wie möglich
           {business.phone ? (
             <>
               {' '}
@@ -174,7 +179,7 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
               {business.phone ? 'oder' : 'unter'} <a href={`mailto:${business.email}`}>{business.email}</a>
             </>
           ) : null}
-          . Details findest du in unseren <Link href="/stornobedingungen">Stornobedingungen</Link>.
+          . Details finden Sie in unseren <Link href="/stornobedingungen">Stornobedingungen</Link>.
         </p>
       </div>
     </div>

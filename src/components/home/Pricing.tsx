@@ -28,7 +28,7 @@ export function Pricing({ catalog, now, heading = true }: { catalog: Catalog; no
             <h2 id="preise-title" className="h2">
               Transparent. <span className="serif accent">Ohne Überraschungen.</span>
             </h2>
-            <p className="lead">Wähle deine Fahrzeugkategorie – du siehst sofort Preis und ungefähre Dauer jedes Pakets.</p>
+            <p className="lead">Wählen Sie Ihre Fahrzeugkategorie – Sie sehen sofort Preis und ungefähre Dauer jedes Pakets.</p>
           </div>
         )}
         {!heading && (
@@ -42,7 +42,7 @@ export function Pricing({ catalog, now, heading = true }: { catalog: Catalog; no
             <DiscountBadge percent={best.percent} />
             <span>
               <strong>{best.promotion.name}</strong> – {best.percent}&nbsp;% Preisvorteil auf unsere Pakete
-              {bestEnd ? `, gültig bis ${bestEnd}` : ' zum Start von RM Mobile Autoaufbereitung'}.
+              {bestEnd ? `, gültig bis ${bestEnd}` : ' zum Start von RM Mobile Auto Aufbereitung'}.
             </span>
           </p>
         )}
@@ -99,7 +99,7 @@ export function Pricing({ catalog, now, heading = true }: { catalog: Catalog; no
           <Icon name="info" size={16} />
           <span>
             Alle Preise sind Endpreise inklusive Anfahrt im Einsatzgebiet und gelten für Fahrzeuge in normalem Pflegezustand. Mögliche
-            Zusatzkosten (z. B. Tierhaare, starke Verschmutzung) sind als Zusatzleistungen ausgewiesen und werden immer vorab mit dir
+            Zusatzkosten (z. B. Tierhaare, starke Verschmutzung) sind als Zusatzleistungen ausgewiesen und werden immer vorab mit Ihnen
             abgestimmt.
           </span>
         </p>

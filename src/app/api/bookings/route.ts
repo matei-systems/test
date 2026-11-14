@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
 
   const parsed = bookingRequestSchema.safeParse(body)
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Bitte prüfe deine Angaben.', fields: fieldErrors(parsed.error) }, { status: 422 })
+    return NextResponse.json({ error: 'Bitte prüfen Sie Ihre Angaben.', fields: fieldErrors(parsed.error) }, { status: 422 })
   }
 
   try {
     const limit = await rateLimit('booking', clientIp(request.headers), 10, 60 * 60)
     if (!limit.allowed) {
       return NextResponse.json(
-        { error: 'Zu viele Buchungsversuche. Bitte versuche es später erneut oder kontaktiere uns direkt.' },
+        { error: 'Zu viele Buchungsversuche. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.' },
         { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } },
       )
     }
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     const notConfigured = err instanceof DatabaseNotConfiguredError
     if (!notConfigured) void notifyAdminError('Buchung speichern', err)
     return NextResponse.json(
-      { error: 'Die Buchung konnte technisch nicht gespeichert werden. Bitte versuche es erneut oder kontaktiere uns direkt.', code: 'server' },
+      { error: 'Die Buchung konnte technisch nicht gespeichert werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.', code: 'server' },
       { status: notConfigured ? 503 : 500 },
     )
   }

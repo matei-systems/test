@@ -11,6 +11,7 @@ import type { Catalog, Quote } from '@/lib/pricing'
 import { calculateQuote, minStandaloneAddonPrice, resolvePrice, serviceDurationRange, serviceFromPrice } from '@/lib/pricing'
 import { formatCalendarDate, formatDuration, formatPrice, minutesToTimeLabel } from './helpers'
 import { formatDurationRange, formatEuro } from '@/lib/format'
+import { normalizeCouponCode, type AppliedCoupon } from '@/lib/coupons'
 import { postalCodeInRanges } from '@/lib/postal'
 import { customerSchema } from '@/lib/validation'
 import { serviceImage } from '@/content/media'
@@ -66,9 +67,13 @@ interface Props {
   regions: string[]
   /** Online-Stornierung bis X Stunden vor dem Termin (0 = aus) */
   cancelHours: number
+  /** true = Buchungen werden sofort bestätigt; false = wir bestätigen den reservierten Termin per E-Mail */
+  autoConfirm: boolean
+  /** Vorbelegter Gutscheincode (z. B. aus dem QR-Code einer Dankeskarte) */
+  initialCoupon?: string
 }
 
-export function BookingWizard({ catalog, initialService, initialVehicle, now, postalCodes, regions, cancelHours }: Props) {
+export function BookingWizard({ catalog, initialService, initialVehicle, now, postalCodes, regions, cancelHours, autoConfirm, initialCoupon }: Props) {
   const router = useRouter()
   const validService = catalog.services.some((s) => s.id === initialService) ? initialService! : ''
   const validVehicle = catalog.vehicles.some((v) => v.id === initialVehicle) ? initialVehicle! : ''
@@ -92,6 +97,10 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
   const [slotsLoading, setSlotsLoading] = useState(false)
   const [slotsError, setSlotsError] = useState('')
   const [calendarKey, setCalendarKey] = useState(0)
+  const [couponInput, setCouponInput] = useState(() => normalizeCouponCode(initialCoupon ?? '').slice(0, 24))
+  const [coupon, setCoupon] = useState<AppliedCoupon | null>(null)
+  const [couponError, setCouponError] = useState('')
+  const [couponLoading, setCouponLoading] = useState(false)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const firstRender = useRef(true)
 
@@ -114,11 +123,59 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
   const isRequest = Boolean(quote?.isRequest)
   const submitLabel = isRequest ? 'Termin unverbindlich anfragen' : SITE.bookingButtonLabel
 
-  // Bei Änderung der Auswahl (Dauer!) gewählten Termin zurücksetzen
+  // Bei Änderung der Auswahl (Dauer!) gewählten Termin zurücksetzen; der Gutschein wird in der Übersicht neu geprüft
   useEffect(() => {
     setTime('')
     setSlots(null)
+    setCoupon(null)
+    setCouponError('')
   }, [selectionKey])
+
+  /** Zu zahlender Betrag nach Abzug eines geprüften Gutscheins (null = Preis auf Anfrage) */
+  const payableCents = quote === null || quote.totalPriceCents === null ? null : Math.max(0, quote.totalPriceCents - (coupon?.discountCents ?? 0))
+
+  const applyCoupon = useCallback(
+    async (raw: string) => {
+      const code = normalizeCouponCode(raw)
+      setCouponError('')
+      if (!code) {
+        setCoupon(null)
+        return
+      }
+      setCouponLoading(true)
+      try {
+        const res = await fetch('/api/gutschein', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, serviceId, vehicleId, addonIds, email: customer.email, phone: customer.phone }),
+        })
+        const data = await res.json().catch(() => ({}))
+        if (res.ok && data.coupon) {
+          setCoupon(data.coupon as AppliedCoupon)
+          setCouponInput(data.coupon.code)
+        } else {
+          setCoupon(null)
+          setCouponError(data.error || 'Der Gutschein konnte nicht geprüft werden. Bitte versuchen Sie es erneut.')
+        }
+      } catch {
+        setCoupon(null)
+        setCouponError('Keine Verbindung zum Server. Der Gutschein wurde nicht geprüft.')
+      } finally {
+        setCouponLoading(false)
+      }
+    },
+    [serviceId, vehicleId, addonIds, customer.email, customer.phone],
+  )
+
+  // Vorgemerkten Code (z. B. aus dem QR-Code) beim Erreichen der Übersicht automatisch prüfen
+  const autoCheckedFor = useRef('')
+  useEffect(() => {
+    if (step !== STEP_REVIEW || coupon || !couponInput) return
+    const key = `${selectionKey}|${couponInput}|${customer.email}|${customer.phone}`
+    if (autoCheckedFor.current === key) return
+    autoCheckedFor.current = key
+    void applyCoupon(couponInput)
+  }, [step, coupon, couponInput, selectionKey, customer.email, customer.phone, applyCoupon])
 
   // Nicht mehr erlaubte Zusatzleistungen entfernen (z. B. nach Wechsel auf "Nur Zusatzleistungen")
   useEffect(() => {
@@ -149,7 +206,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
         setSlots(data.slots)
       } catch {
         setSlots([])
-        setSlotsError('Die freien Uhrzeiten konnten nicht geladen werden. Bitte versuche es erneut.')
+        setSlotsError('Die freien Uhrzeiten konnten nicht geladen werden. Bitte versuchen Sie es erneut.')
       } finally {
         setSlotsLoading(false)
       }
@@ -189,9 +246,9 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
   }
 
   function canProceed(s: number): string | null {
-    if (s === 0 && !serviceId) return 'Bitte wähle eine Leistung.'
-    if (s === 1 && !vehicleId) return 'Bitte wähle deine Fahrzeugkategorie.'
-    if (s === 2 && service?.requiresAddon && addonIds.length === 0) return 'Bitte wähle mindestens eine Zusatzleistung.'
+    if (s === 0 && !serviceId) return 'Bitte wählen Sie eine Leistung.'
+    if (s === 1 && !vehicleId) return 'Bitte wählen Sie Ihre Fahrzeugkategorie.'
+    if (s === 2 && service?.requiresAddon && addonIds.length === 0) return 'Bitte wählen Sie mindestens eine Zusatzleistung.'
     if (s === 2 && !quote) return 'Diese Auswahl ist leider nicht buchbar.'
     return null
   }
@@ -208,12 +265,12 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
       const errs = validateCustomerFields(step === STEP_PLACE ? ADDRESS_FIELDS : CONTACT_FIELDS)
       setErrors(errs)
       if (Object.keys(errs).length) {
-        setFormError('Bitte prüfe die markierten Felder.')
+        setFormError('Bitte prüfen Sie die markierten Felder.')
         focusFirstError(errs)
         return
       }
       if (step === STEP_PLACE && (!date || !time)) {
-        setFormError('Bitte wähle Datum und Uhrzeit.')
+        setFormError('Bitte wählen Sie Datum und Uhrzeit.')
         document.getElementById('termin')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
         return
       }
@@ -250,13 +307,13 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
     setFormError('')
     setNotice('')
     const errs = validateCustomerFields([...ADDRESS_FIELDS, ...CONTACT_FIELDS])
-    if (!terms) errs.termsAccepted = 'Bitte akzeptiere die AGB und Stornobedingungen.'
-    if (!privacy) errs.privacyAccepted = 'Bitte bestätige die Datenschutzerklärung.'
+    if (!terms) errs.termsAccepted = 'Bitte akzeptieren Sie die AGB und Stornobedingungen.'
+    if (!privacy) errs.privacyAccepted = 'Bitte bestätigen Sie die Datenschutzerklärung.'
     setErrors(errs)
     if (Object.keys(errs).length) {
       const target = stepForErrors(errs)
       if (target !== null) setStep(target)
-      setFormError('Bitte prüfe die markierten Felder.')
+      setFormError('Bitte prüfen Sie die markierten Felder.')
       focusFirstError(errs)
       return
     }
@@ -273,7 +330,8 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
           date,
           time,
           customer,
-          expectedTotalCents: quote.totalPriceCents,
+          expectedTotalCents: payableCents,
+          couponCode: coupon?.code ?? '',
           privacyAccepted: privacy,
           termsAccepted: terms,
           marketingConsent: marketing,
@@ -289,14 +347,21 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
       if (res.status === 409 && data.code === 'price_changed') {
         // Preise/Aktionen neu vom Server laden – der Kunde bestätigt danach den aktuellen Preis
         router.refresh()
-        setNotice('Der Preis hat sich inzwischen geändert (z. B. weil eine Aktion begonnen oder geendet hat). Bitte prüfe die aktualisierte Übersicht und bestätige erneut.')
+        setNotice('Der Preis hat sich inzwischen geändert (z. B. weil eine Aktion begonnen oder geendet hat). Bitte prüfen Sie die aktualisierte Übersicht und bestätigen Sie erneut.')
+        return
+      }
+      if (data.code === 'coupon_invalid') {
+        // Gutschein inzwischen nicht mehr einlösbar → entfernen; der Kunde bestätigt den neuen Gesamtpreis bewusst
+        setCoupon(null)
+        setCouponError(data.error || 'Der Gutschein konnte nicht eingelöst werden.')
+        setFormError('Der Gutschein konnte nicht eingelöst werden. Ihre Buchung wurde noch NICHT gespeichert – bitte prüfen Sie den Gesamtpreis und senden Sie die Buchung erneut ab.')
         return
       }
       if (res.status === 409) {
         setTime('')
         setCalendarKey((k) => k + 1)
         setStep(STEP_PLACE)
-        setFormError(data.error || 'Dieser Termin ist leider nicht mehr verfügbar. Bitte wähle eine andere Uhrzeit.')
+        setFormError(data.error || 'Dieser Termin ist leider nicht mehr verfügbar. Bitte wählen Sie eine andere Uhrzeit.')
         if (date) void loadSlots(date)
         return
       }
@@ -305,16 +370,16 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
         const target = stepForErrors(data.fields)
         if (target !== null) setStep(target)
       }
-      setFormError(data.error || 'Die Buchung konnte nicht gespeichert werden. Bitte versuche es erneut.')
+      setFormError(data.error || 'Die Buchung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.')
     } catch {
-      setFormError('Keine Verbindung zum Server. Deine Buchung wurde NICHT gespeichert – bitte prüfe deine Internetverbindung und versuche es erneut.')
+      setFormError('Keine Verbindung zum Server. Ihre Buchung wurde NICHT gespeichert – bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.')
     } finally {
       setSubmitting(false)
     }
   }
 
   const err = (k: keyof Customer) => errors[`customer.${k}`]
-  const totalLabel = quote ? (quote.totalPriceCents === null ? 'auf Anfrage' : formatPrice(quote.totalPriceCents, { from: quote.priceIsFrom })) : null
+  const totalLabel = quote ? (payableCents === null ? 'auf Anfrage' : formatPrice(payableCents, { from: quote.priceIsFrom })) : null
   const nextLabel = step === 2 && !service?.requiresAddon && addonIds.length === 0 ? 'Ohne Extras weiter' : step === STEP_CONTACT ? 'Zur Übersicht' : 'Weiter'
 
   return (
@@ -347,7 +412,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
             <fieldset className={styles.fieldset}>
               <legend className="sr-only">Leistung wählen</legend>
               <h2 ref={headingRef} tabIndex={-1} className={styles.title}>
-                Welche Leistung wünschst du?
+                Welche Leistung wünschen Sie?
               </h2>
               <div className={styles.options}>
                 {catalog.services.map((s) => {
@@ -401,7 +466,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                 })}
               </div>
               <p className={styles.helper}>
-                <Icon name="info" size={16} /> Zusatzleistungen wie Tierhaarentfernung oder Polsterreinigung kannst du in Schritt 3 ergänzen.
+                <Icon name="info" size={16} /> Zusatzleistungen wie Tierhaarentfernung oder Polsterreinigung können Sie in Schritt 3 ergänzen.
               </p>
             </fieldset>
           )}
@@ -454,10 +519,10 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
             <fieldset className={styles.fieldset}>
               <legend className="sr-only">Zusatzleistungen wählen</legend>
               <h2 ref={headingRef} tabIndex={-1} className={styles.title}>
-                {service?.requiresAddon ? 'Welche Zusatzleistungen möchtest du?' : 'Möchtest du etwas ergänzen?'}
+                {service?.requiresAddon ? 'Welche Zusatzleistungen wünschen Sie?' : 'Möchten Sie etwas ergänzen?'}
               </h2>
               <p className={styles.subtitle}>
-                {service?.requiresAddon ? 'Wähle mindestens eine Leistung.' : 'Optional – du kannst diesen Schritt auch überspringen.'}
+                {service?.requiresAddon ? 'Bitte wählen Sie mindestens eine Leistung.' : 'Optional – Sie können diesen Schritt auch überspringen.'}
               </p>
               <div className={styles.options}>
                 {availableAddons.map((a) => {
@@ -499,7 +564,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
               <h2 ref={headingRef} tabIndex={-1} className={styles.title}>
                 Wo und wann dürfen wir kommen?
               </h2>
-              <p className={styles.subtitle}>Wir kommen zu deinem Fahrzeug – zu Hause, am Arbeitsplatz oder an einem vereinbarten Ort.</p>
+              <p className={styles.subtitle}>Wir kommen zu Ihrem Fahrzeug – nach Hause, an den Arbeitsplatz oder an einen vereinbarten Ort.</p>
 
               <div className={`${styles.formGrid} ${styles.addressGrid}`}>
                 <h3 className={styles.groupTitle}>Standort des Fahrzeugs</h3>
@@ -586,7 +651,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                   {date && slotsLoading && <p className={styles.muted}>Freie Uhrzeiten werden geladen …</p>}
                   {date && !slotsLoading && slotsError && <p className="field-error">{slotsError}</p>}
                   {date && !slotsLoading && slots && slots.length === 0 && !slotsError && (
-                    <p className={styles.muted}>An diesem Tag ist leider kein Termin mehr frei. Bitte wähle einen anderen Tag.</p>
+                    <p className={styles.muted}>An diesem Tag ist leider kein Termin mehr frei. Bitte wählen Sie einen anderen Tag.</p>
                   )}
                   {date && !slotsLoading && slots && slots.length > 0 && (
                     <div role="radiogroup" aria-label="Uhrzeit wählen" className={styles.slotGrid}>
@@ -622,9 +687,9 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
           {step === STEP_CONTACT && quote && (
             <div className={styles.fieldset}>
               <h2 ref={headingRef} tabIndex={-1} className={styles.title}>
-                Deine Kontaktdaten
+                Ihre Kontaktdaten
               </h2>
-              <p className={styles.subtitle}>Damit wir den Termin bestätigen und dich am Tag der Durchführung erreichen können.</p>
+              <p className={styles.subtitle}>Damit wir den Termin bestätigen und Sie am Tag der Durchführung erreichen können.</p>
               <div className={styles.formGrid}>
                 <TextField id="firstName" label="Vorname" autoComplete="given-name" value={customer.firstName} error={err('firstName')} onChange={(v) => updateCustomer('firstName', v)} />
                 <TextField id="lastName" label="Nachname" autoComplete="family-name" value={customer.lastName} error={err('lastName')} onChange={(v) => updateCustomer('lastName', v)} />
@@ -662,9 +727,9 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
           {step === STEP_REVIEW && quote && (
             <div className={styles.fieldset}>
               <h2 ref={headingRef} tabIndex={-1} className={styles.title}>
-                {isRequest ? 'Deine Anfrage im Überblick' : 'Deine Buchung im Überblick'}
+                {isRequest ? 'Ihre Anfrage im Überblick' : 'Ihre Buchung im Überblick'}
               </h2>
-              <p className={styles.subtitle}>Bitte prüfe deine Angaben. Du kannst jeden Abschnitt noch ändern.</p>
+              <p className={styles.subtitle}>Bitte prüfen Sie Ihre Angaben. Sie können jeden Abschnitt noch ändern.</p>
 
               {notice && (
                 <div className="notice notice--warn" role="status" style={{ marginTop: 20 }}>
@@ -719,7 +784,69 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
 
               <div className={styles.priceBox}>
                 <h3 className={styles.groupTitle}>Preis</h3>
-                <PriceLines quote={quote} />
+                <PriceLines quote={quote} coupon={coupon} />
+                {!isRequest && (
+                  <div className={styles.coupon}>
+                    {coupon ? (
+                      <p className={styles.couponApplied} role="status">
+                        <Icon name="check" size={16} />
+                        <span>
+                          Gutschein <strong>{coupon.code}</strong>
+                          {coupon.label ? ` (${coupon.label})` : ''} eingelöst: −{formatEuro(coupon.discountCents)}
+                        </span>
+                        <button
+                          type="button"
+                          className={styles.linkButton}
+                          onClick={() => {
+                            autoCheckedFor.current = `${selectionKey}||${customer.email}|${customer.phone}`
+                            setCoupon(null)
+                            setCouponInput('')
+                            setCouponError('')
+                          }}
+                        >
+                          Entfernen
+                        </button>
+                      </p>
+                    ) : (
+                      <>
+                        <label htmlFor="f-coupon">
+                          Gutscheincode <span className="optional">(optional)</span>
+                        </label>
+                        <div className={styles.couponRow}>
+                          <input
+                            id="f-coupon"
+                            className="input"
+                            value={couponInput}
+                            onChange={(e) => {
+                              setCouponInput(e.target.value.toUpperCase().slice(0, 24))
+                              setCouponError('')
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault()
+                                void applyCoupon(couponInput)
+                              }
+                            }}
+                            placeholder="z. B. DANKE20"
+                            autoComplete="off"
+                            autoCapitalize="characters"
+                            spellCheck={false}
+                            aria-invalid={Boolean(couponError)}
+                            aria-describedby={couponError ? 'f-coupon-error' : undefined}
+                          />
+                          <button type="button" className="btn btn--ghost" onClick={() => void applyCoupon(couponInput)} disabled={couponLoading || !couponInput.trim()} aria-busy={couponLoading}>
+                            {couponLoading ? 'Wird geprüft …' : 'Einlösen'}
+                          </button>
+                        </div>
+                        {couponError && (
+                          <p className="field-error" id="f-coupon-error" role="alert">
+                            {couponError}
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className={styles.consents}>
@@ -770,7 +897,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                 <label className="checkbox">
                   <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} id="f-marketingConsent" />
                   <span>
-                    Ich möchte gelegentlich Angebote und Neuigkeiten von RM Mobile Autoaufbereitung per E-Mail erhalten{' '}
+                    Ich möchte gelegentlich Angebote und Neuigkeiten von {SITE.name} per E-Mail erhalten{' '}
                     <span className="optional">(optional, jederzeit widerrufbar)</span>.
                   </span>
                 </label>
@@ -781,16 +908,19 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                   <>
                     <Icon name="info" size={16} />
                     <span>
-                      <strong>Unverbindliche Terminanfrage:</strong> Für deine Auswahl ist kein fester Preis hinterlegt. Wir reservieren den
-                      Termin und melden uns mit einem Angebot – erst mit deiner Zustimmung kommt der Auftrag zustande.
+                      <strong>Unverbindliche Terminanfrage:</strong> Für Ihre Auswahl ist kein fester Preis hinterlegt. Wir reservieren den
+                      Termin und melden uns mit einem Angebot – erst mit Ihrer Zustimmung kommt der Auftrag zustande.
                     </span>
                   </>
                 ) : (
                   <>
                     <Icon name="shield" size={16} />
                     <span>
-                      <strong>Verbindliche Buchung</strong> zum Gesamtpreis von {totalLabel}. Online ist keine Zahlung nötig – bezahlt wird nach
-                      der Durchführung vor Ort.
+                      <strong>Verbindliche Buchung</strong> zum Gesamtpreis von {totalLabel}.{' '}
+                      {autoConfirm
+                        ? 'Ihr Termin wird sofort bestätigt.'
+                        : 'Der Termin wird für Sie reserviert. Wir prüfen Standort und Details und bestätigen den Termin per E-Mail – erst mit dieser Bestätigung ist er fix.'}{' '}
+                      Online ist keine Zahlung nötig – bezahlt wird nach der Durchführung vor Ort.
                       {cancelHours > 0 && <> Kostenlose Online-Stornierung bis {cancelHours} Stunden vor dem Termin.</>}
                     </span>
                   </>
@@ -836,7 +966,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
         {/* Zusammenfassung */}
         <aside className={styles.summary} aria-label="Zusammenfassung">
           <div className={styles.summaryCard}>
-            <p className={styles.summaryEyebrow}>Deine Auswahl</p>
+            <p className={styles.summaryEyebrow}>Ihre Auswahl</p>
             <ul className={styles.summaryList}>
               <li>
                 <span>Leistung</span>
@@ -859,7 +989,7 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
             </ul>
             {quote ? (
               <div className={styles.summaryPrice}>
-                <PriceLines quote={quote} compact />
+                <PriceLines quote={quote} coupon={coupon} compact />
               </div>
             ) : (
               <div className={styles.total}>
@@ -867,14 +997,19 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                 <strong>—</strong>
               </div>
             )}
-            {quote?.totalPriceCents === null && <p className={styles.summaryNote}>Du erhältst vor Beginn ein verbindliches Angebot.</p>}
+            {quote?.totalPriceCents === null && <p className={styles.summaryNote}>Sie erhalten vor Beginn ein verbindliches Angebot.</p>}
             {quote?.priceIsFrom && <p className={styles.summaryNote}>„ab“-Preise: Endpreis nach Aufwand, Abstimmung vorab.</p>}
+            {couponInput && !coupon && step < STEP_REVIEW && (
+              <p className={styles.summaryNote}>
+                Gutschein <strong>{couponInput}</strong> vorgemerkt – er wird in der Übersicht geprüft und abgezogen.
+              </p>
+            )}
             <ul className={styles.trust}>
               <li>
-                <Icon name="shield" size={16} /> Sichere Übertragung deiner Daten
+                <Icon name="shield" size={16} /> Sichere Übertragung Ihrer Daten
               </li>
               <li>
-                <Icon name="van" size={16} /> Wir kommen zu deinem Standort
+                <Icon name="van" size={16} /> Wir kommen zu Ihrem Standort
               </li>
               <li>
                 <Icon name="tag" size={16} /> Keine Online-Zahlung nötig
@@ -888,9 +1023,11 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
 }
 
 /** Preisaufstellung: regulärer Paketpreis, Aktion, Zusatzleistungen und der tatsächlich zu zahlende Gesamtpreis. */
-function PriceLines({ quote, compact = false }: { quote: Quote; compact?: boolean }) {
+function PriceLines({ quote, coupon = null, compact = false }: { quote: Quote; coupon?: AppliedCoupon | null; compact?: boolean }) {
   const hasPromo = quote.promotion !== null && quote.discountCents > 0 && quote.serviceRegularCents !== null
   const showPackage = quote.serviceRegularCents === null || quote.serviceRegularCents > 0
+  const couponCents = quote.totalPriceCents !== null && coupon ? Math.min(coupon.discountCents, quote.totalPriceCents) : 0
+  const payable = quote.totalPriceCents === null ? null : quote.totalPriceCents - couponCents
   return (
     <>
       <dl className={`${styles.priceLines} ${compact ? styles.priceLinesCompact : ''}`}>
@@ -917,15 +1054,21 @@ function PriceLines({ quote, compact = false }: { quote: Quote; compact?: boolea
           <dd>{formatPrice(a.priceCents, { from: a.priceIsFrom })}</dd>
         </div>
       ))}
+      {couponCents > 0 && coupon && (
+        <div className={styles.discountLine}>
+          <dt>Gutschein {coupon.code}</dt>
+          <dd>{formatEuro(-couponCents)}</dd>
+        </div>
+      )}
       <div className={styles.totalLine}>
-        <dt>{quote.totalPriceCents === null ? 'Preis' : 'Gesamtpreis'}</dt>
-        <dd>{quote.totalPriceCents === null ? 'auf Anfrage' : formatPrice(quote.totalPriceCents, { from: quote.priceIsFrom })}</dd>
+        <dt>{payable === null ? 'Preis' : 'Gesamtpreis'}</dt>
+        <dd>{payable === null ? 'auf Anfrage' : formatPrice(payable, { from: quote.priceIsFrom })}</dd>
       </div>
       </dl>
       {!compact && quote.totalPriceCents !== null && (
         <p className={styles.priceFoot}>
           Endpreis inkl. Anfahrt im Einsatzgebiet.
-          {hasPromo && <> Du sparst {formatEuro(quote.discountCents)} gegenüber dem regulären Preis.</>}
+          {hasPromo && <> Sie sparen {formatEuro(quote.discountCents + couponCents)} gegenüber dem regulären Preis.</>}
           {quote.priceIsFrom && <> „ab“-Preise: Endpreis nach Aufwand, Abstimmung vorab.</>}
         </p>
       )}

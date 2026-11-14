@@ -17,6 +17,7 @@ import { notifyWebhook } from '@/lib/notify'
 import { getBooking, bookingsInRange } from '@/lib/admin-data'
 import { formatDateTime, STATUS_LABELS } from '@/lib/format'
 import { getSiteUrl } from '@/config/site'
+import { COUPON_CODE_PATTERN, normalizeCouponCode } from '@/lib/coupons'
 
 /**
  * Server-Actions des Admin-Bereichs.
@@ -455,11 +456,15 @@ export async function saveServiceAction(_prev: ActionState, fd: FormData): Promi
   const id = str(fd, 'id')
   const name = str(fd, 'name')
   if (name.length < 2 || name.length > 80) return fail('Bitte einen Namen (2–80 Zeichen) angeben.', { name: 'Pflichtfeld' })
-  const includes = str(fd, 'includes')
-    .split('\n')
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .slice(0, 20)
+  const lines = (key: string) =>
+    str(fd, key)
+      .split('\n')
+      .map((l) => l.trim().slice(0, 300))
+      .filter(Boolean)
+      .slice(0, 20)
+  const includes = lines('includes')
+  const excludes = lines('excludes')
+  const requirements = lines('requirements')
   const db = await getDb()
   const vehicles = await db.query<{ id: string; name: string }>('SELECT id, name FROM vehicle_categories ORDER BY sort')
   const prices: Array<{ vehicle: string; price: number | null; minutes: number }> = []
@@ -478,7 +483,7 @@ export async function saveServiceAction(_prev: ActionState, fd: FormData): Promi
   await db.transaction(async (tx) => {
     const res = await tx.query(
       `UPDATE services SET name=$2, tagline=$3, description=$4, includes=$5::jsonb, price_note=$6, featured=$7, active=$8,
-         requires_addon=$9, sort=$10, image_src=$11, updated_at=now() WHERE id=$1`,
+         requires_addon=$9, sort=$10, image_src=$11, excludes=$12::jsonb, requirements=$13::jsonb, updated_at=now() WHERE id=$1`,
       [
         id,
         name,
@@ -491,6 +496,8 @@ export async function saveServiceAction(_prev: ActionState, fd: FormData): Promi
         requiresAddon,
         Number(str(fd, 'sort')) || 0,
         imageSrc || null,
+        JSON.stringify(excludes),
+        JSON.stringify(requirements),
       ],
     )
     if (res.rowCount === 0) throw new Error('not_found')
@@ -706,7 +713,7 @@ export async function sendTestMailAction(_prev: ActionState, fd: FormData): Prom
   if (!z.email().safeParse(to).success) return fail('Bitte eine gültige E-Mail-Adresse angeben.')
   const res = await sendMail({
     to,
-    subject: 'RM Mobile Autoaufbereitung – Test-E-Mail',
+    subject: 'RM Mobile Auto Aufbereitung – Test-E-Mail',
     text: `Diese Test-E-Mail bestätigt, dass der E-Mail-Versand der Website (${getSiteUrl()}) funktioniert.`,
     html: `<p>Diese Test-E-Mail bestätigt, dass der E-Mail-Versand der Website (${getSiteUrl()}) funktioniert.</p>`,
   })
@@ -908,4 +915,71 @@ export async function deleteInquiryAction(_prev: ActionState, fd: FormData): Pro
   await db.query('DELETE FROM inquiries WHERE id = $1', [id])
   revalidatePath('/admin', 'layout')
   return done('Anfrage gelöscht.')
+}
+
+// ─── Gutscheine ─────────────────────────────────────────────────────────────────
+
+export async function saveCouponAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  const code = normalizeCouponCode(str(fd, 'code'))
+  if (!COUPON_CODE_PATTERN.test(code)) return fail('Der Code muss aus 3–24 Großbuchstaben und Ziffern bestehen (z. B. DANKE20).', { code: 'Ungültig' })
+  const label = str(fd, 'label').slice(0, 60)
+  const amount = parseEuro(str(fd, 'amount'))
+  if (amount === 'invalid' || amount === null || amount <= 0) return fail('Bitte einen gültigen Gutscheinbetrag angeben.', { amount: 'Ungültig' })
+  const minOrder = parseEuro(str(fd, 'minOrder'))
+  if (minOrder === 'invalid') return fail('Bitte einen gültigen Mindestauftragswert angeben.', { minOrder: 'Ungültig' })
+  const minOrderCents = minOrder ?? 0
+  if (minOrderCents < amount) return fail('Der Mindestauftragswert muss mindestens so hoch sein wie der Gutscheinbetrag.', { minOrder: 'Zu niedrig' })
+  const maxRaw = str(fd, 'maxRedemptions')
+  const maxRedemptions = maxRaw === '' ? null : Number(maxRaw)
+  if (maxRedemptions !== null && (!Number.isInteger(maxRedemptions) || maxRedemptions < 1 || maxRedemptions > 100000)) {
+    return fail('Bitte eine gültige Höchstzahl an Einlösungen angeben (oder leer lassen).', { maxRedemptions: 'Ungültig' })
+  }
+  const startsAt = promoDate(str(fd, 'startDate'), false)
+  const endsAt = promoDate(str(fd, 'endDate'), true)
+  if (startsAt === 'invalid' || endsAt === 'invalid') return fail('Bitte gültige Daten angeben.')
+  if (startsAt && endsAt && endsAt <= startsAt) return fail('Das Enddatum muss nach dem Startdatum liegen.')
+
+  const values = [code, label, amount, minOrderCents, fd.get('firstBookingOnly') === 'on', fd.get('oncePerCustomer') === 'on', maxRedemptions, startsAt, endsAt, fd.get('active') === 'on']
+  const db = await getDb()
+  try {
+    if (id) {
+      if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültiger Gutschein.')
+      const res = await db.query(
+        `UPDATE coupons SET code=$2, label=$3, amount_cents=$4, min_order_cents=$5, first_booking_only=$6, once_per_customer=$7,
+           max_redemptions=$8, starts_at=$9, ends_at=$10, active=$11 WHERE id=$1`,
+        [id, ...values],
+      )
+      if (!res.rowCount) return fail('Gutschein nicht gefunden.')
+    } else {
+      await db.query(
+        `INSERT INTO coupons (code, label, amount_cents, min_order_cents, first_booking_only, once_per_customer, max_redemptions, starts_at, ends_at, active)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+        values,
+      )
+    }
+  } catch (err) {
+    if (pgErrorCode(err) === '23505') return fail(`Den Code ${code} gibt es bereits.`, { code: 'Bereits vergeben' })
+    throw err
+  }
+  revalidatePath('/admin', 'layout')
+  return done(id ? 'Gutschein gespeichert.' : `Gutschein ${code} angelegt – er kann ab sofort in der Online-Buchung eingelöst werden.`)
+}
+
+export async function deleteCouponAction(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireAdmin()
+  const id = str(fd, 'id')
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return fail('Ungültiger Gutschein.')
+  const db = await getDb()
+  const used = await db.query<{ n: number }>(
+    `SELECT count(*) AS n FROM bookings b JOIN coupons c ON c.code = b.coupon_code WHERE c.id = $1`,
+    [id],
+  )
+  if (Number(used.rows[0].n) > 0) {
+    return fail('Dieser Gutschein wurde bereits eingelöst und bleibt deshalb für die Nachvollziehbarkeit erhalten. Bitte stattdessen deaktivieren.')
+  }
+  await db.query('DELETE FROM coupons WHERE id = $1', [id])
+  revalidatePath('/admin', 'layout')
+  return done('Gutschein gelöscht.')
 }

@@ -64,6 +64,14 @@ export default async function ServiceEditPage({ params, searchParams }: { params
                 <textarea id="includes" name="includes" className="textarea" style={{ minHeight: 160 }} defaultValue={s.includes.join('\n')} />
               </div>
               <div className="field full">
+                <label htmlFor="excludes">Nicht enthalten (eine Angabe pro Zeile)</label>
+                <textarea id="excludes" name="excludes" className="textarea" style={{ minHeight: 120 }} defaultValue={s.excludes.join('\n')} />
+              </div>
+              <div className="field full">
+                <label htmlFor="requirements">Voraussetzungen am Einsatzort (eine pro Zeile)</label>
+                <textarea id="requirements" name="requirements" className="textarea" style={{ minHeight: 140 }} defaultValue={s.requirements.join('\n')} />
+              </div>
+              <div className="field full">
                 <label htmlFor="priceNote">Hinweis zu möglichen Zusatzkosten</label>
                 <input id="priceNote" name="priceNote" className="input" defaultValue={s.priceNote} />
               </div>

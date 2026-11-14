@@ -30,6 +30,10 @@ export interface CatalogService {
   tagline: string
   description: string
   includes: string[]
+  /** Was ausdrücklich nicht enthalten ist */
+  excludes: string[]
+  /** Voraussetzungen am Einsatzort */
+  requirements: string[]
   priceNote: string
   requiresAddon: boolean
   featured: boolean
@@ -217,7 +221,7 @@ export function calculateQuote(catalog: Catalog, input: QuoteInput, now: number 
   addons.sort((a, b) => sortIndex(catalog.addons, a.id) - sortIndex(catalog.addons, b.id))
 
   if (service.requiresAddon && addons.length === 0) {
-    return { ok: false, error: 'Bitte wähle mindestens eine Zusatzleistung.' }
+    return { ok: false, error: 'Bitte wählen Sie mindestens eine Zusatzleistung.' }
   }
 
   const durationMinutes = base.durationMinutes + addons.reduce((sum, a) => sum + a.durationMinutes, 0)

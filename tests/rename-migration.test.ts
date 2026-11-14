@@ -32,10 +32,25 @@ async function companyName(pg: PGlite): Promise<string | undefined> {
 }
 
 describe('Migration 003_umbenennung', () => {
-  it('Standardwerte tragen den neuen Markennamen', () => {
-    expect(DEFAULT_BUSINESS.companyName).toBe('RM Mobile Autoaufbereitung')
-    expect(SITE.name).toBe('RM Mobile Autoaufbereitung')
-    expect(rename.sql).toContain("'RM Mobile Autoaufbereitung'")
+  it('Standardwerte tragen den aktuellen Firmennamen', () => {
+    expect(DEFAULT_BUSINESS.companyName).toBe('RM Mobile Auto Aufbereitung')
+    expect(SITE.name).toBe('RM Mobile Auto Aufbereitung')
+  })
+
+  it('Migration 004 stellt frühere Startwerte auf die Schreibweise „RM Mobile Auto Aufbereitung“ um, eigene Namen bleiben', async () => {
+    const m004 = MIGRATIONS.find((m) => m.id === '004_gutscheine_leistungsumfang')!
+    for (const [before, after] of [
+      ['RM Mobile Autoaufbereitung', 'RM Mobile Auto Aufbereitung'],
+      ['GLANZMOBIL', 'RM Mobile Auto Aufbereitung'],
+      ['Mein eigener Firmenname e.U.', 'Mein eigener Firmenname e.U.'],
+    ]) {
+      const pg = await migratedUntilRename()
+      await pg.query(`INSERT INTO settings (key, value) VALUES ('business', $1::jsonb)`, [JSON.stringify({ ...DEFAULT_BUSINESS, companyName: before, phone: '+43 000' })])
+      for (const statement of splitSql(m004.sql)) await pg.exec(statement)
+      expect(await companyName(pg)).toBe(after)
+      const res = await pg.query<{ value: Record<string, string> }>(`SELECT value FROM settings WHERE key = 'business'`)
+      expect(res.rows[0].value.phone).toBe('+43 000')
+    }
   })
 
   it('ersetzt den alten Startwert und lässt alle anderen Felder unverändert', async () => {

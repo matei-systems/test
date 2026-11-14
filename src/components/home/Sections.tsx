@@ -7,27 +7,48 @@ import type { ServiceArea } from '@/config/defaults'
 import styles from './Sections.module.css'
 
 // ─── So funktioniert es ─────────────────────────────────────────────────────────
-const STEPS: Array<{ icon: IconName; title: string; text: string }> = [
-  { icon: 'sparkle', title: 'Leistung auswählen', text: 'Paket und Fahrzeugkategorie wählen – Preis und Dauer siehst du sofort.' },
-  { icon: 'calendar', title: 'Wunschtermin buchen', text: 'Freien Termin im Kalender wählen und Standort angeben. Dauert keine zwei Minuten.' },
-  { icon: 'van', title: 'Wir kommen zu dir', text: 'Pünktlich an deinem Standort – zu Hause, im Büro oder am vereinbarten Ort.' },
-  { icon: 'shield', title: 'Fahrzeugpflege genießen', text: 'Du nutzt deine Zeit, wir pflegen dein Fahrzeug mit Sorgfalt und Blick fürs Detail.' },
-]
+function steps(autoConfirm: boolean): Array<{ icon: IconName; title: string; text: string }> {
+  return [
+    { icon: 'sparkle', title: 'Leistung auswählen', text: 'Paket wählen – Leistungsumfang, Preis und ungefähre Dauer sehen Sie sofort.' },
+    { icon: 'car', title: 'Fahrzeugdaten angeben', text: 'Fahrzeugkategorie und Modell angeben, bei Bedarf Zusatzleistungen ergänzen.' },
+    { icon: 'calendar', title: 'Wunschort und Termin wählen', text: 'Adresse eingeben und einen freien Termin im Kalender auswählen – angezeigt werden nur tatsächlich freie Zeiten.' },
+    {
+      icon: 'list',
+      title: 'Buchung absenden',
+      text: 'Alle Angaben und den Gesamtpreis prüfen, dann absenden. Der Termin ist damit für Sie reserviert; online ist keine Zahlung nötig.',
+    },
+    {
+      icon: 'mail',
+      title: 'Terminbestätigung erhalten',
+      text: autoConfirm
+        ? 'Ihr Termin wird sofort bestätigt – Sie erhalten die Bestätigung mit allen Details per E-Mail.'
+        : 'Wir prüfen Standort und Details und bestätigen den Termin per E-Mail. Erst mit dieser Bestätigung ist der Termin fix.',
+    },
+    { icon: 'shield', title: 'Fahrzeug aufbereiten lassen', text: 'Wir kommen zur vereinbarten Zeit zu Ihnen und pflegen Ihr Fahrzeug mit Sorgfalt und Blick fürs Detail.' },
+  ]
+}
 
-export function HowItWorks() {
+export function HowItWorks({ autoConfirm }: { autoConfirm: boolean }) {
   return (
     <section id="ablauf" className="section" aria-labelledby="ablauf-title">
       <div className="container">
         <div className="section-head section-head--center reveal">
-          <p className="eyebrow">Buchungsprozess</p>
+          <p className="eyebrow">So läuft es ab</p>
           <h2 id="ablauf-title" className="h2">
-            Vier Schritte zum <span className="serif accent">perfekten Glanz.</span>
+            In sechs Schritten zum <span className="serif accent">gepflegten Fahrzeug.</span>
           </h2>
+          <p className="lead">
+            {autoConfirm
+              ? 'Ihre Online-Buchung wird sofort bestätigt.'
+              : 'Gut zu wissen: Mit dem Absenden ist Ihr Termin reserviert – verbindlich fix ist er, sobald wir ihn per E-Mail bestätigt haben.'}
+          </p>
         </div>
         <ol className={styles.steps}>
-          {STEPS.map((s, i) => (
-            <li key={s.title} className={`${styles.step} reveal`} style={{ ['--reveal-delay' as string]: `${i * 0.1}s` }}>
-              <span className={styles.stepNum}>{String(i + 1).padStart(2, '0')}</span>
+          {steps(autoConfirm).map((s, i) => (
+            <li key={s.title} className={`${styles.step} reveal`} style={{ ['--reveal-delay' as string]: `${(i % 3) * 0.12}s` }}>
+              <span className={styles.stepNum} aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <span className={styles.stepIcon}>
                 <Icon name={s.icon} size={22} />
               </span>
@@ -48,12 +69,12 @@ export function HowItWorks() {
 
 // ─── Vorteile ───────────────────────────────────────────────────────────────────
 const BENEFITS: Array<{ icon: IconName; title: string; text: string }> = [
-  { icon: 'van', title: 'Mobile Fahrzeugpflege', text: 'Kein Hinfahren, kein Warten. Wir kommen mit unserem Equipment direkt zu deinem Fahrzeug.' },
-  { icon: 'pin', title: 'Bequem am Wunschstandort', text: 'Zu Hause, am Arbeitsplatz oder an einem vereinbarten Ort in Graz und Graz-Umgebung.' },
-  { icon: 'polish', title: 'Individuelle Pflege', text: 'Sorgfältige Handarbeit, schonende Methoden und Zusatzleistungen genau nach Bedarf.' },
+  { icon: 'van', title: 'Mobile Fahrzeugaufbereitung', text: 'Kein Hinfahren, kein Warten: Wir kommen mit unserer Ausrüstung direkt zu Ihrem Fahrzeug.' },
+  { icon: 'pin', title: 'Bequemer Service am Wunschort', text: 'Zu Hause, am Arbeitsplatz oder an einem vereinbarten Ort in Graz und Graz-Umgebung.' },
   { icon: 'tag', title: 'Transparente Preise', text: 'Klare Endpreise je Fahrzeugkategorie. Zusatzkosten werden immer vorab besprochen.' },
-  { icon: 'calendar', title: 'Einfache Terminbuchung', text: 'Online rund um die Uhr buchen – du siehst nur Termine, die wirklich frei sind.' },
-  { icon: 'handshake', title: 'Persönlicher Service', text: 'Persönlicher Kontakt, ehrliche Beratung und Termine, die zu deinem Alltag passen.' },
+  { icon: 'polish', title: 'Individuelle Fahrzeugpflege', text: 'Sorgfältige Handarbeit, schonende Methoden und Zusatzleistungen genau nach Bedarf.' },
+  { icon: 'calendar', title: 'Einfache Online-Terminbuchung', text: 'Rund um die Uhr online buchen – Sie sehen nur Termine, die wirklich frei sind.' },
+  { icon: 'handshake', title: 'Persönlicher Kundenservice', text: 'Persönlicher Kontakt, ehrliche Beratung und Termine, die zu Ihrem Alltag passen.' },
 ]
 
 export function Benefits() {
@@ -62,14 +83,14 @@ export function Benefits() {
       <div className="container">
         <div className="section-head section-head--split reveal">
           <div style={{ display: 'grid', gap: 20 }}>
-            <p className="eyebrow">Deine Vorteile</p>
+            <p className="eyebrow">Ihre Vorteile</p>
             <h2 id="vorteile-title" className="h2">
-              Warum <span className="serif accent">RM Mobile Autoaufbereitung?</span>
+              Fahrzeugpflege, der Sie <span className="serif accent">vertrauen können.</span>
             </h2>
           </div>
           <p className="lead">
-            Dein Fahrzeug ist mehr als ein Verkehrsmittel. Deshalb behandeln wir es mit genau der Sorgfalt, die wir uns selbst wünschen
-            würden.
+            Ihr Fahrzeug ist mehr als ein Verkehrsmittel. Deshalb behandeln wir es mit genau der Sorgfalt, die wir uns für unser eigenes
+            wünschen würden.
           </p>
         </div>
         <ul className={styles.benefits}>
@@ -96,7 +117,7 @@ export function Testimonials({ items, reviewUrl }: { items: Testimonial[]; revie
         <div className="section-head section-head--center reveal">
           <p className="eyebrow">Kundenbewertungen</p>
           <h2 id="bewertungen-title" className="h2">
-            Was zählt, ist <span className="serif accent">dein Eindruck.</span>
+            Was zählt, ist <span className="serif accent">Ihr Eindruck.</span>
           </h2>
         </div>
         {items.length > 0 ? (
@@ -122,10 +143,10 @@ export function Testimonials({ items, reviewUrl }: { items: Testimonial[]; revie
               <Icon name="star" size={22} />
             </span>
             <div>
-              <h3 className="h3">Neu in Graz – und stolz auf jedes Detail.</h3>
+              <h3 className="h3">Neu in Graz – Ihre Meinung zählt.</h3>
               <p className="muted">
-                Wir veröffentlichen hier ausschließlich echte Bewertungen unserer Kundinnen und Kunden. Nach deinem Termin freuen wir uns
-                über dein ehrliches Feedback.
+                Wir sind neu am Markt und zeigen hier ausschließlich echte Bewertungen unserer Kundinnen und Kunden – keine erfundenen
+                Stimmen. Nach Ihrem abgeschlossenen Termin freuen wir uns über Ihr ehrliches Feedback.
               </p>
             </div>
             {reviewUrl && (
@@ -157,10 +178,10 @@ export function ServiceAreaSection({ area }: { area: ServiceArea }) {
         <div className="reveal" style={{ display: 'grid', gap: 20, maxWidth: 560 }}>
           <p className="eyebrow">Einsatzgebiet</p>
           <h2 id="gebiet-title" className="h2">
-            Mobile Fahrzeugpflege in <span className="serif accent">{area.regions.join(' & ')}.</span>
+            Mobile Autoaufbereitung in <span className="serif accent">{area.regions.join(' & ')}.</span>
           </h2>
           <p className="lead">
-            Wir kommen zu dir nach Hause, an deinen Arbeitsplatz oder an einen vereinbarten Standort. Ob Innenraumreinigung, Außenpflege
+            Wir kommen zu Ihnen nach Hause, an Ihren Arbeitsplatz oder an einen vereinbarten Standort. Ob Innenraumreinigung, Außenpflege
             oder Komplettpaket – in Graz und der ganzen Umgebung.
           </p>
           <Link href="/einsatzgebiet" className="link-arrow">
@@ -231,10 +252,10 @@ export function FinalCta() {
         <h2 id="cta-title" className="display" style={{ fontSize: 'clamp(2.4rem, 5.6vw, 4.8rem)' }}>
           Bereit für <span className="serif accent">perfekten Glanz?</span>
         </h2>
-        <p className="lead">Wähle Leistung und Wunschtermin – wir kümmern uns um den Rest. Direkt bei dir vor Ort.</p>
+        <p className="lead">Wählen Sie Leistung und Wunschtermin – wir kümmern uns um den Rest. Direkt bei Ihnen vor Ort.</p>
         <div className={styles.ctaButtons}>
           <Link href="/buchen" className="btn btn--primary">
-            Termin jetzt buchen <Icon name="arrow-right" />
+            Termin buchen <Icon name="arrow-right" />
           </Link>
           <Link href="/preise" className="btn btn--ghost">
             Preise ansehen

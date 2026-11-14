@@ -11,7 +11,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'FAQ – häufige Fragen zur mobilen Fahrzeugpflege',
   description:
-    'Antworten auf häufige Fragen zu RM Mobile Autoaufbereitung: Buchung, Dauer, Preise, Anfahrt, Fahrzeugvorbereitung, Stornierung und mobile Durchführung in Graz & Graz-Umgebung.',
+    'Antworten auf häufige Fragen zu RM Mobile Auto Aufbereitung: Buchung, Dauer, Preise, Anfahrt, Fahrzeugvorbereitung, Stornierung und mobile Durchführung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/faq' },
 }
 
@@ -49,8 +49,8 @@ export default function FaqPage() {
             </div>
             <div className={styles.faqHelp}>
               <div>
-                <h2 className="h3">Deine Frage war nicht dabei?</h2>
-                <p className="muted">Schreib uns – wir antworten persönlich.</p>
+                <h2 className="h3">Ihre Frage war nicht dabei?</h2>
+                <p className="muted">Schreiben Sie uns – wir antworten persönlich.</p>
               </div>
               <Link href="/kontakt" className="btn btn--ghost">
                 Zum Kontakt <Icon name="arrow-right" />

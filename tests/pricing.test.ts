@@ -32,6 +32,8 @@ function makeCatalog(promotions: Promotion[]): Catalog {
       tagline: s.tagline,
       description: s.description,
       includes: s.includes,
+      excludes: s.excludes,
+      requirements: s.requirements,
       priceNote: s.priceNote,
       requiresAddon: Boolean(s.requiresAddon),
       featured: Boolean(s.featured),
@@ -202,8 +204,13 @@ describe('Formatierung', () => {
     expect(formatDuration(240)).toBe('4 Std.')
     expect(formatDuration(45)).toBe('45 Min.')
     expect(formatDuration(345)).toBe('5 Std. 45 Min.')
-    expect(formatDurationRange(90, 135)).toBe('ca. 1,5–2,5 Std.')
-    expect(formatDurationRange(150, 210)).toBe('ca. 2,5–3,5 Std.')
+    // Die Spanne nennt exakt die Werte, die auch in Preisliste und Buchung stehen (keine Rundung auf halbe Stunden)
+    expect(formatDurationRange(90, 135)).toBe(`ca. ${formatDuration(90)} – ${formatDuration(135)}`)
+    expect(formatDurationRange(90, 135)).toContain(formatDuration(135))
+    expect(formatDurationRange(150, 210)).toBe(`ca. 2,5–${formatDuration(210)}`)
+    expect(formatDurationRange(240, 330)).toBe(`ca. 4–${formatDuration(330)}`)
+    expect(formatDurationRange(75, 120)).toBe(`ca. ${formatDuration(75)} – ${formatDuration(120)}`)
+    expect(formatDurationRange(75, 75)).toBe(`ca. ${formatDuration(75)}`)
   })
   it('WhatsApp-Link', () => {
     expect(whatsappHref('0664 123 45 67')).toBe('https://wa.me/436641234567')

@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     .map((p) => `${p.name} ab ${formatEuro(p.from.min.priceCents as number)}`)
   return {
     title: { absolute: `${SITE.name} – Fahrzeugpflege in Graz und Umgebung` },
-    description: `Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Wir kommen zu dir – Termin online buchen.`,
+    description: `Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Wir kommen zu Ihnen – Termin online buchen.`,
     alternates: { canonical: '/' },
   }
 }
@@ -64,8 +64,8 @@ export default async function HomePage() {
                 </h2>
               </div>
               <p className="lead">
-                Ziehe den Regler und sieh selbst, was gründliche Pflege ausmacht.
-                {allDemo && ' Die Beispiele sind Demo-Visualisierungen – echte Ergebnisse unserer Kundenfahrzeuge folgen in der Galerie.'}
+                Ziehen Sie den Regler und sehen Sie selbst, was gründliche Pflege ausmacht.
+                {allDemo && ' Die Beispiele sind illustrative Demo-Visualisierungen und keine Kundenaufträge – echte Ergebnisse folgen in der Galerie.'}
               </p>
             </div>
             <div className="reveal">
@@ -81,7 +81,7 @@ export default async function HomePage() {
       )}
 
       <Benefits />
-      <HowItWorks />
+      <HowItWorks autoConfirm={settings.rules.autoConfirm} />
       <Testimonials items={TESTIMONIALS} reviewUrl={settings.business.reviewUrl} />
       <ServiceAreaSection area={settings.area} />
       <Faq items={FAQ_TOP} />

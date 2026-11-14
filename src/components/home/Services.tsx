@@ -111,12 +111,12 @@ export function Services({ catalog, now }: { catalog: Catalog; now: number }) {
           <div style={{ display: 'grid', gap: 20 }}>
             <p className="eyebrow">Leistungen</p>
             <h2 id="leistungen-title" className="h2">
-              Pflege auf Premium-Niveau. <span className="serif accent">Direkt bei dir.</span>
+              Pflege auf Premium-Niveau. <span className="serif accent">Direkt bei Ihnen.</span>
             </h2>
           </div>
           <p className="lead">
             Ob Innenraum, Außenpflege oder beides: Wir bringen alles mit und arbeiten mit Sorgfalt, Ruhe und Blick fürs Detail – zu Hause,
-            am Arbeitsplatz oder an deinem Wunschort.
+            am Arbeitsplatz oder an Ihrem Wunschort.
           </p>
         </div>
 

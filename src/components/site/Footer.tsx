@@ -16,7 +16,7 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
           <div className={styles.brandCol}>
             <Logo />
             <p className={styles.claim}>
-              Mobile Premium-Fahrzeugpflege in {area.regions.join(' & ')}. Wir kommen zu dir – nach Hause, zum Arbeitsplatz oder an
+              Mobile Premium-Fahrzeugpflege in {area.regions.join(' & ')}. Wir kommen zu Ihnen – nach Hause, an den Arbeitsplatz oder an
               einen vereinbarten Standort.
             </p>
             <Link href="/buchen" className="btn btn--primary btn--sm">
@@ -70,7 +70,7 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
               <p className={styles.muted}>
                 {bookingEnabled ? (
                   <>
-                    Schreib uns über das <Link href="/kontakt">Kontaktformular</Link> oder buche direkt online.
+                    Schreiben Sie uns über das <Link href="/kontakt">Kontaktformular</Link> oder buchen Sie direkt online.
                   </>
                 ) : (
                   'Online-Buchung und Kontaktmöglichkeiten folgen in Kürze.'

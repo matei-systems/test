@@ -75,7 +75,7 @@ export default async function ImpressumPage() {
       <h2>Online-Streitbeilegung</h2>
       <p>
         Verbraucher haben die Möglichkeit, Beschwerden an die Online-Streitbeilegungsplattform der EU zu richten:
-        https://ec.europa.eu/consumers/odr. Du kannst allfällige Beschwerden auch an die oben angegebene E-Mail-Adresse richten.
+        https://ec.europa.eu/consumers/odr. Sie können allfällige Beschwerden auch an die oben angegebene E-Mail-Adresse richten.
       </p>
 
       <h2>Bildnachweis</h2>

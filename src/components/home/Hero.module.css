@@ -11,6 +11,51 @@
   position: absolute;
   inset: 0;
   z-index: -1;
+  transform-origin: 50% 0;
+}
+
+/* Parallax: Die Fahrzeug-Szene bewegt sich beim Scrollen langsamer als der Inhalt.
+   Reines CSS (scroll-driven animation) – ohne Unterstützung bleibt die Szene einfach stehen. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .media {
+      animation: heroParallax linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@keyframes heroParallax {
+  to {
+    transform: translate3d(0, 14%, 0) scale(1.05);
+  }
+}
+
+/* Ankunft: Das Fahrzeug gleitet aus dem Dunkel von rechts in die Szene und wird dabei scharf. */
+.car {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(4.5%, 0, 0) scale(1.1);
+  filter: brightness(0.22) blur(7px);
+  animation: carArrive 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  will-change: transform, filter;
+}
+
+.car picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes carArrive {
+  55% {
+    filter: brightness(0.85) blur(0);
+  }
+  to {
+    transform: none;
+    filter: none;
+  }
 }
 
 .img {
@@ -18,13 +63,83 @@
   height: 100%;
   object-fit: cover;
   object-position: 70% 50%;
-  transform: scale(1.06);
-  animation: heroZoom 2.8s var(--ease) forwards;
 }
 
-@keyframes heroZoom {
+/* Studiolicht: geht nach der Ankunft an und „atmet“ danach kaum merklich. */
+.glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(52% 46% at 80% 6%, rgba(255, 244, 222, 0.2), transparent 70%),
+    radial-gradient(40% 30% at 68% 78%, rgba(200, 180, 138, 0.1), transparent 70%);
+  opacity: 0;
+  animation:
+    glowIn 2.2s 1s var(--ease) forwards,
+    glowBreath 8s 3.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes glowIn {
   to {
-    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glowBreath {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+
+/* Feine Lichtspuren am Boden während der Ankunft – vermitteln Bewegung, ohne abzulenken. */
+.streaks {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.streaks span {
+  position: absolute;
+  left: 0;
+  width: 42%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 241, 234, 0.55), transparent);
+  opacity: 0;
+  transform: translate3d(110vw, 0, 0);
+  animation: streak 1.7s cubic-bezier(0.3, 0.6, 0.3, 1) forwards;
+}
+
+.streaks span:nth-child(1) {
+  top: 72%;
+  animation-delay: 0.2s;
+}
+.streaks span:nth-child(2) {
+  top: 79%;
+  width: 58%;
+  animation-delay: 0.4s;
+  background: linear-gradient(90deg, transparent, rgba(200, 180, 138, 0.6), transparent);
+}
+.streaks span:nth-child(3) {
+  top: 86%;
+  width: 30%;
+  animation-delay: 0.62s;
+}
+
+@keyframes streak {
+  0% {
+    opacity: 0;
+    transform: translate3d(110vw, 0, 0);
+  }
+  18% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-70vw, 0, 0);
   }
 }
 
@@ -34,22 +149,23 @@
   background:
     linear-gradient(180deg, rgba(9, 9, 10, 0.55) 0%, rgba(9, 9, 10, 0) 22%),
     linear-gradient(0deg, rgba(9, 9, 10, 1) 0%, rgba(9, 9, 10, 0.35) 34%, rgba(9, 9, 10, 0) 60%),
-    linear-gradient(90deg, rgba(9, 9, 10, 0.9) 0%, rgba(9, 9, 10, 0.55) 38%, rgba(9, 9, 10, 0) 68%);
+    linear-gradient(90deg, rgba(9, 9, 10, 0.92) 0%, rgba(9, 9, 10, 0.6) 40%, rgba(9, 9, 10, 0) 70%);
 }
 
-/* Dezenter Lichtreflex, der einmal über das Bild gleitet */
+/* Lichtreflex, der nach der Ankunft einmal über den Lack wandert */
 .sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.07) 50%, transparent 60%);
-  transform: translateX(-100%);
-  animation: sweep 3.2s 0.9s var(--ease-in-out) forwards;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 250, 240, 0.12) 49%, rgba(255, 250, 240, 0.04) 53%, transparent 60%);
+  mix-blend-mode: screen;
+  transform: translate3d(-100%, 0, 0);
+  animation: sweep 2.8s 1.9s var(--ease-in-out) forwards;
   pointer-events: none;
 }
 
 @keyframes sweep {
   to {
-    transform: translateX(100%);
+    transform: translate3d(100%, 0, 0);
   }
 }
 
@@ -113,8 +229,9 @@
 
 .title {
   margin: 28px 0 28px;
-  font-size: clamp(2.35rem, 6.2vw, 5.2rem);
-  line-height: 1;
+  /* „Fahrzeugaufbereitung.“ muss auch auf schmalen Smartphones in eine Zeile passen */
+  font-size: clamp(1.6rem, 8.8vw, 4.6rem);
+  line-height: 1.02;
 }
 
 .line {

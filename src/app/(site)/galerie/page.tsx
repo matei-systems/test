@@ -12,7 +12,7 @@ import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Galerie – Vorher & Nachher',
-  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Premium-Fahrzeugpflege von RM Mobile Autoaufbereitung in Graz & Graz-Umgebung.',
+  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Premium-Fahrzeugpflege von RM Mobile Auto Aufbereitung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/galerie' },
 }
 
@@ -40,7 +40,7 @@ export default async function GalleryPage() {
               <Icon name="info" />
               <span>
                 Hinweis: Mit „Demo“ gekennzeichnete Bilder sind Visualisierungen und zeigen keine echten Kundenfahrzeuge. Sobald die ersten
-                Aufträge abgeschlossen sind, findest du hier echte Ergebnisse.
+                Aufträge abgeschlossen sind, finden Sie hier echte Ergebnisse.
               </span>
             </div>
           )}

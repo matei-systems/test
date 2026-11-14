@@ -292,4 +292,38 @@ SET value = jsonb_set(value, '{companyName}', to_jsonb('RM Mobile Autoaufbereitu
 WHERE key = 'business' AND value->>'companyName' = 'GLANZMOBIL';
 `,
   },
+  {
+    id: "004_gutscheine_leistungsumfang",
+    sql: String.raw`
+-- ─── Gutscheine (einlösbar in der Online-Buchung, im Admin-Bereich verwaltbar) ──
+CREATE TABLE IF NOT EXISTS coupons (
+  id                  uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  code                text NOT NULL UNIQUE CHECK (code ~ '^[A-Z0-9]{3,24}$'),
+  label               text NOT NULL DEFAULT '',
+  amount_cents        integer NOT NULL CHECK (amount_cents > 0),
+  min_order_cents     integer NOT NULL DEFAULT 0 CHECK (min_order_cents >= 0),
+  first_booking_only  boolean NOT NULL DEFAULT false,
+  once_per_customer   boolean NOT NULL DEFAULT true,
+  max_redemptions     integer CHECK (max_redemptions IS NULL OR max_redemptions > 0),
+  starts_at           timestamptz,
+  ends_at             timestamptz,
+  active              boolean NOT NULL DEFAULT true,
+  created_at          timestamptz NOT NULL DEFAULT now()
+);
+ALTER TABLE coupons ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS coupon_code text;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS coupon_discount_cents integer NOT NULL DEFAULT 0;
+CREATE INDEX IF NOT EXISTS bookings_coupon_idx ON bookings (coupon_code) WHERE coupon_code IS NOT NULL;
+
+-- ─── Leistungsumfang: „nicht enthalten“ und Voraussetzungen am Einsatzort ──────
+ALTER TABLE services ADD COLUMN IF NOT EXISTS excludes jsonb NOT NULL DEFAULT '[]'::jsonb;
+ALTER TABLE services ADD COLUMN IF NOT EXISTS requirements jsonb NOT NULL DEFAULT '[]'::jsonb;
+
+-- ─── Schreibweise des Firmennamens (nur wenn noch ein früherer Startwert eingetragen ist) ──
+UPDATE settings
+SET value = jsonb_set(value, '{companyName}', to_jsonb('RM Mobile Auto Aufbereitung'::text)), updated_at = now()
+WHERE key = 'business' AND value->>'companyName' IN ('RM Mobile Autoaufbereitung', 'GLANZMOBIL');
+`,
+  },
 ]

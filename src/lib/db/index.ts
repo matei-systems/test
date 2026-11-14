@@ -32,15 +32,15 @@ export class DatabaseNotConfiguredError extends Error {
 }
 
 /**
- * Die verbundene Datenbank enthält bereits Tabellen, die nicht zu RM Mobile Autoaufbereitung gehören
+ * Die verbundene Datenbank enthält bereits Tabellen, die nicht zu RM Mobile Auto Aufbereitung gehören
  * (z. B. weil sie versehentlich mit einer anderen Anwendung geteilt wird).
- * RM Mobile Autoaufbereitung legt dort nichts an und ändert nichts – die Migration wird vorab abgebrochen.
+ * RM Mobile Auto Aufbereitung legt dort nichts an und ändert nichts – die Migration wird vorab abgebrochen.
  */
 export class ForeignDatabaseError extends Error {
   constructor(public tables: string[]) {
     super(
       `Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung (${tables.slice(0, 6).join(', ')}${tables.length > 6 ? ', …' : ''}). ` +
-        'RM Mobile Autoaufbereitung ändert fremde Datenbanken nicht – bitte eine eigene, leere Datenbank verbinden.',
+        'RM Mobile Auto Aufbereitung ändert fremde Datenbanken nicht – bitte eine eigene, leere Datenbank verbinden.',
     )
     this.name = 'ForeignDatabaseError'
   }
@@ -173,7 +173,7 @@ async function createPglite(): Promise<Db> {
 
 /**
  * Schutz vor fremden Datenbanken: Eine Datenbank darf nur dann migriert werden, wenn sie leer ist
- * oder bereits von RM Mobile Autoaufbereitung stammt (eigene Tabelle schema_migrations mit der Migration 001_init).
+ * oder bereits von RM Mobile Auto Aufbereitung stammt (eigene Tabelle schema_migrations mit der Migration 001_init).
  * Enthält sie andere Tabellen, wird abgebrochen, bevor irgendetwas angelegt oder geändert wird.
  */
 export async function assertDatabaseIsEmptyOrOurs(tx: Queryable): Promise<void> {

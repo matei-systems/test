@@ -85,7 +85,7 @@ const grab = (name) => {
 const RM_PATH = grab('RM_MONOGRAM_PATH')
 const GLINT_PATH = grab('GLINT_PATH')
 const CAP = fontSemi.tables.os2.sCapHeight / fontSemi.unitsPerEm // Versalhöhe relativ zur Schriftgröße
-const BRAND = 'RM Mobile Autoaufbereitung'
+const BRAND = 'RM Mobile Auto Aufbereitung'
 
 function emblem(ink, glint, transform = '') {
   return `<g${transform ? ` transform="${transform}"` : ''}>
@@ -94,15 +94,15 @@ function emblem(ink, glint, transform = '') {
   </g>`
 }
 
-/** Zweizeiliger Textblock „MOBILE / AUTOAUFBEREITUNG“, Grundlinie unten = baseline, Oberkante der Versalien oben = capTop. */
+/** Zweizeiliger Textblock „MOBILE / AUTO AUFBEREITUNG“, Grundlinie unten = baseline, Oberkante der Versalien oben = capTop. */
 function nameBlock({ ink, accent, x, baseline, capTop, big, small, align = 'left', width }) {
-  const main = textPath(fontSemi, 'AUTOAUFBEREITUNG', big, 0.22, 0, baseline)
+  const main = textPath(fontSemi, 'AUTO AUFBEREITUNG', big, 0.22, 0, baseline)
   const eyebrowSize = small
   const eyebrowBaseline = capTop + eyebrowSize * CAP
   const eyebrow = textPath(fontMedium, 'MOBILE', eyebrowSize, 0.42, 0, eyebrowBaseline)
   const w = main.width
   const left = align === 'center' ? x - w / 2 : x
-  const m = textPath(fontSemi, 'AUTOAUFBEREITUNG', big, 0.22, left, baseline)
+  const m = textPath(fontSemi, 'AUTO AUFBEREITUNG', big, 0.22, left, baseline)
   const e = textPath(fontMedium, 'MOBILE', eyebrowSize, 0.42, align === 'center' ? x - eyebrow.width / 2 : left, eyebrowBaseline)
   return { svg: `<path d="${e.d}" fill="${accent}"/><path d="${m.d}" fill="${ink}"/>`, width: w }
 }
@@ -136,7 +136,7 @@ function emblemSvg({ ink, glint, bg, size = 512, radius = 0 }) {
 </svg>`
 }
 
-/** Reine Wortmarke ohne Emblem (für schmale Flächen, Fußzeilen, Stempel): „RM“ | MOBILE / AUTOAUFBEREITUNG. */
+/** Reine Wortmarke ohne Emblem (für schmale Flächen, Fußzeilen, Stempel): „RM“ | MOBILE / AUTO AUFBEREITUNG. */
 function wordmarkSvg({ text, sub, bg }) {
   const pad = bg ? 40 : 4
   const rmSize = 84

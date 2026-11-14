@@ -28,15 +28,20 @@ export function formatDuration(minutes: number): string {
   return `${Math.floor(minutes / 60)}${NBSP}Std. ${minutes % 60}${NBSP}Min.`
 }
 
-/** Spanne auf halbe Stunden gerundet: "ca. 1,5–2,5 Std." */
+/**
+ * Dauer-Spanne einer Leistung über alle Fahrzeugkategorien – mit denselben exakten Werten, die auch in der
+ * Preisliste, in der Buchung und in der Bestätigung stehen (keine Rundung): "ca. 1 Std. 15 Min. – 2 Std.".
+ */
 export function formatDurationRange(min: number, max: number): string {
-  const half = (m: number) => {
-    const h = Math.round((m / 60) * 2) / 2
-    return Number.isInteger(h) ? String(h) : String(h).replace('.', ',')
+  if (min === max) return `ca. ${formatDuration(max)}`
+  const unit = (s: string) => s.replace(/^[\d,]+/, '').trim()
+  const a = formatDuration(min)
+  const b = formatDuration(max)
+  // Gleiche Einheit ("2,5 Std." und "3,5 Std.") → kompakt "ca. 2,5–3,5 Std."
+  if (unit(a) === unit(b) && /^[\d,]+\s?\S+\.$/.test(a) && /^[\d,]+\s?\S+\.$/.test(b)) {
+    return `ca. ${a.replace(/[^\d,].*$/, '')}–${b}`
   }
-  if (max < 60) return min === max ? `ca. ${min}${NBSP}Min.` : `ca. ${min}–${max}${NBSP}Min.`
-  if (min === max || half(min) === half(max)) return `ca. ${half(max)}${NBSP}Std.`
-  return `ca. ${half(min)}–${half(max)}${NBSP}Std.`
+  return `ca. ${a} – ${b}`
 }
 
 const dateLong = new Intl.DateTimeFormat('de-AT', {

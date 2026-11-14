@@ -1,14 +1,14 @@
-# RM Mobile Autoaufbereitung – Markenidentität
+# RM Mobile Auto Aufbereitung – Markenidentität
 
 ## Logo
 
-Das Zeichen ist das Monogramm **„RM“** (Geist SemiBold) mit einem goldenen **Glanzpunkt** über dem „M“ – wie die Lichtkante auf poliertem Lack. Daneben steht der Name zweizeilig: klein *MOBILE*, groß **AUTOAFBEREITUNG**. Zusammen gelesen: **RM Mobile Autoaufbereitung**. Die Pfaddaten des Zeichens liegen in `src/components/site/Logo.tsx` (eine Quelle für Website und Logo-Dateien).
+Das Zeichen ist das Monogramm **„RM“** (Geist SemiBold) mit einem goldenen **Glanzpunkt** über dem „M“ – wie die Lichtkante auf poliertem Lack. Daneben steht der Name zweizeilig: klein *MOBILE*, groß **AUTO AUFBEREITUNG**. Zusammen gelesen: **RM Mobile Auto Aufbereitung**. Die Pfaddaten des Zeichens liegen in `src/components/site/Logo.tsx` (eine Quelle für Website und Logo-Dateien).
 
 | Datei | Verwendung |
 | --- | --- |
 | `logo/rm-logo-fuer-dunklen-hintergrund.svg` / `.png` | Logo auf Schwarz/Anthrazit (Website, Social Media) |
 | `logo/rm-logo-fuer-hellen-hintergrund.svg` / `.png` | Logo auf Weiß/hellen Flächen (Briefpapier, Rechnungen, Aufkleber) |
-| `logo/rm-wortmarke-fuer-dunklen-hintergrund.svg` / `…-hellen-…` | Reine Wortmarke „RM | MOBILE AUTOAUFBEREITUNG“ ohne Glanzpunkt (schmale Flächen, Fußzeilen, Stempel) |
+| `logo/rm-wortmarke-fuer-dunklen-hintergrund.svg` / `…-hellen-…` | Reine Wortmarke „RM | MOBILE AUTO AUFBEREITUNG“ ohne Glanzpunkt (schmale Flächen, Fußzeilen, Stempel) |
 | `logo/rm-logo-gestapelt-dunkel.svg` / `-hell.svg` | Gestapeltes Logo: Zeichen über der Wortmarke (quadratische Flächen, Aufkleber) |
 | `logo/rm-emblem-hell.svg` / `-dunkel.svg` | Nur das Zeichen (Favicon, Stempel) |
 | `social/profilbild-1080.png` | Profilbild für Instagram, Facebook und Google (kreisrund zuschneidbar) |
@@ -57,8 +57,8 @@ Erstellt im verbundenen Canva-Konto:
 
 | Design | Inhalt |
 | --- | --- |
-| **RM Mobile Autoaufbereitung Social-Media-Grafik** | Seite 1: Instagram-Post (1080×1440) · 2: Instagram-Story (1080×1920) · 3: Facebook-Titelbild (1640×624) · 4: Profilbild (1080×1080) · 5: Instagram-Vorlage „Einführungspreis“ · 6: Instagram-Vorlage „Leistung“ · 7: Instagram-Vorlage „Vorher/Nachher“ · 8: Werbebanner (1200×628). Auf den Seiten 5–8 sind Überschriften, Preise und Buttons **bearbeitbare Texte** |
-| **RM Mobile Autoaufbereitung Moodboard** | Bildwelt der Website; die Fotos (Hero, Innenraum, Handwäsche, Graz bei Nacht) wurden mit Canva generiert und von hier in voller Auflösung exportiert |
+| **RM Mobile Auto Aufbereitung Social-Media-Grafik** | Seite 1: Instagram-Post (1080×1440) · 2: Instagram-Story (1080×1920) · 3: Facebook-Titelbild (1640×624) · 4: Profilbild (1080×1080) · 5: Instagram-Vorlage „Einführungspreis“ · 6: Instagram-Vorlage „Leistung“ · 7: Instagram-Vorlage „Vorher/Nachher“ · 8: Werbebanner (1200×628). Auf den Seiten 5–8 sind Überschriften, Preise und Buttons **bearbeitbare Texte** |
+| **RM Mobile Auto Aufbereitung Moodboard** | Bildwelt der Website; die Fotos (Hero, Innenraum, Handwäsche, Graz bei Nacht) wurden mit Canva generiert und von hier in voller Auflösung exportiert |
 | Uploads | Logo-Varianten, Profilbild, Vorlagen-Hintergründe und das Designsystem-Board liegen in den Canva-Uploads |
 
 Exporte im Repository: `canva/instagram-post.jpg`, `canva/instagram-story.jpg`, `canva/facebook-titelbild.jpg`, `canva/profilbild.jpg`, `canva/instagram-vorlage-*.jpg`, `canva/werbebanner.jpg`, Fotoquellen unter `canva/source/`.

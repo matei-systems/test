@@ -79,6 +79,9 @@ export interface BookingMailData {
   regularPriceCents: number | null
   discountCents: number
   promotionName: string | null
+  /** Eingelöster Gutschein (optional) */
+  couponCode?: string | null
+  couponDiscountCents?: number
   totalPriceCents: number | null
   priceIsFrom: boolean
   durationMinutes: number
@@ -112,11 +115,16 @@ export function addressLine(d: { street: string; houseNumber: string; postalCode
   return `${d.street}${d.houseNumber ? ` ${d.houseNumber}` : ''}, ${d.postalCode} ${d.city}`
 }
 
+/** Förmliche Anrede: „Guten Tag Vorname Nachname,“ (ohne Annahmen über Herr/Frau) */
+function greeting(data: Pick<BookingMailData, 'firstName' | 'lastName'>): string {
+  return `Guten Tag ${esc(`${data.firstName} ${data.lastName}`.trim())},`
+}
+
 function bookingRows(data: BookingMailData): Array<[string, string]> {
   const out: Array<[string, string]> = [
     ['Buchungsnummer', data.reference],
     ['Termin', `${formatDateLong(data.startsAt)}, ${formatTime(data.startsAt)} Uhr`],
-    ['Voraussichtliche Dauer', formatDuration(data.durationMinutes)],
+    ['Voraussichtliche Dauer', `ca. ${formatDuration(data.durationMinutes)}`],
     ['Leistung', data.serviceName],
     ['Fahrzeug', `${data.vehicleCategoryName} – ${data.vehicleModel}${data.licensePlate ? ` (${data.licensePlate})` : ''}`],
   ]
@@ -125,11 +133,14 @@ function bookingRows(data: BookingMailData): Array<[string, string]> {
   }
   out.push(['Standort', addressLine(data) + (data.locationNote ? ` – ${data.locationNote}` : '')])
   if (data.totalPriceCents === null) {
-    out.push(['Preis', 'auf Anfrage – du erhältst vor Beginn ein verbindliches Angebot'])
+    out.push(['Preis', 'auf Anfrage – Sie erhalten vor Beginn ein verbindliches Angebot'])
   } else {
     if (data.discountCents > 0 && data.regularPriceCents !== null) {
       out.push(['Regulärer Preis', formatEuro(data.regularPriceCents)])
       out.push([data.promotionName || 'Rabatt', `−${formatEuro(data.discountCents)}`])
+    }
+    if (data.couponCode && (data.couponDiscountCents ?? 0) > 0) {
+      out.push([`Gutschein ${data.couponCode}`, `−${formatEuro(data.couponDiscountCents ?? 0)}`])
     }
     out.push(['Endpreis', formatPrice(data.totalPriceCents, { from: data.priceIsFrom })])
   }
@@ -198,8 +209,8 @@ function contactLine(business: BusinessInfo): string {
   if (business.phone) parts.push(`Telefon ${esc(business.phone)}`)
   if (business.email) parts.push(`E-Mail ${esc(business.email)}`)
   return parts.length
-    ? `Fragen oder Änderungswünsche? Antworte einfach auf diese E-Mail oder erreiche uns unter ${parts.join(' bzw. ')}.`
-    : 'Fragen oder Änderungswünsche? Antworte einfach auf diese E-Mail.'
+    ? `Fragen oder Änderungswünsche? Antworten Sie einfach auf diese E-Mail oder erreichen Sie uns unter ${parts.join(' bzw. ')}.`
+    : 'Fragen oder Änderungswünsche? Antworten Sie einfach auf diese E-Mail.'
 }
 
 function bookingMail(to: string, subject: string, title: string, intro: string, data: BookingMailData, footer: string, replyTo?: string): Mail {
@@ -208,21 +219,21 @@ function bookingMail(to: string, subject: string, title: string, intro: string, 
 
 /** Eingangsbestätigung an den Kunden (Buchung oder unverbindliche Terminanfrage). */
 export function customerBookingMail(data: BookingMailData, business: BusinessInfo): Mail {
-  const name = esc(data.firstName)
+  const hello = greeting(data)
   let title: string
   let intro: string
   let subject: string
   if (data.kind === 'anfrage') {
-    title = 'Deine Terminanfrage ist eingegangen'
-    intro = `Hallo ${name}, vielen Dank für deine Anfrage! Dein Wunschtermin ist vorgemerkt. Die Anfrage ist unverbindlich – du erhältst von uns ein Angebot und buchst erst mit deiner Zusage.`
+    title = 'Ihre Terminanfrage ist eingegangen'
+    intro = `${hello} vielen Dank für Ihre Anfrage. Ihr Wunschtermin ist vorgemerkt. Die Anfrage ist unverbindlich – Sie erhalten von uns ein Angebot und buchen erst mit Ihrer Zusage.`
     subject = `Terminanfrage ${data.reference} – ${SITE.name}`
   } else if (data.status === 'bestaetigt') {
-    title = 'Dein Termin ist bestätigt'
-    intro = `Hallo ${name}, vielen Dank für deine Buchung! Dein Termin ist verbindlich bestätigt. Wir kommen zur vereinbarten Zeit an den angegebenen Standort.`
+    title = 'Ihr Termin ist bestätigt'
+    intro = `${hello} vielen Dank für Ihre Buchung. Ihr Termin ist verbindlich bestätigt. Wir kommen zur vereinbarten Zeit an den angegebenen Standort.`
     subject = `Terminbestätigung ${data.reference} – ${SITE.name}`
   } else {
-    title = 'Deine Buchung ist eingegangen'
-    intro = `Hallo ${name}, vielen Dank für deine Buchung! Dein Termin ist für dich reserviert. Wir prüfen die Details und bestätigen dir den Termin in Kürze persönlich.`
+    title = 'Ihre Buchung ist eingegangen'
+    intro = `${hello} vielen Dank für Ihre Buchung. Der Termin ist für Sie reserviert. Wir prüfen Standort und Details und bestätigen Ihnen den Termin in Kürze per E-Mail – erst mit dieser Bestätigung ist der Termin fix.`
     subject = `Buchungseingang ${data.reference} – ${SITE.name}`
   }
   const footer = `${contactLine(business)}<br><br>Es gelten unsere AGB und Stornobedingungen: ${esc(getSiteUrl())}/stornobedingungen`
@@ -234,16 +245,16 @@ export function customerStatusMail(data: BookingMailData, business: BusinessInfo
   let intro: string
   switch (data.status) {
     case 'bestaetigt':
-      title = 'Dein Termin ist bestätigt'
-      intro = `Hallo ${esc(data.firstName)}, dein Termin ist jetzt verbindlich bestätigt. Wir freuen uns auf dein Fahrzeug!`
+      title = 'Ihr Termin ist bestätigt'
+      intro = `${greeting(data)} Ihr Termin ist jetzt verbindlich bestätigt. Wir freuen uns auf Ihr Fahrzeug.`
       break
     case 'storniert':
-      title = 'Dein Termin wurde storniert'
-      intro = `Hallo ${esc(data.firstName)}, dein Termin wurde storniert.${reason ? ` Hinweis: ${esc(reason)}` : ''} Gerne kannst du jederzeit online einen neuen Termin buchen.`
+      title = 'Ihr Termin wurde storniert'
+      intro = `${greeting(data)} Ihr Termin wurde storniert.${reason ? ` Hinweis: ${esc(reason)}` : ''} Gerne können Sie jederzeit online einen neuen Termin buchen.`
       break
     case 'abgeschlossen':
-      title = 'Vielen Dank für deinen Auftrag'
-      intro = `Hallo ${esc(data.firstName)}, vielen Dank, dass du ${esc(SITE.name)} dein Fahrzeug anvertraut hast. Wir freuen uns, wenn du uns wieder buchst${business.reviewUrl ? ` – und über deine ehrliche Bewertung: ${esc(business.reviewUrl)}` : ''}.`
+      title = 'Vielen Dank für Ihren Auftrag'
+      intro = `${greeting(data)} vielen Dank, dass Sie ${esc(SITE.name)} Ihr Fahrzeug anvertraut haben. Wir freuen uns, wenn Sie uns wieder buchen${business.reviewUrl ? ` – und über Ihre ehrliche Bewertung: ${esc(business.reviewUrl)}` : ''}.`
       break
     default:
       return null
@@ -252,22 +263,22 @@ export function customerStatusMail(data: BookingMailData, business: BusinessInfo
 }
 
 export function customerRescheduleMail(data: BookingMailData, business: BusinessInfo): Mail {
-  const title = 'Dein Termin wurde geändert'
-  const intro = `Hallo ${esc(data.firstName)}, dein Termin wurde wie besprochen geändert. Hier sind die aktuellen Details:`
+  const title = 'Ihr Termin wurde geändert'
+  const intro = `${greeting(data)} Ihr Termin wurde wie besprochen geändert. Hier sind die aktuellen Details:`
   return bookingMail(data.email, `${title} – ${data.reference}`, title, intro, data, contactLine(business), business.email || undefined)
 }
 
 /** Terminerinnerung am Vortag. */
 export function customerReminderMail(data: BookingMailData, business: BusinessInfo): Mail {
-  const title = 'Erinnerung: Dein Termin bei RM Mobile Autoaufbereitung'
-  const intro = `Hallo ${esc(data.firstName)}, wir freuen uns auf deinen Termin am <strong>${esc(formatDateLong(data.startsAt))} um ${esc(formatTime(data.startsAt))} Uhr</strong>. Bitte stelle sicher, dass dein Fahrzeug am vereinbarten Standort zugänglich ist und persönliche Gegenstände ausgeräumt sind.`
+  const title = `Erinnerung: Ihr Termin bei ${SITE.name}`
+  const intro = `${greeting(data)} wir freuen uns auf Ihren Termin am <strong>${esc(formatDateLong(data.startsAt))} um ${esc(formatTime(data.startsAt))} Uhr</strong>. Bitte stellen Sie sicher, dass Ihr Fahrzeug am vereinbarten Standort zugänglich ist und persönliche Gegenstände ausgeräumt sind.`
   return bookingMail(data.email, `Terminerinnerung ${data.reference} – ${SITE.name}`, title, intro, data, contactLine(business), business.email || undefined)
 }
 
 /** Bestätigung einer vom Kunden selbst durchgeführten Online-Stornierung. */
 export function customerCancelledMail(data: BookingMailData, business: BusinessInfo): Mail {
-  const title = 'Dein Termin wurde storniert'
-  const intro = `Hallo ${esc(data.firstName)}, wir haben deine Stornierung erhalten. Der Termin ist storniert. Gerne kannst du jederzeit online einen neuen Termin buchen.`
+  const title = 'Ihr Termin wurde storniert'
+  const intro = `${greeting(data)} wir haben Ihre Stornierung erhalten. Der Termin ist storniert. Gerne können Sie jederzeit online einen neuen Termin buchen.`
   return bookingMail(data.email, `Stornierung ${data.reference} – ${SITE.name}`, title, intro, { ...data, status: 'storniert', confirmationUrl: undefined }, contactLine(business), business.email || undefined)
 }
 
@@ -320,14 +331,14 @@ export function adminInquiryMail(data: InquiryMailData, adminUrl: string): Mail 
 
 /** Eingangsbestätigung für das Kontaktformular. */
 export function customerInquiryMail(data: InquiryMailData, business: BusinessInfo): Mail {
-  const title = 'Wir haben deine Nachricht erhalten'
+  const title = 'Wir haben Ihre Nachricht erhalten'
   const html = shell(
     title,
-    `<p style="margin:0 0 16px;color:#333;font-size:15px;line-height:1.6">Hallo ${esc(data.name)}, vielen Dank für deine Nachricht. Wir melden uns so schnell wie möglich bei dir.</p>
+    `<p style="margin:0 0 16px;color:#333;font-size:15px;line-height:1.6">Guten Tag ${esc(data.name)}, vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich bei Ihnen.</p>
 <p style="margin:0;color:#555;font-size:14px;line-height:1.6;white-space:pre-wrap;border-left:3px solid #c8b48a;padding-left:14px">${esc(data.message)}</p>`,
   )
-  const text = [title, '', `Hallo ${data.name}, vielen Dank für deine Nachricht. Wir melden uns so schnell wie möglich bei dir.`, '', data.message].join('\n')
-  return { to: data.email, subject: `Deine Anfrage bei ${SITE.name}`, html, text, replyTo: business.email || undefined }
+  const text = [title, '', `Guten Tag ${data.name}, vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich bei Ihnen.`, '', data.message].join('\n')
+  return { to: data.email, subject: `Ihre Anfrage bei ${SITE.name}`, html, text, replyTo: business.email || undefined }
 }
 
 /** Technischer Fehler → Hinweis an den Administrator (höchstens einmal je 15 Minuten und Fehlerart). */

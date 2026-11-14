@@ -45,6 +45,6 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     console.error('[api/availability]', err)
     const status = err instanceof DatabaseNotConfiguredError ? 503 : 500
-    return NextResponse.json({ error: 'Die Verfügbarkeit konnte nicht geladen werden. Bitte versuche es später erneut.' }, { status })
+    return NextResponse.json({ error: 'Die Verfügbarkeit konnte nicht geladen werden. Bitte versuchen Sie es später erneut.' }, { status })
   }
 }

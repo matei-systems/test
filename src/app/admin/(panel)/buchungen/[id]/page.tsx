@@ -122,6 +122,14 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   </dd>
                 </div>
               )}
+              {b.coupon_code && (
+                <div>
+                  <dt>Gutschein</dt>
+                  <dd>
+                    {b.coupon_code}: −{formatEuro(Number(b.coupon_discount_cents ?? 0))}
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt>Gesamtpreis</dt>
                 <dd>

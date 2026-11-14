@@ -46,8 +46,8 @@ export default async function PricesPage() {
         }
         lead={
           best
-            ? `Zum Start von RM Mobile Autoaufbereitung gilt unser ${best.promotion.name}: ${best.percent} % Preisvorteil auf unsere Pakete${end ? ` – gültig bis ${end}` : ''}. Der reguläre Preis steht immer daneben.`
-            : 'Endpreise je Fahrzeugkategorie – inklusive Anfahrt im Einsatzgebiet. Du siehst vor der Buchung genau, was du bezahlst.'
+            ? `Zum Start von RM Mobile Auto Aufbereitung gilt unser ${best.promotion.name}: ${best.percent} % Preisvorteil auf unsere Pakete${end ? ` – gültig bis ${end}` : ''}. Der reguläre Preis steht immer daneben.`
+            : 'Endpreise je Fahrzeugkategorie – inklusive Anfahrt im Einsatzgebiet. Sie sehen vor der Buchung genau, was Sie bezahlen.'
         }
       />
 
@@ -88,7 +88,7 @@ export default async function PricesPage() {
               <h3>Keine versteckten Kosten</h3>
               <p>
                 Die Preise gelten für Fahrzeuge in normalem Pflegezustand. Zusatzleistungen – etwa bei Tierhaaren oder starker Verschmutzung –
-                stimmen wir immer vorab mit dir ab.
+                stimmen wir immer vorab mit Ihnen ab.
               </p>
             </li>
             <li className={styles.detail}>
@@ -96,7 +96,7 @@ export default async function PricesPage() {
               <h3>{best ? best.promotion.name : 'Aktionen'}</h3>
               <p>
                 {best
-                  ? `Der ${best.promotion.name} gilt für Buchungen${end ? ` bis ${end}` : ' in der Startphase'}. Maßgeblich ist der Gesamtpreis, der dir vor dem Absenden in der Buchungsübersicht angezeigt wird.`
+                  ? `Der ${best.promotion.name} gilt für Buchungen${end ? ` bis ${end}` : ' in der Startphase'}. Maßgeblich ist der Gesamtpreis, der Ihnen vor dem Absenden in der Buchungsübersicht angezeigt wird.`
                   : 'Aktuell läuft keine Aktion. Es gelten die angezeigten regulären Preise.'}
               </p>
             </li>

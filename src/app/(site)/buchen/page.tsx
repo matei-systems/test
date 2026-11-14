@@ -11,7 +11,7 @@ import styles from './page.module.css'
 export const metadata: Metadata = {
   title: 'Termin online buchen',
   description:
-    'Mobile Fahrzeugpflege in Graz & Graz-Umgebung online buchen: Leistung wählen, Fahrzeug angeben, freien Wunschtermin auswählen – in wenigen Klicks.',
+    'Mobile Autoaufbereitung in Graz & Graz-Umgebung online buchen: Leistung wählen, Fahrzeug angeben, freien Wunschtermin auswählen – in wenigen Klicks.',
   alternates: { canonical: '/buchen' },
 }
 
@@ -26,7 +26,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
         <header className={styles.head}>
           <p className="eyebrow">Online-Buchung</p>
           <h1 className="h2">
-            Dein Termin in <span className="serif accent">wenigen Klicks.</span>
+            Ihr Termin in <span className="serif accent">wenigen Klicks.</span>
           </h1>
           {isDatabaseConfigured() && (
           <p className={styles.points}>
@@ -37,7 +37,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
               <Icon name="check" size={16} /> Sofortige Buchungsnummer
             </span>
             <span>
-              <Icon name="check" size={16} /> Wir kommen zu dir
+              <Icon name="check" size={16} /> Wir kommen zu Ihnen
             </span>
           </p>
           )}
@@ -76,7 +76,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
           </div>
         ) : catalog.services.length === 0 || catalog.vehicles.length === 0 ? (
           <div className="notice notice--warn">
-            <Icon name="info" /> Die Online-Buchung ist gerade nicht verfügbar. Bitte versuche es später erneut.
+            <Icon name="info" /> Die Online-Buchung ist gerade nicht verfügbar. Bitte versuchen Sie es später erneut.
           </div>
         ) : (
           <BookingWizard
@@ -87,6 +87,8 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
             postalCodes={settings.area.postalCodes}
             regions={settings.area.regions}
             cancelHours={settings.rules.cancelHours}
+            autoConfirm={settings.rules.autoConfirm}
+            initialCoupon={str(params.gutschein)}
           />
         )}
       </div>

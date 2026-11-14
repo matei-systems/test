@@ -1,7 +1,7 @@
 import { SITE } from '@/config/site'
 
 /**
- * Markenzeichen von RM Mobile Autoaufbereitung: das Monogramm „RM“ (Geist SemiBold, als Pfad) mit einem
+ * Markenzeichen von RM Mobile Auto Aufbereitung: das Monogramm „RM“ (Geist SemiBold, als Pfad) mit einem
  * goldenen Glanzpunkt. Funktioniert auf dunklem (tone="light") und hellem Hintergrund (tone="dark").
  *
  * Die Pfaddaten sind identisch zu scripts/build-brand-assets.mjs (Logo-Dateien, Favicon, Open-Graph-Bild).
@@ -22,8 +22,8 @@ export function LogoMark({ size = 36, tone = 'light', title }: { size?: number; 
 }
 
 /**
- * Logo-Lockup: Monogramm „RM“ + zweizeilig „MOBILE / AUTOAUFBEREITUNG“. Zusammen gelesen ergibt das den Namen
- * „RM Mobile Autoaufbereitung“; Screenreader bekommen den vollständigen Namen vorgelesen.
+ * Logo-Lockup: Monogramm „RM“ + zweizeilig „MOBILE / AUTO AUFBEREITUNG“. Zusammen gelesen ergibt das den Namen
+ * „RM Mobile Auto Aufbereitung“; Screenreader bekommen den vollständigen Namen vorgelesen.
  */
 export function Logo({ tone = 'light', compact = false }: { tone?: 'light' | 'dark'; compact?: boolean }) {
   const color = tone === 'light' ? 'var(--text)' : '#0b0b0c'
@@ -45,7 +45,7 @@ export function Logo({ tone = 'light', compact = false }: { tone?: 'light' | 'da
         >
           Mobile
         </span>
-        <span style={{ fontSize: compact ? 11.5 : 12.5, fontWeight: 600, letterSpacing: '0.22em', marginRight: '-0.22em' }}>AUTOAUFBEREITUNG</span>
+        <span className="logo-name" style={{ fontSize: compact ? 11.5 : 12.5, fontWeight: 600, letterSpacing: '0.22em', marginRight: '-0.22em', whiteSpace: 'nowrap' }}>AUTO AUFBEREITUNG</span>
       </span>
     </span>
   )

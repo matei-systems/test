@@ -17,7 +17,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Leistungen – Innenraumreinigung, Außenpflege & Komplettpaket in Graz',
   description:
-    'Alle Leistungen von RM Mobile Autoaufbereitung: Innenraum Basic, Innenraum Premium, Außenpflege, Komplettpaket und Zusatzleistungen – mobil in Graz & Graz-Umgebung, mit transparenten Preisen je Fahrzeugkategorie.',
+    'Alle Leistungen von RM Mobile Auto Aufbereitung: Innenraum Basic, Innenraum Premium, Außenpflege, Komplettpaket und Zusatzleistungen – mobil in Graz & Graz-Umgebung, mit transparenten Preisen je Fahrzeugkategorie.',
   alternates: { canonical: '/leistungen' },
 }
 
@@ -36,7 +36,7 @@ export default async function ServicesPage() {
             Fahrzeugpflege, die man <span className="serif accent">sieht und spürt.</span>
           </>
         }
-        lead="Mobile Innenraumreinigung und Außenpflege in Graz und Graz-Umgebung – zu transparenten Preisen, abgestimmt auf deine Fahrzeugkategorie."
+        lead="Mobile Innenraumreinigung und Außenpflege in Graz und Graz-Umgebung – zu transparenten Preisen, abgestimmt auf Ihre Fahrzeugkategorie."
         image="/images/wash.jpg"
         imagePosition="40% 50%"
       />

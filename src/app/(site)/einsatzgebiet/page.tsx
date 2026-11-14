@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { area } = await getSettings()
   return {
     title: `Einsatzgebiet – mobile Fahrzeugpflege in ${area.regions.join(' & ')}`,
-    description: `RM Mobile Autoaufbereitung kommt zu dir: Fahrzeugpflege und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Prüfe deine Postleitzahl und buche online.`,
+    description: `RM Mobile Auto Aufbereitung kommt zu Ihnen: mobile Autoaufbereitung und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Postleitzahl prüfen und online buchen.`,
     alternates: { canonical: '/einsatzgebiet' },
   }
 }
@@ -32,7 +32,7 @@ export default async function ServiceAreaPage() {
             Mobile Fahrzeugpflege in <span className="serif accent">{regions}.</span>
           </>
         }
-        lead="Wir kommen zu dir nach Hause, an deinen Arbeitsplatz oder an einen vereinbarten Standort – du musst nirgendwo hinfahren."
+        lead="Wir kommen zu Ihnen nach Hause, an Ihren Arbeitsplatz oder an einen vereinbarten Standort – Sie müssen nirgendwo hinfahren."
         image="/images/graz-night.jpg"
         imagePosition="60% 50%"
       />
@@ -55,9 +55,9 @@ export default async function ServiceAreaPage() {
               </ul>
             )}
             <p className="field-hint">
-              Dein Ort ist nicht dabei? Prüfe deine Postleitzahl oder{' '}
+              Ihr Ort ist nicht dabei? Prüfen Sie Ihre Postleitzahl oder{' '}
               <Link href="/kontakt" style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                frag uns direkt an
+                fragen Sie direkt bei uns an
               </Link>
               .
             </p>
@@ -69,15 +69,20 @@ export default async function ServiceAreaPage() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container" style={{ display: 'grid', gap: 40 }}>
           <div className={styles.seoText}>
-            <h2 className="h3">Autoaufbereitung in {area.regions[0] ?? 'Graz'} – direkt vor deiner Tür</h2>
+            <h2 className="h3">Autoaufbereitung in {area.regions[0] ?? 'Graz'} – direkt vor Ihrer Tür</h2>
             <p>
               Eine klassische Autoaufbereitung bedeutet: Termin vereinbaren, hinfahren, warten oder abholen lassen. Als mobile
-              Fahrzeugpflege drehen wir das um. Wir bringen unser Equipment mit und pflegen dein Fahrzeug dort, wo es steht – in der
-              Einfahrt, in der Tiefgarage (sofern erlaubt) oder am Firmenparkplatz.
+              Fahrzeugpflege drehen wir das um. Wir bringen unsere Ausrüstung mit und pflegen Ihr Fahrzeug dort, wo es steht – in der
+              Einfahrt, in der Garage (sofern erlaubt) oder am Firmenparkplatz.
             </p>
             <p>
-              Ob Innenraumreinigung, Außenpflege oder das Komplettpaket: Bei der Online-Buchung gibst du einfach die Adresse an, an der
-              dein Fahrzeug steht. Die Anfahrt innerhalb des Einsatzgebiets ist im Preis enthalten.
+              Ob Innenraumreinigung, Außenpflege oder das Komplettpaket: Bei der Online-Buchung geben Sie einfach die Adresse an, an der
+              Ihr Fahrzeug steht. Die Anfahrt innerhalb des Einsatzgebiets ist im Preis enthalten.
+            </p>
+            <p>
+              Wichtig für die Außenpflege: Eine Außenwäsche führen wir nur an geeigneten und zulässigen Standorten durch – auf befestigter
+              Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften, nicht auf öffentlichen Straßen oder unbefestigtem
+              Untergrund. Ob Ihr Standort passt, klären wir vor der Terminbestätigung. Innenraumleistungen sind davon nicht betroffen.
             </p>
           </div>
           <ul className={styles.linkCards}>

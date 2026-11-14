@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : `${from.varies ? 'ab ' : ''}${formatEuro(from.min.priceCents)}`
   return {
     title: seo?.title ?? `${s.name} in Graz`,
-    description: `${s.name} von RM Mobile Autoaufbereitung – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
+    description: `${s.name} von RM Mobile Auto Aufbereitung – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
     alternates: { canonical: `/leistungen/${s.id}` },
     openGraph: { images: [{ url: serviceImage(s).src }] },
   }
@@ -102,6 +102,19 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               ))}
             </ul>
 
+            {s.excludes.length > 0 && (
+              <>
+                <h2 className="h3">Nicht enthalten</h2>
+                <ul className={`${styles.includes} ${styles.excludes}`}>
+                  {s.excludes.map((i) => (
+                    <li key={i}>
+                      <Icon name="minus" size={18} /> {i}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
             {!s.requiresAddon && (
               <>
                 <h2 className="h3">Preise &amp; Dauer nach Fahrzeug</h2>
@@ -115,6 +128,19 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <p className={styles.note}>
                 <Icon name="info" size={16} /> {s.priceNote}
               </p>
+            )}
+
+            {s.requirements.length > 0 && (
+              <>
+                <h2 className="h3">Voraussetzungen am Einsatzort</h2>
+                <ul className={`${styles.includes} ${styles.requirements}`}>
+                  {s.requirements.map((i) => (
+                    <li key={i}>
+                      <Icon name="pin" size={18} /> {i}
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
 
             {addons.length > 0 && (
@@ -149,7 +175,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                   </li>
                 )}
                 <li>
-                  <Icon name="van" size={16} /> Mobil – wir kommen zu dir
+                  <Icon name="van" size={16} /> Mobil – wir kommen zu Ihnen
                 </li>
                 <li>
                   <Icon name="pin" size={16} /> {settings.area.regions.join(' & ')}

@@ -14,7 +14,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Kontakt – mobile Fahrzeugpflege in Graz anfragen',
   description:
-    'Kontakt zu RM Mobile Autoaufbereitung: Schreib uns über das Kontaktformular, per WhatsApp oder ruf an. Mobile Premium-Fahrzeugpflege in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
+    'Kontakt zu RM Mobile Auto Aufbereitung: Kontaktformular, Online-Terminbuchung und alle Kontaktwege auf einen Blick. Mobile Autoaufbereitung in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
   alternates: { canonical: '/kontakt' },
 }
 
@@ -45,10 +45,10 @@ export default async function ContactPage() {
         eyebrow="Kontakt"
         title={
           <>
-            Sprechen wir über <span className="serif accent">dein Fahrzeug.</span>
+            Sprechen wir über <span className="serif accent">Ihr Fahrzeug.</span>
           </>
         }
-        lead="Fragen zu Leistungen, ein Angebot für mehrere Fahrzeuge oder ein besonderer Wunsch? Schreib uns – wir melden uns so schnell wie möglich."
+        lead="Fragen zu Leistungen, ein Angebot für mehrere Fahrzeuge oder ein besonderer Wunsch? Schreiben Sie uns – wir melden uns so schnell wie möglich."
       />
       <section className="section">
         <div className={`container ${styles.contact}`}>
@@ -126,7 +126,7 @@ export default async function ContactPage() {
             </ul>
             {!hasDirect && (
               <p className="field-hint" style={{ marginTop: 16 }}>
-                Telefonnummer und WhatsApp folgen in Kürze – bis dahin erreichst du uns über das Formular.
+                Telefonnummer und WhatsApp folgen in Kürze – bis dahin erreichen Sie uns über das Formular.
               </p>
             )}
             <div className={styles.hours}>

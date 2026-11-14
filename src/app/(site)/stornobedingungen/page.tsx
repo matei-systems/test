@@ -4,7 +4,7 @@ import { getSettings } from '@/lib/catalog'
 
 export const metadata: Metadata = {
   title: 'Stornobedingungen',
-  description: 'Stornobedingungen für Termine der mobilen Fahrzeugpflege von RM Mobile Autoaufbereitung.',
+  description: 'Stornobedingungen für Termine der mobilen Fahrzeugpflege von RM Mobile Auto Aufbereitung.',
   alternates: { canonical: '/stornobedingungen' },
 }
 
@@ -14,15 +14,15 @@ export default async function CancellationPage() {
   return (
     <LegalPage title="Stornobedingungen" updated="November 2026">
       <p>
-        Wir planen jeden Termin inklusive Anfahrt fest für dich ein. Bitte gib uns deshalb so früh wie möglich Bescheid, wenn du einen Termin
-        verschieben oder absagen möchtest.
+        Wir planen jeden Termin inklusive Anfahrt fest für Sie ein. Bitte geben Sie uns deshalb so früh wie möglich Bescheid, wenn Sie einen Termin
+        verschieben oder absagen möchten.
       </p>
 
-      <h2>So erreichst du uns</h2>
+      <h2>So erreichen Sie uns</h2>
       <p>
         Telefon: <Val value={b.phone} label="Telefonnummer" /> · E-Mail: <Val value={b.email} label="E-Mail-Adresse" />
         <br />
-        Bitte gib dabei immer deine Buchungsnummer (z. B. GM-XXXX-XXXX) an.
+        Bitte geben Sie dabei immer Ihre Buchungsnummer (z. B. RM-XXXX-XXXX) an.
       </p>
 
       <h2>Stornierung und Verschiebung durch den Kunden</h2>
@@ -30,7 +30,7 @@ export default async function CancellationPage() {
         {hours > 0 ? (
           <li>
             <strong>Bis {hours} Stunden vor dem Termin:</strong> kostenlose Stornierung – am einfachsten online über den persönlichen Link in
-            deiner Buchungsbestätigung („Termin stornieren“). Für eine Verschiebung melde dich bitte direkt bei uns.
+            Ihrer Buchungsbestätigung („Termin stornieren“). Für eine Verschiebung melden Sie sich bitte direkt bei uns.
           </li>
         ) : (
           <li>
@@ -38,7 +38,7 @@ export default async function CancellationPage() {
           </li>
         )}
         <li>
-          Später als {hours > 0 ? `${hours} Stunden` : <Todo>[Frist]</Todo>} vor dem Termin: Bitte kontaktiere uns direkt. Stornogebühr:{' '}
+          Später als {hours > 0 ? `${hours} Stunden` : <Todo>[Frist]</Todo>} vor dem Termin: Bitte kontaktieren Sie uns direkt. Stornogebühr:{' '}
           <Todo>[x % des Auftragswerts / Pauschale festlegen – oder ausdrücklich „keine“]</Todo>.
         </li>
         <li>
@@ -52,14 +52,16 @@ export default async function CancellationPage() {
 
       <h2>Absage durch uns</h2>
       <p>
-        Müssen wir einen Termin aus wichtigen Gründen (z. B. Krankheit, Unwetter, technische Probleme) absagen, informieren wir dich so
-        schnell wie möglich und vereinbaren einen Ersatztermin. Für dich entstehen dadurch keine Kosten.
+        Müssen wir einen Termin aus wichtigen Gründen (z. B. Krankheit, Unwetter, technische Probleme) absagen, informieren wir Sie so
+        schnell wie möglich und vereinbaren einen Ersatztermin. Für Sie entstehen dadurch keine Kosten. Das gilt auch, wenn sich der
+        angegebene Standort für eine Außenwäsche als ungeeignet oder unzulässig herausstellt. Ein eingelöster Gutschein bleibt bei einer
+        Stornierung erhalten und kann für eine neue Buchung verwendet werden.
       </p>
 
       <h2>Verbraucherrechte</h2>
       <p>
         Gesetzliche Rechte von Verbraucher:innen, insbesondere ein allfälliges Rücktrittsrecht nach dem FAGG, bleiben unberührt.{' '}
-        <Todo>[Abstimmung mit AGB Punkt 7 prüfen]</Todo>
+        <Todo>[Abstimmung mit AGB Punkt 8 prüfen]</Todo>
       </p>
     </LegalPage>
   )

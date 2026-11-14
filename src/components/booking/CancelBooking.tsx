@@ -26,9 +26,9 @@ export function CancelBooking({ token, until, kind }: { token: string; until: st
         router.refresh()
         return
       }
-      setError(data.error ?? 'Die Stornierung konnte nicht durchgeführt werden. Bitte kontaktiere uns direkt.')
+      setError(data.error ?? 'Die Stornierung konnte nicht durchgeführt werden. Bitte kontaktieren Sie uns direkt.')
     } catch {
-      setError('Keine Verbindung zum Server. Der Termin wurde NICHT storniert – bitte versuche es erneut.')
+      setError('Keine Verbindung zum Server. Der Termin wurde NICHT storniert – bitte versuchen Sie es erneut.')
     }
     setBusy(false)
   }
@@ -45,7 +45,7 @@ export function CancelBooking({ token, until, kind }: { token: string; until: st
       ) : (
         <div className="notice notice--warn" role="alertdialog" aria-label={`${noun} stornieren`} style={{ display: 'grid', gap: 12 }}>
           <span>
-            Möchtest du wirklich stornieren? Der Termin wird sofort wieder freigegeben.
+            Möchten Sie den Termin wirklich stornieren? Der Termin wird sofort wieder freigegeben.
           </span>
           <span style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             <button type="button" className="btn btn--light btn--sm" onClick={cancel} disabled={busy} aria-busy={busy}>

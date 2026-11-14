@@ -1,5 +1,6 @@
 import 'server-only'
 import { getDb } from './db'
+import { rowToCoupon, type Coupon, type CouponRow } from './coupons'
 import { requireAdmin } from './auth'
 import { addDays, todayInZone, zonedToUtc } from './time'
 import type { BookingRecord } from './bookings'
@@ -323,4 +324,29 @@ export async function statistics(months = 12) {
       withAddons: Number(t.with_addons),
     },
   }
+}
+
+// ─── Gutscheine ─────────────────────────────────────────────────────────────────
+
+export interface CouponOverview {
+  coupon: Coupon
+  /** Einlösungen in nicht stornierten Buchungen */
+  redemptions: number
+  /** Summe der gewährten Nachlässe in Cent */
+  discountCents: number
+}
+
+export async function getCoupons(): Promise<CouponOverview[]> {
+  await requireAdmin()
+  const db = await getDb()
+  const { rows } = await db.query<CouponRow & { redemptions: number; discount_cents: number }>(
+    `SELECT c.id, c.code, c.label, c.amount_cents, c.min_order_cents, c.first_booking_only, c.once_per_customer, c.max_redemptions,
+            c.starts_at, c.ends_at, c.active,
+            count(b.id) AS redemptions, coalesce(sum(b.coupon_discount_cents), 0) AS discount_cents
+     FROM coupons c
+     LEFT JOIN bookings b ON b.coupon_code = c.code AND b.status <> 'storniert'
+     GROUP BY c.id
+     ORDER BY c.active DESC, c.created_at`,
+  )
+  return rows.map((r) => ({ coupon: rowToCoupon(r), redemptions: Number(r.redemptions), discountCents: Number(r.discount_cents) }))
 }

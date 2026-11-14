@@ -28,7 +28,7 @@ export function serviceImage(service: Pick<CatalogService, 'name' | 'imageSrc'>)
   const known = KNOWN[src]
   return {
     src,
-    alt: known?.alt ?? `${service.name} – Fahrzeugpflege von RM Mobile Autoaufbereitung`,
+    alt: known?.alt ?? `${service.name} – Fahrzeugpflege von RM Mobile Auto Aufbereitung`,
     position: known?.position ?? '50% 50%',
     unoptimized: src.startsWith('/media/'),
   }

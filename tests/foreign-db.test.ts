@@ -1,5 +1,5 @@
 /**
- * Schutz vor fremden Datenbanken: RM Mobile Autoaufbereitung darf nur in leere oder eigene Datenbanken schreiben.
+ * Schutz vor fremden Datenbanken: RM Mobile Auto Aufbereitung darf nur in leere oder eigene Datenbanken schreiben.
  * (Ausgangspunkt: eine Neon-Datenbank, die bereits einer anderen Anwendung gehörte.)
  */
 import { afterEach, describe, expect, it, vi } from 'vitest'

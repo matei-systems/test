@@ -38,6 +38,10 @@ export interface DefaultService {
   tagline: string
   description: string
   includes: string[]
+  /** Was ausdrücklich nicht im Paket enthalten ist */
+  excludes: string[]
+  /** Voraussetzungen am Einsatzort */
+  requirements: string[]
   priceNote: string
   requiresAddon?: boolean
   featured?: boolean
@@ -75,19 +79,38 @@ function matrix(rows: Array<[number | null, number]>): DefaultService['prices'] 
   return out
 }
 
+/** Voraussetzungen am Einsatzort, die für jede Leistung gelten. */
+const REQ_COMMON = [
+  'Ausreichend Platz rund um das Fahrzeug, damit sich alle Türen vollständig öffnen lassen',
+  'Erlaubnis, am Standort zu arbeiten (z. B. eigene Einfahrt, Firmenparkplatz oder Garage)',
+  'Persönliche Gegenstände und Wertsachen bitte vorab aus dem Fahrzeug nehmen',
+  'Ob ein Wasser- oder Stromanschluss benötigt wird, klären wir bei der Terminbestätigung',
+]
+
+/** Zusätzliche Voraussetzung für alle Leistungen mit Außenwäsche. */
+const REQ_EXTERIOR =
+  'Außenwäsche nur an geeigneten und zulässigen Standorten: befestigte Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften – nicht auf öffentlichen Straßen oder unbefestigtem Untergrund. Wir klären den Standort vor der Terminbestätigung'
+
 export const DEFAULT_SERVICES: DefaultService[] = [
   {
     id: 'innenraum-basic',
     name: 'Innenraum Basic',
     tagline: 'Die gründliche Innenreinigung für zwischendurch.',
     description:
-      'Frischer Innenraum in kurzer Zeit: gründliches Aussaugen, saubere Oberflächen und klare Scheiben – direkt bei dir vor Ort.',
+      'Ein frischer Innenraum in kurzer Zeit: gründliches Aussaugen, saubere Oberflächen und klare Scheiben – direkt bei Ihnen vor Ort.',
     includes: [
       'Aussaugen von Sitzen, Fußräumen und Kofferraum',
       'Armaturenbrett und Mittelkonsole feucht gereinigt',
       'Fußmatten ausgesaugt',
       'Scheiben innen streifenfrei',
     ],
+    excludes: [
+      'Detailreinigung von Fugen, Lüftungsdüsen und Schaltern (in Innenraum Premium enthalten)',
+      'Tiefenreinigung der Polster und Fleckenentfernung (Zusatzleistung)',
+      'Entfernung von Tierhaaren (Zusatzleistung)',
+      'Außenreinigung',
+    ],
+    requirements: [...REQ_COMMON],
     priceNote: 'Für gepflegte Fahrzeuge mit normaler Verschmutzung. Bei starker Verschmutzung oder Tierhaaren fallen Zusatzleistungen an.',
     imageSrc: '/images/leistung-innenraum-basic.jpg',
     prices: matrix([
@@ -113,6 +136,13 @@ export const DEFAULT_SERVICES: DefaultService[] = [
       'Sitzflächen abgesaugt und Oberflächen gereinigt',
       'Kunststoffpflege im Innenraum',
     ],
+    excludes: [
+      'Tiefenreinigung der Polster bei Flecken und hartnäckigen Verschmutzungen (Zusatzleistung)',
+      'Entfernung von Tierhaaren (Zusatzleistung)',
+      'Reparaturen, z. B. von Leder, Kunststoff oder Dachhimmel',
+      'Außenreinigung (im Komplettpaket enthalten)',
+    ],
+    requirements: [...REQ_COMMON],
     priceNote: 'Bei starker Verschmutzung, Flecken in Polstern oder Tierhaaren fallen Zusatzleistungen an.',
     imageSrc: '/images/interior.jpg',
     prices: matrix([
@@ -129,7 +159,7 @@ export const DEFAULT_SERVICES: DefaultService[] = [
     name: 'Außenpflege',
     tagline: 'Sichtbarer Glanz – schonend von Hand.',
     description:
-      'Schonende Außenreinigung von Hand für Lack, Felgen und Scheiben. Wir kommen mit unserem Equipment zu dir – du musst nirgendwo hinfahren.',
+      'Schonende Außenreinigung von Hand für Lack, Felgen und Scheiben. Wir kommen mit unserer Ausrüstung zu Ihnen – an einen Standort, an dem die Außenwäsche zulässig ist.',
     includes: [
       'Schonende Handwäsche der Karosserie',
       'Felgen- und Reifenreinigung',
@@ -138,6 +168,14 @@ export const DEFAULT_SERVICES: DefaultService[] = [
       'Trocknung mit weichen Mikrofasertüchern',
       'Reifenpflege',
     ],
+    excludes: [
+      'Politur, Lackkorrektur und Entfernung von Kratzern',
+      'Versiegelung oder Keramikbeschichtung',
+      'Motorraum- und Unterbodenwäsche',
+      'Entfernung von Teer, Baumharz oder Flugrost (nach Absprache, gegen Zuschlag)',
+      'Innenraumreinigung (im Komplettpaket enthalten)',
+    ],
+    requirements: [REQ_EXTERIOR, ...REQ_COMMON],
     priceNote: 'Bei starker Verschmutzung (z. B. Insekten, Teer, Baumharz) kann ein Zuschlag anfallen.',
     imageSrc: '/images/wash.jpg',
     prices: matrix([
@@ -161,6 +199,13 @@ export const DEFAULT_SERVICES: DefaultService[] = [
       'Abgestimmter Ablauf in einem Termin',
       'Preisvorteil gegenüber der Einzelbuchung',
     ],
+    excludes: [
+      'Tiefenreinigung der Polster und Entfernung von Tierhaaren (Zusatzleistungen)',
+      'Politur, Lackkorrektur, Versiegelung oder Keramikbeschichtung',
+      'Motorraum- und Unterbodenwäsche',
+      'Reparaturen an Lack, Leder oder Kunststoff',
+    ],
+    requirements: [REQ_EXTERIOR, ...REQ_COMMON],
     priceNote: 'Bei starker Verschmutzung oder Tierhaaren fallen Zusatzleistungen an.',
     featured: true,
     imageSrc: '/images/hero.jpg',
@@ -176,10 +221,12 @@ export const DEFAULT_SERVICES: DefaultService[] = [
   {
     id: 'zusatzleistungen',
     name: 'Nur Zusatzleistungen',
-    tagline: 'Gezielt das, was dein Fahrzeug gerade braucht.',
+    tagline: 'Gezielt das, was Ihr Fahrzeug gerade braucht.',
     description:
-      'Du brauchst kein komplettes Paket? Buche einzelne Zusatzleistungen wie Tierhaarentfernung oder intensive Polsterreinigung separat.',
+      'Sie benötigen kein komplettes Paket? Buchen Sie einzelne Zusatzleistungen wie Tierhaarentfernung oder intensive Polsterreinigung separat.',
     includes: ['Freie Auswahl einzelner Zusatzleistungen', 'Ideal als Ergänzung zwischen zwei Komplettreinigungen'],
+    excludes: ['Grundreinigung des Innenraums (in den Innenraum-Paketen enthalten)', 'Außenreinigung'],
+    requirements: [...REQ_COMMON],
     priceNote: 'Der Preis ergibt sich aus den gewählten Zusatzleistungen.',
     requiresAddon: true,
     prices: matrix([
@@ -222,7 +269,7 @@ export const DEFAULT_ADDONS: DefaultAddon[] = [
   {
     id: 'detailreinigung',
     name: 'Zusätzliche Detailreinigung',
-    description: '30 Minuten zusätzliche Detailarbeit für Bereiche deiner Wahl – nach Absprache vor Ort.',
+    description: '30 Minuten zusätzliche Detailarbeit für Bereiche Ihrer Wahl – nach Absprache vor Ort.',
     priceCents: 3500,
     minutes: 30,
     bookableAlone: true,
@@ -250,6 +297,29 @@ export const DEFAULT_PROMOTIONS: DefaultPromotion[] = [
     // tatsächlich verlangt wurde und die Preisgegenüberstellung rechtlich geprüft ist.
     showStrikethrough: false,
   },
+]
+
+/**
+ * Start-Gutscheine für Flyer und Dankeskarte (im Admin unter „Gutscheine“ änderbar oder abschaltbar).
+ *
+ * Kalkulation: 20 € ab 119 € zu zahlendem Auftragswert. Der Gutschein ist mit dem Einführungspreis
+ * kombinierbar; durch den Mindestwert beträgt der zusätzliche Nachlass höchstens 16,8 % (119 € → 99 €).
+ * Pakete unter 119 € (z. B. Innenraum Basic für Kleinwagen) sind nur zusammen mit Zusatzleistungen einlösbar.
+ */
+export interface DefaultCoupon {
+  code: string
+  label: string
+  amountCents: number
+  minOrderCents: number
+  /** Nur für die erste Buchung eines Kunden (E-Mail-Adresse bzw. Telefonnummer) */
+  firstBookingOnly: boolean
+  /** Je Kunde nur einmal einlösbar */
+  oncePerCustomer: boolean
+}
+
+export const DEFAULT_COUPONS: DefaultCoupon[] = [
+  { code: 'NEU20', label: 'Neukunden-Vorteil', amountCents: 2000, minOrderCents: 11900, firstBookingOnly: true, oncePerCustomer: true },
+  { code: 'DANKE20', label: 'Dankeschön-Vorteil', amountCents: 2000, minOrderCents: 11900, firstBookingOnly: false, oncePerCustomer: true },
 ]
 
 /** Demo-Inhalte der Galerie (deutlich als Demo gekennzeichnet; im Admin unter „Galerie“ ersetzbar). */
@@ -379,7 +449,7 @@ export interface BusinessInfo {
 }
 
 export const DEFAULT_BUSINESS: BusinessInfo = {
-  companyName: 'RM Mobile Autoaufbereitung',
+  companyName: 'RM Mobile Auto Aufbereitung',
   ownerName: '',
   legalForm: '',
   street: '',

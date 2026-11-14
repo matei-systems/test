@@ -1,4 +1,4 @@
-# RM Mobile Autoaufbereitung – Premium Fahrzeugpflege
+# RM Mobile Auto Aufbereitung – Premium Fahrzeugpflege
 
 Website mit Online-Buchungssystem und Admin-Bereich für einen mobilen Premium-Fahrzeugpflege-Service in Graz und Graz-Umgebung.
 
@@ -92,9 +92,9 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 2. *Project Settings → Database → Connection string → Transaction pooler* (Port 6543) kopieren und als `DATABASE_URL` setzen, ergänzt um `?sslmode=require&uselibpqcompat=true`.
 3. Fertig – Tabellen werden beim ersten Aufruf automatisch angelegt. Row Level Security wird auf allen Tabellen aktiviert, damit die öffentliche Supabase-API keinen Zugriff auf Buchungsdaten hat.
 
-Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für RM Mobile Autoaufbereitung; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
+Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für RM Mobile Auto Aufbereitung; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
 
-**Jede Anwendung braucht eine eigene Datenbank.** RM Mobile Autoaufbereitung migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
+**Jede Anwendung braucht eine eigene Datenbank.** RM Mobile Auto Aufbereitung migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
 
 Die Datenbank muss die Erweiterung `btree_gist` erlauben (für den Doppelbuchungsschutz je Team) – bei Neon, Supabase und normalem PostgreSQL ist das der Fall. Hochgeladene Bilder werden verkleinert als WebP in der Datenbank gespeichert; ein zusätzlicher Speicherdienst ist nicht nötig.
 

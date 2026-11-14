@@ -13,8 +13,8 @@ export default function SiteError({ error, reset }: { error: Error & { digest?: 
         <p className="eyebrow">Technischer Fehler</p>
         <h1 className="h2">Da ist etwas schiefgelaufen.</h1>
         <p className="lead">
-          Die Seite konnte gerade nicht geladen werden. Bitte versuche es in einem Moment erneut. Falls du eine Buchung abgeschickt hast und
-          keine Buchungsnummer erhalten hast, wurde sie nicht gespeichert.
+          Die Seite konnte gerade nicht geladen werden. Bitte versuchen Sie es in einem Moment erneut. Falls Sie eine Buchung abgeschickt und
+          keine Buchungsnummer erhalten haben, wurde sie nicht gespeichert.
         </p>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <button type="button" className="btn btn--primary" onClick={reset}>
