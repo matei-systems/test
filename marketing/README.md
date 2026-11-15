@@ -72,4 +72,4 @@ Beide Codes sind im Buchungssystem angelegt und im Admin-Bereich unter **Gutsche
 
 ## Canva
 
-Die Drucksachen sind zusätzlich als Seiten im Canva-Design „RM Mobile Auto Aufbereitung – Drucksachen“ abgelegt, sofern im Abschlussbericht nichts anderes steht. Maßgeblich für den Druck bleiben die Dateien in diesem Ordner.
+Die Drucksachen liegen derzeit nur als Dateien in diesem Ordner vor, nicht in Canva. Die SVG-Dateien lassen sich in Canva hochladen; maßgeblich für den Druck sind die PDFs.
