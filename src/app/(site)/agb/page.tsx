@@ -6,7 +6,7 @@ import { SITE } from '@/config/site'
 
 export const metadata: Metadata = {
   title: 'Allgemeine Geschäftsbedingungen (AGB)',
-  description: 'Allgemeine Geschäftsbedingungen für die mobile Fahrzeugpflege von RM Mobile Auto Aufbereitung.',
+  description: 'Allgemeine Geschäftsbedingungen für die mobile Fahrzeugpflege von RM6 Autoaufbereitung.',
   alternates: { canonical: '/agb' },
 }
 

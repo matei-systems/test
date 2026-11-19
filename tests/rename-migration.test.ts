@@ -1,6 +1,7 @@
 /**
- * Migration 003_umbenennung: ersetzt den alten Standard-Firmennamen (Startwert) durch den neuen Markennamen,
- * lässt aber im Admin-Bereich selbst gesetzte Namen unangetastet.
+ * Umbenennungs-Migrationen (003, 004, 005): ersetzen frühere Standard-Firmennamen (Startwerte) durch den jeweils
+ * neuen Markennamen, lassen aber im Admin-Bereich selbst gesetzte Namen unangetastet.
+ * Die alten Namen in diesem Test sind absichtlich enthalten – sie sind die Werte, die die Migrationen erkennen müssen.
  */
 import { describe, expect, it, vi } from 'vitest'
 import { PGlite } from '@electric-sql/pglite'
@@ -33,8 +34,26 @@ async function companyName(pg: PGlite): Promise<string | undefined> {
 
 describe('Migration 003_umbenennung', () => {
   it('Standardwerte tragen den aktuellen Firmennamen', () => {
-    expect(DEFAULT_BUSINESS.companyName).toBe('RM Mobile Auto Aufbereitung')
-    expect(SITE.name).toBe('RM Mobile Auto Aufbereitung')
+    expect(DEFAULT_BUSINESS.companyName).toBe('RM6 Autoaufbereitung')
+    expect(SITE.name).toBe('RM6 Autoaufbereitung')
+  })
+
+  it('Migration 005 stellt alle früheren Startwerte auf „RM6 Autoaufbereitung“ um, eigene Namen und übrige Felder bleiben', async () => {
+    const m004 = MIGRATIONS.find((m) => m.id === '004_gutscheine_leistungsumfang')!
+    const m005 = MIGRATIONS.find((m) => m.id === '005_marke_rm6')!
+    for (const [before, after] of [
+      ['RM Mobile Auto Aufbereitung', 'RM6 Autoaufbereitung'],
+      ['RM Mobile Autoaufbereitung', 'RM6 Autoaufbereitung'],
+      ['GLANZMOBIL', 'RM6 Autoaufbereitung'],
+      ['Mein eigener Firmenname e.U.', 'Mein eigener Firmenname e.U.'],
+    ]) {
+      const pg = await migratedUntilRename()
+      await pg.query(`INSERT INTO settings (key, value) VALUES ('business', $1::jsonb)`, [JSON.stringify({ ...DEFAULT_BUSINESS, companyName: before, phone: '+43 000' })])
+      for (const m of [rename, m004, m005, m005]) for (const statement of splitSql(m.sql)) await pg.exec(statement)
+      expect(await companyName(pg)).toBe(after)
+      const res = await pg.query<{ value: Record<string, string> }>(`SELECT value FROM settings WHERE key = 'business'`)
+      expect(res.rows[0].value.phone).toBe('+43 000')
+    }
   })
 
   it('Migration 004 stellt frühere Startwerte auf die Schreibweise „RM Mobile Auto Aufbereitung“ um, eigene Namen bleiben', async () => {

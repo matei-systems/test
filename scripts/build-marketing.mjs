@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 /**
  * Erzeugt alle Drucksachen aus marketing/config.json:
- *   Visitenkarte (2 Varianten), A6-Flyer, Dankeskarte, Heckscheiben-Aufkleber (2 Varianten × 2 Größen)
+ *   Visitenkarte (2 Varianten), A6-Flyer, Dankeskarte
+ * Die Heckscheiben-Werbung entsteht separat: npm run heckscheibe (Ordner RM6_HECKSCHEIBE_DRUCK).
+ *
+ * Logo: ausschließlich die vom Inhaber gelieferte Datei (brand/logo/RM6_Autoaufbereitung_Logo_transparent.png,
+ * = Original ohne transparente Ränder), als PNG mit mindestens 600 dpi im Endformat eingebettet.
  *
  *   node scripts/build-marketing.mjs        (bzw. npm run marketing)
  *
  * Je Motiv entstehen:
- *   *.svg  – Vektordatei im Endformat + 3 mm Beschnitt, Maße in mm. Karten/Flyer mit echtem Text (editierbar;
- *            Schriften Geist und Instrument Serif liegen unter brand/fonts bzw. src/app/fonts), Aufkleber als Pfade.
+ *   *.svg  – Vektordatei im Endformat + 3 mm Beschnitt, Maße in mm, mit echtem Text (editierbar;
+ *            Schriften Geist und Instrument Serif liegen unter brand/fonts bzw. src/app/fonts).
  *   *.pdf  – Vektor-PDF in derselben Größe; TrimBox/BleedBox sind gesetzt. Farbraum RGB (kein CMYK).
  *   previews/*.png – Vorschau (ca. 380 dpi)
  * Alle QR-Codes werden nach dem Rendern mit einem Decoder zurückgelesen und mit der Ziel-Adresse verglichen.
@@ -40,10 +44,17 @@ const SERIF = "'Instrument Serif', 'Times New Roman', serif"
 const BLEED = 3
 const MM = 96 / 25.4 // CSS-Pixel je Millimeter
 
-const logoSource = fs.readFileSync(path.join(root, 'src/components/site/Logo.tsx'), 'utf8')
-const grab = (name) => logoSource.match(new RegExp(`${name}\\s*=\\s*\\n?\\s*'([^']+)'`))[1]
-const RM_PATH = grab('RM_MONOGRAM_PATH')
-const GLINT_PATH = grab('GLINT_PATH')
+// ─── Logo (gelieferte Datei, Seitenverhältnis bleibt erhalten) ─────────────────────
+const LOGO_FILE = path.join(root, 'brand/logo/RM6_Autoaufbereitung_Logo_transparent.png')
+const LOGO_META = await sharp(LOGO_FILE).metadata()
+const LOGO_RATIO = LOGO_META.height / LOGO_META.width
+const LOGO_MIN_DPI = 600
+const logoCache = new Map()
+async function logo(x, y, widthMm) {
+  const px = Math.min(LOGO_META.width, Math.ceil((widthMm / 25.4) * LOGO_MIN_DPI))
+  if (!logoCache.has(px)) logoCache.set(px, (await sharp(LOGO_FILE).resize({ width: px }).png({ compressionLevel: 9 }).toBuffer()).toString('base64'))
+  return `<image x="${n(x)}" y="${n(y)}" width="${n(widthMm)}" height="${n(widthMm * LOGO_RATIO)}" href="data:image/png;base64,${logoCache.get(px)}"/>`
+}
 
 const loadFont = (f) => {
   const b = fs.readFileSync(path.join(root, 'brand/fonts', f))
@@ -79,14 +90,6 @@ function text(x, y, str, o = {}) {
 const field = (x, y, v, o = {}) => text(x, y, v.text, { ...o, todo: v.todo })
 const line = (x1, y1, x2, y2, stroke = ACCENT, w = 0.2, opacity = 1) =>
   `<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${stroke}" stroke-width="${n(w)}"${opacity < 1 ? ` stroke-opacity="${opacity}"` : ''}/>`
-const emblem = (x, y, size, ink = WARM, glint = ACCENT) =>
-  `<g transform="translate(${n(x)} ${n(y)}) scale(${n(size / 48)})"><path d="${RM_PATH}" fill="${ink}"/><path d="${GLINT_PATH}" fill="${glint}"/></g>`
-
-/** Logo-Lockup: Monogramm + „MOBILE / AUTO AUFBEREITUNG“ */
-function lockup(x, y, size, ink = WARM, accent = ACCENT) {
-  const tx = x + size * 1.22
-  return `${emblem(x, y, size, ink, accent)}${text(tx, y + size * 0.52, 'MOBILE', { size: size * 0.16, weight: 500, fill: accent, ls: 0.42 })}${text(tx, y + size * 0.83, 'AUTO AUFBEREITUNG', { size: size * 0.26, weight: 600, fill: ink, ls: 0.22 })}`
-}
 
 function textWidth(font, str, size, ls = 0) {
   const glyphs = font.stringToGlyphs(str)
@@ -99,29 +102,6 @@ function textWidth(font, str, size, ls = 0) {
 }
 /** Größte Schriftgröße, mit der der Text in maxWidth passt (höchstens maxSize) */
 const fitSize = (font, str, maxWidth, maxSize, ls = 0) => Math.min(maxSize, (maxWidth / textWidth(font, str, 100, ls)) * 100)
-
-/** Text als Pfad (für Folienplot – unabhängig von installierten Schriften) */
-function outline(font, str, size, ls, x, y, anchor = 'start') {
-  const total = textWidth(font, str, size, ls)
-  let cursor = anchor === 'middle' ? x - total / 2 : anchor === 'end' ? x - total : x
-  const parts = []
-  const glyphs = font.stringToGlyphs(str)
-  glyphs.forEach((g, i) => {
-    for (const c of g.getPath(cursor, y, size).commands) {
-      const v = (k) => {
-        if (!Number.isFinite(c[k])) throw new Error('Ungültiger Pfadwert')
-        return n(c[k])
-      }
-      if (c.type === 'M' || c.type === 'L') parts.push(`${c.type}${v('x')} ${v('y')}`)
-      else if (c.type === 'Q') parts.push(`Q${v('x1')} ${v('y1')} ${v('x')} ${v('y')}`)
-      else if (c.type === 'C') parts.push(`C${v('x1')} ${v('y1')} ${v('x2')} ${v('y2')} ${v('x')} ${v('y')}`)
-      else if (c.type === 'Z') parts.push('Z')
-    }
-    const kern = i < glyphs.length - 1 ? font.getKerningValue(g, glyphs[i + 1]) : 0
-    cursor += ((g.advanceWidth + kern) / font.unitsPerEm) * size + ls * size
-  })
-  return { d: parts.join(''), width: total }
-}
 
 // ─── QR-Codes ────────────────────────────────────────────────────────────────────
 const qrJobs = [] // { file, expected } – wird nach dem Rendern zurückgelesen
@@ -147,13 +127,6 @@ function qr(x, y, box, url, { light = WARM, dark = INK, radius = 1.1 } = {}) {
   const m = box / (size + 8)
   const d = rects.map(([c, r, w]) => `M${n(x + (c + 4) * m)} ${n(y + (r + 4) * m)}h${n(w * m)}v${n(m)}h${n(-w * m)}z`).join('')
   return `<rect x="${n(x)}" y="${n(y)}" width="${n(box)}" height="${n(box)}" rx="${radius}" fill="${light}"/><path d="${d}" fill="${dark}"/>`
-}
-/** Für Folie: eine einzige Fläche mit ausgesparten Modulen – auf dunklem Glas erscheinen die Module dunkel */
-function qrCutout(x, y, box, url, fill) {
-  const { size, rects } = qrModules(url)
-  const m = box / (size + 8)
-  const holes = rects.map(([c, r, w]) => `M${n(x + (c + 4) * m)} ${n(y + (r + 4) * m)}h${n(w * m)}v${n(m)}h${n(-w * m)}z`).join('')
-  return { svg: `<path fill-rule="evenodd" d="M${n(x)} ${n(y)}h${n(box)}v${n(box)}h${n(-box)}z${holes}" fill="${fill}"/>`, module: m, size }
 }
 
 // ─── Dokumentrahmen ──────────────────────────────────────────────────────────────
@@ -186,18 +159,17 @@ const add = (dir, name, label, spec) => outputs.push({ dir, name, label, bleed: 
       .join('') + text(x, y + 3 * gap, 'GEBIET', { size: 2.1, weight: 500, fill: ACCENT, ls: 0.2 }) + text(x + 15, y + 3 * gap, cfg.gebiet, { size: 3 })
   const qrUrl = BOOK_URL
 
-  // Variante A – „Monogramm“ (Empfehlung): zentriert, ruhig, maximale Wiedererkennung
+  // Variante A – „Logo zentriert“ (Empfehlung): ruhig, maximale Wiedererkennung
   add('visitenkarte', 'visitenkarte-a-vorderseite', 'Visitenkarte A · Vorderseite', {
     w, h,
     svg: doc({
       w, h, title: `${cfg.firma} – Visitenkarte Variante A, Vorderseite`,
       defs: glow('g', 70, -6, 60, 0.16),
       body: `<rect x="-3" y="-3" width="91" height="61" fill="url(#g)"/>
-${emblem(w / 2 - 10.5, 6.5, 21)}
-${text(w / 2, 33.6, 'MOBILE', { size: 2.2, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.42 })}
-${text(w / 2, 39.2, 'AUTO AUFBEREITUNG', { size: 3.6, weight: 600, anchor: 'middle', ls: 0.22 })}
-${line(w / 2 - 6, 43, w / 2 + 6, 43)}
-${text(w / 2, 48.6, cfg.slogan, { size: 3.3, family: SERIF, italic: true, fill: ACCENT, anchor: 'middle' })}`,
+${await logo(w / 2 - 31, 9.5, 62)}
+${line(w / 2 - 6, 35.5, w / 2 + 6, 35.5)}
+${text(w / 2, 42.4, cfg.slogan, { size: 3.3, family: SERIF, italic: true, fill: ACCENT, anchor: 'middle' })}
+${text(w / 2, 48.2, cfg.gebiet.toUpperCase(), { size: 2.1, weight: 500, fill: MUTED, anchor: 'middle', ls: 0.26 })}`,
     }),
   })
   add('visitenkarte', 'visitenkarte-a-rueckseite', 'Visitenkarte A · Rückseite', {
@@ -211,7 +183,7 @@ ${contactRows(7, 29.6, 5.6)}
 ${qr(55, 10, 23, qrUrl)}
 ${text(66.5, 37.4, 'TERMIN ONLINE', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.2 })}
 ${text(66.5, 40.8, 'BUCHEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.2 })}
-${emblem(71, 43.4, 7.5, DIM, ACCENT)}`,
+${await logo(57, 43.2, 19)}`,
     }),
   })
 
@@ -222,7 +194,7 @@ ${emblem(71, 43.4, 7.5, DIM, ACCENT)}`,
       w, h, title: `${cfg.firma} – Visitenkarte Variante B, Vorderseite`,
       defs: glow('g', 6, 60, 55, 0.14),
       body: `<rect x="-3" y="-3" width="91" height="61" fill="url(#g)"/>
-${emblem(7, 5.5, 12)}
+${await logo(7, 6.5, 34)}
 ${text(78, 12.6, cfg.gebiet.toUpperCase(), { size: 2.1, weight: 500, fill: ACCENT, anchor: 'end', ls: 0.2 })}
 ${text(7, 29, 'Premium Fahrzeugaufbereitung.', { size: 4.5, weight: 500 })}
 ${text(7, 37.6, 'Direkt bei Ihnen.', { size: 7.6, family: SERIF, italic: true, fill: ACCENT })}
@@ -265,7 +237,7 @@ ${text(38, 45, cfg.gebiet, { size: 2.6, fill: MUTED })}`,
       defs: `<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${INK}" stop-opacity="0.72"/><stop offset="0.22" stop-color="${INK}" stop-opacity="0"/><stop offset="0.6" stop-color="${INK}" stop-opacity="0.1"/><stop offset="1" stop-color="${INK}" stop-opacity="1"/></linearGradient>`,
       body: `${img}
 <rect x="-3" y="-3" width="111" height="${n(photoH + 0.5)}" fill="url(#fade)"/>
-${lockup(8, 8, 11)}
+${await logo(8, 8, 48)}
 ${text(8, 92.5, 'MOBIL IN ' + cfg.gebiet.toUpperCase(), { size: 2.4, weight: 500, fill: ACCENT, ls: 0.26 })}
 ${text(8, 103.5, 'Premium', { size: headSize, weight: 500, ls: -0.03 })}
 ${text(8, 103.5 + headSize * 1.04, 'Fahrzeugaufbereitung', { size: headSize, weight: 500, ls: -0.03 })}
@@ -326,7 +298,7 @@ ${text(8, 144.2, `${cfg.firma} · ${cfg.gebiet} · Medieninhaber: `, { size: 2.1
       w, h, title: `${cfg.firma} – Dankeskarte, Vorderseite`,
       defs: glow('g', 80, 0, 62, 0.16),
       body: `<rect x="-3" y="-3" width="91.6" height="60" fill="url(#g)"/>
-${emblem(7, 5.5, 10)}
+${await logo(7, 6, 30)}
 ${text(7, 26.6, 'Vielen Dank', { size: 7.4, weight: 500, ls: -0.03 })}
 ${text(7, 35.4, 'für Ihr Vertrauen!', { size: 8.4, family: SERIF, italic: true, fill: ACCENT })}
 ${text(7, 42.2, 'Wir hoffen, Sie sind mit dem Ergebnis zufrieden.', { size: 2.75, fill: MUTED })}
@@ -353,68 +325,6 @@ ${qr(58.6, 23.4, 20, url)}
 ${text(68.6, 46.4, 'ONLINE EINLÖSEN', { size: 2.1, weight: 500, fill: ACCENT, anchor: 'middle', ls: 0.14 })}`,
     }),
   })
-}
-
-// ═════════════════════════════════════════════════════════════════════════════════
-// HECKSCHEIBEN-AUFKLEBER (einfarbig, als Pfade – Vorschau weiß auf dunklem Glas)
-// ═════════════════════════════════════════════════════════════════════════════════
-function sticker({ w, h, premium, color }) {
-  const s = h / 70 // Maßstab relativ zur kompakten Größe
-  const qrBox = 58 * s
-  const pad = 2 * s
-  const textW = w - qrBox - pad * 2 - 8 * s
-  const x = pad
-  const parts = []
-  let y
-  if (premium) {
-    const mark = 17 * s
-    parts.push(`<g transform="translate(${n(x)} ${n(pad - 0.6 * s)}) scale(${n(mark / 48)})"><path d="${RM_PATH}"/><path d="${GLINT_PATH}"/></g>`)
-    const lx = x + mark * 1.3
-    parts.push(`<path d="${outline(F.medium, 'MOBILE', 3 * s, 0.42, lx, pad + 5.2 * s).d}"/>`)
-    const nameSize = fitSize(F.semi, 'AUTO AUFBEREITUNG', textW - mark * 1.3, 7.6 * s, 0.2)
-    parts.push(`<path d="${outline(F.semi, 'AUTO AUFBEREITUNG', nameSize, 0.2, lx, pad + 13.57 * s).d}"/>`)
-    y = pad + 20.5 * s
-    parts.push(`<rect x="${n(x)}" y="${n(y)}" width="${n(textW)}" height="${n(0.5 * s)}"/>`)
-    const l1 = fitSize(F.semi, 'MOBILE AUTOAUFBEREITUNG', textW, 12 * s, 0.05)
-    parts.push(`<path d="${outline(F.semi, 'MOBILE AUTOAUFBEREITUNG', l1, 0.05, x, y + 13.4 * s).d}"/>`)
-    const l2 = fitSize(F.medium, 'INNENRAUM • POLSTER • AUSSENPFLEGE', textW, 6 * s, 0.1)
-    parts.push(`<path d="${outline(F.medium, 'INNENRAUM • POLSTER • AUSSENPFLEGE', l2, 0.1, x, y + 22.6 * s).d}"/>`)
-    const l3 = fitSize(F.semi, 'GRAZ & UMGEBUNG  ·  JETZT TERMIN BUCHEN', textW, 6.4 * s, 0.1)
-    parts.push(`<path d="${outline(F.semi, 'GRAZ & UMGEBUNG  ·  JETZT TERMIN BUCHEN', l3, 0.1, x, y + 33 * s).d}"/>`)
-  } else {
-    const l1 = fitSize(F.semi, 'MOBILE AUTOAUFBEREITUNG', textW, 15 * s, 0.05)
-    parts.push(`<path d="${outline(F.semi, 'MOBILE AUTOAUFBEREITUNG', l1, 0.05, x, pad + 13.5 * s).d}"/>`)
-    const l2 = fitSize(F.medium, 'INNENRAUM • POLSTER • AUSSENPFLEGE', textW, 8 * s, 0.1)
-    parts.push(`<path d="${outline(F.medium, 'INNENRAUM • POLSTER • AUSSENPFLEGE', l2, 0.1, x, pad + 25.5 * s).d}"/>`)
-    parts.push(`<rect x="${n(x)}" y="${n(pad + 31 * s)}" width="${n(textW)}" height="${n(0.5 * s)}"/>`)
-    const l3 = fitSize(F.medium, 'GRAZ & UMGEBUNG', textW, 8.4 * s, 0.16)
-    parts.push(`<path d="${outline(F.medium, 'GRAZ & UMGEBUNG', l3, 0.16, x, pad + 42.5 * s).d}"/>`)
-    const l4 = fitSize(F.semi, 'JETZT TERMIN BUCHEN', textW, 11.4 * s, 0.08)
-    parts.push(`<path d="${outline(F.semi, 'JETZT TERMIN BUCHEN', l4, 0.08, x, pad + 57 * s).d}"/>`)
-  }
-  const q = qrCutout(w - pad - qrBox, (h - qrBox) / 2 - 2.6 * s, qrBox, BOOK_URL, color)
-  const cap = outline(F.medium, 'QR-CODE SCANNEN', 3.3 * s, 0.14, w - pad - qrBox / 2, (h - qrBox) / 2 - 2.6 * s + qrBox + 5.2 * s, 'middle')
-  return { art: `<g fill="${color}">${parts.join('')}<path d="${cap.d}"/></g>${q.svg}`, module: q.module, modules: q.size }
-}
-const stickerInfo = []
-for (const [key, premium] of [['minimal', false], ['premium', true]]) {
-  for (const [sizeKey, w, h] of [['kompakt', 250, 70], ['gross', 400, 112]]) {
-    const name = `aufkleber-${key}-${sizeKey}-${w}x${h}mm`
-    const plot = sticker({ w, h, premium, color: '#000000' })
-    const preview = sticker({ w, h, premium, color: '#ffffff' })
-    stickerInfo.push({ name, w, h, module: plot.module, modules: plot.modules })
-    add('heckscheiben-aufkleber', name, `Aufkleber ${premium ? 'Premium' : 'Minimal'} · ${w} × ${h} mm`, {
-      w, h, bleed: 0, qr: BOOK_URL,
-      // Produktionsdatei: Konturen in Schwarz, ohne Hintergrund (die Folienfarbe Weiß wählt die Werkstatt)
-      svg: doc({ w, h, bleed: 0, bg: null, title: `${cfg.firma} – Heckscheiben-Aufkleber ${premium ? 'Premium' : 'Minimal'} ${w} × ${h} mm (Konturen)`, body: plot.art }),
-      // Vorschau: weiße Folie auf dunkler Scheibe
-      previewSvg: doc({
-        w: w + 30, h: h + 30, bleed: 0, bg: '#0d0e10', title: 'Vorschau',
-        defs: `<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c1f24"/><stop offset="1" stop-color="#090a0b"/></linearGradient>`,
-        body: `<rect width="${w + 30}" height="${h + 30}" fill="url(#glass)"/><g transform="translate(15 15)">${preview.art}</g>`,
-      }),
-    })
-  }
 }
 
 // ═════════════════════════════════════════════════════════════════════════════════
@@ -490,7 +400,7 @@ await browser.close()
 // Brand-Assets für Druckereien und Grafiker bündeln
 fs.mkdirSync(M('brand-assets'), { recursive: true })
 for (const f of fs.readdirSync(path.join(root, 'brand/logo'))) {
-  if (/^rm-.*\.(svg|png)$/.test(f)) fs.copyFileSync(path.join(root, 'brand/logo', f), M('brand-assets', f))
+  if (/^RM6_.*\.png$/.test(f)) fs.copyFileSync(path.join(root, 'brand/logo', f), M('brand-assets', f))
 }
 fs.copyFileSync(path.join(root, 'brand/designsystem.png'), M('brand-assets', 'designsystem.png'))
 fs.writeFileSync(
@@ -499,7 +409,7 @@ fs.writeFileSync(
     {
       farben: { Tiefschwarz: '#09090A', Druckschwarz: INK, Anthrazit: '#141417', Warmweiss: WARM, Champagner: ACCENT, 'Champagner dunkel': '#9A8256', Steingrau: DIM, Signalrot: '#C8372D' },
       schriften: { Text: 'Geist (SIL OFL) – 400, 500, 600', Akzent: 'Instrument Serif Italic (SIL OFL)', Dateien: ['brand/fonts/*.ttf', 'src/app/fonts/*.woff2'] },
-      regeln: { Rundungen: 'Buttons als Pille, Karten 16–24 px', Akzent: 'Champagner sparsam; Rot nur im Rabatt-Kennzeichen', Logo: 'Schutzzone = Höhe des Zeichens, nicht verzerren oder einfärben' },
+      regeln: { Rundungen: 'Buttons als Pille, Karten 16–24 px', Akzent: 'Champagner sparsam; Rot nur im Rabatt-Kennzeichen', Logo: 'Nur die Originaldatei brand/logo/RM6_Autoaufbereitung_Logo_Original.png verwenden; bevorzugt auf dunklem Grund; nicht verzerren, umfärben oder nachbauen' },
     },
     null,
     2,
@@ -523,6 +433,6 @@ fs.writeFileSync(
     .toFile(M('previews', 'uebersicht.jpg'))
 }
 
-fs.writeFileSync(M('previews', 'build.json'), JSON.stringify({ erzeugt: new Date().toISOString().slice(0, 10), fehlend: [...missing], aufkleber: stickerInfo.map((s) => ({ ...s, module: Number(s.module.toFixed(2)) })), dateien: results.map((r) => ({ ordner: r.dir, name: r.name, bezeichnung: r.label, endformat: `${r.w} × ${r.h} mm`, beschnitt: `${r.bleed} mm`, pdf: r.pdfSize, qr: r.qrState })) }, null, 2) + '\n')
+fs.writeFileSync(M('previews', 'build.json'), JSON.stringify({ erzeugt: new Date().toISOString().slice(0, 10), fehlend: [...missing], dateien: results.map((r) => ({ ordner: r.dir, name: r.name, bezeichnung: r.label, endformat: `${r.w} × ${r.h} mm`, beschnitt: `${r.bleed} mm`, pdf: r.pdfSize, qr: r.qrState })) }, null, 2) + '\n')
 if (missing.size) console.log(`\n⚠ Platzhalter (in marketing/config.json ergänzen):\n  - ${[...missing].join('\n  - ')}`)
 console.log('✔ Drucksachen erzeugt.')

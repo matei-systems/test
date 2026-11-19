@@ -5,14 +5,14 @@
  */
 
 export const SITE = {
-  name: 'RM Mobile Auto Aufbereitung',
+  name: 'RM6 Autoaufbereitung',
   /** Kurzform für enge Stellen (App-Icon-Beschriftung, Admin-Kopf) */
-  shortName: 'RM',
+  shortName: 'RM6',
   claim: 'Premium Fahrzeugpflege',
   headline: 'Premium Fahrzeugaufbereitung. Direkt bei Ihnen.',
   subline: 'Professionelle mobile Fahrzeugpflege in Graz und Umgebung – bequem bei Ihnen vor Ort.',
   description:
-    'RM Mobile Auto Aufbereitung ist Ihre mobile Autoaufbereitung in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei Ihnen zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
+    'RM6 Autoaufbereitung – Ihre mobile Fahrzeugaufbereitung in Graz und Graz-Umgebung: Innenraumreinigung, Außenpflege und Komplettpaket direkt bei Ihnen zu Hause oder am Arbeitsplatz. Transparente Preise, Termin online buchen.',
   locale: 'de_AT',
   language: 'de-AT',
   timezone: 'Europe/Vienna',

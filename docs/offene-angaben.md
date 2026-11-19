@@ -58,7 +58,7 @@ Nichts auf der Website wurde anwaltlich geprüft. Empfohlene Stellen: Rechtsanwa
 4. **Gutscheine NEU20 und DANKE20** (20 € ab 119 € Auftragswert): Bedingungen stehen in AGB Punkt 6, auf Flyer und Dankeskarte.
 5. **Versicherung.** Die Website macht keine Aussage zu einer Betriebshaftpflicht. Falls vorhanden, kann das ergänzt werden – erst nach Vorlage der Polizze.
 6. **Flyer:** Impressumszeile („Medieninhaber: Name, Ort“) ist als Platzhalter vorgesehen. Bitte prüfen, ob und in welcher Form sie für Ihre Werbemittel nötig ist; unadressierte Verteilung nur dort, wo keine „Bitte keine Werbung“-Hinweise angebracht sind.
-7. **Heckscheiben-Aufkleber:** Sichtfeld des Lenkers und Vorschriften zur Fahrzeugverglasung (KFG/KDV) – siehe `marketing/README.md`.
+7. **Heckscheiben-Werbung:** Sichtfeld des Lenkers und Vorschriften zur Fahrzeugverglasung (KFG/KDV) – siehe `RM6_HECKSCHEIBE_DRUCK/DRUCKANLEITUNG.md`.
 8. **Datenschutz:** Auftragsverarbeitungsverträge mit Hosting-, Datenbank- und E-Mail-Anbieter abschließen.
 
 ## 4. Externe Einrichtung (technisch vorbereitet, noch nicht aktiv)
@@ -68,7 +68,7 @@ Nichts auf der Website wurde anwaltlich geprüft. Empfohlene Stellen: Rechtsanwa
 | E-Mails an Kunden (Eingang, Bestätigung, Storno, Erinnerung) | Zugangsdaten eines E-Mail-Postfachs: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | Vercel → Projekt → Environment Variables |
 | Benachrichtigung an den Betreiber bei neuer Buchung | `ADMIN_NOTIFICATION_EMAIL` | Vercel |
 | Automatische Terminerinnerung am Vortag | `CRON_SECRET` (selbst erzeugtes Geheimnis) | Vercel |
-| Eigene Domain | Domain kaufen und verbinden; danach `NEXT_PUBLIC_SITE_URL` setzen und `buchungsUrl` in `marketing/config.json` anpassen | Registrar, Vercel |
+| Eigene Domain **rm6.at** | Domain (falls noch nicht geschehen) registrieren und im Vercel-Projekt verbinden; danach `NEXT_PUBLIC_SITE_URL=https://rm6.at` setzen und `buchungsUrl` in `marketing/config.json` auf `https://rm6.at/buchen` ändern | Registrar, Vercel |
 | Google-Unternehmensprofil | Profil anlegen – Anleitung in `docs/google-unternehmensprofil.md` | Google |
 
 Ohne SMTP-Zugang speichert das System Buchungen vollständig und zeigt sie im Admin-Bereich; Kunden sehen ihre Buchung auf der

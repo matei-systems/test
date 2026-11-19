@@ -46,7 +46,7 @@ export default async function PricesPage() {
         }
         lead={
           best
-            ? `Zum Start von RM Mobile Auto Aufbereitung gilt unser ${best.promotion.name}: ${best.percent} % Preisvorteil auf unsere Pakete${end ? ` – gültig bis ${end}` : ''}. Der reguläre Preis steht immer daneben.`
+            ? `Zum Start von RM6 Autoaufbereitung gilt unser ${best.promotion.name}: ${best.percent} % Preisvorteil auf unsere Pakete${end ? ` – gültig bis ${end}` : ''}. Der reguläre Preis steht immer daneben.`
             : 'Endpreise je Fahrzeugkategorie – inklusive Anfahrt im Einsatzgebiet. Sie sehen vor der Buchung genau, was Sie bezahlen.'
         }
       />

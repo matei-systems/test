@@ -1,4 +1,4 @@
-# RM Mobile Auto Aufbereitung – Drucksachen
+# RM6 Autoaufbereitung – Drucksachen
 
 Alle Motive entstehen aus **einer Quelle**: `marketing/config.json` (Kontaktdaten, Domain, Gutscheine) und `scripts/build-marketing.mjs` (Gestaltung).
 Nach jeder Änderung neu erzeugen:
@@ -18,32 +18,32 @@ Die Dateien sind technisch geprüft (siehe unten), enthalten aber noch **rot mar
 | `inhaber` | Visitenkarte | `[Vor- und Nachname]` |
 | `telefon` | Visitenkarte, Flyer | `[Telefonnummer]` |
 | `email` | Visitenkarte, Flyer | `[E-Mail-Adresse]` |
-| `website` | Visitenkarte, Flyer | `[www.ihre-domain.at]` |
+| `website` | Visitenkarte, Flyer | eingetragen: `rm6.at` |
 | `medieninhaber` | Flyer (Impressumszeile) | `[Name, Ort]` |
-| `buchungsUrl` | alle QR-Codes | zeigt derzeit auf `https://glanzmobil.vercel.app/buchen` |
+| `buchungsUrl` | alle QR-Codes | zeigt derzeit auf `https://glanzmobil.vercel.app/buchen` (technische Vercel-Adresse, bis rm6.at verbunden ist) |
 
-**Wichtig zu den QR-Codes:** Sie führen auf die aktuelle Live-Adresse. Sobald eine eigene Domain verbunden ist, `buchungsUrl` anpassen und neu erzeugen – ein gedruckter QR-Code lässt sich nachträglich nicht mehr ändern.
+**Wichtig zu den QR-Codes:** Sie führen auf die aktuelle Live-Adresse. rm6.at ist noch nicht mit dem Hosting verbunden; sobald die Domain funktioniert, `buchungsUrl` auf `https://rm6.at/buchen` ändern und neu erzeugen – ein gedruckter QR-Code lässt sich nachträglich nicht mehr ändern. Bis dahin nicht drucken, wenn die Karten lange im Umlauf bleiben sollen.
 
 ## Dateien
 
 | Motiv | Endformat | Dateien (jeweils `.svg` + `.pdf`, Vorschau in `previews/`) |
 | --- | --- | --- |
-| Visitenkarte **A „Monogramm“** (Empfehlung) | 85 × 55 mm | `visitenkarte/visitenkarte-a-vorderseite`, `…-a-rueckseite` |
+| Visitenkarte **A „Logo zentriert“** (Empfehlung) | 85 × 55 mm | `visitenkarte/visitenkarte-a-vorderseite`, `…-a-rueckseite` |
 | Visitenkarte B „Zeile“ | 85 × 55 mm | `visitenkarte/visitenkarte-b-vorderseite`, `…-b-rueckseite` |
 | Flyer | DIN A6, 105 × 148 mm | `flyer-a6/flyer-a6-vorderseite`, `…-rueckseite` |
 | Dankeskarte | 85,6 × 54 mm (Bankkarte) | `dankeskarte/dankeskarte-vorderseite`, `…-rueckseite` |
-| Aufkleber **Minimal** (ohne Logo) | 250 × 70 mm und 400 × 112 mm | `heckscheiben-aufkleber/aufkleber-minimal-kompakt-250x70mm`, `…-gross-400x112mm` |
-| Aufkleber **Premium** (mit RM-Zeichen und Name) | 250 × 70 mm und 400 × 112 mm | `heckscheiben-aufkleber/aufkleber-premium-kompakt-250x70mm`, `…-gross-400x112mm` |
-| Logos, Farben, Schriften | – | `brand-assets/` |
+| Heckscheiben-Werbung (weiß auf transparent) | 70 × 22,7 cm, anpassbar | eigener Ordner `RM6_HECKSCHEIBE_DRUCK/` (`npm run heckscheibe`) |
+| Logo, Farben, Schriften | – | `brand-assets/` |
 
-**Warum Visitenkarte A?** Das zentrierte RM-Zeichen mit Glanzpunkt ist das stärkste Wiedererkennungsmerkmal der Marke und wirkt auf der kleinen Fläche am ruhigsten. Variante B stellt den Slogan in den Mittelpunkt und eignet sich, wenn die Karte vor allem die Leistung erklären soll.
+**Warum Visitenkarte A?** Das große, zentrierte RM6-Logo ist das stärkste Wiedererkennungsmerkmal der Marke und wirkt auf der kleinen Fläche am ruhigsten. Variante B stellt den Slogan in den Mittelpunkt und eignet sich, wenn die Karte vor allem die Leistung erklären soll.
 
 ## Technische Prüfung (bei jedem Erzeugen automatisch)
 
-- **Format und Beschnitt:** Karten und Flyer haben 3 mm Beschnitt umlaufend; die PDF-Seiten entsprechen Endformat + Beschnitt, `TrimBox` und `BleedBox` sind gesetzt. Texte halten mindestens 3,5 mm Abstand zum Endformat. Aufkleber sind Konturdateien ohne Beschnitt.
+- **Format und Beschnitt:** Karten und Flyer haben 3 mm Beschnitt umlaufend; die PDF-Seiten entsprechen Endformat + Beschnitt, `TrimBox` und `BleedBox` sind gesetzt. Texte halten mindestens 3,5 mm Abstand zum Endformat.
 - **Schrift:** kleinste Schriftgröße auf Karten und Flyer 2,1 mm (≈ 6 pt).
 - **QR-Codes:** werden nach dem Rendern aus der PNG-Vorschau zurückgelesen und mit der Zieladresse verglichen – stimmt etwas nicht, bricht das Skript ab. Standard-Polarität (dunkle Module auf heller Fläche), Fehlerkorrektur M, Ruhezone 4 Module.
-- **Vektor:** alle PDFs sind Vektordateien mit eingebetteten Schriften; einzige Pixelgrafik ist das Foto auf der Flyer-Vorderseite.
+- **Logo:** ausschließlich die gelieferte Logo-Datei (`brand/logo/RM6_Autoaufbereitung_Logo_transparent.png`), eingebettet mit mindestens 600 dpi im Endformat, Seitenverhältnis unverändert.
+- **Vektor:** Texte, Linien und QR-Codes sind Vektor mit eingebetteten Schriften; Pixelgrafiken sind nur das Logo (es liegt nur als PNG vor) und das Foto auf der Flyer-Vorderseite.
 
 ## Was die Druckerei wissen muss – und was noch zu prüfen ist
 
@@ -52,12 +52,9 @@ Die Dateien sind technisch geprüft (siehe unten), enthalten aber noch **rot mar
 - **Dunkle Vollflächen:** Empfehlung Bilderdruck matt mit Soft-Touch- oder Mattfolie – verhindert Fingerabdrücke und Kantenabrieb auf Schwarz.
 - **Editieren:** Karten und Flyer enthalten echten Text. Zum Bearbeiten der SVG die Schriften *Geist* (`brand/fonts/`) und *Instrument Serif* (`src/app/fonts/`, beide SIL Open Font License) installieren – sonst zeigt das Grafikprogramm eine Ersatzschrift. Die PDFs sind davon unabhängig.
 
-## Heckscheiben-Aufkleber
+## Heckscheiben-Werbung
 
-- Die Produktionsdateien enthalten **schwarze Konturen ohne Hintergrund** (alle Texte als Pfade). Die Folienfarbe **Weiß** wird bei der Bestellung gewählt; die Vorschauen zeigen Weiß auf dunklem Glas.
-- **Empfohlene Herstellung:** Digitaldruck bzw. Plot auf weißer Folie, außen auf die Scheibe geklebt. Für einen reinen **Folienplot** ist der QR-Code die Grenze: Er ist als weiße Fläche mit ausgesparten Modulen angelegt (Modulgröße 1,6 mm kompakt / 2,5 mm groß). Das lässt sich plotten und entgittern, ist aber aufwendig – im Zweifel die Werkstatt fragen oder den QR-Teil als gedruckten Aufkleber fertigen lassen.
-- **Lesbarkeit:** Die Hauptzeile ist in der kompakten Größe rund 9 mm hoch (gut lesbar bis etwa 3–4 m), in der großen rund 15 mm (etwa 6 m). Der QR-Code ist für das Scannen am geparkten Fahrzeug gedacht, nicht für den fließenden Verkehr.
-- **Zulässigkeit:** Der Aufkleber darf die Sicht des Lenkers nicht beeinträchtigen. Bitte so anbringen, dass das Sichtfeld nach hinten frei bleibt (unterer Scheibenrand, außerhalb des Wischerfelds), und die österreichischen kraftfahrrechtlichen Vorschriften zur Verglasung (KFG/KDV) vorab prüfen – z. B. bei ÖAMTC, ARBÖ oder der Werkstatt. Das ist hier **nicht** rechtlich geprüft.
+Die frühere Aufkleber-Serie mit altem Logo wurde entfernt. Die aktuelle Heckscheiben-Werbung für RM6 Autoaufbereitung liegt in `RM6_HECKSCHEIBE_DRUCK/` (Vektor, weiß auf transparent, mit Druckanleitung). Sie enthält den Schriftzug als Pfade, nicht das farbige Logo: Chrom- und Goldverläufe lassen sich nicht als einfarbige Folie plotten.
 
 ## Gutscheine auf den Drucksachen
 
@@ -72,4 +69,4 @@ Beide Codes sind im Buchungssystem angelegt und im Admin-Bereich unter **Gutsche
 
 ## Canva
 
-Die Drucksachen liegen derzeit nur als Dateien in diesem Ordner vor, nicht in Canva. Die SVG-Dateien lassen sich in Canva hochladen; maßgeblich für den Druck sind die PDFs.
+Die Drucksachen liegen derzeit nur als Dateien in diesem Ordner vor, nicht in Canva (die älteren Canva-Designs zeigen noch das frühere Logo). Die SVG-Dateien lassen sich in Canva hochladen; maßgeblich für den Druck sind die PDFs.

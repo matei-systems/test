@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Logo } from '@/components/site/Logo'
+import { SITE } from '@/config/site'
 
 export const metadata = { title: 'Seite nicht gefunden', robots: { index: false } }
 
@@ -15,8 +16,8 @@ export default function NotFound() {
       }}
     >
       <div style={{ display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', maxWidth: 520 }}>
-        <Link href="/">
-          <Logo />
+        <Link href="/" aria-label={`${SITE.name} – zur Startseite`} style={{ display: 'inline-flex', borderRadius: 8 }}>
+          <Logo variant="page" eager />
         </Link>
         <p className="eyebrow">Fehler 404</p>
         <h1 className="h2">

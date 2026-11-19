@@ -1,4 +1,4 @@
-# RM Mobile Auto Aufbereitung – Premium Fahrzeugpflege
+# RM6 Autoaufbereitung – Premium Fahrzeugpflege
 
 Website mit Online-Buchungssystem und Admin-Bereich für einen mobilen Premium-Fahrzeugpflege-Service in Graz und Graz-Umgebung.
 
@@ -61,9 +61,9 @@ src/
   lib/media.ts         Bild-Upload: verkleinern, WebP, Speicherung in der Datenbank
   lib/notify.ts        Optionaler Webhook (SMS/WhatsApp-Automationen)
   lib/db/              Datenbankverbindung, Migrationen, Startwerte
-brand/                 Logo-Varianten, Designsystem, Social-Media-Vorlagen, Canva-Exporte, Schriften
+brand/                 Logo (Originaldatei + Ableitungen), Designsystem, Social-Media-Vorlagen, Fotoquellen, Schriften
 docs/                  Google-Unternehmensprofil vorbereiten
-scripts/               admin:hash, build-brand-assets (Logos/Bilder), build-social-assets (Vorlagen/Designsystem)
+scripts/               admin:hash, build-brand-assets (Logo-Ableitungen, Icons, Bilder), build-social-assets (Vorlagen/Designsystem)
 tests/                 Vitest-Tests
 ```
 
@@ -75,7 +75,7 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 
 | Variable | Pflicht | Zweck |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, z. B. `https://www.ihre-domain.at` (Sitemap, Open Graph, Links in E-Mails) |
+| `NEXT_PUBLIC_SITE_URL` | ja (Produktion) | Öffentliche URL, künftig `https://rm6.at` (Sitemap, Open Graph, Links in E-Mails) – erst setzen, wenn die Domain verbunden ist |
 | `DATABASE_URL` (oder `POSTGRES_URL`) | ja (Produktion) | PostgreSQL-Verbindung. Die Vercel-Neon-Integration setzt beide automatisch. **Ohne sie nimmt die Produktion keine Buchungen an** (Fehlermeldung statt Schein-Buchung) |
 | `GLANZMOBIL_DB` | nein | Notschalter (der Variablenname stammt aus der Zeit vor der Umbenennung und bleibt aus Kompatibilität bestehen): `off` ignoriert die Datenbank-Variablen – die Website bleibt im Übergangsmodus erreichbar (Online-Buchung deaktiviert), die Datenbank wird nicht angefasst. Im Normalbetrieb leer lassen |
 | `ADMIN_USERNAME` | nein | Standard `admin` |
@@ -92,9 +92,9 @@ Alle Geheimnisse ausschließlich als Umgebungsvariablen – niemals im Code oder
 2. *Project Settings → Database → Connection string → Transaction pooler* (Port 6543) kopieren und als `DATABASE_URL` setzen, ergänzt um `?sslmode=require&uselibpqcompat=true`.
 3. Fertig – Tabellen werden beim ersten Aufruf automatisch angelegt. Row Level Security wird auf allen Tabellen aktiviert, damit die öffentliche Supabase-API keinen Zugriff auf Buchungsdaten hat.
 
-Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für RM Mobile Auto Aufbereitung; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
+Hinweis: Im verbundenen Supabase-Konto existiert noch kein Projekt für RM6 Autoaufbereitung; bestehende Projekte anderer Anwendungen wurden bewusst nicht verwendet.
 
-**Jede Anwendung braucht eine eigene Datenbank.** RM Mobile Auto Aufbereitung migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
+**Jede Anwendung braucht eine eigene Datenbank.** RM6 Autoaufbereitung migriert nur in eine leere (oder bereits eigene) Datenbank. Enthält sie Tabellen einer anderen Anwendung, bricht die Migration ab, bevor irgendetwas angelegt oder geändert wird (Fehler „Die verbundene Datenbank enthält bereits Tabellen einer anderen Anwendung“). Bei Vercel/Neon deshalb unter *Storage* eine **neue** Datenbank anlegen und nicht eine bestehende mit dem Projekt verbinden.
 
 Die Datenbank muss die Erweiterung `btree_gist` erlauben (für den Doppelbuchungsschutz je Team) – bei Neon, Supabase und normalem PostgreSQL ist das der Fall. Hochgeladene Bilder werden verkleinert als WebP in der Datenbank gespeichert; ein zusätzlicher Speicherdienst ist nicht nötig.
 
@@ -123,7 +123,7 @@ Allgemein (neues Projekt):
 1. Repository in Vercel importieren (Framework: Next.js, keine weiteren Build-Einstellungen nötig).
 2. Umgebungsvariablen aus der Tabelle oben eintragen.
 3. Deployen, dann `/admin` aufrufen und unter **Einstellungen** die Unternehmensdaten eintragen.
-4. Eigene Domain verbinden und `NEXT_PUBLIC_SITE_URL` darauf setzen.
+4. Eigene Domain **rm6.at** verbinden und `NEXT_PUBLIC_SITE_URL` darauf setzen.
 
 Das Rate-Limiting nutzt die vom Hosting gesetzte `x-forwarded-for`-IP (Vercel setzt sie zuverlässig). Bei eigenem Server einen Reverse-Proxy verwenden, der diesen Header überschreibt.
 
@@ -168,8 +168,9 @@ Startwerte: `NEU20` (Flyer) und `DANKE20` (Dankeskarte), je 20 € ab 119 € �
 
 ## Drucksachen
 
-Visitenkarte, A6-Flyer, Dankeskarte und Heckscheiben-Aufkleber liegen unter `marketing/` (SVG, PDF mit Beschnitt, PNG-Vorschau) und
+Visitenkarte, A6-Flyer und Dankeskarte liegen unter `marketing/` (SVG, PDF mit Beschnitt, PNG-Vorschau) und
 werden mit `npm run marketing` aus `marketing/config.json` erzeugt. Details und Druckhinweise: `marketing/README.md`.
+Die Heckscheiben-Werbung (weiß auf transparent) liegt in `RM6_HECKSCHEIBE_DRUCK/` und entsteht mit `npm run heckscheibe`.
 
 **Offene Angaben und Prüfpunkte** (Unternehmensdaten, Rechtstexte, externe Einrichtung): `docs/offene-angaben.md`.
 
@@ -234,4 +235,4 @@ Durchgeführte Prüfungen (Produktions-Build gegen lokales PostgreSQL – keine 
 
 ## Marke & Canva
 
-Siehe [`brand/README.md`](brand/README.md) – Logo-Dateien, Farben, Schriften sowie die in Canva erstellten Designs.
+Siehe [`brand/README.md`](brand/README.md) – Logo-Dateien, Farben, Schriften und Hinweise zu den älteren Canva-Designs.

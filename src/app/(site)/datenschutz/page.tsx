@@ -4,7 +4,7 @@ import { getSettings } from '@/lib/catalog'
 
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung',
-  description: 'Informationen zur Verarbeitung personenbezogener Daten bei RM Mobile Auto Aufbereitung gemäß DSGVO.',
+  description: 'Informationen zur Verarbeitung personenbezogener Daten bei RM6 Autoaufbereitung gemäß DSGVO.',
   alternates: { canonical: '/datenschutz' },
 }
 
@@ -74,7 +74,7 @@ export default async function PrivacyPage() {
       <h2>5. Angebote und Neuigkeiten per E-Mail (optional)</h2>
       <p>
         Nur wenn Sie bei der Buchung ausdrücklich einwilligen, verwenden wir Ihre E-Mail-Adresse, um Ihnen gelegentlich Angebote und
-        Neuigkeiten von RM Mobile Auto Aufbereitung zu senden (Art. 6 Abs. 1 lit. a DSGVO, § 174 TKG 2021). Die Einwilligung ist freiwillig, für die Buchung
+        Neuigkeiten von RM6 Autoaufbereitung zu senden (Art. 6 Abs. 1 lit. a DSGVO, § 174 TKG 2021). Die Einwilligung ist freiwillig, für die Buchung
         nicht erforderlich und kann jederzeit mit Wirkung für die Zukunft widerrufen werden – formlos per E-Mail an{' '}
         <Val value={b.email} label="E-Mail-Adresse" />. Wir speichern den Zeitpunkt Ihrer Einwilligung als Nachweis.
       </p>

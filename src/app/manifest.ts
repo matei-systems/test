@@ -4,7 +4,7 @@ import { SITE } from '@/config/site'
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${SITE.name} – ${SITE.claim}`,
-    short_name: 'RM Mobile',
+    short_name: SITE.shortName,
     description: SITE.description,
     start_url: '/',
     display: 'standalone',

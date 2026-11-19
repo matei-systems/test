@@ -41,8 +41,8 @@ export function Header({ phone, whatsapp }: { phone?: string; whatsapp?: string 
   return (
     <header className={`${styles.header} ${scrolled || open ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.brand}>
-          <Logo />
+        <Link href="/" className={styles.brand} aria-label={`${SITE.name} – zur Startseite`}>
+          <Logo variant="header" eager />
         </Link>
 
         <nav className={styles.nav} aria-label="Hauptnavigation">

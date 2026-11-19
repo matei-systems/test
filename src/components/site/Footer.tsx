@@ -14,7 +14,9 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
       <div className="container">
         <div className={styles.top}>
           <div className={styles.brandCol}>
-            <Logo />
+            <Link href="/" aria-label={`${SITE.name} – zur Startseite`} style={{ display: 'inline-flex', borderRadius: 8 }}>
+              <Logo variant="footer" />
+            </Link>
             <p className={styles.claim}>
               Mobile Premium-Fahrzeugpflege in {area.regions.join(' & ')}. Wir kommen zu Ihnen – nach Hause, an den Arbeitsplatz oder an
               einen vereinbarten Standort.

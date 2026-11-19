@@ -1,7 +1,7 @@
 import { requireAdmin } from '@/lib/auth'
 import { getDb, isDatabaseConfigured } from '@/lib/db'
 import { AdminNav } from '@/components/admin/AdminNav'
-import { LogoMark } from '@/components/site/Logo'
+import { Logo } from '@/components/site/Logo'
 import { Icon } from '@/components/icons'
 import { logoutAction } from '../actions'
 import Link from 'next/link'
@@ -22,12 +22,9 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     <div className="adm">
       <aside className="adm-side">
         <div className="adm-brand">
-          <Link href="/admin" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <LogoMark size={30} />
-            <span>
-              <span style={{ fontWeight: 600, letterSpacing: '0.24em', fontSize: '0.86rem' }}>RM</span>
-              <small>Mobile Autoaufbereitung · Admin</small>
-            </span>
+          <Link href="/admin" aria-label="RM6 Autoaufbereitung – Admin-Übersicht" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <Logo variant="admin" eager />
+            <small>Admin</small>
           </Link>
           <form action={logoutAction} className="adm-mobile-logout">
             <button type="submit" className="adm-logout" aria-label="Abmelden">

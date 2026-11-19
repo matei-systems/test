@@ -449,7 +449,7 @@ export interface BusinessInfo {
 }
 
 export const DEFAULT_BUSINESS: BusinessInfo = {
-  companyName: 'RM Mobile Auto Aufbereitung',
+  companyName: 'RM6 Autoaufbereitung',
   ownerName: '',
   legalForm: '',
   street: '',

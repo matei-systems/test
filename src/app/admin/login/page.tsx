@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { LogoMark } from '@/components/site/Logo'
+import { Logo } from '@/components/site/Logo'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { getAdminSession, isAdminConfigured } from '@/lib/auth'
 import { HashGenerator } from '@/components/admin/HashGenerator'
@@ -14,12 +14,9 @@ export default async function LoginPage() {
   return (
     <main className="adm-login">
       <div className="adm-login-card">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-          <LogoMark size={40} />
-          <div>
-            <p style={{ fontWeight: 600, letterSpacing: '0.12em', fontSize: '0.95rem' }}>RM Mobile Auto Aufbereitung</p>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>Admin-Bereich</p>
-          </div>
+        <div style={{ display: 'grid', justifyItems: 'start', gap: 14, marginBottom: 24 }}>
+          <Logo variant="login" eager />
+          <p style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>Admin-Bereich</p>
         </div>
         {!configured ? (
           <>

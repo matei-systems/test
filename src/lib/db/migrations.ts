@@ -10,7 +10,7 @@ export const MIGRATIONS: Migration[] = [
   {
     id: "001_init",
     sql: String.raw`
--- RM Mobile Autoaufbereitung – Datenbankschema (PostgreSQL ≥ 14, kompatibel mit Supabase und PGlite)
+-- RM6 Autoaufbereitung – Datenbankschema (PostgreSQL ≥ 14, kompatibel mit Supabase und PGlite)
 -- Alle Zeitpunkte werden als timestamptz (UTC) gespeichert; die Geschäftslogik rechnet in Europe/Vienna.
 
 -- ─── Einstellungen (Buchungsregeln, Kontaktdaten, Einsatzgebiet) ───────────────
@@ -324,6 +324,16 @@ ALTER TABLE services ADD COLUMN IF NOT EXISTS requirements jsonb NOT NULL DEFAUL
 UPDATE settings
 SET value = jsonb_set(value, '{companyName}', to_jsonb('RM Mobile Auto Aufbereitung'::text)), updated_at = now()
 WHERE key = 'business' AND value->>'companyName' IN ('RM Mobile Autoaufbereitung', 'GLANZMOBIL');
+`,
+  },
+  {
+    id: "005_marke_rm6",
+    sql: String.raw`
+-- Neuer Markenname „RM6 Autoaufbereitung“. Ersetzt werden nur frühere Startwerte des Firmennamens;
+-- ein im Admin-Bereich selbst eingetragener Name bleibt unangetastet.
+UPDATE settings
+SET value = jsonb_set(value, '{companyName}', to_jsonb('RM6 Autoaufbereitung'::text)), updated_at = now()
+WHERE key = 'business' AND value->>'companyName' IN ('RM Mobile Auto Aufbereitung', 'RM Mobile Autoaufbereitung', 'GLANZMOBIL');
 `,
   },
 ]

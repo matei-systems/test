@@ -12,7 +12,7 @@ import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Galerie – Vorher & Nachher der Autoaufbereitung in Graz',
-  description: 'Vorher-Nachher-Vergleiche und Eindrücke der mobilen Autoaufbereitung von RM Mobile Auto Aufbereitung in Graz & Graz-Umgebung.',
+  description: 'Vorher-Nachher-Vergleiche und Eindrücke von RM6 Autoaufbereitung – mobile Fahrzeugpflege in Graz & Graz-Umgebung.',
   alternates: { canonical: '/galerie' },
 }
 

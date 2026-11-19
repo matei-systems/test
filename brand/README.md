@@ -1,20 +1,22 @@
-# RM Mobile Auto Aufbereitung – Markenidentität
+# RM6 Autoaufbereitung – Markenidentität
 
 ## Logo
 
-Das Zeichen ist das Monogramm **„RM“** (Geist SemiBold) mit einem goldenen **Glanzpunkt** über dem „M“ – wie die Lichtkante auf poliertem Lack. Daneben steht der Name zweizeilig: klein *MOBILE*, groß **AUTO AUFBEREITUNG**. Zusammen gelesen: **RM Mobile Auto Aufbereitung**. Die Pfaddaten des Zeichens liegen in `src/components/site/Logo.tsx` (eine Quelle für Website und Logo-Dateien).
+Es gibt **ein** Logo: die vom Inhaber gelieferte Datei – Schriftzug **„RM6“** (Chrom/Gold) mit Fahrzeugsilhouette und dem Band **„AUTOAUFBEREITUNG“**, auf transparentem Hintergrund. Es wird nicht nachgebaut, umgefärbt oder verändert.
 
 | Datei | Verwendung |
 | --- | --- |
-| `logo/rm-logo-fuer-dunklen-hintergrund.svg` / `.png` | Logo auf Schwarz/Anthrazit (Website, Social Media) |
-| `logo/rm-logo-fuer-hellen-hintergrund.svg` / `.png` | Logo auf Weiß/hellen Flächen (Briefpapier, Rechnungen, Aufkleber) |
-| `logo/rm-wortmarke-fuer-dunklen-hintergrund.svg` / `…-hellen-…` | Reine Wortmarke „RM | MOBILE AUTO AUFBEREITUNG“ ohne Glanzpunkt (schmale Flächen, Fußzeilen, Stempel) |
-| `logo/rm-logo-gestapelt-dunkel.svg` / `-hell.svg` | Gestapeltes Logo: Zeichen über der Wortmarke (quadratische Flächen, Aufkleber) |
-| `logo/rm-emblem-hell.svg` / `-dunkel.svg` | Nur das Zeichen (Favicon, Stempel) |
-| `social/profilbild-1080.png` | Profilbild für Instagram, Facebook und Google (kreisrund zuschneidbar) |
-| `logo/vorschau-*.png` | Kontrollansicht auf dunklem und hellem Hintergrund |
+| `logo/RM6_Autoaufbereitung_Logo_Original.png` | **Originaldatei** (2172 × 724 px, transparent) – unverändert, Quelle für alles andere |
+| `logo/RM6_Autoaufbereitung_Logo_transparent.png` | dieselbe Grafik ohne die leeren transparenten Ränder (2116 × 644 px) – für Druck und Layouts |
+| `../src/assets/rm6-logo.png` | Website-Version (1400 px breit); die Website liefert daraus automatisch passende Größen aus |
+| `social/profilbild-1080.png` | Profilbild für Instagram, Facebook und Google (Logo innerhalb des runden Zuschnitts) |
+| `logo/vorschau-dunkel.png` / `vorschau-hell.png` | Kontrollansicht auf dunklem und hellem Hintergrund |
 
-Alle SVGs enthalten Pfade statt Schrift und sind damit überall identisch darstellbar. Neu erzeugen: `node scripts/build-brand-assets.mjs`.
+**Einsatz:** bevorzugt auf dunklem Grund (Schwarz/Anthrazit) – dort wirken Chrom und Gold am stärksten. Auf hellem Grund bleibt es dank der schwarzen Konturen lesbar. Seitenverhältnis immer beibehalten; rundum Abstand mindestens in Höhe des Schriftzugs „AUTOAUFBEREITUNG“.
+
+**Grenzen der Datei:** Das Logo ist eine Pixelgrafik mit Farbverläufen. Für Druck bis etwa 35 cm Breite reicht die Auflösung (≥ 150 dpi); für große Formate, Folienplot oder Stickerei braucht es eine Vektorfassung, die ein Grafiker vom Original anlegen müsste. Favicon und App-Icons zeigen das komplette Logo auf dunkler Fläche – in sehr kleinen Größen (16–32 px) ist der Schriftzug dort naturgemäß kaum lesbar.
+
+Neu erzeugen (Website-Version, Icons, Vorschauen, Open-Graph-Bild): `node scripts/build-brand-assets.mjs logo og`.
 
 ## Farben
 
@@ -22,8 +24,8 @@ Alle SVGs enthalten Pfade statt Schrift und sind damit überall identisch darste
 | --- | --- | --- |
 | Tiefschwarz | `#09090A` | Hintergrund |
 | Anthrazit | `#141417` / `#1A1A1E` | Flächen, Karten |
-| Warmweiß | `#F4F1EA` | Text, Logo auf dunkel |
-| Champagner | `#C8B48A` | Akzent, Buttons, Glanzpunkt |
+| Warmweiß | `#F4F1EA` | Text |
+| Champagner | `#C8B48A` | Akzent, Buttons, Linien |
 | Champagner dunkel | `#9A8256` | Akzent auf hellem Hintergrund |
 | Steingrau | `#8B877F` | Nebentext |
 | Signalrot | `#C8372D` | ausschließlich Rabatt-Kennzeichen (z. B. „−20 %“) |
@@ -32,7 +34,7 @@ Alle SVGs enthalten Pfade statt Schrift und sind damit überall identisch darste
 
 ![Designsystem](designsystem.png)
 
-`designsystem.png` fasst Farben, Typografie, Logo-Varianten, Buttons, Kennzeichen, Preisanzeige, Radien/Abstände, Icons, Bewegung und Bildstil zusammen. Die technischen Werte (CSS-Variablen) stehen in `src/app/globals.css`.
+`designsystem.png` fasst Farben, Typografie, Logo, Buttons, Kennzeichen, Preisanzeige, Radien/Abstände, Icons, Bewegung und Bildstil zusammen. Die technischen Werte (CSS-Variablen) stehen in `src/app/globals.css`.
 
 ## Social-Media-Vorlagen
 
@@ -48,21 +50,11 @@ Quelle: `scripts/social/vorlagen.html`, neu erzeugen mit `node scripts/build-soc
 
 ## Schriften
 
-- **Geist** (Variable, SIL OFL) – Überschriften, Fließtext, Wortmarke
+- **Geist** (Variable, SIL OFL) – Überschriften, Fließtext
 - **Instrument Serif Italic** (SIL OFL) – Akzentwörter („*Perfekter Glanz.*“)
 
 ## Canva
 
-Erstellt im verbundenen Canva-Konto:
-
-| Design | Inhalt |
-| --- | --- |
-| **RM Mobile Auto Aufbereitung Social-Media-Grafik** | Seite 1: Instagram-Post (1080×1440) · 2: Instagram-Story (1080×1920) · 3: Facebook-Titelbild (1640×624) · 4: Profilbild (1080×1080) · 5: Instagram-Vorlage „Einführungspreis“ · 6: Instagram-Vorlage „Leistung“ · 7: Instagram-Vorlage „Vorher/Nachher“ · 8: Werbebanner (1200×628). Auf den Seiten 5–8 sind Überschriften, Preise und Buttons **bearbeitbare Texte** |
-| **RM Mobile Auto Aufbereitung Moodboard** | Bildwelt der Website; die Fotos (Hero, Innenraum, Handwäsche, Graz bei Nacht) wurden mit Canva generiert und von hier in voller Auflösung exportiert |
-| Uploads | Logo-Varianten, Profilbild, Vorlagen-Hintergründe und das Designsystem-Board liegen in den Canva-Uploads |
-
-Exporte im Repository: `canva/instagram-post.jpg`, `canva/instagram-story.jpg`, `canva/facebook-titelbild.jpg`, `canva/profilbild.jpg`, `canva/instagram-vorlage-*.jpg`, `canva/werbebanner.jpg`, Fotoquellen unter `canva/source/`.
-
-Hinweise: Canva verwendet für neu angelegte Texte seine Standardschrift – für exakt die Website-Typografie in Canva die Schrift „Geist“ hochladen (Markenkit) oder die fertigen Grafiken aus `social/` verwenden. Die KI-Funktionen von Canva (Bild-/Design-Generierung) waren im Konto aufgebraucht; die neuen Seiten wurden deshalb aus eigenen Layouts aufgebaut.
+Im verbundenen Canva-Konto liegen aus einer früheren Phase die Designs „Social-Media-Grafik“ und „Moodboard“ sowie Uploads. Sie zeigen **noch das frühere Logo** und wurden beim Rebranding nicht verändert (keine Änderungen an externen Plattformen ohne Freigabe). Die Exporte dieser Designs wurden aus dem Repository entfernt; aktuelle Grafiken mit dem RM6-Logo liegen unter `social/`. Fotoquellen der Website: `canva/source/`.
 
 Hinweis: Die Fotos sind KI-generiert (Canva) und zeigen keine echten Kundenfahrzeuge. Sie eignen sich als Bildwelt; Vorher/Nachher-Bilder sollten durch echte Arbeiten ersetzt werden.

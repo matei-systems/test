@@ -14,7 +14,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Kontakt – mobile Autoaufbereitung in Graz anfragen',
   description:
-    'Kontakt zu RM Mobile Auto Aufbereitung: Kontaktformular, Online-Terminbuchung und alle Kontaktwege auf einen Blick. Mobile Autoaufbereitung in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
+    'Kontakt zu RM6 Autoaufbereitung: Kontaktformular, Online-Terminbuchung und alle Kontaktwege auf einen Blick. Mobile Autoaufbereitung in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
   alternates: { canonical: '/kontakt' },
 }
 

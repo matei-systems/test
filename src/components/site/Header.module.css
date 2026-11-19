@@ -3,18 +3,31 @@
   inset: 0 0 auto 0;
   z-index: 100;
   height: var(--header-h);
-  transition:
-    background-color 0.5s var(--ease),
-    border-color 0.5s var(--ease),
-    backdrop-filter 0.5s var(--ease);
+  transition: border-color 0.5s var(--ease);
   border-bottom: 1px solid transparent;
 }
 
+/* Hintergrund mit Weichzeichner auf einer eigenen Ebene: Ein backdrop-filter direkt am Header würde ihn zum
+   Bezugsrahmen des fest positionierten Mobilmenüs machen – das Menü hätte dann keine Höhe und keinen Hintergrund. */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+  transition:
+    background-color 0.5s var(--ease),
+    backdrop-filter 0.5s var(--ease);
+}
+
 .scrolled {
+  border-bottom-color: var(--line);
+}
+
+.scrolled::before {
   background: rgba(9, 9, 10, 0.72);
   backdrop-filter: saturate(160%) blur(18px);
   -webkit-backdrop-filter: saturate(160%) blur(18px);
-  border-bottom-color: var(--line);
 }
 
 .inner {
@@ -28,6 +41,7 @@
 .brand {
   display: inline-flex;
   flex: none;
+  align-items: center;
   border-radius: 8px;
 }
 
@@ -109,16 +123,6 @@
 @media (max-width: 519px) {
   .inner {
     gap: 10px;
-  }
-  /* Der Name ist lang – auf schmalen Bildschirmen enger setzen, damit Menü und Buchungsbutton Platz haben */
-  .brand :global(.logo-name) {
-    font-size: 10.5px !important;
-    letter-spacing: 0.14em !important;
-    margin-right: -0.14em !important;
-  }
-  .brand :global(.logo-eyebrow) {
-    font-size: 7.5px !important;
-    margin-bottom: 4px !important;
   }
   .cta {
     padding-inline: 16px;

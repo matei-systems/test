@@ -713,7 +713,7 @@ export async function sendTestMailAction(_prev: ActionState, fd: FormData): Prom
   if (!z.email().safeParse(to).success) return fail('Bitte eine gültige E-Mail-Adresse angeben.')
   const res = await sendMail({
     to,
-    subject: 'RM Mobile Auto Aufbereitung – Test-E-Mail',
+    subject: 'RM6 Autoaufbereitung – Test-E-Mail',
     text: `Diese Test-E-Mail bestätigt, dass der E-Mail-Versand der Website (${getSiteUrl()}) funktioniert.`,
     html: `<p>Diese Test-E-Mail bestätigt, dass der E-Mail-Versand der Website (${getSiteUrl()}) funktioniert.</p>`,
   })

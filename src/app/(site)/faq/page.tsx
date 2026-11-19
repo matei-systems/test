@@ -11,7 +11,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'FAQ – Fragen zur mobilen Autoaufbereitung in Graz',
   description:
-    'Antworten auf häufige Fragen zu RM Mobile Auto Aufbereitung: Buchung, Dauer, Preise, Anfahrt, Fahrzeugvorbereitung, Stornierung und mobile Durchführung in Graz & Graz-Umgebung.',
+    'Antworten auf häufige Fragen zu RM6 Autoaufbereitung: Buchung, Dauer, Preise, Anfahrt, Fahrzeugvorbereitung, Stornierung und mobile Durchführung in Graz & Graz-Umgebung.',
   alternates: { canonical: '/faq' },
 }
 

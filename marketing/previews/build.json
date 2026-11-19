@@ -1,41 +1,10 @@
 {
-  "erzeugt": "2026-11-14",
+  "erzeugt": "2026-11-19",
   "fehlend": [
     "inhaber → [Vor- und Nachname]",
     "telefon → [Telefonnummer]",
     "email → [E-Mail-Adresse]",
-    "website → [www.ihre-domain.at]",
     "medieninhaber → [Name, Ort]"
-  ],
-  "aufkleber": [
-    {
-      "name": "aufkleber-minimal-kompakt-250x70mm",
-      "w": 250,
-      "h": 70,
-      "module": 1.57,
-      "modules": 29
-    },
-    {
-      "name": "aufkleber-minimal-gross-400x112mm",
-      "w": 400,
-      "h": 112,
-      "module": 2.51,
-      "modules": 29
-    },
-    {
-      "name": "aufkleber-premium-kompakt-250x70mm",
-      "w": 250,
-      "h": 70,
-      "module": 1.57,
-      "modules": 29
-    },
-    {
-      "name": "aufkleber-premium-gross-400x112mm",
-      "w": 400,
-      "h": 112,
-      "module": 2.51,
-      "modules": 29
-    }
   ],
   "dateien": [
     {
@@ -109,42 +78,6 @@
       "beschnitt": "3 mm",
       "pdf": "91.694 × 60.367 mm",
       "qr": "lesbar → https://glanzmobil.vercel.app/buchen?gutschein=DANKE20"
-    },
-    {
-      "ordner": "heckscheiben-aufkleber",
-      "name": "aufkleber-minimal-kompakt-250x70mm",
-      "bezeichnung": "Aufkleber Minimal · 250 × 70 mm",
-      "endformat": "250 × 70 mm",
-      "beschnitt": "0 mm",
-      "pdf": "250.105 × 70.189 mm",
-      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
-    },
-    {
-      "ordner": "heckscheiben-aufkleber",
-      "name": "aufkleber-minimal-gross-400x112mm",
-      "bezeichnung": "Aufkleber Minimal · 400 × 112 mm",
-      "endformat": "400 × 112 mm",
-      "beschnitt": "0 mm",
-      "pdf": "400.05 × 112.183 mm",
-      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
-    },
-    {
-      "ordner": "heckscheiben-aufkleber",
-      "name": "aufkleber-premium-kompakt-250x70mm",
-      "bezeichnung": "Aufkleber Premium · 250 × 70 mm",
-      "endformat": "250 × 70 mm",
-      "beschnitt": "0 mm",
-      "pdf": "250.105 × 70.189 mm",
-      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
-    },
-    {
-      "ordner": "heckscheiben-aufkleber",
-      "name": "aufkleber-premium-gross-400x112mm",
-      "bezeichnung": "Aufkleber Premium · 400 × 112 mm",
-      "endformat": "400 × 112 mm",
-      "beschnitt": "0 mm",
-      "pdf": "400.05 × 112.183 mm",
-      "qr": "lesbar → https://glanzmobil.vercel.app/buchen"
     }
   ]
 }

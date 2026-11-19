@@ -12,7 +12,7 @@ import styles from '@/components/pages/Pages.module.css'
 export const metadata: Metadata = {
   title: 'Über uns – mobile Autoaufbereitung in Graz mit Anspruch',
   description:
-    'RM Mobile Auto Aufbereitung steht für mobile Autoaufbereitung in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu Ihnen kommt.',
+    'RM6 Autoaufbereitung steht für mobile Fahrzeugaufbereitung in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu Ihnen kommt.',
   alternates: { canonical: '/ueber-uns' },
 }
 
@@ -59,7 +59,7 @@ export default async function AboutPage() {
             Fahrzeugpflege mit <span className="serif accent">Haltung.</span>
           </>
         }
-        lead={`RM Mobile Auto Aufbereitung ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach Ihnen richtet.`}
+        lead={`RM6 Autoaufbereitung ist die mobile Premium-Fahrzeugpflege für ${area.regions.join(' & ')}. Unser Anspruch: Pflege, die man sieht – und ein Service, der sich nach Ihnen richtet.`}
         image="/images/interior.jpg"
         imagePosition="30% 40%"
       />
@@ -75,7 +75,7 @@ export default async function AboutPage() {
               sorgfältig sollte es gepflegt werden – nicht im Vorbeifahren, sondern mit Ruhe und einem genauen Blick.
             </p>
             <p>
-              Genau dafür gibt es RM Mobile Auto Aufbereitung. Wir bringen professionelle Fahrzeugpflege dorthin, wo Ihr Fahrzeug steht. Sie buchen online,
+              Genau dafür gibt es RM6 Autoaufbereitung. Wir bringen professionelle Fahrzeugpflege dorthin, wo Ihr Fahrzeug steht. Sie buchen online,
               wir kommen zum vereinbarten Termin – und Sie nutzen Ihre Zeit für alles andere.
             </p>
             <p>

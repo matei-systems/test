@@ -3,10 +3,12 @@
  * Erzeugt alle Marken- und Website-Assets aus den Canva-Quellbildern:
  *   - optimierte Website-Bilder        → public/images/*.jpg
  *   - Vorher/Nachher-DEMO-Visualisierungen (deutlich als Demo gekennzeichnet) → public/images/demo/*
- *   - Logo-Dateien (SVG mit Pfaden, PNG) → brand/logo/*
- *   - Favicon / App-Icons / Open-Graph-Bild → src/app/icon.svg, src/app/apple-icon.png, public/*
+ *   - Logo für die Website, Kontrollvorschauen → src/assets/rm6-logo.png, brand/logo/*
+ *   - Favicon / App-Icons / Open-Graph-Bild / Profilbild → src/app/icon.png, src/app/apple-icon.png, public/*, brand/social/*
  *
- * Aufruf: node scripts/build-brand-assets.mjs
+ * Logo-Quelle: brand/logo/RM6_Autoaufbereitung_Logo_Original.png (vom Inhaber geliefert, unverändert).
+ *
+ * Aufruf: node scripts/build-brand-assets.mjs [logo] [photos] [services] [demos] [og]
  * Quellen: brand/canva/source/*.jpg (exportiert aus dem Canva-Moodboard-Design)
  */
 import sharp from 'sharp'
@@ -22,15 +24,12 @@ const out = (...p) => {
   return file
 }
 
-const INK = '#0b0b0c'
 const WARM = '#f4f1ea'
 const CHAMPAGNE = '#c8b48a'
-const CHAMPAGNE_DARK = '#9a8256'
 
 // ─── Schrift → SVG-Pfade ──────────────────────────────────────────────────────
 const loadFont = (f) => { const b = fs.readFileSync(path.join(root, 'brand/fonts', f)); return opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)) }
 const fontMedium = loadFont('Geist-Medium.ttf')
-const fontSemi = loadFont('Geist-SemiBold.ttf')
 
 /**
  * Pfadbefehle → SVG-Pfaddaten. Eigener Formatierer, weil opentype.js (toPathData) je nach Position
@@ -74,159 +73,69 @@ function textPath(font, text, size, tracking, x = 0, y = 0) {
   return { d: parts.join(' '), width: cursor - x }
 }
 
-// Emblem: Monogramm „RM“ + Glanzpunkt. Die Pfaddaten stammen direkt aus src/components/site/Logo.tsx
-// (eine Quelle für Website und Logo-Dateien).
-const logoSource = fs.readFileSync(path.join(root, 'src/components/site/Logo.tsx'), 'utf8')
-const grab = (name) => {
-  const m = logoSource.match(new RegExp(`${name}\\s*=\\s*\\n?\\s*'([^']+)'`))
-  if (!m) throw new Error(`${name} nicht in Logo.tsx gefunden`)
-  return m[1]
-}
-const RM_PATH = grab('RM_MONOGRAM_PATH')
-const GLINT_PATH = grab('GLINT_PATH')
-const CAP = fontSemi.tables.os2.sCapHeight / fontSemi.unitsPerEm // Versalhöhe relativ zur Schriftgröße
-const BRAND = 'RM Mobile Auto Aufbereitung'
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+// Einzige Logo-Quelle: das vom Inhaber gelieferte Logo (PNG mit transparentem Hintergrund). Es wird inhaltlich
+// nicht verändert – nur vollständig transparente Ränder werden entfernt und die Größe für den Einsatzzweck angepasst.
+const LOGO_ORIGINAL = path.join(root, 'brand/logo/RM6_Autoaufbereitung_Logo_Original.png')
+const BG = '#09090a'
 
-function emblem(ink, glint, transform = '') {
-  return `<g${transform ? ` transform="${transform}"` : ''}>
-    <path d="${RM_PATH}" fill="${ink}"/>
-    <path d="${GLINT_PATH}" fill="${glint}"/>
-  </g>`
-}
-
-/** Zweizeiliger Textblock „MOBILE / AUTO AUFBEREITUNG“, Grundlinie unten = baseline, Oberkante der Versalien oben = capTop. */
-function nameBlock({ ink, accent, x, baseline, capTop, big, small, align = 'left', width }) {
-  const main = textPath(fontSemi, 'AUTO AUFBEREITUNG', big, 0.22, 0, baseline)
-  const eyebrowSize = small
-  const eyebrowBaseline = capTop + eyebrowSize * CAP
-  const eyebrow = textPath(fontMedium, 'MOBILE', eyebrowSize, 0.42, 0, eyebrowBaseline)
-  const w = main.width
-  const left = align === 'center' ? x - w / 2 : x
-  const m = textPath(fontSemi, 'AUTO AUFBEREITUNG', big, 0.22, left, baseline)
-  const e = textPath(fontMedium, 'MOBILE', eyebrowSize, 0.42, align === 'center' ? x - eyebrow.width / 2 : left, eyebrowBaseline)
-  return { svg: `<path d="${e.d}" fill="${accent}"/><path d="${m.d}" fill="${ink}"/>`, width: w }
-}
-
-/** Waagerechtes Logo: Monogramm + Namensblock. */
-function logoSvg({ text, sub, glint, bg }) {
-  const scale = 2.4 // Emblem 48 → 115 px
-  const markSize = 48 * scale
-  const baseline = 40 * scale // Grundlinie von „RM“
-  const capTop = 18.7 * scale // Oberkante von „RM“
-  const x = markSize + 30
-  const block = nameBlock({ ink: text, accent: sub, x, baseline, capTop, big: 35, small: 14 })
-  const width = Math.ceil(x + block.width + 8)
-  const height = Math.ceil(markSize)
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <title>${BRAND}</title>
-  ${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}
-  ${emblem(text, glint, `scale(${scale})`)}
-  ${block.svg}
-</svg>`
-}
-
-function emblemSvg({ ink, glint, bg, size = 512, radius = 0 }) {
-  const s = size / 48
-  const pad = bg ? size * 0.14 : 0
-  const inner = (size - pad * 2) / 48
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-  <title>${BRAND} – Monogramm</title>
-  ${bg ? `<rect width="${size}" height="${size}" rx="${radius}" fill="${bg}"/>` : ''}
-  ${emblem(ink, glint, bg ? `translate(${pad} ${pad}) scale(${inner})` : `scale(${s})`)}
-</svg>`
-}
-
-/** Reine Wortmarke ohne Emblem (für schmale Flächen, Fußzeilen, Stempel): „RM“ | MOBILE / AUTO AUFBEREITUNG. */
-function wordmarkSvg({ text, sub, bg }) {
-  const pad = bg ? 40 : 4
-  const rmSize = 84
-  const rmCap = rmSize * CAP
-  const baseline = pad + rmCap + 6
-  const rm = textPath(fontSemi, 'RM', rmSize, 0.02, pad, baseline)
-  const dividerX = pad + rm.width + 26
-  const x = dividerX + 26
-  const capTop = baseline - rmCap
-  const block = nameBlock({ ink: text, accent: sub, x, baseline, capTop, big: 31, small: 14.5 })
-  const width = Math.ceil(x + block.width + pad)
-  const height = Math.ceil(baseline + pad + 6)
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
-  <title>${BRAND} – Wortmarke</title>
-  ${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}
-  <path d="${rm.d}" fill="${text}"/>
-  <rect x="${dividerX}" y="${capTop}" width="2" height="${rmCap}" fill="${sub}"/>
-  ${block.svg}
-</svg>`
-}
-
-/** Gestapeltes Logo: Emblem über dem Namensblock (für quadratische Flächen, Social Media, Aufkleber). */
-function stackedSvg({ text, sub, glint, bg, size = 800 }) {
-  const scale = 4.6
-  const mark = 48 * scale
-  const cx = size / 2
-  const top = size * 0.2
-  const big = 44
-  const small = 19
-  const eyebrowCapTop = top + mark + 54
-  const baseline = eyebrowCapTop + small * CAP + 26 + big * CAP
-  const block = nameBlock({ ink: text, accent: sub, x: cx, baseline, capTop: eyebrowCapTop, big, small, align: 'center' })
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-  <title>${BRAND} – Logo gestapelt</title>
-  ${bg ? `<rect width="100%" height="100%" fill="${bg}"/>` : ''}
-  ${emblem(text, glint, `translate(${cx - mark / 2} ${top}) scale(${scale})`)}
-  ${block.svg}
-</svg>`
-}
-
-/** Profilbild für Social Media (Emblem zentriert, sicher innerhalb des Kreis-Zuschnitts). */
-function profileSvg(size = 1080) {
-  const scale = (size * 0.4) / 48
-  const mark = 48 * scale
-  const o = (size - mark) / 2
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-  <defs><radialGradient id="g" cx="0.5" cy="0.38" r="0.75"><stop offset="0" stop-color="#1b1b1e"/><stop offset="1" stop-color="#070708"/></radialGradient></defs>
-  <rect width="${size}" height="${size}" fill="url(#g)"/>
-  <circle cx="${size / 2}" cy="${size / 2}" r="${size * 0.36}" fill="none" stroke="${CHAMPAGNE}" stroke-opacity="0.22" stroke-width="2"/>
-  ${emblem(WARM, CHAMPAGNE, `translate(${o} ${o}) scale(${scale})`)}
-</svg>`
-}
-
-async function buildLogoVariants() {
-  const write = async (name, svg, density = 300) => {
-    fs.writeFileSync(out('brand/logo', `${name}.svg`), svg)
-    await sharp(Buffer.from(svg), { density }).png().toFile(out('brand/logo', `${name}.png`))
+/** Logo ohne die vollständig transparenten Außenränder (Alpha = 0); alle sichtbaren Pixel bleiben unverändert. */
+async function trimmedLogo() {
+  const { data, info } = await sharp(LOGO_ORIGINAL).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  let x0 = info.width, y0 = info.height, x1 = -1, y1 = -1
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      if (data[(y * info.width + x) * 4 + 3] === 0) continue
+      if (x < x0) x0 = x
+      if (x > x1) x1 = x
+      if (y < y0) y0 = y
+      if (y > y1) y1 = y
+    }
   }
-  await write('rm-wortmarke-fuer-dunklen-hintergrund', wordmarkSvg({ text: WARM, sub: CHAMPAGNE }))
-  await write('rm-wortmarke-fuer-hellen-hintergrund', wordmarkSvg({ text: INK, sub: CHAMPAGNE_DARK }))
-  await write('rm-logo-gestapelt-dunkel', stackedSvg({ text: WARM, sub: CHAMPAGNE, glint: CHAMPAGNE, bg: INK }), 144)
-  await write('rm-logo-gestapelt-hell', stackedSvg({ text: INK, sub: CHAMPAGNE_DARK, glint: CHAMPAGNE_DARK, bg: WARM }), 144)
-  await sharp(Buffer.from(profileSvg(1080))).png().toFile(out('brand/social', 'profilbild-1080.png'))
-  await sharp(Buffer.from(wordmarkSvg({ text: WARM, sub: CHAMPAGNE, bg: INK })), { density: 200 }).png().toFile(out('brand/logo/vorschau-wortmarke-dunkel.png'))
-  await sharp(Buffer.from(wordmarkSvg({ text: INK, sub: CHAMPAGNE_DARK, bg: WARM })), { density: 200 }).png().toFile(out('brand/logo/vorschau-wortmarke-hell.png'))
+  return sharp(LOGO_ORIGINAL).extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }).png().toBuffer()
+}
+
+/** Logo auf quadratischer dunkler Fläche (App-Icons, Favicon, Profilbild); Seitenverhältnis bleibt erhalten. */
+async function logoTile(logo, size, { radius = 0, widthShare = 0.88, background } = {}) {
+  const w = Math.round(size * widthShare)
+  const resized = await sharp(logo).resize({ width: w }).png().toBuffer()
+  const { height: h } = await sharp(resized).metadata()
+  const base = background ?? Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="${BG}"/></svg>`)
+  return sharp(base)
+    .composite([{ input: resized, left: Math.round((size - w) / 2), top: Math.round((size - h) / 2) }])
+    .png({ compressionLevel: 9 })
+    .toBuffer()
 }
 
 async function buildLogos() {
-  const dark = logoSvg({ text: WARM, sub: CHAMPAGNE, glint: CHAMPAGNE })
-  const light = logoSvg({ text: INK, sub: CHAMPAGNE_DARK, glint: CHAMPAGNE_DARK })
-  fs.writeFileSync(out('brand/logo/rm-logo-fuer-dunklen-hintergrund.svg'), dark)
-  fs.writeFileSync(out('brand/logo/rm-logo-fuer-hellen-hintergrund.svg'), light)
-  fs.writeFileSync(out('brand/logo/rm-emblem-hell.svg'), emblemSvg({ ink: WARM, glint: CHAMPAGNE }))
-  fs.writeFileSync(out('brand/logo/rm-emblem-dunkel.svg'), emblemSvg({ ink: INK, glint: CHAMPAGNE_DARK }))
-  await sharp(Buffer.from(dark), { density: 300 }).png().toFile(out('brand/logo/rm-logo-fuer-dunklen-hintergrund.png'))
-  await sharp(Buffer.from(light), { density: 300 }).png().toFile(out('brand/logo/rm-logo-fuer-hellen-hintergrund.png'))
-  // Vorschau auf Hintergrund (zur Kontrolle)
-  await sharp(Buffer.from(logoSvg({ text: WARM, sub: CHAMPAGNE, glint: CHAMPAGNE, bg: INK })), { density: 200 })
-    .png()
-    .toFile(out('brand/logo/vorschau-dunkel.png'))
-  await sharp(Buffer.from(logoSvg({ text: INK, sub: CHAMPAGNE_DARK, glint: CHAMPAGNE_DARK, bg: WARM })), { density: 200 })
-    .png()
-    .toFile(out('brand/logo/vorschau-hell.png'))
-
-  // App-Icons / Favicon
-  const appIcon = emblemSvg({ ink: WARM, glint: CHAMPAGNE, bg: INK, size: 512, radius: 112 })
-  fs.writeFileSync(out('src/app/icon.svg'), emblemSvg({ ink: WARM, glint: CHAMPAGNE, bg: INK, size: 64, radius: 14 }))
-  await sharp(Buffer.from(emblemSvg({ ink: WARM, glint: CHAMPAGNE, bg: INK, size: 180, radius: 0 }))).png().toFile(out('src/app/apple-icon.png'))
-  await sharp(Buffer.from(appIcon)).png().toFile(out('public/icon-512.png'))
-  await sharp(Buffer.from(emblemSvg({ ink: WARM, glint: CHAMPAGNE, bg: INK, size: 192, radius: 42 }))).png().toFile(out('public/icon-192.png'))
+  const logo = await trimmedLogo()
+  const meta = await sharp(logo).metadata()
+  fs.writeFileSync(out('brand/logo/RM6_Autoaufbereitung_Logo_transparent.png'), logo)
+  // Website-Version (Header, Footer, Admin): next/image erzeugt daraus die ausgelieferten Größen
+  await sharp(logo).resize({ width: 1400 }).png({ compressionLevel: 9 }).toFile(out('src/assets/rm6-logo.png'))
+  // Kontrollvorschau auf dunklem und hellem Grund
+  for (const [name, color] of [['vorschau-dunkel', BG], ['vorschau-hell', '#f4f1ea']]) {
+    const pad = 80
+    const canvas = await sharp({ create: { width: meta.width + pad * 2, height: meta.height + pad * 2, channels: 4, background: color } })
+      .composite([{ input: logo, left: pad, top: pad }])
+      .png()
+      .toBuffer()
+    await sharp(canvas)
+      .resize({ width: 1200 })
+      .png()
+      .toFile(out('brand/logo', `${name}.png`))
+  }
+  // Favicon und App-Icons
+  fs.writeFileSync(out('src/app/icon.png'), await logoTile(logo, 96, { radius: 20, widthShare: 0.92 }))
+  fs.writeFileSync(out('src/app/apple-icon.png'), await logoTile(logo, 180))
+  fs.writeFileSync(out('public/icon-192.png'), await logoTile(logo, 192, { radius: 42 }))
+  fs.writeFileSync(out('public/icon-512.png'), await logoTile(logo, 512, { radius: 112 }))
+  // Profilbild für Social Media (Logo sicher innerhalb des runden Zuschnitts)
+  const size = 1080
+  const profileBg = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
+  <defs><radialGradient id="g" cx="0.5" cy="0.42" r="0.75"><stop offset="0" stop-color="#1b1b1e"/><stop offset="1" stop-color="#070708"/></radialGradient></defs>
+  <rect width="${size}" height="${size}" fill="url(#g)"/></svg>`)
+  fs.writeFileSync(out('brand/social/profilbild-1080.png'), await logoTile(logo, size, { widthShare: 0.8, background: profileBg }))
 }
 
 // ─── Website-Bilder ───────────────────────────────────────────────────────────
@@ -357,39 +266,29 @@ async function buildOg() {
   const W = 1200
   const H = 630
   const bg = await sharp(src('hero.jpg')).resize({ width: W, height: H, fit: 'cover', position: 'right' }).toBuffer()
-  const head1 = textPath(fontMedium, 'Dein Fahrzeug. Unser Anspruch.', 54, -0.02, 72, 330)
-  const head2 = textPath(fontMedium, 'Perfekter Glanz.', 54, -0.02, 72, 396)
-  const sub = textPath(fontMedium, 'PREMIUM FAHRZEUGPFLEGE · GRAZ & UMGEBUNG', 15, 0.22, 72, 460)
-  const scale = 1.6
-  const markTop = 80
-  const block = nameBlock({
-    ink: WARM,
-    accent: CHAMPAGNE,
-    x: 72 + 48 * scale + 18,
-    baseline: markTop + 40 * scale,
-    capTop: markTop + 18.7 * scale,
-    big: 20,
-    small: 10,
-  })
+  const head1 = textPath(fontMedium, 'Ihr Fahrzeug. Unser Anspruch.', 54, -0.02, 72, 360)
+  const head2 = textPath(fontMedium, 'Perfekter Glanz.', 54, -0.02, 72, 426)
+  const sub = textPath(fontMedium, 'PREMIUM FAHRZEUGPFLEGE · GRAZ & UMGEBUNG', 15, 0.22, 72, 490)
   const overlay = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
     <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#09090a" stop-opacity="0.96"/><stop offset="0.55" stop-color="#09090a" stop-opacity="0.55"/><stop offset="1" stop-color="#09090a" stop-opacity="0"/></linearGradient></defs>
     <rect width="${W}" height="${H}" fill="url(#g)"/>
-    ${emblem(WARM, CHAMPAGNE, `translate(72 ${markTop}) scale(${scale})`)}
-    ${block.svg}
     <path d="${head1.d}" fill="${WARM}"/>
     <path d="${head2.d}" fill="${CHAMPAGNE}"/>
     <path d="${sub.d}" fill="#a8a49c"/>
   </svg>`
+  const logo = await sharp(await trimmedLogo()).resize({ width: 440 }).png().toBuffer()
   await sharp(bg)
-    .composite([{ input: Buffer.from(overlay) }])
+    .composite([{ input: Buffer.from(overlay) }, { input: logo, left: 60, top: 70 }])
     .jpeg({ quality: 86, mozjpeg: true })
     .toFile(out('public/og-image.jpg'))
 }
 
-await buildLogos()
-await buildLogoVariants()
-await buildPhotos()
-await buildServiceImages()
-await buildDemos()
-await buildOg()
+// Aufruf ohne Argumente erzeugt alles; mit Argumenten nur die genannten Teile, z. B. „node scripts/build-brand-assets.mjs logo og“
+const steps = process.argv.slice(2)
+const run = (name) => steps.length === 0 || steps.includes(name)
+if (run('logo')) await buildLogos()
+if (run('photos')) await buildPhotos()
+if (run('services')) await buildServiceImages()
+if (run('demos')) await buildDemos()
+if (run('og')) await buildOg()
 console.log('✔ Marken- und Website-Assets erzeugt.')

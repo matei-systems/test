@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : `${from.varies ? 'ab ' : ''}${formatEuro(from.min.priceCents)}`
   return {
     title: seo?.title ?? `${s.name} in Graz`,
-    description: `${s.name} von RM Mobile Auto Aufbereitung – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
+    description: `${s.name} von RM6 Autoaufbereitung – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
     alternates: { canonical: `/leistungen/${s.id}` },
     openGraph: { images: [{ url: serviceImage(s).src }] },
   }

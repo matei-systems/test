@@ -4,7 +4,7 @@ import { getSettings } from '@/lib/catalog'
 
 export const metadata: Metadata = {
   title: 'Stornobedingungen',
-  description: 'Stornobedingungen für Termine der mobilen Fahrzeugpflege von RM Mobile Auto Aufbereitung.',
+  description: 'Stornobedingungen für Termine der mobilen Fahrzeugpflege von RM6 Autoaufbereitung.',
   alternates: { canonical: '/stornobedingungen' },
 }
 
