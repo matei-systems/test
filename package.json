@@ -14,7 +14,13 @@
     "test": "vitest run",
     "admin:hash": "node scripts/hash-password.mjs",
     "marketing": "node scripts/build-marketing.mjs",
-    "heckscheibe": "node scripts/build-rm6-heckscheibe.mjs"
+    "heckscheibe": "node scripts/build-rm6-heckscheibe.mjs",
+    "campaign:build": "node scripts/campaign/build.mjs",
+    "campaign:animate": "node scripts/campaign/animate.mjs",
+    "campaign:mockups": "node scripts/campaign/mockups.mjs",
+    "campaign:sheets": "node scripts/campaign/contact-sheets.mjs",
+    "campaign:docs": "node scripts/campaign/docs.mjs",
+    "campaign:check": "node scripts/campaign/layout-check.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.15",
