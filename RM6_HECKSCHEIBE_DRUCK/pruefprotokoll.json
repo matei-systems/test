@@ -1,0 +1,156 @@
+{
+  "erzeugt": "2026-11-19T08:20:09.218Z",
+  "masse": {
+    "breite_mm": 700,
+    "hoehe_mm": 226.8
+  },
+  "versalhoehen_mm": {
+    "marke": 72.9,
+    "zeile": 14.9,
+    "slogan": 8.2,
+    "telefon": 45.1,
+    "web": 29.7
+  },
+  "entwuerfe": {
+    "A": {
+      "name": "Zentriert",
+      "breite": 588.3829047620993,
+      "hoehe": 300,
+      "marke": 83.36126056209262,
+      "zeile": 17.00130971990047,
+      "slogan": 9.432984747815745,
+      "telefon": 51.55235850550465,
+      "web": 29.615184673375012,
+      "kleinsteVersalhoehe": 9.432984747815745,
+      "duennsterStrich": 1.4348765531888739,
+      "hierarchie": "ja"
+    },
+    "B": {
+      "name": "Split",
+      "breite": 800,
+      "hoehe": 160.70629336006655,
+      "marke": 74.67672784324088,
+      "zeile": 13.203742224154862,
+      "slogan": 9.99871987457217,
+      "telefon": 42.93911850986351,
+      "web": 24.269936549053288,
+      "kleinsteVersalhoehe": 9.99871987457217,
+      "duennsterStrich": 1.5209320372588655,
+      "hierarchie": "nein – Kontakt rechts neben der Marke"
+    },
+    "C": {
+      "name": "Band",
+      "breite": 800,
+      "hoehe": 213.07251705428808,
+      "marke": 77.31446520925212,
+      "zeile": 19.914331947837667,
+      "slogan": 10.777167877653325,
+      "telefon": 53.88583938826663,
+      "web": 31.628644858330414,
+      "kleinsteVersalhoehe": 10.777167877653325,
+      "duennsterStrich": 1.6393438461782526,
+      "hierarchie": "teilweise – AUTOAUFBEREITUNG neben RM6"
+    },
+    "F": {
+      "name": "Final (A perfektioniert)",
+      "breite": 800.0000000000001,
+      "hoehe": 257.24090909993544,
+      "marke": 83.58000297870227,
+      "zeile": 17.04592166013007,
+      "slogan": 9.45773717916894,
+      "telefon": 51.687633421039564,
+      "web": 34.09184332026014,
+      "kleinsteVersalhoehe": 9.45773717916894,
+      "duennsterStrich": 1.4386417117609094,
+      "hierarchie": "ja"
+    }
+  },
+  "gewaehlt": "A",
+  "pruefungen": [
+    {
+      "pruefung": "SVG enthält nur Pfade (keine Texte, Bilder, Verknüpfungen, Konturen, Verläufe, Filter)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "pruefung": "Alle Elemente exakt #FFFFFF",
+      "ok": true,
+      "detail": "8 Pfadgruppen"
+    },
+    {
+      "pruefung": "Kein Hintergrundobjekt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "pruefung": "Sicherheitsabstand zum Rand eingehalten",
+      "ok": true,
+      "detail": "10.0 mm"
+    },
+    {
+      "pruefung": "PNG mit Alphakanal, Hintergrund transparent",
+      "ok": true,
+      "detail": "8268×2679 px (300 dpi), 84.3 % transparent"
+    },
+    {
+      "pruefung": "PNG: alle sichtbaren Pixel reines Weiß",
+      "ok": true,
+      "detail": "kleinster Farbwert 255"
+    },
+    {
+      "pruefung": "PDF (RGB-Weiß): Endmaß, transparente Seite, Inhalt weiß",
+      "ok": true,
+      "detail": "700.0 × 226.8 mm"
+    },
+    {
+      "pruefung": "PDF (Sonderfarbe): Endmaß, transparente Seite, Inhalt weiß",
+      "ok": true,
+      "detail": "700.0 × 226.8 mm"
+    },
+    {
+      "pruefung": "Sonderfarben-PDF: Flächen in Separation „White“",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "pruefung": "Texterkennung „RM6“",
+      "ok": true,
+      "detail": "erkannt: \"RM6\""
+    },
+    {
+      "pruefung": "Texterkennung „AUTOAUFBEREITUNG“",
+      "ok": true,
+      "detail": "erkannt: \"AUTOAUFBEREITUNG\""
+    },
+    {
+      "pruefung": "Texterkennung „PREMIUM FAHRZEUGPFLEGE“",
+      "ok": true,
+      "detail": "erkannt: \"PREMIUM FAHRZEUGPFLEGE\""
+    },
+    {
+      "pruefung": "Texterkennung „0664 123 93 83“",
+      "ok": true,
+      "detail": "erkannt: \"0664 123 93 83\""
+    },
+    {
+      "pruefung": "Texterkennung „rm6.at“",
+      "ok": true,
+      "detail": "erkannt: \"rm6.at\""
+    },
+    {
+      "pruefung": "Texterkennung Gesamtmotiv (Information)",
+      "ok": true,
+      "detail": "erkannt: \"RM6 AUTOAUFBEREITUNG 0664 123 93 83 * rm6.at\""
+    },
+    {
+      "pruefung": "Telefonnummer gehört zu den größten Elementen",
+      "ok": true,
+      "detail": "Telefon 45.1 mm · RM6 72.9 mm · Website 29.7 mm Versalhöhe"
+    },
+    {
+      "pruefung": "Kleinste Details plotbar (Strich ≥ 1 mm, Punkte ≥ 3 mm)",
+      "ok": true,
+      "detail": "dünnster Schriftstrich 1.3 mm, Linie 1.6 mm, Punkt Ø 5.0 mm"
+    }
+  ]
+}

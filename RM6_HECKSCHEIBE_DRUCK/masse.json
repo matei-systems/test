@@ -1,0 +1,22 @@
+{
+  "_anleitung": [
+    "Hier die tatsächlichen Maße eintragen und danach im Projektordner ausführen:  npm run heckscheibe",
+    "breite_mm: Gesamtbreite des Aufklebers inkl. Sicherheitsabstand. Die Höhe ergibt sich proportional.",
+    "max_hoehe_mm: optional. Ist die Höhe begrenzt (z. B. durch die Scheibe oder den Wischerbereich), wird das Motiv proportional verkleinert. null = keine Begrenzung.",
+    "sicherheitsabstand_mm: freier Rand rund um das Motiv (Schneidtoleranz, Übertragungsfolie).",
+    "weiss_sonderfarbe_name: Name der Weiß-Sonderfarbe für Digitaldruck auf transparenter Folie – muss die Druckerei vorgeben (z. B. White, Weiss, Spot_White, RDG_WHITE).",
+    "Die Texte werden beim Erzeugen automatisch per Texterkennung gegen diese Werte geprüft."
+  ],
+  "breite_mm": 700,
+  "max_hoehe_mm": null,
+  "sicherheitsabstand_mm": 10,
+  "png_dpi": 300,
+  "weiss_sonderfarbe_name": "White",
+  "texte": {
+    "marke": "RM6",
+    "zeile": "AUTOAUFBEREITUNG",
+    "slogan": "PREMIUM FAHRZEUGPFLEGE",
+    "telefon": "0664 123 93 83",
+    "web": "rm6.at"
+  }
+}
