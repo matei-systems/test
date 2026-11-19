@@ -3,19 +3,20 @@ import Link from 'next/link'
 import { PageHero } from '@/components/site/PageHero'
 import { PostalCheck } from '@/components/pages/PostalCheck'
 import { FinalCta } from '@/components/home/Sections'
+import { ExteriorNotice } from '@/components/pages/OfferBlocks'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
 import { getCatalog, getSettings } from '@/lib/catalog'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, withOg } from '@/lib/seo'
 import styles from '@/components/pages/Pages.module.css'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { area } = await getSettings()
-  return {
-    title: `Einsatzgebiet – mobile Autoaufbereitung in ${area.regions.join(' & ')}`,
+  return withOg({
+    title: `Fahrzeugaufbereitung in ${area.regions.join(' & ')} – Einsatzgebiet`,
     description: `RM6 Autoaufbereitung kommt zu Ihnen: mobile Autoaufbereitung und Autoreinigung in ${area.regions.join(', ')} – Steiermark. Postleitzahl prüfen und online buchen.`,
     alternates: { canonical: '/einsatzgebiet' },
-  }
+  })
 }
 
 export default async function ServiceAreaPage() {
@@ -79,12 +80,8 @@ export default async function ServiceAreaPage() {
               Ob Innenraumreinigung, Außenpflege oder das Komplettpaket: Bei der Online-Buchung geben Sie einfach die Adresse an, an der
               Ihr Fahrzeug steht. Die Anfahrt innerhalb des Einsatzgebiets ist im Preis enthalten.
             </p>
-            <p>
-              Wichtig für die Außenpflege: Eine Außenwäsche führen wir nur an geeigneten und zulässigen Standorten durch – auf befestigter
-              Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften, nicht auf öffentlichen Straßen oder unbefestigtem
-              Untergrund. Ob Ihr Standort passt, klären wir vor der Terminbestätigung. Innenraumleistungen sind davon nicht betroffen.
-            </p>
           </div>
+          <ExteriorNotice />
           <ul className={styles.linkCards}>
             {packages.map((s) => (
               <li key={s.id}>

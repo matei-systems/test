@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
+import { withOg } from '@/lib/seo'
 import { LegalPage, Val } from '@/components/site/Legal'
 import { getSettings } from '@/lib/catalog'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Impressum',
-  description: 'Impressum und Offenlegung gemäß § 5 ECG, § 14 UGB und § 25 MedienG.',
+  description: 'Impressum von RM6 Autoaufbereitung, mobile Fahrzeugpflege in Graz: Offenlegung gemäß § 5 ECG, § 14 UGB und § 25 MedienG.',
   alternates: { canonical: '/impressum' },
   robots: { index: true, follow: true },
-}
+})
 
 export default async function ImpressumPage() {
   const { business: b } = await getSettings()

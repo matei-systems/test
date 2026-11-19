@@ -29,7 +29,7 @@ export function MobileCta({ phone, whatsapp }: { phone: string; whatsapp: string
   return (
     <div className={`${styles.bar} ${visible ? styles.visible : ''}`} aria-hidden={!visible}>
       <Link href="/buchen" className={`btn btn--primary ${styles.book}`} tabIndex={visible ? 0 : -1}>
-        Termin jetzt buchen <Icon name="arrow-right" />
+        Jetzt Termin buchen <Icon name="arrow-right" />
       </Link>
       {whatsapp && (
         <a

@@ -1,3 +1,5 @@
+import { PENDING_CONFIRMATION_TEXT } from './booking-texts'
+
 /**
  * Häufige Fragen – nach Themen gegliedert. Antworten bitte vor dem Livegang inhaltlich prüfen.
  * Preise, Dauer und Fristen werden bewusst NICHT fest in die Texte geschrieben, sondern verweisen
@@ -27,15 +29,16 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
         top: true,
       },
       {
-        q: 'Ist mein Termin nach dem Absenden fix?',
-        a: 'Der gewählte Termin ist nach dem Absenden für Sie reserviert und Sie erhalten sofort eine Buchungsnummer. Anschließend prüfen wir Standort und Details und bestätigen den Termin per E-Mail – erst mit dieser Bestätigung ist er fix. Den aktuellen Status sehen Sie jederzeit auf Ihrer Bestätigungsseite.',
+        q: 'Wann ist mein Termin verbindlich?',
+        a: `${PENDING_CONFIRMATION_TEXT} Bis dahin ist der gewählte Termin für Sie reserviert. Den aktuellen Status sehen Sie jederzeit auf Ihrer Bestätigungsseite.`,
+        top: true,
       },
       {
         q: 'Was ist der Unterschied zwischen Buchung und Terminanfrage?',
         a: 'Leistungen mit festem Preis buchen Sie verbindlich zum angezeigten Preis. Ist für Ihre Auswahl kein fester Preis hinterlegt („Preis auf Anfrage“), stellen Sie eine unverbindliche Terminanfrage: Wir melden uns mit einem Angebot, und erst mit Ihrer Zustimmung kommt der Auftrag zustande.',
       },
       {
-        q: 'Wie und wann bezahle ich?',
+        q: 'Wie erfolgt die Bezahlung?',
         a: 'Online ist keine Zahlung erforderlich. Bezahlt wird nach der Durchführung vor Ort. Die möglichen Zahlungsarten teilen wir Ihnen mit der Terminbestätigung mit.',
       },
     ],
@@ -88,7 +91,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
         top: true,
       },
       {
-        q: 'Kostet die Anfahrt extra?',
+        q: 'Ist die Anfahrt inklusive?',
         a: 'Innerhalb unseres Einsatzgebiets ist die Anfahrt im Preis enthalten.',
       },
     ],
@@ -98,17 +101,17 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     title: 'Fahrzeugvorbereitung',
     items: [
       {
-        q: 'Wie bereite ich mein Fahrzeug vor?',
+        q: 'Was muss ich vor dem Termin vorbereiten?',
         a: 'Bitte räumen Sie persönliche Gegenstände und Wertsachen aus dem Fahrzeug – auch aus Kofferraum und Ablagen. Kindersitze bauen Sie bitte selbst aus, wenn darunter gereinigt werden soll.',
         top: true,
       },
       {
-        q: 'Was wird vor Ort benötigt?',
+        q: 'Welche Voraussetzungen gibt es am Standort?',
         a: 'Ausreichend Platz rund um das Fahrzeug und die Erlaubnis, am Standort zu arbeiten (z. B. eigene Einfahrt, Firmenparkplatz). Ob ein Wasser- oder Stromanschluss benötigt wird, klären wir bei der Terminbestätigung.',
       },
       {
         q: 'Ist eine Außenwäsche an jedem Standort möglich?',
-        a: 'Nein. Eine Außenwäsche führen wir nur an geeigneten und zulässigen Standorten durch – auf befestigter Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften, nicht auf öffentlichen Straßen oder unbefestigtem Untergrund. Wir klären den Standort vor der Terminbestätigung. Passt er nicht, finden wir gemeinsam einen anderen Standort oder Termin; Innenraumleistungen sind davon nicht betroffen.',
+        a: 'Nein – und wir behaupten das auch nicht. Eine Außenwäsche führen wir nur an geeigneten und zulässigen Standorten durch: auf befestigter Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften, ohne unzulässige Einleitung von Waschwasser, nicht auf öffentlichen Straßen oder unbefestigtem Untergrund. Wir prüfen Ihren Standort vor der Terminbestätigung. Ist er nicht geeignet, schlagen wir eine Alternative vor – etwa einen anderen geeigneten Standort oder eine reine Innenraumleistung. Innenraumleistungen sind davon nicht betroffen.',
         top: true,
       },
     ],

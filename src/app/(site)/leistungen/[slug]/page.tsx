@@ -7,15 +7,22 @@ import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
 import { getCatalog, getSettings } from '@/lib/catalog'
 import { serviceDurationRange, serviceFromPrice } from '@/lib/pricing'
-import { formatDurationRange, formatEuro, formatPrice, formatVehicleList } from '@/lib/format'
+import { formatDurationRange, formatEuro, formatVehicleList } from '@/lib/format'
 import { PriceTag } from '@/components/site/PriceTag'
 import { PriceTable } from '@/components/pages/PriceMatrix'
+import { AddonCards, ExteriorNotice } from '@/components/pages/OfferBlocks'
 import pageStyles from '@/components/pages/Pages.module.css'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, withOg } from '@/lib/seo'
 import { serviceImage } from '@/content/media'
 import { SERVICE_SEO } from '@/content/seo'
 import { getSiteUrl } from '@/config/site'
 import styles from './page.module.css'
+
+/** Meta-Description ≤ 160 Zeichen: bei langen Texten entfällt der Werbesatz. */
+function descriptionFor(name: string, tagline: string, price: string): string {
+  const full = `${name} von RM6 Autoaufbereitung – ${tagline} Mobil in Graz & Umgebung, ${price}. Jetzt online buchen.`
+  return full.length <= 160 ? full : `${name} von RM6 Autoaufbereitung – mobil in Graz & Umgebung, ${price}. Jetzt online buchen.`
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -29,12 +36,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : from.min.priceCents === null
       ? 'Preis auf Anfrage'
       : `${from.varies ? 'ab ' : ''}${formatEuro(from.min.priceCents)}`
-  return {
+  return withOg({
     title: seo?.title ?? `${s.name} in Graz`,
-    description: `${s.name} von RM6 Autoaufbereitung – ${s.tagline} Mobil in Graz & Graz-Umgebung, ${price}. Jetzt online Termin buchen.`,
+    description: descriptionFor(s.name, s.tagline, price),
     alternates: { canonical: `/leistungen/${s.id}` },
     openGraph: { images: [{ url: serviceImage(s).src }] },
-  }
+  })
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -49,6 +56,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const addons = s.requiresAddon ? catalog.addons.filter((a) => a.bookableAlone) : catalog.addons
   const others = catalog.services.filter((x) => x.id !== s.id && !x.requiresAddon).slice(0, 3)
   const url = getSiteUrl()
+  const hasExterior = s.requirements.some((r) => r.startsWith('Außenwäsche'))
 
   return (
     <>
@@ -130,6 +138,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </p>
             )}
 
+            {hasExterior && <ExteriorNotice compact />}
+
             {s.requirements.length > 0 && (
               <>
                 <h2 className="h3">Voraussetzungen am Einsatzort</h2>
@@ -146,17 +156,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {addons.length > 0 && (
               <>
                 <h2 className="h3">{s.requiresAddon ? 'Einzeln buchbare Leistungen' : 'Passende Zusatzleistungen'}</h2>
-                <ul className={styles.addons}>
-                  {addons.map((a) => (
-                    <li key={a.id}>
-                      <span>
-                        <strong>{a.name}</strong>
-                        <small>{a.description}</small>
-                      </span>
-                      <span>{formatPrice(a.priceCents, { from: a.priceIsFrom })}</span>
-                    </li>
-                  ))}
-                </ul>
+                <AddonCards catalog={catalog} onlyBookableAlone={s.requiresAddon} />
               </>
             )}
           </div>
@@ -183,6 +183,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </ul>
               <Link href={`/buchen?leistung=${s.id}`} className="btn btn--primary btn--block">
                 Jetzt Termin buchen <Icon name="arrow-right" />
+              </Link>
+              {!s.requiresAddon && (
+                <Link href="/preise" className="link-arrow" style={{ justifySelf: 'center' }}>
+                  Alle Preise im Vergleich <Icon name="arrow-right" />
+                </Link>
+              )}
+              <Link href="/kontakt?anliegen=angebot" className="link-arrow" style={{ justifySelf: 'center' }}>
+                Individuelles Angebot anfragen <Icon name="arrow-right" />
               </Link>
             </div>
           </aside>

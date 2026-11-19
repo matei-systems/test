@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
+import { withOg } from '@/lib/seo'
 import Link from 'next/link'
 import { LegalPage, Todo, Val } from '@/components/site/Legal'
 import { getSettings } from '@/lib/catalog'
 import { SITE } from '@/config/site'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Allgemeine Geschäftsbedingungen (AGB)',
   description: 'Allgemeine Geschäftsbedingungen für die mobile Fahrzeugpflege von RM6 Autoaufbereitung.',
   alternates: { canonical: '/agb' },
-}
+})
 
 export default async function AgbPage() {
   const { business: b } = await getSettings()

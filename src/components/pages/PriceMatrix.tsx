@@ -1,6 +1,3 @@
-import Link from 'next/link'
-import { Icon } from '../icons'
-import { DiscountBadge } from '../site/PriceTag'
 import { resolvePrice, type Catalog, type CatalogService } from '@/lib/pricing'
 import { formatDuration, formatEuro } from '@/lib/format'
 import styles from './Pages.module.css'
@@ -54,36 +51,5 @@ export function PriceTable({ catalog, service, now }: { catalog: Catalog; servic
         ))}
       </tbody>
     </table>
-  )
-}
-
-/** Vollständige Preisliste: je Paket eine Karte mit allen Fahrzeugkategorien. */
-export function PriceMatrix({ catalog, now }: { catalog: Catalog; now: number }) {
-  const packages = catalog.services.filter((s) => !s.requiresAddon)
-  return (
-    <div className={styles.matrix}>
-      {packages.map((s) => {
-        const promo = catalog.vehicles.map((v) => resolvePrice(catalog, s, v.id, now).promotion).find(Boolean)
-        return (
-          <article key={s.id} className={`${styles.matrixCard} ${s.featured ? styles.matrixFeatured : ''} reveal`}>
-            <div className={styles.matrixHead}>
-              <h3>{s.name}</h3>
-              {promo && (
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.7rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--accent)' }}>
-                  {promo.name} <DiscountBadge percent={promo.percent} />
-                </span>
-              )}
-            </div>
-            <p className={styles.matrixTag}>{s.tagline}</p>
-            <PriceTable catalog={catalog} service={s} now={now} />
-            <div className={styles.matrixCta}>
-              <Link href={`/buchen?leistung=${s.id}`} className="link-arrow">
-                {s.name} buchen <Icon name="arrow-right" />
-              </Link>
-            </div>
-          </article>
-        )
-      })}
-    </div>
   )
 }

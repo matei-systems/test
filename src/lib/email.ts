@@ -152,7 +152,7 @@ function shell(title: string, bodyHtml: string): string {
 <body style="margin:0;background:#f3f2ef;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f2ef;padding:32px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden">
-<tr><td style="background:#0b0b0c;padding:28px 32px"><div style="color:#f4efe6;font-size:14px;letter-spacing:.2em;font-weight:600;text-transform:uppercase">${esc(SITE.name)}</div><div style="color:#c8b48a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px">${esc(SITE.claim)}</div></td></tr>
+<tr><td style="background:#0b0b0c;padding:28px 32px"><div style="color:#f4efe6;font-size:14px;letter-spacing:.2em;font-weight:600;text-transform:uppercase">${esc(SITE.name)}</div><div style="color:#d4a843;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px">${esc(SITE.claim)}</div></td></tr>
 <tr><td style="padding:32px">
 <h1 style="margin:0 0 12px;font-size:22px;color:#111;font-weight:600">${esc(title)}</h1>
 ${bodyHtml}
@@ -232,9 +232,9 @@ export function customerBookingMail(data: BookingMailData, business: BusinessInf
     intro = `${hello} vielen Dank für Ihre Buchung. Ihr Termin ist verbindlich bestätigt. Wir kommen zur vereinbarten Zeit an den angegebenen Standort.`
     subject = `Terminbestätigung ${data.reference} – ${SITE.name}`
   } else {
-    title = 'Ihre Buchung ist eingegangen'
-    intro = `${hello} vielen Dank für Ihre Buchung. Der Termin ist für Sie reserviert. Wir prüfen Standort und Details und bestätigen Ihnen den Termin in Kürze per E-Mail – erst mit dieser Bestätigung ist der Termin fix.`
-    subject = `Buchungseingang ${data.reference} – ${SITE.name}`
+    title = 'Ihr Termin ist reserviert'
+    intro = `${hello} vielen Dank für Ihre Buchung. Ihr Termin ist mit der Buchungsnummer ${data.reference} für Sie reserviert. Wir prüfen anschließend Ihre Angaben und bestätigen Ihren Termin persönlich per E-Mail. Erst danach ist Ihr Termin verbindlich bestätigt.`
+    subject = `Reservierung ${data.reference} – noch nicht bestätigt – ${SITE.name}`
   }
   const footer = `${contactLine(business)}<br><br>Es gelten unsere AGB und Stornobedingungen: ${esc(getSiteUrl())}/stornobedingungen`
   return bookingMail(data.email, subject, title, intro, data, footer, business.email || undefined)
@@ -335,7 +335,7 @@ export function customerInquiryMail(data: InquiryMailData, business: BusinessInf
   const html = shell(
     title,
     `<p style="margin:0 0 16px;color:#333;font-size:15px;line-height:1.6">Guten Tag ${esc(data.name)}, vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich bei Ihnen.</p>
-<p style="margin:0;color:#555;font-size:14px;line-height:1.6;white-space:pre-wrap;border-left:3px solid #c8b48a;padding-left:14px">${esc(data.message)}</p>`,
+<p style="margin:0;color:#555;font-size:14px;line-height:1.6;white-space:pre-wrap;border-left:3px solid #d4a843;padding-left:14px">${esc(data.message)}</p>`,
   )
   const text = [title, '', `Guten Tag ${data.name}, vielen Dank für Ihre Nachricht. Wir melden uns so schnell wie möglich bei Ihnen.`, '', data.message].join('\n')
   return { to: data.email, subject: `Ihre Anfrage bei ${SITE.name}`, html, text, replyTo: business.email || undefined }

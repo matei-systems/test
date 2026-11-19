@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PENDING_CONFIRMATION_TEXT } from '@/content/booking-texts'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Icon } from '@/components/icons'
@@ -25,9 +26,9 @@ const REQUEST_NEW = {
 
 const STATUS: Record<string, { label: string; title: string; text: string; tone: 'ok' | 'pending' | 'cancel' }> = {
   neu: {
-    label: 'Reserviert',
-    title: 'Vielen Dank – Ihre Buchung ist eingegangen.',
-    text: 'Der Termin ist für Sie reserviert. Wir prüfen Standort und Details und bestätigen ihn per E-Mail – erst mit dieser Bestätigung ist der Termin fix.',
+    label: 'Reserviert – noch nicht bestätigt',
+    title: 'Vielen Dank – Ihr Termin ist reserviert.',
+    text: `Ihre Buchungsnummer finden Sie unten. ${PENDING_CONFIRMATION_TEXT.replace('Nach dem Absenden erhalten Sie eine Buchungsnummer. ', '')}`,
     tone: 'pending',
   },
   bestaetigt: {
@@ -137,12 +138,12 @@ export default async function ConfirmationPage({ params }: { params: Promise<{ t
           <div className={styles.mail}>
             {booking.customerEmailStatus === 'gesendet' ? (
               <p>
-                <Icon name="mail" size={16} /> Eine Bestätigung wurde an <strong>{booking.email}</strong> gesendet.
+                <Icon name="mail" size={16} /> Eine E-Mail mit allen Details wurde an <strong>{booking.email}</strong> gesendet.
               </p>
             ) : (
               <p>
-                <Icon name="info" size={16} /> Bitte notieren Sie Ihre {noun} und speichern Sie diese Seite als Lesezeichen. Wir melden uns zur Bestätigung persönlich bei Ihnen
-                {business.phone ? ' – telefonisch oder per E-Mail' : ' per E-Mail oder Telefon'}.
+                <Icon name="info" size={16} /> Bitte notieren Sie Ihre {noun} und speichern Sie diese Seite als Lesezeichen.
+                {booking.status === 'neu' && booking.kind !== 'anfrage' && ' Wir bestätigen Ihren Termin persönlich per E-Mail.'}
               </p>
             )}
           </div>

@@ -71,7 +71,7 @@
   inset: 0;
   background:
     radial-gradient(52% 46% at 80% 6%, rgba(255, 244, 222, 0.2), transparent 70%),
-    radial-gradient(40% 30% at 68% 78%, rgba(200, 180, 138, 0.1), transparent 70%);
+    radial-gradient(40% 30% at 68% 78%, rgba(212, 168, 67, 0.1), transparent 70%);
   opacity: 0;
   animation:
     glowIn 2.2s 1s var(--ease) forwards,
@@ -121,7 +121,7 @@
   top: 79%;
   width: 58%;
   animation-delay: 0.4s;
-  background: linear-gradient(90deg, transparent, rgba(200, 180, 138, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.6), transparent);
 }
 .streaks span:nth-child(3) {
   top: 86%;

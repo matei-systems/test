@@ -1,7 +1,7 @@
 .page {
   padding: calc(var(--header-h) + clamp(32px, 6vw, 72px)) 0 clamp(80px, 10vw, 140px);
   background:
-    radial-gradient(50% 40% at 85% 0%, rgba(200, 180, 138, 0.08), transparent 70%),
+    radial-gradient(50% 40% at 85% 0%, rgba(212, 168, 67, 0.08), transparent 70%),
     var(--bg);
 }
 
@@ -37,7 +37,7 @@
   padding: clamp(24px, 4vw, 44px);
   border-radius: var(--radius-lg);
   border: 1px solid var(--accent-line);
-  background: radial-gradient(120% 70% at 100% 0%, rgba(200, 180, 138, 0.1), transparent 60%), var(--bg-elev);
+  background: radial-gradient(120% 70% at 100% 0%, rgba(212, 168, 67, 0.1), transparent 60%), var(--bg-elev);
 }
 
 .soonIcon {

@@ -1,4 +1,5 @@
 import { getDb } from '@/lib/db'
+import { GALLERY_TOPICS } from '@/content/gallery'
 import { loadGallery, type GalleryItem } from '@/lib/catalog'
 import { ActionForm, SubmitButton } from '@/components/admin/ActionForm'
 import { ImageUpload } from '@/components/admin/ImageUpload'
@@ -8,7 +9,7 @@ import { requireAdmin } from '@/lib/auth'
 
 export const metadata = { title: 'Galerie' }
 
-const CATEGORIES = ['Innenraum', 'Außen', 'Details']
+const CATEGORIES = [...GALLERY_TOPICS.map((t) => t.category), 'Außen', 'Details']
 
 export default async function GalleryAdminPage() {
   await requireAdmin()
@@ -28,6 +29,21 @@ export default async function GalleryAdminPage() {
           <Icon name="external" size={15} /> Galerie ansehen
         </a>
       </header>
+
+      <details className="adm-card" style={{ marginBottom: 16 }}>
+        <summary style={{ cursor: 'pointer', fontWeight: 600 }}>Fotoplan: Welche echten Fotos die Galerie überzeugend machen</summary>
+        <ul style={{ display: 'grid', gap: 8, marginTop: 12, paddingLeft: 18, listStyle: 'disc' }}>
+          {GALLERY_TOPICS.map((t) => (
+            <li key={t.category}>
+              <strong>{t.category}</strong> – {t.hint}
+            </li>
+          ))}
+        </ul>
+        <p className="muted" style={{ marginTop: 10, fontSize: '0.86rem' }}>
+          Tipp: Vorher und nachher aus demselben Blickwinkel und bei ähnlichem Licht fotografieren. Nur Fotos verwenden, für die das
+          Einverständnis vorliegt; Kennzeichen unkenntlich machen.
+        </p>
+      </details>
 
       {demoCount > 0 && (
         <div className="adm-warn" style={{ marginBottom: 16 }}>

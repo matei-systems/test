@@ -22,7 +22,7 @@ export function Footer({ business, area, bookingEnabled = true }: { business: Bu
               einen vereinbarten Standort.
             </p>
             <Link href="/buchen" className="btn btn--primary btn--sm">
-              Termin buchen <Icon name="arrow-right" />
+              Jetzt Termin buchen <Icon name="arrow-right" />
             </Link>
           </div>
 

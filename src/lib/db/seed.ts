@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import type { Queryable } from './index'
 import {
+  ADDON_DESCRIPTIONS_V3,
   DEFAULT_ADDONS,
   DEFAULT_BOOKING_RULES,
   DEFAULT_BUSINESS,
@@ -11,9 +12,11 @@ import {
   DEFAULT_SERVICES,
   DEFAULT_VEHICLE_CATEGORIES,
   DEFAULT_WORKING_HOURS,
+  REQ_EXTERIOR,
+  REQ_EXTERIOR_V3,
 } from '@/config/defaults'
 
-const SEED_VERSION = 3
+const SEED_VERSION = 4
 
 /**
  * Spielt die Startwerte genau einmal ein (Marker: settings.seed_version).
@@ -33,8 +36,14 @@ export async function seedDefaults(tx: Queryable): Promise<void> {
     await seedPromotions(tx)
   }
   // Neu in Version 3: Gutscheine, Leistungsumfang („nicht enthalten“, Voraussetzungen), Texte in Sie-Form
-  await upgradeCatalogTexts(tx)
-  await seedCoupons(tx)
+  if (current < 3) {
+    await upgradeCatalogTexts(tx)
+    await seedCoupons(tx)
+  }
+  // Neu in Version 4: genauere Beschreibung der Zusatzleistungen, Außenwäsche-Hinweis mit Alternative
+  if (current < 4) {
+    await upgradeTextsV4(tx)
+  }
 
   await tx.query(
     `INSERT INTO settings (key, value, updated_at) VALUES ('seed_version', $1::jsonb, now())
@@ -179,6 +188,24 @@ async function upgradeCatalogTexts(tx: Queryable): Promise<void> {
     if (rows[0] && textFingerprint([rows[0].name, rows[0].description]) === legacy) {
       await tx.query('UPDATE addons SET description = $2 WHERE id = $1', [a.id, a.description])
     }
+  }
+}
+
+/**
+ * Version 4: ersetzt nur Texte, die noch exakt dem Startwert aus Version 3 entsprechen –
+ * im Admin-Bereich geänderte Beschreibungen und Voraussetzungen bleiben unangetastet.
+ */
+export async function upgradeTextsV4(tx: Queryable): Promise<void> {
+  for (const a of DEFAULT_ADDONS) {
+    const previous = ADDON_DESCRIPTIONS_V3[a.id]
+    if (!previous) continue
+    await tx.query('UPDATE addons SET description = $2 WHERE id = $1 AND description = $3', [a.id, a.description, previous])
+  }
+  const { rows } = await tx.query<{ id: string; requirements: unknown }>('SELECT id, requirements FROM services')
+  for (const row of rows) {
+    if (!Array.isArray(row.requirements) || !row.requirements.includes(REQ_EXTERIOR_V3)) continue
+    const next = row.requirements.map((r) => (r === REQ_EXTERIOR_V3 ? REQ_EXTERIOR : r))
+    await tx.query('UPDATE services SET requirements = $2::jsonb, updated_at = now() WHERE id = $1', [row.id, JSON.stringify(next)])
   }
 }
 

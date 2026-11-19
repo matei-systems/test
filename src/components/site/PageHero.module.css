@@ -3,7 +3,7 @@
   isolation: isolate;
   overflow: hidden;
   padding: calc(var(--header-h) + clamp(48px, 8vw, 110px)) 0 clamp(48px, 7vw, 90px);
-  background: radial-gradient(50% 60% at 85% 0%, rgba(200, 180, 138, 0.08), transparent 70%), var(--bg);
+  background: radial-gradient(50% 60% at 85% 0%, rgba(212, 168, 67, 0.08), transparent 70%), var(--bg);
   border-bottom: 1px solid var(--line);
 }
 

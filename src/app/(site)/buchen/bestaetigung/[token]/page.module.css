@@ -1,6 +1,6 @@
 .page {
   padding: calc(var(--header-h) + clamp(40px, 7vw, 88px)) 0 clamp(80px, 10vw, 140px);
-  background: radial-gradient(50% 40% at 50% 0%, rgba(200, 180, 138, 0.1), transparent 70%), var(--bg);
+  background: radial-gradient(50% 40% at 50% 0%, rgba(212, 168, 67, 0.1), transparent 70%), var(--bg);
 }
 
 .inner {
@@ -25,7 +25,7 @@
   height: 84px;
   border-radius: 999px;
   border: 1px solid var(--accent-line);
-  background: radial-gradient(circle at 30% 30%, rgba(200, 180, 138, 0.35), rgba(200, 180, 138, 0.08));
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 67, 0.35), rgba(212, 168, 67, 0.08));
   color: var(--accent);
   animation: pop 0.8s var(--ease);
 }
@@ -53,9 +53,10 @@
 
 .cardHead {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 12px 16px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
 }
@@ -67,9 +68,16 @@
   color: var(--text-dim);
 }
 
+.cardHead :global(.badge) {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
 .ref {
   margin-top: 4px;
-  font-size: 1.6rem;
+  white-space: nowrap;
+  font-size: clamp(1.3rem, 6vw, 1.6rem);
   font-weight: 500;
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;

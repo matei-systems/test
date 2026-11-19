@@ -6,15 +6,15 @@ import { FinalCta } from '@/components/home/Sections'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon, type IconName } from '@/components/icons'
 import { getSettings } from '@/lib/catalog'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, withOg } from '@/lib/seo'
 import styles from '@/components/pages/Pages.module.css'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Über uns – mobile Autoaufbereitung in Graz mit Anspruch',
   description:
     'RM6 Autoaufbereitung steht für mobile Fahrzeugaufbereitung in Graz & Graz-Umgebung: sorgfältige Handarbeit, transparente Preise und ein Service, der zu Ihnen kommt.',
   alternates: { canonical: '/ueber-uns' },
-}
+})
 
 // Bewusst ohne Zahlen, Auszeichnungen oder Zertifikate: Hier steht nur, wofür die Marke steht.
 const PILLARS: Array<{ icon: IconName; title: string; text: string }> = [

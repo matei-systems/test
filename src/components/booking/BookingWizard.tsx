@@ -16,6 +16,7 @@ import { postalCodeInRanges } from '@/lib/postal'
 import { customerSchema } from '@/lib/validation'
 import { serviceImage } from '@/content/media'
 import { SITE } from '@/config/site'
+import { afterSubmitText } from '@/content/booking-texts'
 import styles from './BookingWizard.module.css'
 
 const STEPS = ['Leistung', 'Fahrzeug', 'Extras', 'Ort & Termin', 'Kontakt', 'Übersicht'] as const
@@ -678,6 +679,11 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                       <Icon name="clock" size={16} /> {time} – ca. {minutesToTimeLabel(time, quote.durationMinutes)} Uhr
                     </p>
                   )}
+                  <p className={styles.summaryNote}>
+                    {autoConfirm
+                      ? 'Sie sehen nur freie Termine. Mit dem Absenden ist der Termin verbindlich gebucht.'
+                      : 'Sie sehen nur freie Termine. Mit dem Absenden wird der Termin für Sie reserviert; verbindlich wird er mit unserer persönlichen Bestätigung per E-Mail.'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -903,6 +909,25 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                 </label>
               </div>
 
+              {!isRequest && (
+                <div className={styles.nextSteps} role="note" aria-labelledby="ablauf-title">
+                  <p id="ablauf-title" className={styles.nextStepsTitle}>
+                    So geht es nach dem Absenden weiter
+                  </p>
+                  <p>{afterSubmitText(autoConfirm)}</p>
+                  {!autoConfirm && (
+                    <ol>
+                      <li>
+                        <strong>Sofort:</strong> Ihr Termin ist mit Buchungsnummer für Sie reserviert.
+                      </li>
+                      <li>
+                        <strong>Danach:</strong> Persönliche Bestätigung per E-Mail – erst jetzt ist der Termin verbindlich.
+                      </li>
+                    </ol>
+                  )}
+                </div>
+              )}
+
               <p className={styles.binding}>
                 {isRequest ? (
                   <>
@@ -916,11 +941,8 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
                   <>
                     <Icon name="shield" size={16} />
                     <span>
-                      <strong>Verbindliche Buchung</strong> zum Gesamtpreis von {totalLabel}.{' '}
-                      {autoConfirm
-                        ? 'Ihr Termin wird sofort bestätigt.'
-                        : 'Der Termin wird für Sie reserviert. Wir prüfen Standort und Details und bestätigen den Termin per E-Mail – erst mit dieser Bestätigung ist er fix.'}{' '}
-                      Online ist keine Zahlung nötig – bezahlt wird nach der Durchführung vor Ort.
+                      <strong>Gesamtpreis {totalLabel}</strong> – Endpreis inklusive Anfahrt. Online ist keine Zahlung nötig, bezahlt wird nach der
+                      Durchführung vor Ort.
                       {cancelHours > 0 && <> Kostenlose Online-Stornierung bis {cancelHours} Stunden vor dem Termin.</>}
                     </span>
                   </>
@@ -998,7 +1020,9 @@ export function BookingWizard({ catalog, initialService, initialVehicle, now, po
               </div>
             )}
             {quote?.totalPriceCents === null && <p className={styles.summaryNote}>Sie erhalten vor Beginn ein verbindliches Angebot.</p>}
-            {quote?.priceIsFrom && <p className={styles.summaryNote}>„ab“-Preise: Endpreis nach Aufwand, Abstimmung vorab.</p>}
+            {quote?.priceIsFrom && (
+              <p className={styles.summaryNote}>„ab“-Preise: Den konkreten Betrag nennen wir Ihnen vor Beginn der Arbeit – erst nach Ihrer Zustimmung.</p>
+            )}
             {couponInput && !coupon && step < STEP_REVIEW && (
               <p className={styles.summaryNote}>
                 Gutschein <strong>{couponInput}</strong> vorgemerkt – er wird in der Übersicht geprüft und abgezogen.

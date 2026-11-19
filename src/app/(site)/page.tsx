@@ -10,7 +10,7 @@ import { Icon } from '@/components/icons'
 import { getCatalog, getGallery, getSettings, getWorkingHours } from '@/lib/catalog'
 import { maxRunningDiscount, serviceFromPrice } from '@/lib/pricing'
 import { toCompareItems } from '@/lib/gallery'
-import { faqJsonLd, localBusinessJsonLd } from '@/lib/seo'
+import { faqJsonLd, localBusinessJsonLd, withOg } from '@/lib/seo'
 import { FAQ_TOP } from '@/content/faq'
 import { TESTIMONIALS } from '@/content/testimonials'
 import { SITE } from '@/config/site'
@@ -19,17 +19,18 @@ import { formatEuro } from '@/lib/format'
 export async function generateMetadata(): Promise<Metadata> {
   const catalog = await getCatalog()
   const now = Date.now()
-  const parts = catalog.services
-    .filter((s) => !s.requiresAddon)
-    .slice(0, 3)
-    .map((s) => ({ name: s.name, from: serviceFromPrice(catalog, s, now) }))
+  // Kurz halten (≤ 160 Zeichen): Einstiegspreis Innenraum und Komplettpaket
+  const parts = ['innenraum-basic', 'komplettpaket']
+    .map((id) => catalog.services.find((s) => s.id === id))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s))
+    .map((s) => ({ label: s.id === 'komplettpaket' ? 'Komplettpaket' : 'Innenraum', from: serviceFromPrice(catalog, s, now) }))
     .filter((p) => p.from.min.priceCents !== null)
-    .map((p) => `${p.name} ab ${formatEuro(p.from.min.priceCents as number)}`)
-  return {
+    .map((p) => `${p.label} ab ${formatEuro(p.from.min.priceCents as number)}`)
+  return withOg({
     title: { absolute: `Mobile Autoaufbereitung Graz & Umgebung | ${SITE.name}` },
-    description: `Mobile Autoaufbereitung in Graz & Graz-Umgebung${parts.length ? `: ${parts.join(', ')}` : ''}. Innenreinigung, Polsterreinigung und Außenpflege direkt bei Ihnen – Termin online buchen.`,
+    description: `Mobile Autoaufbereitung in Graz & Graz-Umgebung${parts.length ? ` – ${parts.join(', ')}` : ''}. Wir kommen zu Ihnen, Endpreise inkl. Anfahrt. Termin online buchen.`,
     alternates: { canonical: '/' },
-  }
+  })
 }
 
 export default async function HomePage() {

@@ -97,7 +97,15 @@ export const couponCheckSchema = quoteSchema.extend({
 })
 export type CustomerInput = z.infer<typeof customerSchema>
 
-export const INQUIRY_TOPICS = ['Allgemeine Frage', 'Terminanfrage', 'Firmen & Flotten', 'Autohaus / Händler', 'Sonstiges'] as const
+export const INQUIRY_TOPICS = ['Allgemeine Frage', 'Individuelles Angebot', 'Terminanfrage', 'Firmen & Flotten', 'Autohaus / Händler', 'Sonstiges'] as const
+
+/** Kurzschlüssel für Links wie /kontakt?anliegen=angebot */
+export const INQUIRY_TOPIC_KEYS: Record<string, (typeof INQUIRY_TOPICS)[number]> = {
+  angebot: 'Individuelles Angebot',
+  termin: 'Terminanfrage',
+  firma: 'Firmen & Flotten',
+  autohaus: 'Autohaus / Händler',
+}
 
 export const inquirySchema = z.object({
   name: z.string().trim().min(2, 'Bitte geben Sie Ihren Namen ein.').max(100, 'Name ist zu lang.'),

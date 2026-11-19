@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
+import { withOg } from '@/lib/seo'
 import { LegalPage, Todo, Val } from '@/components/site/Legal'
 import { getSettings } from '@/lib/catalog'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Stornobedingungen',
   description: 'Stornobedingungen für Termine der mobilen Fahrzeugpflege von RM6 Autoaufbereitung.',
   alternates: { canonical: '/stornobedingungen' },
-}
+})
 
 export default async function CancellationPage() {
   const { business: b, rules } = await getSettings()

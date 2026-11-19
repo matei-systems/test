@@ -2,21 +2,22 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PageHero } from '@/components/site/PageHero'
 import { ContactForm } from '@/components/pages/ContactForm'
+import { INQUIRY_TOPIC_KEYS } from '@/lib/validation'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
 import { getSettings, getWorkingHours } from '@/lib/catalog'
 import { isDatabaseConfigured } from '@/lib/db'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, withOg } from '@/lib/seo'
 import { telHref, WEEKDAYS_LONG, whatsappHref } from '@/lib/format'
 import { SITE } from '@/config/site'
 import styles from '@/components/pages/Pages.module.css'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Kontakt – mobile Autoaufbereitung in Graz anfragen',
   description:
-    'Kontakt zu RM6 Autoaufbereitung: Kontaktformular, Online-Terminbuchung und alle Kontaktwege auf einen Blick. Mobile Autoaufbereitung in Graz & Graz-Umgebung – auch für Firmen und Autohäuser.',
+    'Kontakt zu RM6 Autoaufbereitung: Fragen stellen, individuelles Angebot anfragen oder direkt online buchen – mobile Autoaufbereitung in Graz & Umgebung.',
   alternates: { canonical: '/kontakt' },
-}
+})
 
 /** Aufeinanderfolgende Tage mit gleichen Zeiten zusammenfassen: „Montag – Freitag 08:00–18:00“ */
 function groupHours(hours: Array<{ weekday: number; isOpen: boolean; open: string; close: string }>) {
@@ -35,7 +36,10 @@ function groupHours(hours: Array<{ weekday: number; isOpen: boolean; open: strin
   return out
 }
 
-export default async function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = await searchParams
+  const key = typeof params.anliegen === 'string' ? params.anliegen : ''
+  const initialTopic = INQUIRY_TOPIC_KEYS[key]
   const [{ business, area }, hours] = await Promise.all([getSettings(), getWorkingHours()])
   const hasDirect = Boolean(business.phone || business.whatsapp || business.email)
   return (
@@ -151,7 +155,7 @@ export default async function ContactPage() {
               </Link>
               .
             </p>
-            <ContactForm enabled={isDatabaseConfigured()} />
+            <ContactForm enabled={isDatabaseConfigured()} initialTopic={initialTopic} />
           </div>
         </div>
       </section>

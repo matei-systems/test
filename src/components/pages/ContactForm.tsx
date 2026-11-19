@@ -11,8 +11,8 @@ type Values = { name: string; email: string; phone: string; topic: string; messa
 const EMPTY: Values = { name: '', email: '', phone: '', topic: INQUIRY_TOPICS[0], message: '', privacyAccepted: false, website: '' }
 
 /** Kontaktformular – wird serverseitig geprüft und gespeichert; der Erfolg wird erst nach dem Speichern angezeigt. */
-export function ContactForm({ enabled }: { enabled: boolean }) {
-  const [v, setV] = useState<Values>(EMPTY)
+export function ContactForm({ enabled, initialTopic }: { enabled: boolean; initialTopic?: string }) {
+  const [v, setV] = useState<Values>(() => ({ ...EMPTY, topic: (INQUIRY_TOPICS as readonly string[]).includes(initialTopic ?? '') ? (initialTopic as string) : EMPTY.topic }))
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState('')

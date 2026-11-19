@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
+import { withOg } from '@/lib/seo'
 import { LegalPage, Todo, Val } from '@/components/site/Legal'
 import { getSettings } from '@/lib/catalog'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Datenschutzerklärung',
   description: 'Informationen zur Verarbeitung personenbezogener Daten bei RM6 Autoaufbereitung gemäß DSGVO.',
   alternates: { canonical: '/datenschutz' },
-}
+})
 
 export default async function PrivacyPage() {
   const { business: b } = await getSettings()

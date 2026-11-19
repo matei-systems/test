@@ -12,7 +12,7 @@ export default function NotFound() {
         display: 'grid',
         placeItems: 'center',
         padding: 24,
-        background: 'radial-gradient(50% 40% at 50% 0%, rgba(200,180,138,0.1), transparent 70%), var(--bg)',
+        background: 'radial-gradient(50% 40% at 50% 0%, rgba(212, 168, 67,0.1), transparent 70%), var(--bg)',
       }}
     >
       <div style={{ display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', maxWidth: 520 }}>

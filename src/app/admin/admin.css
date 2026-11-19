@@ -271,7 +271,7 @@
 
 .adm-kpi--accent {
   border-color: var(--accent-line);
-  background: linear-gradient(180deg, rgba(200, 180, 138, 0.1), #111114);
+  background: linear-gradient(180deg, rgba(212, 168, 67, 0.1), #111114);
 }
 
 /* Tabellen */
@@ -759,7 +759,7 @@
   display: grid;
   place-items: center;
   padding: 24px;
-  background: radial-gradient(60% 50% at 50% 0%, rgba(200, 180, 138, 0.1), transparent 70%), var(--bg);
+  background: radial-gradient(60% 50% at 50% 0%, rgba(212, 168, 67, 0.1), transparent 70%), var(--bg);
 }
 
 .adm-login-card {

@@ -60,7 +60,7 @@ export function Header({ phone, whatsapp }: { phone?: string; whatsapp?: string 
         <div className={styles.actions}>
           {!isBooking && (
             <Link href="/buchen" className={`btn btn--primary btn--sm ${styles.cta}`}>
-              <span className={styles.ctaLong}>Termin buchen</span>
+              <span className={styles.ctaLong}>Jetzt Termin buchen</span>
               <span className={styles.ctaShort}>Buchen</span>
             </Link>
           )}
@@ -91,7 +91,7 @@ export function Header({ phone, whatsapp }: { phone?: string; whatsapp?: string 
           </ul>
           <div className={styles.mobileFoot}>
             <Link href="/buchen" className="btn btn--primary btn--block" onClick={() => setOpen(false)}>
-              Termin jetzt buchen
+              Jetzt Termin buchen
               <Icon name="arrow-right" />
             </Link>
             {whatsapp && (

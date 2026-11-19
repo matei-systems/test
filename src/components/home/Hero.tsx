@@ -60,10 +60,10 @@ export function Hero({
         </p>
         <div className={styles.ctas}>
           <Link href="/buchen" className="btn btn--primary">
-            Termin buchen <Icon name="arrow-right" />
+            Jetzt Termin buchen <Icon name="arrow-right" />
           </Link>
           <Link href="/leistungen" className="btn btn--ghost">
-            Unsere Leistungen
+            Alle Leistungen entdecken
           </Link>
         </div>
         {fromPrice !== null && (

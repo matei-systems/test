@@ -15,14 +15,14 @@ function steps(autoConfirm: boolean): Array<{ icon: IconName; title: string; tex
     {
       icon: 'list',
       title: 'Buchung absenden',
-      text: 'Alle Angaben und den Gesamtpreis prüfen, dann absenden. Der Termin ist damit für Sie reserviert; online ist keine Zahlung nötig.',
+      text: 'Alle Angaben und den Gesamtpreis prüfen, dann absenden. Sie erhalten sofort eine Buchungsnummer, der Termin ist für Sie reserviert. Online ist keine Zahlung nötig.',
     },
     {
       icon: 'mail',
       title: 'Terminbestätigung erhalten',
       text: autoConfirm
         ? 'Ihr Termin wird sofort bestätigt – Sie erhalten die Bestätigung mit allen Details per E-Mail.'
-        : 'Wir prüfen Standort und Details und bestätigen den Termin per E-Mail. Erst mit dieser Bestätigung ist der Termin fix.',
+        : 'Wir prüfen anschließend Ihre Angaben und bestätigen Ihren Termin persönlich per E-Mail. Erst danach ist Ihr Termin verbindlich bestätigt.',
     },
     { icon: 'shield', title: 'Fahrzeug aufbereiten lassen', text: 'Wir kommen zur vereinbarten Zeit zu Ihnen und pflegen Ihr Fahrzeug mit Sorgfalt und Blick fürs Detail.' },
   ]
@@ -68,13 +68,45 @@ export function HowItWorks({ autoConfirm }: { autoConfirm: boolean }) {
 }
 
 // ─── Vorteile ───────────────────────────────────────────────────────────────────
-const BENEFITS: Array<{ icon: IconName; title: string; text: string }> = [
-  { icon: 'van', title: 'Mobile Fahrzeugaufbereitung', text: 'Kein Hinfahren, kein Warten: Wir kommen mit unserer Ausrüstung direkt zu Ihrem Fahrzeug.' },
-  { icon: 'pin', title: 'Bequemer Service am Wunschort', text: 'Zu Hause, am Arbeitsplatz oder an einem vereinbarten Ort in Graz und Graz-Umgebung.' },
-  { icon: 'tag', title: 'Transparente Preise', text: 'Klare Endpreise je Fahrzeugkategorie. Zusatzkosten werden immer vorab besprochen.' },
-  { icon: 'polish', title: 'Individuelle Fahrzeugpflege', text: 'Sorgfältige Handarbeit, schonende Methoden und Zusatzleistungen genau nach Bedarf.' },
-  { icon: 'calendar', title: 'Einfache Online-Terminbuchung', text: 'Rund um die Uhr online buchen – Sie sehen nur Termine, die wirklich frei sind.' },
-  { icon: 'handshake', title: 'Persönlicher Kundenservice', text: 'Persönlicher Kontakt, ehrliche Beratung und Termine, die zu Ihrem Alltag passen.' },
+const BENEFITS: Array<{ icon: IconName; title: string; text: string; href?: string; cta?: string }> = [
+  {
+    icon: 'handshake',
+    title: 'Persönlicher Service',
+    text: 'Wir bestätigen jeden Termin persönlich und stimmen Besonderheiten – etwa Standort oder starke Verschmutzung – vorab mit Ihnen ab.',
+  },
+  {
+    icon: 'van',
+    title: 'Mobile Durchführung',
+    text: 'Kein Hinfahren, kein Warten: Wir kommen mit unserer Ausrüstung zu Ihrem Fahrzeug – nach Hause, an den Arbeitsplatz oder an einen vereinbarten Standort.',
+  },
+  {
+    icon: 'tag',
+    title: 'Transparente Preise',
+    text: 'Endpreise je Fahrzeugkategorie inklusive Anfahrt. Zusatzkosten entstehen nur nach Ihrer Zustimmung.',
+    href: '/preise',
+    cta: 'Zur Preisliste',
+  },
+  {
+    icon: 'polish',
+    title: 'Sorgfältige Arbeit',
+    text: 'Handarbeit mit schonenden Methoden. Was enthalten ist – und was nicht –, steht bei jeder Leistung offen dabei.',
+    href: '/leistungen',
+    cta: 'Leistungen ansehen',
+  },
+  {
+    icon: 'calendar',
+    title: 'Einfache Terminvereinbarung',
+    text: 'Freie Termine online sehen und reservieren. Nach dem Absenden erhalten Sie sofort eine Buchungsnummer.',
+    href: '/buchen',
+    cta: 'Termin wählen',
+  },
+  {
+    icon: 'pin',
+    title: 'Graz und Graz-Umgebung',
+    text: 'Unterwegs in Graz und den Gemeinden rund um Graz. Ob Ihr Standort dazugehört, prüfen Sie mit Ihrer Postleitzahl.',
+    href: '/einsatzgebiet',
+    cta: 'Einsatzgebiet prüfen',
+  },
 ]
 
 export function Benefits() {
@@ -89,8 +121,7 @@ export function Benefits() {
             </h2>
           </div>
           <p className="lead">
-            Ihr Fahrzeug ist mehr als ein Verkehrsmittel. Deshalb behandeln wir es mit genau der Sorgfalt, die wir uns für unser eigenes
-            wünschen würden.
+            Keine leeren Versprechen: klare Leistungen, Endpreise vor der Buchung und ein Termin, den wir persönlich mit Ihnen bestätigen.
           </p>
         </div>
         <ul className={styles.benefits}>
@@ -101,6 +132,11 @@ export function Benefits() {
               </span>
               <h3 className={styles.benefitTitle}>{b.title}</h3>
               <p className={styles.benefitText}>{b.text}</p>
+              {b.href && (
+                <Link href={b.href} className="link-arrow" style={{ marginTop: 'auto', fontSize: '0.86rem' }}>
+                  {b.cta} <Icon name="arrow-right" />
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -255,12 +291,23 @@ export function FinalCta() {
         <p className="lead">Wählen Sie Leistung und Wunschtermin – wir kümmern uns um den Rest. Direkt bei Ihnen vor Ort.</p>
         <div className={styles.ctaButtons}>
           <Link href="/buchen" className="btn btn--primary">
-            Termin buchen <Icon name="arrow-right" />
+            Jetzt Termin buchen <Icon name="arrow-right" />
           </Link>
-          <Link href="/preise" className="btn btn--ghost">
-            Preise ansehen
+          <Link href="/kontakt?anliegen=angebot" className="btn btn--ghost">
+            Individuelles Angebot anfragen
           </Link>
         </div>
+        <p className="muted" style={{ fontSize: '0.9rem' }}>
+          Noch unsicher, welches Paket passt?{' '}
+          <Link href="/leistungen" style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+            Alle Leistungen entdecken
+          </Link>{' '}
+          oder{' '}
+          <Link href="/preise" style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+            Preise vergleichen
+          </Link>
+          .
+        </p>
       </div>
     </section>
   )

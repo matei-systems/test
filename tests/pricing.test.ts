@@ -316,3 +316,30 @@ describe('Preisstrategie (Startwerte)', () => {
     }
   })
 })
+
+describe('Preis-Konsistenz: Preisseite, Leistungsseite und Buchung', () => {
+  it('Preisrechner/Vergleichstabelle zeigen für jedes Paket und jede Fahrzeugkategorie exakt Preis und Dauer der Buchung', async () => {
+    const { buildOfferData } = await import('@/components/pages/offer-data')
+    const now = Date.parse('2026-12-01T10:00:00Z')
+    const catalog = makeCatalog(DEFAULT_PROMOTIONS.map((p, i) => promo({ ...p, id: `p${i}` })))
+    const data = buildOfferData(catalog, now)
+    expect(data.vehicles).toHaveLength(6)
+    expect(data.packages.map((p) => p.id)).toEqual(['innenraum-basic', 'innenraum-premium', 'aussenpflege', 'komplettpaket'])
+    let checked = 0
+    for (const pkg of data.packages) {
+      for (const v of data.vehicles) {
+        const q = calculateQuote(catalog, { serviceId: pkg.id, vehicleId: v.id, addonIds: [] }, now)
+        expect(q.ok).toBe(true)
+        if (!q.ok) continue
+        expect(pkg.cells[v.id].priceCents).toBe(q.quote.totalPriceCents)
+        expect(pkg.cells[v.id].regularCents).toBe(q.quote.serviceRegularCents)
+        expect(pkg.cells[v.id].minutes).toBe(q.quote.durationMinutes)
+        checked++
+      }
+    }
+    expect(checked).toBe(24)
+    // Einstiegspreise wie kommuniziert: Basic 79 €, Premium 119 €, Außenpflege 99 €, Komplettpaket 199 €
+    const fromPrices = data.packages.map((p) => Math.min(...Object.values(p.cells).map((c) => c.priceCents ?? Infinity)))
+    expect(fromPrices).toEqual([7900, 11900, 9900, 19900])
+  })
+})

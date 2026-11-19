@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { withOg } from '@/lib/seo'
 import { BookingWizard } from '@/components/booking/BookingWizard'
 import Link from 'next/link'
 import { getCatalog, getSettings } from '@/lib/catalog'
@@ -8,12 +9,12 @@ import { Icon } from '@/components/icons'
 import { SITE } from '@/config/site'
 import styles from './page.module.css'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withOg({
   title: 'Termin online buchen',
   description:
     'Mobile Autoaufbereitung in Graz & Graz-Umgebung online buchen: Leistung wählen, Fahrzeug angeben, freien Wunschtermin auswählen – in wenigen Klicks.',
   alternates: { canonical: '/buchen' },
-}
+})
 
 export default async function BookingPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams

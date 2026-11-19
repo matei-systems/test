@@ -4,6 +4,9 @@ Stand: November 2026. Diese Liste nennt alles, was **nur der Inhaber** ergänzen
 Auf der Website sind fehlende Angaben in den Rechtstexten sichtbar als Platzhalter markiert; jede Rechtsseite trägt den Hinweis
 „Entwurf – rechtlich nicht geprüft“. **Vor dem Start mit echten Kunden müssen die Punkte in Abschnitt 1 und 2 erledigt sein.**
 
+Formulierungen und Abgrenzungen, die Sie noch freigeben sollten (Zusatzleistungen, Außenwäsche-Alternative, Zahlungsarten u. a.):
+[`docs/freigaben-offen.md`](freigaben-offen.md).
+
 ## 1. Unternehmensdaten (Admin → Einstellungen)
 
 Diese Felder sind leer. Sie erscheinen nach dem Eintragen automatisch in Impressum, Datenschutzerklärung, AGB, Kontaktseite, Footer,

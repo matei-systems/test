@@ -88,7 +88,11 @@ const REQ_COMMON = [
 ]
 
 /** Zusätzliche Voraussetzung für alle Leistungen mit Außenwäsche. */
-const REQ_EXTERIOR =
+export const REQ_EXTERIOR =
+  'Außenwäsche nur an geeigneten und zulässigen Standorten: befestigte Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften – keine unzulässige Einleitung von Waschwasser, nicht auf öffentlichen Straßen oder unbefestigtem Untergrund. Wir prüfen den Standort vor der Terminbestätigung; ist er nicht geeignet, schlagen wir eine Alternative vor, etwa einen anderen geeigneten Standort oder eine reine Innenraumleistung'
+
+/** Frühere Fassung (Seed-Version 3) – wird bei bestehenden Installationen nur ersetzt, wenn sie unverändert ist. */
+export const REQ_EXTERIOR_V3 =
   'Außenwäsche nur an geeigneten und zulässigen Standorten: befestigte Fläche mit ordnungsgemäßer Abwasserableitung nach den örtlichen Vorschriften – nicht auf öffentlichen Straßen oder unbefestigtem Untergrund. Wir klären den Standort vor der Terminbestätigung'
 
 export const DEFAULT_SERVICES: DefaultService[] = [
@@ -240,11 +244,20 @@ export const DEFAULT_SERVICES: DefaultService[] = [
   },
 ]
 
+/** Kurzbeschreibungen der Zusatzleistungen aus Seed-Version 3 (für die Text-Aktualisierung bestehender Installationen). */
+export const ADDON_DESCRIPTIONS_V3: Record<string, string> = {
+  tierhaarentfernung: 'Gründliche Entfernung von Tierhaaren aus Polstern, Teppichen und Kofferraum.',
+  polsterreinigung: 'Tiefenreinigung der Sitzpolster für Flecken und hartnäckige Verschmutzungen.',
+  'starke-verschmutzung': 'Zuschlag für stark verschmutzte Fahrzeuge. Endpreis nach tatsächlichem Aufwand, Abstimmung vor Ort.',
+  detailreinigung: '30 Minuten zusätzliche Detailarbeit für Bereiche Ihrer Wahl – nach Absprache vor Ort.',
+}
+
 export const DEFAULT_ADDONS: DefaultAddon[] = [
   {
     id: 'tierhaarentfernung',
     name: 'Tierhaarentfernung',
-    description: 'Gründliche Entfernung von Tierhaaren aus Polstern, Teppichen und Kofferraum.',
+    description:
+      'Entfernung von Tierhaaren aus Sitzpolstern, Teppichboden, Textil-Fußmatten und Kofferraum. Bei sehr starkem Tierhaarbesatz besprechen wir den Aufwand vorab mit Ihnen.',
     priceCents: 3900,
     minutes: 45,
     bookableAlone: true,
@@ -252,7 +265,8 @@ export const DEFAULT_ADDONS: DefaultAddon[] = [
   {
     id: 'polsterreinigung',
     name: 'Intensive Polsterreinigung',
-    description: 'Tiefenreinigung der Sitzpolster für Flecken und hartnäckige Verschmutzungen.',
+    description:
+      'Tiefenreinigung der Sitzpolster (Sitzflächen, Rückenlehnen, Seitenwangen) bei Flecken und hartnäckigen Verschmutzungen – keine Tiefenreinigung des gesamten Innenraums.',
     priceCents: 5900,
     minutes: 60,
     bookableAlone: true,
@@ -260,7 +274,8 @@ export const DEFAULT_ADDONS: DefaultAddon[] = [
   {
     id: 'starke-verschmutzung',
     name: 'Starke Verschmutzung',
-    description: 'Zuschlag für stark verschmutzte Fahrzeuge. Endpreis nach tatsächlichem Aufwand, Abstimmung vor Ort.',
+    description:
+      'Zuschlag bei deutlich stärkerer Verschmutzung als üblich (z. B. viel Sand, Erde, Essensreste oder verschüttete Getränke). Den konkreten Preis nennen wir vor Beginn der Zusatzarbeit – durchgeführt wird sie erst nach Ihrer Zustimmung.',
     priceCents: 2900,
     priceIsFrom: true,
     minutes: 45,
@@ -269,7 +284,8 @@ export const DEFAULT_ADDONS: DefaultAddon[] = [
   {
     id: 'detailreinigung',
     name: 'Zusätzliche Detailreinigung',
-    description: '30 Minuten zusätzliche Detailarbeit für Bereiche Ihrer Wahl – nach Absprache vor Ort.',
+    description:
+      '30 Minuten zusätzliche Detailarbeit für Bereiche Ihrer Wahl – z. B. Fugen und Lüftungsdüsen, Einstiege oder Kofferraum. Sie legen zu Beginn fest, wofür die Zeit genutzt wird.',
     priceCents: 3500,
     minutes: 30,
     bookableAlone: true,
