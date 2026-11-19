@@ -1,0 +1,71 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>RM6_SPOT_10s_1920x1080</title><style>
+@font-face{font-family:Geist;src:url('../01_BRAND_GUIDELINES/fonts/Geist-Variable.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-600-normal.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-800-normal.woff2') format('woff2');font-weight:800}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-700-italic.woff2') format('woff2');font-weight:700;font-style:italic}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-800-italic.woff2') format('woff2');font-weight:800;font-style:italic}
+@font-face{font-family:Serif;src:url('../01_BRAND_GUIDELINES/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');font-style:italic}
+@font-face{font-family:Serif;src:url('../01_BRAND_GUIDELINES/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');font-style:normal}
+:root{--black:#0A0A0B;--carbon:#17171A;--gold:#D4A843;--gold-l:#E6C06A;--gold-d:#9A7420;--silver:#C9CCD1;--ivory:#F4F1EA;--red:#C8372D;
+--goldgrad:linear-gradient(100deg,#9A7420 0%,#D4A843 22%,#F3D88E 46%,#D4A843 62%,#B58A2C 82%,#E6C06A 100%)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#555}
+body{font-family:Geist,Arial,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.sheet{position:relative;overflow:hidden;break-after:page;page-break-after:always;background:var(--black)}
+.sheet:last-child{break-after:auto;page-break-after:auto}
+.bg{position:absolute;inset:0;overflow:hidden}
+.trim{position:absolute;container-type:size;overflow:visible}
+.abs{position:absolute}
+.logo{display:block;height:auto}
+.qr{display:block;width:100%;height:auto}
+.gold{background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gold-solid{color:var(--gold)}
+.silver{color:var(--silver)}
+.serif{font-family:Serif,serif;font-style:italic;font-weight:400;letter-spacing:0}
+.cond{font-family:Barlow,Geist,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.92}
+.cond-i{font-family:Barlow,Geist,sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:.005em;line-height:.9}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.32em;color:var(--gold)}
+.grule{display:flex;align-items:center;gap:.6em;width:100%}
+.grule i{flex:1;height:.09em;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.grule b{width:.42em;height:.42em;border-radius:50%;background:var(--gold);flex:none}
+.speed{position:absolute;pointer-events:none}
+.br{position:absolute;width:6cqmin;height:6cqmin;border-color:var(--gold);border-style:solid;border-width:0}
+.br.tl{top:4cqmin;left:4cqmin;border-top-width:.35cqmin;border-left-width:.35cqmin}
+.br.tr{top:4cqmin;right:4cqmin;border-top-width:.35cqmin;border-right-width:.35cqmin}
+.br.bl{bottom:4cqmin;left:4cqmin;border-bottom-width:.35cqmin;border-left-width:.35cqmin}
+.br.br2{bottom:4cqmin;right:4cqmin;border-bottom-width:.35cqmin;border-right-width:.35cqmin}
+.chip{display:inline-flex;align-items:center;gap:.5em;padding:.45em 1em;border:1px solid rgba(212,168,67,.55);border-radius:999px;color:#fff;font-weight:500;white-space:nowrap}
+.chip::before{content:'';width:.42em;height:.42em;border-radius:50%;background:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.75em 1.6em;border-radius:999px;background:var(--goldgrad);color:#15120C;font-weight:700;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}
+.badge-sale{display:inline-block;padding:.18em .5em;border-radius:.3em;background:var(--red);color:#fff;font-weight:700;letter-spacing:.02em}
+.qrbox{background:#fff;border-radius:.25em;padding:0;overflow:hidden}
+.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.todo{color:#E58A7E}
+.muted{color:#B9B4AA}
+.light .muted{color:#5d594f}
+/* Konzept C – heller Grund */
+.light{color:#0A0A0B}
+.light .eyebrow{color:var(--gold-d)}
+.light .gold-solid{color:var(--gold-d)}
+.light .chip{color:#0A0A0B;border-color:rgba(154,116,32,.5)}
+.light .grule i{background:linear-gradient(90deg,transparent,var(--gold-d),transparent)}
+.light .grule b{background:var(--gold-d)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(4cqh)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+@keyframes focus{from{opacity:0;filter:blur(2.4cqmin);transform:scale(1.08)}to{opacity:1;filter:none;transform:none}}
+@keyframes kenburns{from{transform:scale(1.12) translateX(2%)}to{transform:scale(1) translateX(0)}}
+@keyframes sweep{from{transform:translateX(-120%) skewX(-18deg)}to{transform:translateX(220%) skewX(-18deg)}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+.L{position:absolute;inset:0;container-type:size}
+.a{animation-fill-mode:both;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+.scene{position:absolute;inset:0;opacity:0;animation:fadeIn .5s both}
+.photo{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;animation:kenburns 4s linear both}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.95) 0%,rgba(10,10,11,.7) 45%,rgba(10,10,11,.15) 100%)}
+.shadeV{position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,11,.97) 0%,rgba(10,10,11,.75) 45%,rgba(10,10,11,.2) 100%)}
+.glow{position:absolute;inset:0;background:radial-gradient(55% 60% at 50% 45%,rgba(212,168,67,.25),transparent 70%),#0A0A0B}
+.sweep{position:absolute;top:-10%;bottom:-10%;width:22%;background:linear-gradient(90deg,transparent,rgba(243,216,142,.35),transparent)}
+html,body{background:#0A0A0B}.stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#0A0A0B;container-type:size}</style></head><body><div class="stage"><div class="scene" style="animation:fadeIn .5s 0s both, fadeOut .45s 3.15s forwards;"><img class="photo" src="../16_BILDER_ASSETS/fotos/RM6_FOTO_LIMOUSINE_STUDIO.jpg" style="object-position:70% 50%;animation-delay:0s;animation-duration:4.1s"><div class="shade"></div><div class="L" style="display:flex;flex-direction:column;justify-content:center;padding:0 7cqw;gap:2.4cqh"><img class="logo a" style="width:22cqw;animation:fadeIn .6s 0.2s both;margin-bottom:4cqh" src="../16_BILDER_ASSETS/logo/RM6_Autoaufbereitung_Logo_transparent.png" alt="RM6 Autoaufbereitung"><p class="eyebrow a" style="font-size:2.4cqh;animation:fadeUp .6s 0.3s both">Mobile Fahrzeugaufbereitung</p><h1 class="cond-i a" style="font-size:11cqh;animation:fadeUp .7s 0.45s both"><span class="gold">Glanz,</span><br>der zu Ihnen kommt.</h1><p class="a" style="font-size:3.6cqh;color:#D9D5CC;max-width:46cqw;animation:fadeUp .7s 0.7s both">Premium-Fahrzeugpflege von Hand – direkt bei Ihnen in Graz & Umgebung.</p></div></div><div class="scene" style="animation:fadeIn .5s 3.6s both, fadeOut .45s 6.35s forwards;"><div class="glow"></div><div class="L" style="display:flex;flex-direction:column;justify-content:center;padding:0 9cqw;gap:3cqh"><p class="eyebrow a" style="font-size:2.4cqh;animation:fadeUp .6s 3.8s both">Unsere Leistungen</p><p class="cond a" style="font-size:10cqh;animation:fadeUp .6s 4s both">Innenraum</p><p class="cond a" style="font-size:10cqh;animation:fadeUp .6s 4.35s both">Außenpflege</p><p class="cond a" style="font-size:10cqh;animation:fadeUp .6s 4.7s both">Komplettpaket</p><p class="cond a" style="font-size:10cqh;animation:fadeUp .6s 5.05s both"><span class="gold">Anfahrt inklusive</span></p></div></div><div class="scene" style="animation:fadeIn .5s 6.8s both;"><div class="glow"></div><div class="sweep a" style="animation:sweep 1.6s 7.1s both"></div><div class="L" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4cqh;text-align:center"><img class="logo a" style="width:44cqw;animation:focus 1s 6.8999999999999995s both" src="../16_BILDER_ASSETS/logo/RM6_Autoaufbereitung_Logo_transparent.png" alt="RM6 Autoaufbereitung"><span class="a" style="width:26cqw;font-size:2.6cqh;transform-origin:center;animation:draw .8s 7.5s both"><span class="grule " aria-hidden="true"><i></i><b></b><i></i></span></span><p class="cond a" style="font-size:7cqh;animation:fadeUp .7s 7.7s both">Termin online <span class="gold">buchen</span></p><div class="a" style="display:flex;align-items:center;gap:2.4cqw;animation:fadeUp .7s 8s both"><div class="qrbox" style="width:14cqh;width:12cqw"><svg class="qr" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR-Code: https://glanzmobil.vercel.app/buchen" shape-rendering="crispEdges"><rect width="37" height="37" fill="#FFFFFF"/><path d="M4 4h7v1h-7zM12 4h1v1h-1zM14 4h1v1h-1zM16 4h2v1h-2zM19 4h1v1h-1zM22 4h3v1h-3zM26 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM14 5h2v1h-2zM17 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM13 6h2v1h-2zM16 6h1v1h-1zM19 6h1v1h-1zM22 6h1v1h-1zM26 6h1v1h-1zM28 6h3v1h-3zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h2v1h-2zM18 7h1v1h-1zM21 7h1v1h-1zM24 7h1v1h-1zM26 7h1v1h-1zM28 7h3v1h-3zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM14 8h3v1h-3zM18 8h4v1h-4zM23 8h1v1h-1zM26 8h1v1h-1zM28 8h3v1h-3zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM14 9h1v1h-1zM16 9h2v1h-2zM22 9h3v1h-3zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h7v1h-7zM12 11h5v1h-5zM20 11h3v1h-3zM4 12h1v1h-1zM6 12h2v1h-2zM9 12h3v1h-3zM15 12h3v1h-3zM20 12h4v1h-4zM26 12h1v1h-1zM29 12h1v1h-1zM31 12h2v1h-2zM5 13h2v1h-2zM8 13h2v1h-2zM12 13h1v1h-1zM14 13h1v1h-1zM17 13h2v1h-2zM20 13h5v1h-5zM26 13h3v1h-3zM32 13h1v1h-1zM5 14h3v1h-3zM10 14h5v1h-5zM17 14h1v1h-1zM21 14h2v1h-2zM24 14h1v1h-1zM26 14h3v1h-3zM30 14h2v1h-2zM4 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM20 15h1v1h-1zM24 15h1v1h-1zM27 15h2v1h-2zM32 15h1v1h-1zM5 16h10v1h-10zM16 16h1v1h-1zM18 16h1v1h-1zM21 16h2v1h-2zM24 16h1v1h-1zM29 16h2v1h-2zM5 17h2v1h-2zM8 17h1v1h-1zM16 17h1v1h-1zM18 17h3v1h-3zM23 17h1v1h-1zM26 17h1v1h-1zM30 17h3v1h-3zM9 18h5v1h-5zM16 18h2v1h-2zM21 18h3v1h-3zM25 18h1v1h-1zM27 18h1v1h-1zM30 18h3v1h-3zM6 19h4v1h-4zM12 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM22 19h3v1h-3zM28 19h1v1h-1zM31 19h1v1h-1zM6 20h1v1h-1zM9 20h5v1h-5zM15 20h2v1h-2zM18 20h1v1h-1zM22 20h4v1h-4zM27 20h3v1h-3zM31 20h1v1h-1zM6 21h1v1h-1zM8 21h2v1h-2zM12 21h3v1h-3zM18 21h2v1h-2zM27 21h1v1h-1zM29 21h3v1h-3zM4 22h1v1h-1zM6 22h3v1h-3zM10 22h2v1h-2zM13 22h2v1h-2zM16 22h5v1h-5zM22 22h1v1h-1zM26 22h1v1h-1zM28 22h1v1h-1zM30 22h1v1h-1zM6 23h2v1h-2zM9 23h1v1h-1zM12 23h1v1h-1zM14 23h2v1h-2zM17 23h2v1h-2zM20 23h3v1h-3zM25 23h2v1h-2zM28 23h1v1h-1zM30 23h1v1h-1zM5 24h2v1h-2zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h2v1h-2zM17 24h2v1h-2zM21 24h2v1h-2zM24 24h7v1h-7zM12 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM20 25h1v1h-1zM24 25h1v1h-1zM28 25h5v1h-5zM4 26h7v1h-7zM12 26h3v1h-3zM16 26h1v1h-1zM18 26h1v1h-1zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h2v1h-2zM31 26h1v1h-1zM4 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM15 27h6v1h-6zM24 27h1v1h-1zM28 27h2v1h-2zM32 27h1v1h-1zM4 28h1v1h-1zM6 28h3v1h-3zM10 28h1v1h-1zM13 28h1v1h-1zM15 28h1v1h-1zM19 28h1v1h-1zM21 28h1v1h-1zM24 28h5v1h-5zM30 28h1v1h-1zM4 29h1v1h-1zM6 29h3v1h-3zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM16 29h1v1h-1zM19 29h7v1h-7zM27 29h3v1h-3zM32 29h1v1h-1zM4 30h1v1h-1zM6 30h3v1h-3zM10 30h1v1h-1zM12 30h1v1h-1zM15 30h4v1h-4zM23 30h2v1h-2zM27 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM13 31h2v1h-2zM18 31h1v1h-1zM20 31h1v1h-1zM22 31h1v1h-1zM24 31h2v1h-2zM27 31h1v1h-1zM29 31h1v1h-1zM31 31h1v1h-1zM4 32h7v1h-7zM12 32h1v1h-1zM15 32h2v1h-2zM18 32h2v1h-2zM23 32h2v1h-2zM26 32h1v1h-1zM31 32h1v1h-1z" fill="#0A0A0B"/></svg></div><div style="text-align:left"><p style="font-family:Barlow,sans-serif;font-weight:800;font-size:6cqh">0664 123 93 83</p><p class="gold-solid" style="font-family:Barlow,sans-serif;font-weight:700;font-size:5cqh">rm6.at</p></div></div></div></div></div></body></html>

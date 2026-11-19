@@ -1,0 +1,57 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>RM6_MOCKUP_ZAUNBANNER</title><style>
+@font-face{font-family:Geist;src:url('../01_BRAND_GUIDELINES/fonts/Geist-Variable.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-600-normal.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-800-normal.woff2') format('woff2');font-weight:800}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-700-italic.woff2') format('woff2');font-weight:700;font-style:italic}
+@font-face{font-family:Barlow;src:url('../01_BRAND_GUIDELINES/fonts/BarlowCondensed-800-italic.woff2') format('woff2');font-weight:800;font-style:italic}
+@font-face{font-family:Serif;src:url('../01_BRAND_GUIDELINES/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');font-style:italic}
+@font-face{font-family:Serif;src:url('../01_BRAND_GUIDELINES/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');font-style:normal}
+:root{--black:#0A0A0B;--carbon:#17171A;--gold:#D4A843;--gold-l:#E6C06A;--gold-d:#9A7420;--silver:#C9CCD1;--ivory:#F4F1EA;--red:#C8372D;
+--goldgrad:linear-gradient(100deg,#9A7420 0%,#D4A843 22%,#F3D88E 46%,#D4A843 62%,#B58A2C 82%,#E6C06A 100%)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#555}
+body{font-family:Geist,Arial,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.sheet{position:relative;overflow:hidden;break-after:page;page-break-after:always;background:var(--black)}
+.sheet:last-child{break-after:auto;page-break-after:auto}
+.bg{position:absolute;inset:0;overflow:hidden}
+.trim{position:absolute;container-type:size;overflow:visible}
+.abs{position:absolute}
+.logo{display:block;height:auto}
+.qr{display:block;width:100%;height:auto}
+.gold{background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gold-solid{color:var(--gold)}
+.silver{color:var(--silver)}
+.serif{font-family:Serif,serif;font-style:italic;font-weight:400;letter-spacing:0}
+.cond{font-family:Barlow,Geist,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.92}
+.cond-i{font-family:Barlow,Geist,sans-serif;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:.005em;line-height:.9}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.32em;color:var(--gold)}
+.grule{display:flex;align-items:center;gap:.6em;width:100%}
+.grule i{flex:1;height:.09em;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.grule b{width:.42em;height:.42em;border-radius:50%;background:var(--gold);flex:none}
+.speed{position:absolute;pointer-events:none}
+.br{position:absolute;width:6cqmin;height:6cqmin;border-color:var(--gold);border-style:solid;border-width:0}
+.br.tl{top:4cqmin;left:4cqmin;border-top-width:.35cqmin;border-left-width:.35cqmin}
+.br.tr{top:4cqmin;right:4cqmin;border-top-width:.35cqmin;border-right-width:.35cqmin}
+.br.bl{bottom:4cqmin;left:4cqmin;border-bottom-width:.35cqmin;border-left-width:.35cqmin}
+.br.br2{bottom:4cqmin;right:4cqmin;border-bottom-width:.35cqmin;border-right-width:.35cqmin}
+.chip{display:inline-flex;align-items:center;gap:.5em;padding:.45em 1em;border:1px solid rgba(212,168,67,.55);border-radius:999px;color:#fff;font-weight:500;white-space:nowrap}
+.chip::before{content:'';width:.42em;height:.42em;border-radius:50%;background:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.75em 1.6em;border-radius:999px;background:var(--goldgrad);color:#15120C;font-weight:700;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}
+.badge-sale{display:inline-block;padding:.18em .5em;border-radius:.3em;background:var(--red);color:#fff;font-weight:700;letter-spacing:.02em}
+.qrbox{background:#fff;border-radius:.25em;padding:0;overflow:hidden}
+.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.todo{color:#E58A7E}
+.muted{color:#B9B4AA}
+.light .muted{color:#5d594f}
+/* Konzept C – heller Grund */
+.light{color:#0A0A0B}
+.light .eyebrow{color:var(--gold-d)}
+.light .gold-solid{color:var(--gold-d)}
+.light .chip{color:#0A0A0B;border-color:rgba(154,116,32,.5)}
+.light .grule i{background:linear-gradient(90deg,transparent,var(--gold-d),transparent)}
+.light .grule b{background:var(--gold-d)}
+html,body{background:#000}.stage{position:relative;width:1920px;height:1080px;overflow:hidden}</style></head><body><div class="stage"><div style="position:absolute;inset:0;background:linear-gradient(180deg,#1b2333 0%,#3a3f4f 45%,#8a7a66 78%,#c7a676 100%)"></div><div style="position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(180deg,#2b2a27,#121211)"></div>
+<div style="position:absolute;left:0;right:0;top:350px;height:520px;background:repeating-linear-gradient(90deg,transparent 0 118px,#6f747b 118px 124px),repeating-linear-gradient(180deg,transparent 0 98px,rgba(111,116,123,.8) 98px 102px);opacity:.75"></div>
+<div style="position:absolute;left:210px;top:430px;width:1500px;height:500px;transform:perspective(1800px) rotateY(-6deg);box-shadow:0 30px 60px rgba(0,0,0,.6);background:url('../02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_A_BLACKGOLD_VORSCHAU.jpg') center/cover"></div>
+<i style="position:absolute;top:440px;left:230px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><i style="position:absolute;top:910px;left:230px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><i style="position:absolute;top:440px;left:950px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><i style="position:absolute;top:910px;left:950px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><i style="position:absolute;top:440px;left:1670px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><i style="position:absolute;top:910px;left:1670px;width:16px;height:16px;border-radius:50%;background:#d8d8d8;box-shadow:0 0 0 3px #555"></i><div style="position:absolute;left:28px;top:24px;font:600 16px Geist;letter-spacing:.22em;text-transform:uppercase;color:#D4A843">RM6 Mockup · Zaunbanner 300 × 100 cm</div><div style="position:absolute;right:24px;bottom:20px;padding:8px 14px;border-radius:999px;background:rgba(10,10,11,.7);border:1px solid rgba(212,168,67,.5);color:#C9CCD1;font:500 15px Geist;letter-spacing:.12em;text-transform:uppercase">Visualisierung · keine reale Werbefläche</div></div></body></html>

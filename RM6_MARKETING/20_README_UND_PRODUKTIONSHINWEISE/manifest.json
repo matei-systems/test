@@ -1,0 +1,3694 @@
+[
+  {
+    "id": "BRAND_GUIDELINES",
+    "kategorie": "01_BRAND_GUIDELINES",
+    "datei": "RM6_BRAND_GUIDELINES_A4_QUER",
+    "art": "print",
+    "format": "297 × 210 mm",
+    "beschnitt": "0 mm",
+    "seiten": 10,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "20 mm"
+      }
+    ],
+    "minDpi": 362,
+    "randabstand": "10 mm",
+    "dateien": {
+      "source": "01_BRAND_GUIDELINES/RM6_BRAND_GUIDELINES_A4_QUER.html",
+      "preview": "01_BRAND_GUIDELINES/RM6_BRAND_GUIDELINES_A4_QUER_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/01_BRAND_GUIDELINES/RM6_BRAND_GUIDELINES_A4_QUER_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/01_BRAND_GUIDELINES/RM6_BRAND_GUIDELINES_A4_QUER_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x150_A",
+    "kategorie": "02_BANNER/Grossbanner",
+    "datei": "RM6_GROSSBANNER_300x150_A_BLACKGOLD",
+    "art": "print",
+    "format": "300 × 150 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "345 mm"
+      }
+    ],
+    "minDpi": 60,
+    "randabstand": "120 mm",
+    "dateien": {
+      "source": "02_BANNER/Grossbanner/RM6_GROSSBANNER_300x150_A_BLACKGOLD.html",
+      "preview": "02_BANNER/Grossbanner/RM6_GROSSBANNER_300x150_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_GROSSBANNER_300x150_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_GROSSBANNER_300x150_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x150_B",
+    "kategorie": "02_BANNER/Grossbanner",
+    "datei": "RM6_GROSSBANNER_300x150_B_PERFORMANCE",
+    "art": "print",
+    "format": "300 × 150 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg nur ca. 14 dpi (Ziel ≥ 60) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "345 mm"
+      }
+    ],
+    "minDpi": 14,
+    "randabstand": "120 mm",
+    "dateien": {
+      "source": "02_BANNER/Grossbanner/RM6_GROSSBANNER_300x150_B_PERFORMANCE.html",
+      "preview": "02_BANNER/Grossbanner/RM6_GROSSBANNER_300x150_B_PERFORMANCE_VORSCHAU.jpg",
+      "pdf": "02_BANNER/Grossbanner/RM6_GROSSBANNER_300x150_B_PERFORMANCE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "BAN_150x100_A",
+    "kategorie": "02_BANNER/Grundstuecksbanner",
+    "datei": "RM6_BANNER_150x100_A_BLACKGOLD",
+    "art": "print",
+    "format": "150 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "230 mm"
+      }
+    ],
+    "minDpi": 119,
+    "randabstand": "74.2 mm",
+    "dateien": {
+      "source": "02_BANNER/Grundstuecksbanner/RM6_BANNER_150x100_A_BLACKGOLD.html",
+      "preview": "02_BANNER/Grundstuecksbanner/RM6_BANNER_150x100_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_150x100_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_150x100_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_150x100_D",
+    "kategorie": "02_BANNER/Grundstuecksbanner",
+    "datei": "RM6_BANNER_150x100_D_AKTION",
+    "art": "print",
+    "format": "150 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "230 mm"
+      }
+    ],
+    "minDpi": 119,
+    "randabstand": "80 mm",
+    "dateien": {
+      "source": "02_BANNER/Grundstuecksbanner/RM6_BANNER_150x100_D_AKTION.html",
+      "preview": "02_BANNER/Grundstuecksbanner/RM6_BANNER_150x100_D_AKTION_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_150x100_D_AKTION_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_150x100_D_AKTION_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_200x100_A",
+    "kategorie": "02_BANNER/Grundstuecksbanner",
+    "datei": "RM6_BANNER_200x100_A_BLACKGOLD",
+    "art": "print",
+    "format": "200 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "230 mm"
+      }
+    ],
+    "minDpi": 90,
+    "randabstand": "74.2 mm",
+    "dateien": {
+      "source": "02_BANNER/Grundstuecksbanner/RM6_BANNER_200x100_A_BLACKGOLD.html",
+      "preview": "02_BANNER/Grundstuecksbanner/RM6_BANNER_200x100_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_200x100_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_200x100_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_200x100_C",
+    "kategorie": "02_BANNER/Grundstuecksbanner",
+    "datei": "RM6_BANNER_200x100_C_ELITE",
+    "art": "print",
+    "format": "200 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "230 mm"
+      }
+    ],
+    "minDpi": 90,
+    "randabstand": "74.2 mm",
+    "dateien": {
+      "source": "02_BANNER/Grundstuecksbanner/RM6_BANNER_200x100_C_ELITE.html",
+      "preview": "02_BANNER/Grundstuecksbanner/RM6_BANNER_200x100_C_ELITE_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_200x100_C_ELITE_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_BANNER_200x100_C_ELITE_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x100_A",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_300x100_A_BLACKGOLD",
+    "art": "print",
+    "format": "300 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "440 mm"
+      }
+    ],
+    "minDpi": 75,
+    "randabstand": "96.3 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_A_BLACKGOLD.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x100_B",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_300x100_B_PERFORMANCE",
+    "art": "print",
+    "format": "300 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg nur ca. 14 dpi (Ziel ≥ 60) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "440 mm"
+      }
+    ],
+    "minDpi": 14,
+    "randabstand": "120 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_B_PERFORMANCE.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_B_PERFORMANCE_VORSCHAU.jpg",
+      "pdf": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_B_PERFORMANCE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x100_C",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_300x100_C_ELITE",
+    "art": "print",
+    "format": "300 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "440 mm"
+      }
+    ],
+    "minDpi": 75,
+    "randabstand": "120 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_C_ELITE.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_C_ELITE_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_C_ELITE_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_C_ELITE_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_300x100_D",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_300x100_D_AKTION",
+    "art": "print",
+    "format": "300 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 92 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "405 mm"
+      }
+    ],
+    "minDpi": 75,
+    "randabstand": "36.1 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_D_AKTION.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_300x100_D_AKTION_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_D_AKTION_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_300x100_D_AKTION_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_400x100_A",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_400x100_A_BLACKGOLD",
+    "art": "print",
+    "format": "400 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "440 mm"
+      }
+    ],
+    "minDpi": 71,
+    "randabstand": "160 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_400x100_A_BLACKGOLD.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_400x100_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_400x100_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_400x100_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BAN_400x100_D",
+    "kategorie": "02_BANNER/Zaunbanner",
+    "datei": "RM6_ZAUNBANNER_400x100_D_AKTION",
+    "art": "print",
+    "format": "400 × 100 cm",
+    "beschnitt": "10 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "440 mm"
+      }
+    ],
+    "minDpi": 71,
+    "randabstand": "63.4 mm",
+    "dateien": {
+      "source": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_400x100_D_AKTION.html",
+      "preview": "02_BANNER/Zaunbanner/RM6_ZAUNBANNER_400x100_D_AKTION_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_400x100_D_AKTION_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/02_BANNER/RM6_ZAUNBANNER_400x100_D_AKTION_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A0_A",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A0",
+    "datei": "RM6_AUFSTELLER_A0_HOCH_A_BLACKGOLD",
+    "art": "print",
+    "format": "841 × 1189 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "194 mm"
+      }
+    ],
+    "minDpi": 114,
+    "randabstand": "37.7 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A0/RM6_AUFSTELLER_A0_HOCH_A_BLACKGOLD.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A0/RM6_AUFSTELLER_A0_HOCH_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A0_HOCH_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A0_HOCH_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A0_D",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A0",
+    "datei": "RM6_AUFSTELLER_A0_HOCH_D_ANGEBOT",
+    "art": "print",
+    "format": "841 × 1189 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "202 mm"
+      }
+    ],
+    "minDpi": 114,
+    "randabstand": "58.9 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A0/RM6_AUFSTELLER_A0_HOCH_D_ANGEBOT.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A0/RM6_AUFSTELLER_A0_HOCH_D_ANGEBOT_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A0_HOCH_D_ANGEBOT_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A0_HOCH_D_ANGEBOT_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A1_A",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A1",
+    "datei": "RM6_AUFSTELLER_A1_HOCH_A_BLACKGOLD",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      }
+    ],
+    "minDpi": 162,
+    "randabstand": "16 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A1/RM6_AUFSTELLER_A1_HOCH_A_BLACKGOLD.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A1/RM6_AUFSTELLER_A1_HOCH_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A1_HOCH_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A1_HOCH_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A1_B",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A1",
+    "datei": "RM6_AUFSTELLER_A1_HOCH_B_PERFORMANCE",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg nur ca. 28 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      }
+    ],
+    "minDpi": 28,
+    "randabstand": "16 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A1/RM6_AUFSTELLER_A1_HOCH_B_PERFORMANCE.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A1/RM6_AUFSTELLER_A1_HOCH_B_PERFORMANCE_VORSCHAU.jpg",
+      "pdf": "03_SCHILDER_AUFSTELLER/A1/RM6_AUFSTELLER_A1_HOCH_B_PERFORMANCE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A2_C",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A2",
+    "datei": "RM6_AUFSTELLER_A2_HOCH_C_ELITE",
+    "art": "print",
+    "format": "420 × 594 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_INNENRAUM.jpg nur ca. 86 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "88 mm"
+      }
+    ],
+    "minDpi": 86,
+    "randabstand": "6.3 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A2/RM6_AUFSTELLER_A2_HOCH_C_ELITE.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A2/RM6_AUFSTELLER_A2_HOCH_C_ELITE_VORSCHAU.jpg",
+      "pdf": "03_SCHILDER_AUFSTELLER/A2/RM6_AUFSTELLER_A2_HOCH_C_ELITE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A2_D",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A2",
+    "datei": "RM6_AUFSTELLER_A2_HOCH_D_ANGEBOT",
+    "art": "print",
+    "format": "420 × 594 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "101 mm"
+      }
+    ],
+    "minDpi": 229,
+    "randabstand": "29.4 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A2/RM6_AUFSTELLER_A2_HOCH_D_ANGEBOT.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A2/RM6_AUFSTELLER_A2_HOCH_D_ANGEBOT_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A2_HOCH_D_ANGEBOT_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_AUFSTELLER_A2_HOCH_D_ANGEBOT_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A3_A",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A3",
+    "datei": "RM6_WERBESCHILD_A3_HOCH_A_BLACKGOLD",
+    "art": "print",
+    "format": "297 × 420 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "71 mm"
+      }
+    ],
+    "minDpi": 323,
+    "randabstand": "20.8 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A3/RM6_WERBESCHILD_A3_HOCH_A_BLACKGOLD.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A3/RM6_WERBESCHILD_A3_HOCH_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBESCHILD_A3_HOCH_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBESCHILD_A3_HOCH_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_A3Q_D",
+    "kategorie": "03_SCHILDER_AUFSTELLER/A3",
+    "datei": "RM6_WERBESCHILD_A3_QUER_D_ANGEBOT",
+    "art": "print",
+    "format": "420 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "68 mm"
+      }
+    ],
+    "minDpi": 427,
+    "randabstand": "23.8 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/A3/RM6_WERBESCHILD_A3_QUER_D_ANGEBOT.html",
+      "preview": "03_SCHILDER_AUFSTELLER/A3/RM6_WERBESCHILD_A3_QUER_D_ANGEBOT_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBESCHILD_A3_QUER_D_ANGEBOT_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBESCHILD_A3_QUER_D_ANGEBOT_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "KLAPP_A1",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Klappaufsteller",
+    "datei": "RM6_KLAPPAUFSTELLER_A1_VORDER_RUECK",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      },
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      }
+    ],
+    "minDpi": 162,
+    "randabstand": "16 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Klappaufsteller/RM6_KLAPPAUFSTELLER_A1_VORDER_RUECK.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Klappaufsteller/RM6_KLAPPAUFSTELLER_A1_VORDER_RUECK_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_KLAPPAUFSTELLER_A1_VORDER_RUECK_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_KLAPPAUFSTELLER_A1_VORDER_RUECK_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_EINGANG",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_EINGANGSSCHILD_60x40_C_ELITE",
+    "art": "print",
+    "format": "600 × 400 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "68 mm"
+      }
+    ],
+    "minDpi": 160,
+    "randabstand": "36 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_EINGANGSSCHILD_60x40_C_ELITE.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_EINGANGSSCHILD_60x40_C_ELITE_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_EINGANGSSCHILD_60x40_C_ELITE_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_EINGANGSSCHILD_60x40_C_ELITE_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_ZEITEN",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_EINSATZZEITEN_A4_HOCH_A",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "50 mm"
+      }
+    ],
+    "minDpi": 366,
+    "randabstand": "9.2 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_EINSATZZEITEN_A4_HOCH_A.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_EINSATZZEITEN_A4_HOCH_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_EINSATZZEITEN_A4_HOCH_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_EINSATZZEITEN_A4_HOCH_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_MOBIL_A3_B",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_MOBILE_TAFEL_A3_HOCH_B_PERFORMANCE",
+    "art": "print",
+    "format": "297 × 420 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg nur ca. 56 dpi (Ziel ≥ 150) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "71 mm"
+      }
+    ],
+    "minDpi": 56,
+    "randabstand": "8 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_MOBILE_TAFEL_A3_HOCH_B_PERFORMANCE.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_MOBILE_TAFEL_A3_HOCH_B_PERFORMANCE_VORSCHAU.jpg",
+      "pdf": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_MOBILE_TAFEL_A3_HOCH_B_PERFORMANCE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "SIGN_PARK",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_PARKPLATZSCHILD_40x60_HOCH_A",
+    "art": "print",
+    "format": "400 × 600 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 168,
+    "randabstand": "32 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_PARKPLATZSCHILD_40x60_HOCH_A.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_PARKPLATZSCHILD_40x60_HOCH_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_PARKPLATZSCHILD_40x60_HOCH_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_PARKPLATZSCHILD_40x60_HOCH_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_60x40_A",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_SCHILD_60x40_QUER_A_BLACKGOLD",
+    "art": "print",
+    "format": "600 × 400 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "92 mm"
+      }
+    ],
+    "minDpi": 299,
+    "randabstand": "29.8 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_SCHILD_60x40_QUER_A_BLACKGOLD.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_SCHILD_60x40_QUER_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_SCHILD_60x40_QUER_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_SCHILD_60x40_QUER_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_80x60_D",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_SCHILD_80x60_QUER_D_ANGEBOT",
+    "art": "print",
+    "format": "800 × 600 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "138 mm"
+      }
+    ],
+    "minDpi": 224,
+    "randabstand": "48 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_SCHILD_80x60_QUER_D_ANGEBOT.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_SCHILD_80x60_QUER_D_ANGEBOT_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_SCHILD_80x60_QUER_D_ANGEBOT_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_SCHILD_80x60_QUER_D_ANGEBOT_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_100x70_A",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_WERBETAFEL_100x70_QUER_A_BLACKGOLD",
+    "art": "print",
+    "format": "100 × 70 cm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "161 mm"
+      }
+    ],
+    "minDpi": 179,
+    "randabstand": "52.1 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_WERBETAFEL_100x70_QUER_A_BLACKGOLD.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_WERBETAFEL_100x70_QUER_A_BLACKGOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBETAFEL_100x70_QUER_A_BLACKGOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/03_SCHILDER_AUFSTELLER/RM6_WERBETAFEL_100x70_QUER_A_BLACKGOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "SIGN_100x70_B",
+    "kategorie": "03_SCHILDER_AUFSTELLER/Kleine_Schilder",
+    "datei": "RM6_WERBETAFEL_100x70_QUER_B_PERFORMANCE",
+    "art": "print",
+    "format": "100 × 70 cm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg nur ca. 34 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "161 mm"
+      }
+    ],
+    "minDpi": 34,
+    "randabstand": "52.1 mm",
+    "dateien": {
+      "source": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_WERBETAFEL_100x70_QUER_B_PERFORMANCE.html",
+      "preview": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_WERBETAFEL_100x70_QUER_B_PERFORMANCE_VORSCHAU.jpg",
+      "pdf": "03_SCHILDER_AUFSTELLER/Kleine_Schilder/RM6_WERBETAFEL_100x70_QUER_B_PERFORMANCE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A4_SAISON",
+    "kategorie": "04_FLYER/A4",
+    "datei": "RM6_FLYER_A4_SAISON_HERBST_WINTER_B",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)",
+      "Foto RM6_FOTO_GRAZ_NACHT.jpg nur ca. 79 dpi (Ziel ≥ 150) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "50 mm"
+      }
+    ],
+    "minDpi": 79,
+    "randabstand": "8.8 mm",
+    "dateien": {
+      "source": "04_FLYER/A4/RM6_FLYER_A4_SAISON_HERBST_WINTER_B.html",
+      "preview": "04_FLYER/A4/RM6_FLYER_A4_SAISON_HERBST_WINTER_B_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A4/RM6_FLYER_A4_SAISON_HERBST_WINTER_B_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A5_IMAGE",
+    "kategorie": "04_FLYER/A5",
+    "datei": "RM6_FLYER_A5_IMAGE_A_FRONT_BACK",
+    "art": "print",
+    "format": "148 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "28 mm"
+      }
+    ],
+    "minDpi": 191,
+    "randabstand": "7.6 mm",
+    "dateien": {
+      "source": "04_FLYER/A5/RM6_FLYER_A5_IMAGE_A_FRONT_BACK.html",
+      "preview": "04_FLYER/A5/RM6_FLYER_A5_IMAGE_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A5/RM6_FLYER_A5_IMAGE_A_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A5_INNEN",
+    "kategorie": "04_FLYER/A5",
+    "datei": "RM6_FLYER_A5_INNENRAUM_C_FRONT_BACK",
+    "art": "print",
+    "format": "148 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "28 mm"
+      }
+    ],
+    "minDpi": 221,
+    "randabstand": "7.6 mm",
+    "dateien": {
+      "source": "04_FLYER/A5/RM6_FLYER_A5_INNENRAUM_C_FRONT_BACK.html",
+      "preview": "04_FLYER/A5/RM6_FLYER_A5_INNENRAUM_C_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A5/RM6_FLYER_A5_INNENRAUM_C_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A5_PREMIUM",
+    "kategorie": "04_FLYER/A5",
+    "datei": "RM6_FLYER_A5_PREMIUM_A_FRONT_BACK",
+    "art": "print",
+    "format": "148 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "28 mm"
+      }
+    ],
+    "minDpi": 789,
+    "randabstand": "7.6 mm",
+    "dateien": {
+      "source": "04_FLYER/A5/RM6_FLYER_A5_PREMIUM_A_FRONT_BACK.html",
+      "preview": "04_FLYER/A5/RM6_FLYER_A5_PREMIUM_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A5/RM6_FLYER_A5_PREMIUM_A_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A5Q_AUSSEN",
+    "kategorie": "04_FLYER/A5",
+    "datei": "RM6_FLYER_A5_QUER_AUSSENPFLEGE_B_FRONT_BACK",
+    "art": "print",
+    "format": "210 × 148 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "28 mm"
+      }
+    ],
+    "minDpi": 179,
+    "randabstand": "7.6 mm",
+    "dateien": {
+      "source": "04_FLYER/A5/RM6_FLYER_A5_QUER_AUSSENPFLEGE_B_FRONT_BACK.html",
+      "preview": "04_FLYER/A5/RM6_FLYER_A5_QUER_AUSSENPFLEGE_B_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A5/RM6_FLYER_A5_QUER_AUSSENPFLEGE_B_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A6_EMPF",
+    "kategorie": "04_FLYER/A6",
+    "datei": "RM6_FLYER_A6_EMPFEHLUNG_D_FRONT_BACK",
+    "art": "print",
+    "format": "105 × 148 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=NEU20",
+        "groesse": "20 mm"
+      }
+    ],
+    "minDpi": 1113,
+    "randabstand": "5.5 mm",
+    "dateien": {
+      "source": "04_FLYER/A6/RM6_FLYER_A6_EMPFEHLUNG_D_FRONT_BACK.html",
+      "preview": "04_FLYER/A6/RM6_FLYER_A6_EMPFEHLUNG_D_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A6/RM6_FLYER_A6_EMPFEHLUNG_D_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_A6_NEU",
+    "kategorie": "04_FLYER/A6",
+    "datei": "RM6_FLYER_A6_NEUKUNDEN_D_FRONT_BACK",
+    "art": "print",
+    "format": "105 × 148 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=NEU20",
+        "groesse": "20 mm"
+      }
+    ],
+    "minDpi": 268,
+    "randabstand": "5.5 mm",
+    "dateien": {
+      "source": "04_FLYER/A6/RM6_FLYER_A6_NEUKUNDEN_D_FRONT_BACK.html",
+      "preview": "04_FLYER/A6/RM6_FLYER_A6_NEUKUNDEN_D_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/A6/RM6_FLYER_A6_NEUKUNDEN_D_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_DL_GESCHENK",
+    "kategorie": "04_FLYER/DIN_LANG",
+    "datei": "RM6_FLYER_DINLANG_GESCHENKIDEE_C_FRONT_BACK",
+    "art": "print",
+    "format": "99 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)",
+      "Ablauf für Wertgutscheine festlegen (Codes im Admin, Bedingungen in AGB Punkt 6)",
+      "Foto RM6_DETAIL_SITZ.jpg nur ca. 134 dpi (Ziel ≥ 150) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "26 mm"
+      }
+    ],
+    "minDpi": 134,
+    "randabstand": "4.9 mm",
+    "dateien": {
+      "source": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_GESCHENKIDEE_C_FRONT_BACK.html",
+      "preview": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_GESCHENKIDEE_C_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_GESCHENKIDEE_C_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FLY_DL_KOMPLETT",
+    "kategorie": "04_FLYER/DIN_LANG",
+    "datei": "RM6_FLYER_DINLANG_KOMPLETTPAKET_A_FRONT_BACK",
+    "art": "print",
+    "format": "99 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Impressum nach § 24 MedienG fehlt (Medieninhaber, Hersteller, Herstellungsort)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "26 mm"
+      }
+    ],
+    "minDpi": 191,
+    "randabstand": "4.9 mm",
+    "dateien": {
+      "source": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_KOMPLETTPAKET_A_FRONT_BACK.html",
+      "preview": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_KOMPLETTPAKET_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "04_FLYER/DIN_LANG/RM6_FLYER_DINLANG_KOMPLETTPAKET_A_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "POS_ANGEBOT_A0",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A0_ANGEBOT_D",
+    "art": "print",
+    "format": "841 × 1189 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "202 mm"
+      }
+    ],
+    "minDpi": 114,
+    "randabstand": "58.9 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A0_ANGEBOT_D.html",
+      "preview": "05_POSTER/RM6_POSTER_A0_ANGEBOT_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A0_ANGEBOT_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A0_ANGEBOT_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_IMAGE_A0",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A0_IMAGE_A",
+    "art": "print",
+    "format": "841 × 1189 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "194 mm"
+      }
+    ],
+    "minDpi": 114,
+    "randabstand": "37.7 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A0_IMAGE_A.html",
+      "preview": "05_POSTER/RM6_POSTER_A0_IMAGE_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A0_IMAGE_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A0_IMAGE_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_QUALITAET_A0",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A0_QUALITAET_C",
+    "art": "print",
+    "format": "841 × 1189 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_INNENRAUM.jpg nur ca. 43 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "170 mm"
+      }
+    ],
+    "minDpi": 43,
+    "randabstand": "31.8 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A0_QUALITAET_C.html",
+      "preview": "05_POSTER/RM6_POSTER_A0_QUALITAET_C_VORSCHAU.jpg",
+      "pdf": "05_POSTER/RM6_POSTER_A0_QUALITAET_C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "POS_ANGEBOT_A1",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A1_ANGEBOT_D",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      }
+    ],
+    "minDpi": 162,
+    "randabstand": "41.6 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A1_ANGEBOT_D.html",
+      "preview": "05_POSTER/RM6_POSTER_A1_ANGEBOT_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A1_ANGEBOT_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A1_ANGEBOT_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_IMAGE_A1",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A1_IMAGE_A",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "143 mm"
+      }
+    ],
+    "minDpi": 162,
+    "randabstand": "16 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A1_IMAGE_A.html",
+      "preview": "05_POSTER/RM6_POSTER_A1_IMAGE_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A1_IMAGE_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A1_IMAGE_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_QUALITAET_A1",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A1_QUALITAET_C",
+    "art": "print",
+    "format": "594 × 841 mm",
+    "beschnitt": "5 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_INNENRAUM.jpg nur ca. 61 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "125 mm"
+      }
+    ],
+    "minDpi": 61,
+    "randabstand": "7.6 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A1_QUALITAET_C.html",
+      "preview": "05_POSTER/RM6_POSTER_A1_QUALITAET_C_VORSCHAU.jpg",
+      "pdf": "05_POSTER/RM6_POSTER_A1_QUALITAET_C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "POS_ANGEBOT_A2",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A2_ANGEBOT_D",
+    "art": "print",
+    "format": "420 × 594 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "101 mm"
+      }
+    ],
+    "minDpi": 229,
+    "randabstand": "29.4 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A2_ANGEBOT_D.html",
+      "preview": "05_POSTER/RM6_POSTER_A2_ANGEBOT_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A2_ANGEBOT_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A2_ANGEBOT_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_IMAGE_A2",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A2_IMAGE_A",
+    "art": "print",
+    "format": "420 × 594 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "101 mm"
+      }
+    ],
+    "minDpi": 229,
+    "randabstand": "11.3 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A2_IMAGE_A.html",
+      "preview": "05_POSTER/RM6_POSTER_A2_IMAGE_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A2_IMAGE_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A2_IMAGE_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_QUALITAET_A2",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A2_QUALITAET_C",
+    "art": "print",
+    "format": "420 × 594 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_INNENRAUM.jpg nur ca. 87 dpi (Ziel ≥ 100) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "85 mm"
+      }
+    ],
+    "minDpi": 87,
+    "randabstand": "16.3 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A2_QUALITAET_C.html",
+      "preview": "05_POSTER/RM6_POSTER_A2_QUALITAET_C_VORSCHAU.jpg",
+      "pdf": "05_POSTER/RM6_POSTER_A2_QUALITAET_C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "POS_ANGEBOT_A3",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A3_ANGEBOT_D",
+    "art": "print",
+    "format": "297 × 420 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "71 mm"
+      }
+    ],
+    "minDpi": 323,
+    "randabstand": "20.8 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A3_ANGEBOT_D.html",
+      "preview": "05_POSTER/RM6_POSTER_A3_ANGEBOT_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A3_ANGEBOT_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A3_ANGEBOT_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_IMAGE_A3",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A3_IMAGE_A",
+    "art": "print",
+    "format": "297 × 420 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "71 mm"
+      }
+    ],
+    "minDpi": 323,
+    "randabstand": "8 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A3_IMAGE_A.html",
+      "preview": "05_POSTER/RM6_POSTER_A3_IMAGE_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A3_IMAGE_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A3_IMAGE_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_QUALITAET_A3",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A3_QUALITAET_C",
+    "art": "print",
+    "format": "297 × 420 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Foto RM6_FOTO_INNENRAUM.jpg nur ca. 122 dpi (Ziel ≥ 150) – höher aufgelöstes Foto nötig"
+    ],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "60 mm"
+      }
+    ],
+    "minDpi": 122,
+    "randabstand": "10.9 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A3_QUALITAET_C.html",
+      "preview": "05_POSTER/RM6_POSTER_A3_QUALITAET_C_VORSCHAU.jpg",
+      "pdf": "05_POSTER/RM6_POSTER_A3_QUALITAET_C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "POS_ANGEBOT_A4",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A4_ANGEBOT_D",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "50 mm"
+      }
+    ],
+    "minDpi": 457,
+    "randabstand": "14.7 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A4_ANGEBOT_D.html",
+      "preview": "05_POSTER/RM6_POSTER_A4_ANGEBOT_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_ANGEBOT_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_ANGEBOT_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_IMAGE_A4",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A4_IMAGE_A",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "50 mm"
+      }
+    ],
+    "minDpi": 457,
+    "randabstand": "5.7 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A4_IMAGE_A.html",
+      "preview": "05_POSTER/RM6_POSTER_A4_IMAGE_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_IMAGE_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_IMAGE_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "POS_QUALITAET_A4",
+    "kategorie": "05_POSTER",
+    "datei": "RM6_POSTER_A4_QUALITAET_C",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "42 mm"
+      }
+    ],
+    "minDpi": 171,
+    "randabstand": "7.4 mm",
+    "dateien": {
+      "source": "05_POSTER/RM6_POSTER_A4_QUALITAET_C.html",
+      "preview": "05_POSTER/RM6_POSTER_A4_QUALITAET_C_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_QUALITAET_C_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/05_POSTER/RM6_POSTER_A4_QUALITAET_C_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "VK_A",
+    "kategorie": "06_VISITENKARTEN",
+    "datei": "RM6_VISITENKARTE_85x55_A_SCHWARZ_GOLD",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "25 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "5.9 mm",
+    "dateien": {
+      "source": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_A_SCHWARZ_GOLD.html",
+      "preview": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_A_SCHWARZ_GOLD_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_A_SCHWARZ_GOLD_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_A_SCHWARZ_GOLD_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "VK_B",
+    "kategorie": "06_VISITENKARTEN",
+    "datei": "RM6_VISITENKARTE_85x55_B_SPORTLICH",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "25 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "4.6 mm",
+    "dateien": {
+      "source": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_B_SPORTLICH.html",
+      "preview": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_B_SPORTLICH_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_B_SPORTLICH_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_B_SPORTLICH_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "VK_C",
+    "kategorie": "06_VISITENKARTEN",
+    "datei": "RM6_VISITENKARTE_85x55_C_KLASSISCH_PREMIUM",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "25 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "5.9 mm",
+    "dateien": {
+      "source": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_C_KLASSISCH_PREMIUM.html",
+      "preview": "06_VISITENKARTEN/RM6_VISITENKARTE_85x55_C_KLASSISCH_PREMIUM_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_C_KLASSISCH_PREMIUM_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/06_VISITENKARTEN/RM6_VISITENKARTE_85x55_C_KLASSISCH_PREMIUM_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BEILEGER",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_BEILEGER_99x70_D",
+    "art": "print",
+    "format": "99 × 70 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=NEU20",
+        "groesse": "17 mm"
+      }
+    ],
+    "minDpi": 1293,
+    "randabstand": "5.9 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_BEILEGER_99x70_D.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_BEILEGER_99x70_D_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_BEILEGER_99x70_D_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_BEILEGER_99x70_D_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "KK_BEWERTUNG",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_BEWERTUNGSKARTE_85x55_C_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Kein Google-Bewertungslink hinterlegt (Admin → Einstellungen); danach QR-Code einsetzen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 1020,
+    "randabstand": "3.5 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_BEWERTUNGSKARTE_85x55_C_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_BEWERTUNGSKARTE_85x55_C_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "07_GUTSCHEINE_KUNDENKARTEN/RM6_BEWERTUNGSKARTE_85x55_C_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "KK_DANKE",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_DANKESKARTE_85x55_A_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=DANKE20",
+        "groesse": "24 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "5.5 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_DANKESKARTE_85x55_A_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_DANKESKARTE_85x55_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_DANKESKARTE_85x55_A_FRONT_BACK_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_DANKESKARTE_85x55_A_FRONT_BACK_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "KK_EMPF",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_EMPFEHLUNGSKARTE_85x55_D_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=NEU20",
+        "groesse": "15 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "4.5 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_EMPFEHLUNGSKARTE_85x55_D_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_EMPFEHLUNGSKARTE_85x55_D_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_EMPFEHLUNGSKARTE_85x55_D_FRONT_BACK_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_EMPFEHLUNGSKARTE_85x55_D_FRONT_BACK_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "GS_DL",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_GESCHENKGUTSCHEIN_210x99_A_FRONT_BACK",
+    "art": "print",
+    "format": "210 × 99 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Ablauf für Wertgutscheine festlegen (Code im Admin anlegen, Bedingungen in AGB Punkt 6)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "20 mm"
+      }
+    ],
+    "minDpi": 753,
+    "randabstand": "12.6 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_GESCHENKGUTSCHEIN_210x99_A_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_GESCHENKGUTSCHEIN_210x99_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "07_GUTSCHEINE_KUNDENKARTEN/RM6_GESCHENKGUTSCHEIN_210x99_A_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "KK_KUNDE",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_KUNDENKARTE_85x55_A_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "25 mm"
+      }
+    ],
+    "minDpi": 1020,
+    "randabstand": "5.5 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_KUNDENKARTE_85x55_A_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_KUNDENKARTE_85x55_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_KUNDENKARTE_85x55_A_FRONT_BACK_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_KUNDENKARTE_85x55_A_FRONT_BACK_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "KK_TERMIN",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_TERMINKARTE_85x55_C_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 1020,
+    "randabstand": "5.9 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_TERMINKARTE_85x55_C_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_TERMINKARTE_85x55_C_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_TERMINKARTE_85x55_C_FRONT_BACK_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_TERMINKARTE_85x55_C_FRONT_BACK_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "KK_TREUE",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_TREUEKARTE_85x55_A_FRONT_BACK",
+    "art": "print",
+    "format": "85 × 55 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Treueprogramm nicht festgelegt: Prämie und Bedingungen definieren"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 1020,
+    "randabstand": "4.7 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_TREUEKARTE_85x55_A_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_TREUEKARTE_85x55_A_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "07_GUTSCHEINE_KUNDENKARTEN/RM6_TREUEKARTE_85x55_A_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "UEBERGABE_A6",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_UEBERGABEKARTE_A6_A",
+    "art": "print",
+    "format": "105 × 148 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen?gutschein=DANKE20",
+        "groesse": "27 mm"
+      }
+    ],
+    "minDpi": 914,
+    "randabstand": "9.4 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_UEBERGABEKARTE_A6_A.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_UEBERGABEKARTE_A6_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_UEBERGABEKARTE_A6_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/07_GUTSCHEINE_KUNDENKARTEN/RM6_UEBERGABEKARTE_A6_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "GS_A6",
+    "kategorie": "07_GUTSCHEINE_KUNDENKARTEN",
+    "datei": "RM6_WERTGUTSCHEIN_148x105_C_FRONT_BACK",
+    "art": "print",
+    "format": "148 × 105 mm",
+    "beschnitt": "3 mm",
+    "seiten": 2,
+    "status": "Entwurf",
+    "gruende": [
+      "Ablauf für Wertgutscheine festlegen (Code im Admin anlegen, Bedingungen in AGB Punkt 6)"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "17 mm"
+      }
+    ],
+    "minDpi": 865,
+    "randabstand": "12.6 mm",
+    "dateien": {
+      "source": "07_GUTSCHEINE_KUNDENKARTEN/RM6_WERTGUTSCHEIN_148x105_C_FRONT_BACK.html",
+      "preview": "07_GUTSCHEINE_KUNDENKARTEN/RM6_WERTGUTSCHEIN_148x105_C_FRONT_BACK_VORSCHAU.jpg",
+      "pdf": "07_GUTSCHEINE_KUNDENKARTEN/RM6_WERTGUTSCHEIN_148x105_C_FRONT_BACK_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "PL_ANGEBOT",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE",
+    "datei": "RM6_ANGEBOTSBLATT_A4_C_VORLAGE",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Unternehmensangaben (Inhaber, Anschrift, UID/Kleinunternehmer) fehlen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "27 mm"
+      }
+    ],
+    "minDpi": 853,
+    "randabstand": "16.8 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/RM6_ANGEBOTSBLATT_A4_C_VORLAGE.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/RM6_ANGEBOTSBLATT_A4_C_VORLAGE_VORSCHAU.jpg",
+      "pdf": "08_PREISLISTEN_ANGEBOTE/RM6_ANGEBOTSBLATT_A4_C_VORLAGE_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "PL_LEIST",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE",
+    "datei": "RM6_LEISTUNGSUEBERSICHT_A4_A",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 92 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "33 mm"
+      }
+    ],
+    "minDpi": 853,
+    "randabstand": "14.7 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/RM6_LEISTUNGSUEBERSICHT_A4_A.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/RM6_LEISTUNGSUEBERSICHT_A4_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_LEISTUNGSUEBERSICHT_A4_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_LEISTUNGSUEBERSICHT_A4_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "PL_A4",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE",
+    "datei": "RM6_PREISLISTE_A4_A",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 92 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "33 mm"
+      }
+    ],
+    "minDpi": 853,
+    "randabstand": "11.7 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A4_A.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A4_A_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A4_A_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A4_A_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "PL_A5",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE",
+    "datei": "RM6_PREISLISTE_A5_C",
+    "art": "print",
+    "format": "148 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 84 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "27 mm"
+      }
+    ],
+    "minDpi": 1211,
+    "randabstand": "8.1 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A5_C.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A5_C_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A5_C_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISLISTE_A5_C_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "PL_DL",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE",
+    "datei": "RM6_PREISUEBERSICHT_DINLANG_B",
+    "art": "print",
+    "format": "99 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "30 mm"
+      }
+    ],
+    "minDpi": 1810,
+    "randabstand": "5.2 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/RM6_PREISUEBERSICHT_DINLANG_B.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/RM6_PREISUEBERSICHT_DINLANG_B_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISUEBERSICHT_DINLANG_B_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PREISUEBERSICHT_DINLANG_B_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "AUFKL_QR",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Aufkleber",
+    "datei": "RM6_QR_AUFKLEBER_60x60",
+    "art": "print",
+    "format": "60 × 60 mm",
+    "beschnitt": "2 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "31 mm"
+      }
+    ],
+    "minDpi": 1280,
+    "randabstand": "3.6 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Aufkleber/RM6_QR_AUFKLEBER_60x60.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Aufkleber/RM6_QR_AUFKLEBER_60x60_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_QR_AUFKLEBER_60x60_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_QR_AUFKLEBER_60x60_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "AUFKL_TUER",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Aufkleber",
+    "datei": "RM6_TUER_FENSTERAUFKLEBER_200x100",
+    "art": "print",
+    "format": "200 × 100 mm",
+    "beschnitt": "2 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "48 mm"
+      }
+    ],
+    "minDpi": 640,
+    "randabstand": "12 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Aufkleber/RM6_TUER_FENSTERAUFKLEBER_200x100.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Aufkleber/RM6_TUER_FENSTERAUFKLEBER_200x100_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_TUER_FENSTERAUFKLEBER_200x100_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_TUER_FENSTERAUFKLEBER_200x100_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BR_ANGEBOT",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere",
+    "datei": "RM6_ANGEBOTSVORLAGE_A4",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Unternehmensangaben (Inhaber, Anschrift, UID/Kleinunternehmer, ggf. Firmenbuch) fehlen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 977,
+    "randabstand": "10 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_ANGEBOTSVORLAGE_A4.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_ANGEBOTSVORLAGE_A4_VORSCHAU.jpg",
+      "pdf": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_ANGEBOTSVORLAGE_A4_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "BR_AUFTRAG",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere",
+    "datei": "RM6_AUFTRAGSBESTAETIGUNG_A4",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Unternehmensangaben (Inhaber, Anschrift, UID/Kleinunternehmer, ggf. Firmenbuch) fehlen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 977,
+    "randabstand": "10 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_AUFTRAGSBESTAETIGUNG_A4.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_AUFTRAGSBESTAETIGUNG_A4_VORSCHAU.jpg",
+      "pdf": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_AUFTRAGSBESTAETIGUNG_A4_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "BR_PAPIER",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere",
+    "datei": "RM6_BRIEFPAPIER_A4",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Unternehmensangaben (Inhaber, Anschrift, UID/Kleinunternehmer, ggf. Firmenbuch) fehlen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 977,
+    "randabstand": "10 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_BRIEFPAPIER_A4.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_BRIEFPAPIER_A4_VORSCHAU.jpg",
+      "pdf": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_BRIEFPAPIER_A4_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "PFLEGE_A5",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere",
+    "datei": "RM6_PFLEGEHINWEISE_A5_C",
+    "art": "print",
+    "format": "148 × 210 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "druckfertig (technisch geprüft)",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "33 mm"
+      }
+    ],
+    "minDpi": 908,
+    "randabstand": "11.8 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_PFLEGEHINWEISE_A5_C.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_PFLEGEHINWEISE_A5_C_VORSCHAU.jpg",
+      "pdf": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PFLEGEHINWEISE_A5_C_PRINT.pdf",
+      "pdfCmyk": "17_PRINT_READY_EXPORTS/08_PREISLISTEN_ANGEBOTE/RM6_PFLEGEHINWEISE_A5_C_PRINT_CMYK.pdf"
+    }
+  },
+  {
+    "id": "BR_RECHNUNG",
+    "kategorie": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere",
+    "datei": "RM6_RECHNUNGSVORLAGE_A4_DESIGN",
+    "art": "print",
+    "format": "210 × 297 mm",
+    "beschnitt": "3 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Unternehmensangaben (Inhaber, Anschrift, UID/Kleinunternehmer, ggf. Firmenbuch) fehlen",
+      "Designvorlage – Rechnungspflichtangaben mit Steuerberater prüfen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 977,
+    "randabstand": "10 mm",
+    "dateien": {
+      "source": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_RECHNUNGSVORLAGE_A4_DESIGN.html",
+      "preview": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_RECHNUNGSVORLAGE_A4_DESIGN_VORSCHAU.jpg",
+      "pdf": "08_PREISLISTEN_ANGEBOTE/Geschaeftspapiere/RM6_RECHNUNGSVORLAGE_A4_DESIGN_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-8_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_ACHTELSEITE_112x73_4C",
+    "art": "print",
+    "format": "112 × 73 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "17 mm"
+      }
+    ],
+    "minDpi": 1600,
+    "randabstand": "5.6 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-8_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_ACHTELSEITE_112x73_SW",
+    "art": "print",
+    "format": "112 × 73 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "17 mm"
+      }
+    ],
+    "minDpi": 1600,
+    "randabstand": "5.6 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_ACHTELSEITE_112x73_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "NP_1-1_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_GANZSEITIG_230x310_4C",
+    "art": "print",
+    "format": "230 × 310 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "55 mm"
+      }
+    ],
+    "minDpi": 417,
+    "randabstand": "16.1 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-1_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_GANZSEITIG_230x310_SW",
+    "art": "print",
+    "format": "230 × 310 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "55 mm"
+      }
+    ],
+    "minDpi": 417,
+    "randabstand": "16.1 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_GANZSEITIG_230x310_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "NP_1-2_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_HALBSEITIG_QUER_230x150_4C",
+    "art": "print",
+    "format": "230 × 150 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "34 mm"
+      }
+    ],
+    "minDpi": 779,
+    "randabstand": "12 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-2_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_HALBSEITIG_QUER_230x150_SW",
+    "art": "print",
+    "format": "230 × 150 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "34 mm"
+      }
+    ],
+    "minDpi": 779,
+    "randabstand": "12 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_HALBSEITIG_QUER_230x150_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "NP_KOMPAKT_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_4C",
+    "art": "print",
+    "format": "54 × 90 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 1777,
+    "randabstand": "3.6 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_KOMPAKT_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_SW",
+    "art": "print",
+    "format": "54 × 90 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 1777,
+    "randabstand": "3.6 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_KOMPAKT_1SPALTIG_54x90_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "NP_1-4_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_4C",
+    "art": "print",
+    "format": "112 × 150 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "27 mm"
+      }
+    ],
+    "minDpi": 857,
+    "randabstand": "7.8 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-4_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_SW",
+    "art": "print",
+    "format": "112 × 150 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "27 mm"
+      }
+    ],
+    "minDpi": 857,
+    "randabstand": "7.8 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_HOCH_112x150_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "NP_1-4Q_4C",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_4C",
+    "art": "print",
+    "format": "230 × 73 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "32 mm"
+      }
+    ],
+    "minDpi": 974,
+    "randabstand": "8.8 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_4C.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_4C_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_4C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "NP_1-4Q_SW",
+    "kategorie": "09_ZEITUNGSWERBUNG",
+    "datei": "RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_SW",
+    "art": "print",
+    "format": "230 × 73 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Anzeigenmaße und Druckvorgaben beim Medium erfragen (Mediadaten) und Datei anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "32 mm"
+      }
+    ],
+    "minDpi": 974,
+    "randabstand": "8.8 mm",
+    "dateien": {
+      "source": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_SW.html",
+      "preview": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_SW_VORSCHAU.jpg",
+      "pdf": "09_ZEITUNGSWERBUNG/RM6_ZEITUNG_VIERTELSEITE_QUER_230x73_SW_ENTWURF_GRAU.pdf"
+    }
+  },
+  {
+    "id": "FZ_MAGNET_60x40",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_FAHRZEUGMAGNET_600x400_A",
+    "art": "print",
+    "format": "600 × 400 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Magnetfolie nur auf ebenen Stahlflächen; Größe an Tür anpassen"
+    ],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "96 mm"
+      }
+    ],
+    "minDpi": 128,
+    "randabstand": "32 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_FAHRZEUGMAGNET_600x400_A.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_FAHRZEUGMAGNET_600x400_A_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_FAHRZEUGMAGNET_600x400_A_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FZ_HECKKLAPPE",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_HECKKLAPPE_1100x450_B",
+    "art": "print",
+    "format": "110 × 45 cm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Skalierbares Layout: tatsächliche Flächenmaße am Fahrzeug aufnehmen und von Folierer/Werbetechnik freigeben lassen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 122,
+    "randabstand": "55 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_HECKKLAPPE_1100x450_B.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_HECKKLAPPE_1100x450_B_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_HECKKLAPPE_1100x450_B_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FZ_LOGO_KLEIN",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_LOGO_KLEIN_300x92",
+    "art": "print",
+    "format": "300 × 92 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Kleines Logo für Fahrzeugflächen; für Plott/Folie Vektorfassung des Logos nötig"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 199,
+    "randabstand": "4.9 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_LOGO_KLEIN_300x92.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_LOGO_KLEIN_300x92_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_LOGO_KLEIN_300x92_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FZ_DEZENT",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_PREMIUM_DEZENT_700x180_C",
+    "art": "print",
+    "format": "700 × 180 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Skalierbares Layout: tatsächliche Flächenmaße am Fahrzeug aufnehmen und von Folierer/Werbetechnik freigeben lassen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 167,
+    "randabstand": "28 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_PREMIUM_DEZENT_700x180_C.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_PREMIUM_DEZENT_700x180_C_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_PREMIUM_DEZENT_700x180_C_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FZ_SEITE_GROSS",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_SEITENBESCHRIFTUNG_GROSS_4200x1100_B",
+    "art": "print",
+    "format": "420 × 110 cm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Skalierbares Layout: tatsächliche Flächenmaße am Fahrzeug aufnehmen und von Folierer/Werbetechnik freigeben lassen",
+      "Großflächige Beschriftung: Fahrzeugkonturen (Türen, Griffe, Sicken) im Layout berücksichtigen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 61,
+    "randabstand": "168 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_SEITENBESCHRIFTUNG_GROSS_4200x1100_B.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_SEITENBESCHRIFTUNG_GROSS_4200x1100_B_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_SEITENBESCHRIFTUNG_GROSS_4200x1100_B_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "FZ_TUER",
+    "kategorie": "10_FAHRZEUGWERBUNG",
+    "datei": "RM6_TUERBESCHRIFTUNG_900x450_A_DEZENT",
+    "art": "print",
+    "format": "900 × 450 mm",
+    "beschnitt": "0 mm",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Skalierbares Layout: tatsächliche Flächenmaße am Fahrzeug aufnehmen und von Folierer/Werbetechnik freigeben lassen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": 103,
+    "randabstand": "54 mm",
+    "dateien": {
+      "source": "10_FAHRZEUGWERBUNG/RM6_TUERBESCHRIFTUNG_900x450_A_DEZENT.html",
+      "preview": "10_FAHRZEUGWERBUNG/RM6_TUERBESCHRIFTUNG_900x450_A_DEZENT_VORSCHAU.jpg",
+      "pdf": "10_FAHRZEUGWERBUNG/RM6_TUERBESCHRIFTUNG_900x450_A_DEZENT_ENTWURF.pdf"
+    }
+  },
+  {
+    "id": "IG_BEWERTUNG",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_BEWERTUNG_1080x1080_C_VORLAGE",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Nur mit echten, freigegebenen Bewertungen verwenden"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_BEWERTUNG_1080x1080_C_VORLAGE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_BEWERTUNG_1080x1080_C_VORLAGE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_FAQ",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_FAQ_1080x1080_A",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_FAQ_1080x1080_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_FAQ_1080x1080_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_FEED_BRAND",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_FEED_1080x1080_A_BRAND",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "71.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_FEED_1080x1080_A_BRAND.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_FEED_1080x1080_A_BRAND.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_FEED_LEIST",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_FEED_1080x1080_C_LEISTUNGEN",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "69.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_FEED_1080x1080_C_LEISTUNGEN.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_FEED_1080x1080_C_LEISTUNGEN.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_NEUKUNDEN",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_FEED_1080x1080_D_NEUKUNDEN",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "71.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_FEED_1080x1080_D_NEUKUNDEN.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_FEED_1080x1080_D_NEUKUNDEN.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_KAR_1",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_KARUSSELL_1080x1350_A_01",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_01.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_01.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_KAR_2",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_KARUSSELL_1080x1350_A_02",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_02.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_02.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_KAR_3",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_KARUSSELL_1080x1350_A_03",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_03.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_KARUSSELL_1080x1350_A_03.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_PREISE",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_POST_1080x1350_A_PREISLISTE",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Schriftgrößen automatisch auf 96 % angepasst, damit alles im Sicherheitsabstand liegt"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "35.9 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_POST_1080x1350_A_PREISLISTE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_POST_1080x1350_A_PREISLISTE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_PREMIUM",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_POST_1080x1350_A_PREMIUM_MOTIV",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg um Faktor 1.4 vergrößert (leicht weich)"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_POST_1080x1350_A_PREMIUM_MOTIV.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_POST_1080x1350_A_PREMIUM_MOTIV.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_POST_KOMPLETT",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_POST_1080x1350_B_KOMPLETTPAKET",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg um Faktor 1.4 vergrößert (leicht weich)"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_POST_1080x1350_B_KOMPLETTPAKET.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_POST_1080x1350_B_KOMPLETTPAKET.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_POST_ANGEBOT",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_POST_1080x1350_D_ANGEBOT",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "75.6 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_POST_1080x1350_D_ANGEBOT.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_POST_1080x1350_D_ANGEBOT.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_REEL_COVER",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_REEL_COVER_1080x1920_B",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Foto RM6_FOTO_HANDWAESCHE.jpg um Faktor 1.8 vergrößert (leicht weich)"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_REEL_COVER_1080x1920_B.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_REEL_COVER_1080x1920_B.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_STORY_BUCHEN",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_STORY_1080x1920_A_TERMIN",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "68.9 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_STORY_1080x1920_A_TERMIN.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_STORY_1080x1920_A_TERMIN.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_STORY_NEU20",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_STORY_1080x1920_D_NEU20",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_STORY_1080x1920_D_NEU20.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_STORY_1080x1920_D_NEU20.jpg"
+      ]
+    }
+  },
+  {
+    "id": "IG_VN",
+    "kategorie": "11_INSTAGRAM",
+    "datei": "RM6_INSTAGRAM_VORHER_NACHHER_1080x1350_VORLAGE",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Vorlage mit Demo-Bildern – vor dem Posten durch echte Vorher-Nachher-Fotos ersetzen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "11_INSTAGRAM/RM6_INSTAGRAM_VORHER_NACHHER_1080x1350_VORLAGE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Instagram/RM6_INSTAGRAM_VORHER_NACHHER_1080x1350_VORLAGE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_AD_SQ",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_AD_1080x1080_D",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "26.3 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_AD_1080x1080_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_AD_1080x1080_D.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_AD_HOCH",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_AD_1080x1350_C",
+    "art": "digital",
+    "format": "1080 × 1350 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_AD_1080x1350_C.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_AD_1080x1350_C.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_AD_LAND",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_AD_1200x628_B",
+    "art": "digital",
+    "format": "1200 × 628 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "50.2 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_AD_1200x628_B.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_AD_1200x628_B.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_SAISON",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_SAISON_1200x628_B_HERBST_WINTER",
+    "art": "digital",
+    "format": "1200 × 628 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "50.2 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_SAISON_1200x628_B_HERBST_WINTER.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_SAISON_1200x628_B_HERBST_WINTER.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_TITEL",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_TITELBILD_1640x624_A",
+    "art": "digital",
+    "format": "1640 × 624 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Profilbild überdeckt links unten einen Bereich – Inhalte dort freigehalten"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "65.6 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_TITELBILD_1640x624_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_TITELBILD_1640x624_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "FB_VN",
+    "kategorie": "12_FACEBOOK",
+    "datei": "RM6_FACEBOOK_VORHER_NACHHER_1200x628_VORLAGE",
+    "art": "digital",
+    "format": "1200 × 628 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Vorlage mit Demo-Bildern – vor dem Posten durch echte Vorher-Nachher-Fotos ersetzen"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "31.4 px",
+    "dateien": {
+      "source": "12_FACEBOOK/RM6_FACEBOOK_VORHER_NACHHER_1200x628_VORLAGE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Facebook/RM6_FACEBOOK_VORHER_NACHHER_1200x628_VORLAGE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_PORT_A",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1080x1920_A_BRAND",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "259 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "29.1 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1080x1920_A_BRAND.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1080x1920_A_BRAND.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_PORT_D",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1080x1920_D_ANGEBOT",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "259 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "75.6 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1080x1920_D_ANGEBOT.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1080x1920_D_ANGEBOT.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_1080P_A",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1920x1080_A_BRAND",
+    "art": "digital",
+    "format": "1920 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "248 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "80 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1920x1080_A_BRAND.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1920x1080_A_BRAND.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_1080P_B",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1920x1080_B_PERFORMANCE",
+    "art": "digital",
+    "format": "1920 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "248 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "80 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1920x1080_B_PERFORMANCE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1920x1080_B_PERFORMANCE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_1080P_D",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1920x1080_D_ANGEBOT",
+    "art": "digital",
+    "format": "1920 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "248 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "86.4 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1920x1080_D_ANGEBOT.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1920x1080_D_ANGEBOT.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_PREISE",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_1920x1080_PREISLISTE",
+    "art": "digital",
+    "format": "1920 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "130 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_1920x1080_PREISLISTE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_1920x1080_PREISLISTE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "SCR_4K_A",
+    "kategorie": "13_DIGITAL_SCREENS",
+    "datei": "RM6_DIGITAL_SCREEN_3840x2160_A_BRAND",
+    "art": "digital",
+    "format": "3840 × 2160 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [
+      {
+        "ziel": "https://glanzmobil.vercel.app/buchen",
+        "groesse": "497 px"
+      }
+    ],
+    "minDpi": null,
+    "randabstand": "161.1 px",
+    "dateien": {
+      "source": "13_DIGITAL_SCREENS/RM6_DIGITAL_SCREEN_3840x2160_A_BRAND.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Digital_Screens/RM6_DIGITAL_SCREEN_3840x2160_A_BRAND.jpg"
+      ]
+    }
+  },
+  {
+    "id": "GUTSCHEIN_DIGITAL",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DIGITALER_GUTSCHEIN_1600x800_A",
+    "art": "digital",
+    "format": "1600 × 800 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "Entwurf",
+    "gruende": [
+      "Ablauf für Wertgutscheine festlegen (Code im Admin, Bedingungen in AGB)"
+    ],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "96 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DIGITALER_GUTSCHEIN_1600x800_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_DIGITALER_GUTSCHEIN_1600x800_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "AD_160x600",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_160x600_A",
+    "art": "digital",
+    "format": "160 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "10.4 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_160x600_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_160x600_A.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_300x250",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_300x250_D",
+    "art": "digital",
+    "format": "300 × 250 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "18 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_300x250_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_300x250_D.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_300x600",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_300x600_D",
+    "art": "digital",
+    "format": "300 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "19.6 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_300x600_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_300x600_D.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_320x50",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_320x50_A",
+    "art": "digital",
+    "format": "320 × 50 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "7 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_320x50_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_320x50_A.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_336x280",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_336x280_A",
+    "art": "digital",
+    "format": "336 × 280 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "20.2 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_336x280_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_336x280_A.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_728x90",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_728x90_A",
+    "art": "digital",
+    "format": "728 × 90 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "16 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_728x90_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_728x90_A.png"
+      ]
+    }
+  },
+  {
+    "id": "AD_970x250",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_DISPLAY_AD_970x250_B",
+    "art": "digital",
+    "format": "970 × 250 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "38.8 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_DISPLAY_AD_970x250_B.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Display_Ads/RM6_DISPLAY_AD_970x250_B.png"
+      ]
+    }
+  },
+  {
+    "id": "MAIL_SIG",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_EMAIL_SIGNATUR_600x150",
+    "art": "digital",
+    "format": "600 × 150 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "27.5 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_EMAIL_SIGNATUR_600x150.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_EMAIL_SIGNATUR_600x150.png"
+      ]
+    }
+  },
+  {
+    "id": "GBP_POST",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_GOOGLE_PROFIL_BEITRAG_1200x900_D",
+    "art": "digital",
+    "format": "1200 × 900 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "72 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_GOOGLE_PROFIL_BEITRAG_1200x900_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Google_Profil/RM6_GOOGLE_PROFIL_BEITRAG_1200x900_D.jpg"
+      ]
+    }
+  },
+  {
+    "id": "GBP_LOGO",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_GOOGLE_PROFIL_LOGO_720x720",
+    "art": "digital",
+    "format": "720 × 720 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "57.6 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_GOOGLE_PROFIL_LOGO_720x720.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Google_Profil/RM6_GOOGLE_PROFIL_LOGO_720x720.png"
+      ]
+    }
+  },
+  {
+    "id": "GBP_TITEL",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_GOOGLE_PROFIL_TITELBILD_1080x608_A",
+    "art": "digital",
+    "format": "1080 × 608 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "46.6 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_GOOGLE_PROFIL_TITELBILD_1080x608_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Google_Profil/RM6_GOOGLE_PROFIL_TITELBILD_1080x608_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "NEWSLETTER",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_NEWSLETTER_HEADER_1200x300_A",
+    "art": "digital",
+    "format": "1200 × 300 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "48 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_NEWSLETTER_HEADER_1200x300_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_NEWSLETTER_HEADER_1200x300_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_AKTION",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_AKTIONSBANNER_1200x300_D",
+    "art": "digital",
+    "format": "1200 × 300 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "48 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_AKTIONSBANNER_1200x300_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_AKTIONSBANNER_1200x300_D.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_HEADER",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_HEADER_1920x600_A",
+    "art": "digital",
+    "format": "1920 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "76.8 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_HEADER_1920x600_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_HEADER_1920x600_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_HERO",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_HERO_2400x1000_B",
+    "art": "digital",
+    "format": "2400 × 1000 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Foto RM6_FOTO_LIMOUSINE_STUDIO.jpg um Faktor 1.4 vergrößert (leicht weich)"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "96 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_HERO_2400x1000_B.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_HERO_2400x1000_B.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_SVC_2",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_LEISTUNG_1200x600_AUSSENPFLEGE",
+    "art": "digital",
+    "format": "1200 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_LEISTUNG_1200x600_AUSSENPFLEGE.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_LEISTUNG_1200x600_AUSSENPFLEGE.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_SVC_0",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-BASIC",
+    "art": "digital",
+    "format": "1200 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [
+      "Foto RM6_DETAIL_COCKPIT.jpg um Faktor 1.3 vergrößert (leicht weich)"
+    ],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-BASIC.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-BASIC.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_SVC_1",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-PREMIUM",
+    "art": "digital",
+    "format": "1200 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-PREMIUM.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_LEISTUNG_1200x600_INNENRAUM-PREMIUM.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_SVC_3",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_LEISTUNG_1200x600_KOMPLETTPAKET",
+    "art": "digital",
+    "format": "1200 × 600 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "54 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_LEISTUNG_1200x600_KOMPLETTPAKET.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_LEISTUNG_1200x600_KOMPLETTPAKET.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WEB_MOBIL",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WEBSITE_MOBIL_BANNER_750x1000_D",
+    "art": "digital",
+    "format": "750 × 1000 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "48.5 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WEBSITE_MOBIL_BANNER_750x1000_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/Website/RM6_WEBSITE_MOBIL_BANNER_750x1000_D.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WA_ANGEBOT",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WHATSAPP_ANGEBOT_1080x1080_D",
+    "art": "digital",
+    "format": "1080 × 1080 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "70.8 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WHATSAPP_ANGEBOT_1080x1080_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/WhatsApp/RM6_WHATSAPP_ANGEBOT_1080x1080_D.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WA_STATUS_A",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WHATSAPP_STATUS_1080x1920_A",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "68.9 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WHATSAPP_STATUS_1080x1920_A.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/WhatsApp/RM6_WHATSAPP_STATUS_1080x1920_A.jpg"
+      ]
+    }
+  },
+  {
+    "id": "WA_STATUS_D",
+    "kategorie": "14_WEBSITE_ONLINE",
+    "datei": "RM6_WHATSAPP_STATUS_1080x1920_D",
+    "art": "digital",
+    "format": "1080 × 1920 px",
+    "beschnitt": "–",
+    "seiten": 1,
+    "status": "fertig",
+    "gruende": [],
+    "hinweise": [],
+    "qr": [],
+    "minDpi": null,
+    "randabstand": "75.6 px",
+    "dateien": {
+      "source": "14_WEBSITE_ONLINE/RM6_WHATSAPP_STATUS_1080x1920_D.html",
+      "exports": [
+        "18_SOCIAL_MEDIA_EXPORTS/WhatsApp/RM6_WHATSAPP_STATUS_1080x1920_D.jpg"
+      ]
+    }
+  }
+]
