@@ -24,6 +24,12 @@ function descriptionFor(name: string, tagline: string, price: string): string {
   return full.length <= 160 ? full : `${name} von RM6 Autoaufbereitung – mobil in Graz & Umgebung, ${price}. Jetzt online buchen.`
 }
 
+/** Alle aktiven Leistungen werden beim Build vorab erzeugt; neue Leistungen entstehen beim ersten Aufruf. */
+export async function generateStaticParams() {
+  const catalog = await getCatalog()
+  return catalog.services.map((s) => ({ slug: s.id }))
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const catalog = await getCatalog()

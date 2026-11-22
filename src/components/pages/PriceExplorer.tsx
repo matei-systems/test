@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { Icon } from '@/components/icons'
 import { formatDuration, formatEuro } from '@/lib/format'
 import type { OfferData } from './offer-data'
@@ -15,6 +15,11 @@ export function PriceExplorer({ data, initialVehicle }: { data: OfferData; initi
   const first = data.vehicles.find((v) => v.id === initialVehicle)?.id ?? data.vehicles[0]?.id
   const [vehicleId, setVehicleId] = useState(first)
   const labelId = useId()
+  // Die Seite ist vorab erzeugt; eine Vorauswahl per Link (?fahrzeug=suv) wird nach dem Laden übernommen.
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get('fahrzeug')
+    if (wanted && data.vehicles.some((v) => v.id === wanted)) setVehicleId(wanted)
+  }, [data.vehicles])
   const vehicle = data.vehicles.find((v) => v.id === vehicleId)
   if (!vehicle) return null
 

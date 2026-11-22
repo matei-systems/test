@@ -333,7 +333,7 @@ ${text(68.6, 46.4, 'ONLINE EINLÖSEN', { size: 2.1, weight: 500, fill: ACCENT, a
 const tmp = fs.mkdtempSync(path.join(fs.realpathSync(process.env.TMPDIR || '/tmp'), 'rm-marketing-'))
 const fontUrl = (f) => pathToFileURL(path.join(root, 'src/app/fonts', f)).href
 const html = (svg, W, H) => `<!doctype html><html><head><meta charset="utf-8"><style>
-@font-face { font-family: 'Geist'; src: url('${fontUrl('Geist-Variable.woff2')}') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Geist'; src: url('${fontUrl('Geist-Variable-latin.woff2')}') format('woff2'); font-weight: 100 900; }
 @font-face { font-family: 'Instrument Serif'; src: url('${fontUrl('instrument-serif-latin-400-italic.woff2')}') format('woff2'); font-style: italic; }
 @font-face { font-family: 'Instrument Serif'; src: url('${fontUrl('instrument-serif-latin-400-normal.woff2')}') format('woff2'); font-style: normal; }
 @page { size: ${W}mm ${H}mm; margin: 0; }

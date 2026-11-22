@@ -29,8 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-export default async function PricesPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const params = await searchParams
+export default async function PricesPage() {
   const catalog = await getCatalog()
   const now = Date.now()
   const data = buildOfferData(catalog, now)
@@ -60,7 +59,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
               Was kostet die Pflege <span className="serif accent">für Ihr Fahrzeug?</span>
             </h2>
           </div>
-          <PriceExplorer data={data} initialVehicle={typeof params.fahrzeug === 'string' ? params.fahrzeug : undefined} />
+          <PriceExplorer data={data} />
         </div>
       </section>
 

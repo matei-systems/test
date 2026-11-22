@@ -752,3 +752,18 @@ html:not(.js) .reveal {
   margin: 0;
   color: var(--text);
 }
+
+/* Touch-Geräte: Ein Weichzeichner hinter halbtransparenten Flächen (backdrop-filter) muss bei jedem Scroll-Frame neu
+   berechnet werden und lässt viele Handys ruckeln. Dort ersetzen etwas deckendere Flächen den Glas-Effekt;
+   am Desktop bleibt er erhalten. */
+@media (hover: none), (pointer: coarse), (prefers-reduced-transparency: reduce) {
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .btn--ghost {
+    --btn-bg: rgba(9, 9, 10, 0.45);
+  }
+}

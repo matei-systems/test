@@ -11,7 +11,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   return new Response(Buffer.from(media.data), {
     headers: {
       'Content-Type': media.mime,
-      'Cache-Control': 'public, max-age=31536000, immutable',
+      // s-maxage: auch das CDN behält das Bild (IDs sind unveränderlich), statt es jedes Mal aus der Datenbank zu lesen
+      'Cache-Control': 'public, max-age=31536000, s-maxage=31536000, immutable',
       'X-Content-Type-Options': 'nosniff',
     },
   })

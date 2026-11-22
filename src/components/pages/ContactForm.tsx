@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '../icons'
-import { fieldErrors, INQUIRY_TOPICS, inquirySchema } from '@/lib/validation'
+import { fieldErrors, INQUIRY_TOPIC_KEYS, INQUIRY_TOPICS, inquirySchema } from '@/lib/validation'
 import styles from './Pages.module.css'
 
 type Values = { name: string; email: string; phone: string; topic: string; message: string; privacyAccepted: boolean; website: string }
@@ -16,6 +16,13 @@ export function ContactForm({ enabled, initialTopic }: { enabled: boolean; initi
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState('')
+
+  // Die Seite ist vorab erzeugt; ein Anliegen per Link (?anliegen=angebot) wird nach dem Laden vorausgewählt.
+  useEffect(() => {
+    const key = new URLSearchParams(window.location.search).get('anliegen') ?? ''
+    const topic = INQUIRY_TOPIC_KEYS[key]
+    if (topic) setV((prev) => ({ ...prev, topic }))
+  }, [])
 
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     setV((prev) => ({ ...prev, [key]: value }))

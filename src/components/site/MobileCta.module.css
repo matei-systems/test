@@ -60,3 +60,10 @@
     transition: none;
   }
 }
+
+/* Touch-Geräte ohne Weichzeichner (siehe globals.css): deckendere Fläche */
+@media (hover: none), (pointer: coarse), (prefers-reduced-transparency: reduce) {
+  .bar {
+    background: rgba(9, 9, 10, 0.96);
+  }
+}

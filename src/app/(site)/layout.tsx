@@ -6,8 +6,10 @@ import { RevealObserver } from '@/components/site/RevealObserver'
 import { getSettings } from '@/lib/catalog'
 import { isDatabaseConfigured } from '@/lib/db'
 
-// Inhalte (Preise, Kontaktdaten, Verfügbarkeiten) kommen aus der Datenbank und werden im Admin gepflegt.
-export const dynamic = 'force-dynamic'
+// Inhalte (Preise, Kontaktdaten, Aktionen) kommen aus der Datenbank und werden im Admin gepflegt.
+// Die Seiten werden vorab erzeugt und aus dem CDN ausgeliefert (schnell). Admin-Änderungen erneuern sie sofort
+// (revalidatePath in app/admin/actions.ts); zeitabhängige Inhalte wie das Ende einer Aktion spätestens nach 60 s.
+export const revalidate = 60
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const { business, area } = await getSettings()

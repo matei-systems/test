@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PageHero } from '@/components/site/PageHero'
 import { ContactForm } from '@/components/pages/ContactForm'
-import { INQUIRY_TOPIC_KEYS } from '@/lib/validation'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Icon } from '@/components/icons'
 import { getSettings, getWorkingHours } from '@/lib/catalog'
@@ -36,10 +35,7 @@ function groupHours(hours: Array<{ weekday: number; isOpen: boolean; open: strin
   return out
 }
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const params = await searchParams
-  const key = typeof params.anliegen === 'string' ? params.anliegen : ''
-  const initialTopic = INQUIRY_TOPIC_KEYS[key]
+export default async function ContactPage() {
   const [{ business, area }, hours] = await Promise.all([getSettings(), getWorkingHours()])
   const hasDirect = Boolean(business.phone || business.whatsapp || business.email)
   return (
@@ -155,7 +151,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               </Link>
               .
             </p>
-            <ContactForm enabled={isDatabaseConfigured()} initialTopic={initialTopic} />
+            <ContactForm enabled={isDatabaseConfigured()} />
           </div>
         </div>
       </section>

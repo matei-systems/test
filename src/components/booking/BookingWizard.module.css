@@ -1141,3 +1141,10 @@
   color: var(--text);
   font-weight: 600;
 }
+
+/* Touch-Geräte ohne Weichzeichner (siehe globals.css): deckendere Fläche */
+@media (max-width: 759px) and (hover: none), (max-width: 759px) and (pointer: coarse), (max-width: 759px) and (prefers-reduced-transparency: reduce) {
+  .nav {
+    background: rgba(9, 9, 10, 0.97);
+  }
+}

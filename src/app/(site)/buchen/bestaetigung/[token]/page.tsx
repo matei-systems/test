@@ -11,6 +11,9 @@ import { getSettings } from '@/lib/catalog'
 import { telHref } from '@/lib/format'
 import styles from './page.module.css'
 
+// Persönliche Buchungsdaten: immer frisch aus der Datenbank, nie im Cache.
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Buchungsbestätigung',
   robots: { index: false, follow: false },

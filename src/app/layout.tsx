@@ -3,18 +3,17 @@ import localFont from 'next/font/local'
 import { getSiteUrl, SITE } from '@/config/site'
 import './globals.css'
 
+// Geist als lateinische Teilmenge (37 statt 69 KB, alle auf der Website verwendeten Zeichen enthalten)
 const geist = localFont({
-  src: './fonts/Geist-Variable.woff2',
+  src: './fonts/Geist-Variable-latin.woff2',
   variable: '--font-geist',
   weight: '100 900',
   display: 'swap',
 })
 
+// Die Serifenschrift wird nur kursiv verwendet (.serif) – die aufrechte Variante muss nicht mitgeladen werden.
 const instrument = localFont({
-  src: [
-    { path: './fonts/instrument-serif-latin-400-italic.woff2', weight: '400', style: 'italic' },
-    { path: './fonts/instrument-serif-latin-400-normal.woff2', weight: '400', style: 'normal' },
-  ],
+  src: [{ path: './fonts/instrument-serif-latin-400-italic.woff2', weight: '400', style: 'italic' }],
   variable: '--font-instrument',
   display: 'swap',
 })
